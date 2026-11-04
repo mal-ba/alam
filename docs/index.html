@@ -1491,10 +1491,27 @@ async function saveExam(remove) {
   saving = false; renderExams();
 }
 
-/* ---------- 지도 (장소는 이 휴대폰에만 저장) ---------- */
-let places = (() => { try { return JSON.parse(store("places") || "[]"); } catch (e) { return []; } })();
+/* ---------- 지도 (장소는 Supabase 내 계정에 저장, places.json) ---------- */
+const PLACE_PATH = "places.json";
+const localPlaces = () => { try { const a = JSON.parse(store("places") || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
+let places = SB ? [] : localPlaces();
 let placeDraft = null, lmap = null, lmarkers = [], draftMarker = null, myPos = null, routeFrom = "me", routeTo = "";
-const savePlaces = () => store("places", JSON.stringify(places));
+const parsePlaces = text => { try { const j = text ? JSON.parse(text) : {}; return Array.isArray(j.places) ? j.places : []; } catch (e) { return []; } };
+async function loadPlaces(force) {
+  if (!SB) { places = localPlaces(); return; }   // 예전 GitHub(공개 저장소) 방식일 땐 이 기기에만
+  places = parsePlaces((await getFile(PLACE_PATH, force) || {}).text);
+  const old = localPlaces();   // 예전에 이 기기에만 저장해 둔 장소 → 내 계정으로 한 번 옮기기
+  if (old.length) {
+    await writePlaces(list => [...list, ...old.filter(o => !list.some(x => x.id === o.id))]);
+    store("places", null); toast(`이 기기에 있던 장소 ${old.length}곳을 계정으로 옮겼어요`);
+  }
+}
+// fn(현재 목록) -> 새 목록. Supabase 에서는 최신본 위에 고쳐서 저장
+async function writePlaces(fn) {
+  if (!SB) { places = fn(localPlaces()); store("places", JSON.stringify(places)); return; }
+  await updateFile(PLACE_PATH, text => JSON.stringify({ places: fn(parsePlaces(text)) }, null, 2) + "\n", "앱에서 장소 저장");
+  places = parsePlaces(files.get(PLACE_PATH).text);
+}
 function loadLeaflet() {
   if (window.L) return Promise.resolve();
   return new Promise((ok, bad) => { const sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"; sc.onload = ok; sc.onerror = () => bad(new Error("지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.")); document.head.appendChild(sc); });
@@ -1502,7 +1519,7 @@ function loadLeaflet() {
 async function loadMap(seq = loadSeq) {
   $("label").innerHTML = `지도<span class="sub">자주 가는 곳 · 길찾기</span>`;
   $("view").innerHTML = `<div class="loading">지도 불러오는 중…</div>`;
-  try { await loadLeaflet(); if (seq === loadSeq) renderMap(); } catch (e) { if (seq === loadSeq) showError(e); }
+  try { await Promise.all([loadLeaflet(), loadPlaces()]); if (seq === loadSeq) renderMap(); } catch (e) { if (seq === loadSeq) showError(e); }
 }
 const placeOpts = sel => [`<option value="me" ${sel === "me" ? "selected" : ""}>📍 현재 위치</option>`,
   ...places.map(p => `<option value="${p.id}" ${sel === p.id ? "selected" : ""}>${esc(p.icon || "📌")} ${esc(p.name)}</option>`)].join("");
@@ -1521,7 +1538,7 @@ function renderMap() {
         <label>메모</label><input data-q="memo" value="${esc(d.memo || "")}" placeholder="예) 2번 출구, 302번 버스">
         <div class="actions" style="margin-top:12px">
           ${d.id ? `<button class="btn ghost danger" data-act="qdel" style="margin-right:auto">🗑 삭제</button>` : ""}
-          <button class="btn ghost" data-act="qcancel">취소</button><button class="btn" data-act="qsave">저장</button></div></section>`
+          <button class="btn ghost" data-act="qcancel" ${saving ? "disabled" : ""}>취소</button><button class="btn" data-act="qsave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : "저장"}</button></div></section>`
     : `<section class="day"><div class="dhead"><span class="date">🚌 길찾기</span></div>
         <div class="route"><select id="rfrom">${placeOpts(routeFrom)}</select><span>→</span><select id="rto"><option value="">도착지</option>${places.map(p => `<option value="${p.id}" ${routeTo === p.id ? "selected" : ""}>${esc(p.icon || "📌")} ${esc(p.name)}</option>`).join("")}</select></div>
         <div class="rbtns"><button class="mini-btn go" data-act="qroute" data-m="traffic">🚌 대중교통</button><button class="mini-btn" data-act="qroute" data-m="walk">🚶 도보</button>
@@ -1532,7 +1549,7 @@ function renderMap() {
           <div class="pn"><b>${esc(p.name)}</b>${p.memo ? `<span>${esc(p.memo)}</span>` : ""}</div>
           <button class="mini-btn go" data-act="qto">🚌 가기</button><button class="pencil" data-act="qedit" aria-label="수정">✏️</button></div>`).join("")}</div>`
           : '<div class="empty">집, 학교, 학원처럼 자주 가는 곳을 저장해 보세요.</div>'}
-        <div class="empty" style="font-size:12px">🔒 장소는 GitHub(공개 저장소)이 아니라 이 휴대폰에만 저장돼요.</div></section>`}`;
+        <div class="empty" style="font-size:12px">🔒 ${SB ? "장소는 내 계정(Supabase)에만 저장돼서 로그인한 기기 어디서나 보여요." : "장소는 GitHub(공개 저장소)이 아니라 이 휴대폰에만 저장돼요."}</div></section>`}`;
   drawMap();
   const rf = $("rfrom"), rt = $("rto");
   if (rf) rf.onchange = () => routeFrom = rf.value;
@@ -1592,11 +1609,17 @@ async function placeClick(b) {
     if (!(d.name || "").trim()) return toast("이름을 적어 주세요");
     if (!d.lat) return toast("위치를 정해 주세요 (검색 · 지도 누르기 · 현재 위치)");
     const p = { id: d.id || "p" + Date.now().toString(36), name: d.name.trim(), icon: (d.icon || "📌").trim(), memo: (d.memo || "").trim(), lat: +d.lat, lng: +d.lng };
-    places = [...places.filter(x => x.id !== p.id), p]; savePlaces(); placeDraft = null; draftMarker = null; toast("장소 저장됨 ✓"); return renderMap();
+    return savePlace(list => [...list.filter(x => x.id !== p.id), p], "장소 저장됨 ✓");
   }
-  if (act === "qdel") { if (!confirm(`'${placeDraft.name}' 장소를 지울까요?`)) return; places = places.filter(x => x.id !== placeDraft.id); savePlaces(); placeDraft = null; draftMarker = null; return renderMap(); }
+  if (act === "qdel") { if (!confirm(`'${placeDraft.name}' 장소를 지울까요?`)) return; const id = placeDraft.id; return savePlace(list => list.filter(x => x.id !== id), "지웠어요"); }
   if (act === "qto") { routeTo = b.closest("[data-id]").dataset.id; return openRoute("traffic"); }
   if (act === "qroute") return openRoute(b.dataset.m);
+}
+async function savePlace(fn, msg) {
+  saving = true; renderMap();
+  try { await writePlaces(fn); }
+  catch (e) { saving = false; renderMap(); showError(e, true); return; }
+  saving = false; placeDraft = null; draftMarker = null; toast(msg); renderMap();
 }
 async function openRoute(m) {
   const to = places.find(p => p.id === (routeTo || ($("rto") && $("rto").value)));
