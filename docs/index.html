@@ -212,6 +212,28 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .rbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .sres button{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:8px 2px;cursor:pointer;font-size:13px;color:var(--text)}
 .pin{background:none;border:0}
+.lbody{line-height:1.65}
+.lbody p{margin:6px 0}
+.lbody ul{margin:6px 0;padding-left:20px}
+.lbody code,.ltask code{background:var(--input);border-radius:5px;padding:1px 5px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em}
+.lbody table{border-collapse:collapse;margin:6px 0;font-size:13px}
+.lbody td,.lbody th{border:1px solid var(--line);padding:4px 8px;text-align:left}
+.lcode{width:100%;min-height:220px;border:1px solid var(--line);border-radius:10px;padding:10px;background:#1e1e2e;color:#e5e7eb;
+  font:13.5px/1.55 ui-monospace,Menlo,Consolas,monospace;tab-size:4;resize:vertical;white-space:pre;overflow:auto}
+.lstdin{width:100%;min-height:44px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--input);color:inherit;font:13px ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.lout{background:#0f172a;color:#d1fae5;border-radius:10px;padding:10px;margin:8px 0 0;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;word-break:break-all;min-height:40px;max-height:320px;overflow:auto}
+.lout .e{color:#fca5a5}
+.lout .m{color:#94a3b8}
+.lframe{width:100%;height:320px;border:1px solid var(--line);border-radius:10px;background:#fff;margin-top:8px;resize:vertical;display:block}
+.ltask{background:var(--accent-weak);border-radius:10px;padding:10px 12px;margin-top:12px;line-height:1.6}
+.llist button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:11px 2px;cursor:pointer;color:var(--text);font:inherit}
+.llist button:first-child{border-top:0}
+.llist .n{width:26px;height:26px;border-radius:50%;background:var(--input);display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+.llist .n.ok{background:#10b981;color:#fff}
+.lbar{height:8px;border-radius:4px;background:var(--input);overflow:hidden;margin:6px 0 2px}
+.lbar i{display:block;height:100%;background:#10b981}
+.lnav{display:flex;gap:6px;margin-top:12px}
+.lnav .sp{flex:1}
 .nkinds{display:grid;grid-template-columns:repeat(3,1fr)}
 .nlist a{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--text);text-decoration:none}
 .nlist a:first-child{border-top:0}
@@ -266,6 +288,7 @@ a{color:var(--accent)}
     <button data-mode="year">📆 연간 계획</button>
     <button data-mode="map">🗺️ 지도·길찾기</button>
     <button data-mode="news">📰 뉴스</button>
+    <button data-mode="learn">💻 코딩 공부</button>
   </div>
   <div class="navrow">
     <button class="icon-btn" id="prev" aria-label="이전">‹</button>
@@ -513,7 +536,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "map", "news"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "map", "news", "learn"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -606,11 +629,11 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null;
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "map" || mode === "news";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "map" || mode === "news" || mode === "learn";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스" }[mode];
+  const more = { exam: "📝 시험", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   if (mode === "report") return loadReport(seq);
@@ -618,6 +641,7 @@ async function load() {
   if (mode === "exam") return loadExams(seq);
   if (mode === "map") return loadMap(seq);
   if (mode === "news") return loadNews(seq);
+  if (mode === "learn") return loadLearn(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -829,6 +853,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("r")) return reportClick(b);
   if (act.startsWith("x")) return examClick(b);
   if (act.startsWith("q")) return placeClick(b);
+  if (act.startsWith("L")) return learnClick(b);
   if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); return renderNews(); }
   if (act === "ygo") { mode = "today"; store("mode", mode); anchor = b.dataset.date; return load(); }
   if (act === "pick") { if (!leaveOk()) return; editing = null; selDay = days[+b.dataset.i].iso; render(); return; }
@@ -1536,6 +1561,207 @@ function newsList(cat) {
   $("nres").innerHTML = items.length
     ? `<div class="nlist">${items.map(x => `<a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer"><b>${esc(x.title)}</b><span>${esc(x.source || "")}${x.time ? " · " + agoText(x.time) : ""}</span></a>`).join("")}</div>`
     : `<div class="empty">${q ? "찾는 기사가 없어요." : "기사가 없어요."}</div>`;
+}
+
+/* ---------- 코딩 공부 (강의: docs/learn.json, 내 진도·코드: Supabase learn.json) ---------- */
+const LEARN_PATH = "learn.json";
+let learnData = null, learnLang = store("llang") || "py", learnOpen = null, learnShow = {}, learnOut = null, learnRunning = false;
+let learnProg = { done: {}, code: {}, stdin: {} };
+async function loadLearn(seq = loadSeq) {
+  $("label").innerHTML = `코딩 공부<span class="sub">파이썬 · C · 자바스크립트 · HTML · CSS</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try {
+    const [r, f] = await Promise.all([fetch("learn.json?v=" + Date.now(), { cache: "no-store" }), SB ? getFile(LEARN_PATH) : null]);
+    learnData = await r.json();
+    let p = null; try { p = JSON.parse(SB ? (f ? f.text : "null") : store("learn")); } catch (e) {}
+    learnProg = { done: {}, code: {}, stdin: {}, ...(p || {}) };
+    if (seq === loadSeq) renderLearn();
+  } catch (e) { if (seq === loadSeq) showError(e); }
+}
+async function saveLearn() {
+  const text = JSON.stringify(learnProg);
+  try { if (SB) await updateFile(LEARN_PATH, () => text, "코딩 공부 진도"); else store("learn", text); }
+  catch (e) { toast("진도를 저장하지 못했어요"); }
+}
+const lid = (k, i) => `${k}-${i + 1}`;
+const curLang = () => learnData.langs.find(l => l.key === learnLang);
+function mdLite(src) {
+  const inl = t => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  return src.split(/\n\s*\n/).map(blk => {
+    const ls = blk.split("\n").map(l => l.trim()).filter(Boolean);
+    if (ls.every(l => l.startsWith("- "))) return `<ul>${ls.map(l => `<li>${inl(l.slice(2))}</li>`).join("")}</ul>`;
+    if (ls.every(l => l.startsWith("|"))) return `<table>${ls.filter(l => !/^\|[\s|:-]+\|$/.test(l)).map((l, i) =>
+      `<tr>${l.replace(/^\||\|$/g, "").split("|").map(c => i ? `<td>${inl(c.trim())}</td>` : `<th>${inl(c.trim())}</th>`).join("")}</tr>`).join("")}</table>`;
+    return `<p>${ls.map(inl).join("<br>")}</p>`;
+  }).join("");
+}
+function renderLearn() {
+  const d = learnData;
+  const bar = `<div class="kindbar nkinds">${d.langs.map(l => `<button data-act="Llang" data-k="${l.key}" class="${l.key === learnLang ? "on" : ""}">${esc(l.name)}</button>`).join("")}
+    <button data-act="Llang" data-k="more" class="${learnLang === "more" ? "on" : ""}">📚 더 배우기</button></div>`;
+  if (learnLang === "more") {
+    $("view").innerHTML = bar + d.links.map(g => `<section class="day"><div class="dhead"><span class="date">${esc(g.name)}</span></div>
+      <div class="nlist">${g.items.map(x => `<a href="${esc(x.u)}" target="_blank" rel="noopener noreferrer"><b>${esc(x.t)}</b><span>${esc(x.u.replace(/^https?:\/\//, "").replace(/\/.*$/, ""))}</span></a>`).join("")}</div></section>`).join("");
+    return;
+  }
+  const L = curLang() || d.langs[0]; learnLang = L.key;
+  const nDone = L.lessons.filter((_, i) => learnProg.done[lid(L.key, i)]).length;
+  if (learnOpen == null) {
+    $("view").innerHTML = bar + `<section class="day"><div class="dhead"><span class="date">${esc(L.name)}</span><span class="sp"></span><span class="empty" style="margin:0">${nDone}/${L.lessons.length} 완료</span></div>
+      <div class="lbody">${mdLite(L.intro)}</div><div class="lbar"><i style="width:${Math.round(nDone / L.lessons.length * 100)}%"></i></div>
+      <div class="llist">${L.lessons.map((x, i) => `<button data-act="Lopen" data-i="${i}"><span class="n ${learnProg.done[lid(L.key, i)] ? "ok" : ""}">${learnProg.done[lid(L.key, i)] ? "✓" : i + 1}</span><span>${esc(x.t)}</span></button>`).join("")}</div></section>`;
+    return;
+  }
+  const i = learnOpen, x = L.lessons[i], id = lid(L.key, i), html = L.run === "html";
+  const code = learnProg.code[id] ?? x.code, stdin = learnProg.stdin[id] ?? (x.stdin || "");
+  $("view").innerHTML = bar + `<section class="day">
+    <div class="dhead"><button class="mini-btn" data-act="Lback">← 목록</button><span class="sp"></span><span class="empty" style="margin:0">${esc(L.name)} ${i + 1}/${L.lessons.length}</span></div>
+    <h3 style="margin:8px 0 4px">${learnProg.done[id] ? "✅ " : ""}${esc(x.t)}</h3>
+    <div class="lbody">${mdLite(x.b)}</div>
+    <label style="margin-top:10px">✏️ 코드 <span class="hint">— 마음대로 고쳐 보세요</span></label>
+    <textarea class="lcode" id="lcode" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off">${esc(code)}</textarea>
+    ${L.run === "python" || L.run === "c" ? `<label>⌨️ 입력값 <span class="hint">— 프로그램이 읽을 입력, 한 줄에 하나</span></label><textarea class="lstdin" id="lstdin" spellcheck="false" autocapitalize="off">${esc(stdin)}</textarea>` : ""}
+    <div class="rbtns"><button class="mini-btn go" data-act="Lrun" ${learnRunning ? "disabled" : ""}>${learnRunning ? "⏳ 실행 중…" : "▶ 실행"}</button>
+      <button class="mini-btn" data-act="Lreset">↺ 처음 코드로</button></div>
+    ${html ? `<iframe class="lframe" id="lframe" sandbox="allow-scripts allow-modals" title="실행 결과"></iframe>` : `<pre class="lout" id="lout"><span class="m">▶ 실행을 누르면 여기에 결과가 나와요${L.run === "python" ? " (파이썬은 처음 한 번 준비하는 데 10초쯤 걸려요)" : L.run === "c" ? " (C 코드는 실행하려고 Compiler Explorer 서버로 보내요)" : ""}</span></pre>`}
+    ${x.task ? `<div class="ltask"><b>🎯 도전 과제</b><div class="lbody">${mdLite(x.task)}</div>
+      <div class="rbtns">${x.hint ? `<button class="mini-btn" data-act="Lhint">💡 힌트</button>` : ""}${x.ans ? `<button class="mini-btn" data-act="Lans">👀 정답 보기</button>` : ""}</div>
+      ${learnShow.hint && x.hint ? `<div class="lbody" style="margin-top:6px">💡 ${mdLite(x.hint)}</div>` : ""}
+      ${learnShow.ans && x.ans ? `<pre class="lout" style="color:#e5e7eb">${esc(x.ans)}</pre><div class="rbtns"><button class="mini-btn" data-act="Luse">이 코드를 에디터에 넣기</button></div>` : ""}
+      ${x.expect ? `<div class="empty" style="margin:6px 0 0;font-size:12px">실행 결과가 맞으면 자동으로 완료돼요.</div>` : ""}</div>` : ""}
+    <div class="lnav">${i > 0 ? `<button class="mini-btn" data-act="Lgo" data-i="${i - 1}">◀ 이전</button>` : ""}<span class="sp"></span>
+      <button class="mini-btn ${learnProg.done[id] ? "" : "go"}" data-act="Ldone">${learnProg.done[id] ? "완료 취소" : "✅ 완료"}</button>
+      ${i < L.lessons.length - 1 ? `<button class="mini-btn" data-act="Lgo" data-i="${i + 1}">다음 ▶</button>` : ""}</div></section>`;
+  const ta = $("lcode");
+  ta.oninput = () => { learnProg.code[id] = ta.value; };
+  ta.onkeydown = e => {
+    if (e.key !== "Tab") return;
+    e.preventDefault();
+    const sp = L.run === "python" || L.run === "c" ? "    " : "  ", a = ta.selectionStart;
+    ta.setRangeText(sp, a, ta.selectionEnd, "end"); learnProg.code[id] = ta.value;
+  };
+  if ($("lstdin")) $("lstdin").oninput = e => { learnProg.stdin[id] = e.target.value; };
+  if (learnOut) showLearnOut(learnOut);
+}
+function showLearnOut(r) {
+  const el = $("lout"); if (!el) return;
+  el.innerHTML = (r.out ? esc(r.out) : "") + (r.err ? `${r.out ? "\n" : ""}<span class="e">${esc(r.err)}</span>` : "")
+    + (!r.out && !r.err ? `<span class="m">(출력 없음)</span>` : "") + (r.ok ? `\n<span class="m">🎉 도전 과제 성공!</span>` : "");
+}
+const outMatch = (out, e) => out.split("\n").some(l => l.trim() === e) || (e.length >= 4 && out.includes(e));
+async function learnClick(b) {
+  const act = b.dataset.act, L = curLang();
+  const go = i => { learnOpen = i; learnShow = {}; learnOut = null; renderLearn(); window.scrollTo({ top: 0 }); };
+  if (act === "Llang") { learnLang = b.dataset.k; store("llang", learnLang); learnOpen = null; learnOut = null; return renderLearn(); }
+  if (act === "Lopen" || act === "Lgo") return go(+b.dataset.i);
+  if (act === "Lback") { learnOpen = null; saveLearn(); return renderLearn(); }
+  const i = learnOpen, x = L.lessons[i], id = lid(L.key, i);
+  if (act === "Lhint") { learnShow.hint = !learnShow.hint; return renderLearn(); }
+  if (act === "Lans") { learnShow.ans = !learnShow.ans; return renderLearn(); }
+  if (act === "Luse") { learnProg.code[id] = x.ans; if (x.astdin) learnProg.stdin[id] = x.astdin; learnOut = null; return renderLearn(); }
+  if (act === "Lreset") { delete learnProg.code[id]; delete learnProg.stdin[id]; learnOut = null; renderLearn(); return saveLearn(); }
+  if (act === "Ldone") { learnProg.done[id] = !learnProg.done[id]; if (!learnProg.done[id]) delete learnProg.done[id]; else toast("완료 ✓"); renderLearn(); return saveLearn(); }
+  if (act === "Lrun") {
+    const code = $("lcode").value, stdin = $("lstdin") ? $("lstdin").value : "";
+    if (L.run === "html") { $("lframe").srcdoc = code; saveLearn(); return; }
+    learnRunning = true; learnOut = { out: "", err: "", wait: true };
+    renderLearn(); $("lout").innerHTML = `<span class="m">⏳ ${L.run === "python" && !pyReady ? "파이썬 준비 중… (처음 한 번만 10초쯤)" : "실행 중…"}</span>`;
+    let r;
+    try { r = L.run === "python" ? await runPython(code, stdin) : L.run === "c" ? await runC(code, stdin) : await runJS(code); }
+    catch (e) { r = { out: "", err: e.message || String(e) }; }
+    learnRunning = false;
+    if (x.expect && !r.err && outMatch(r.out || "", x.expect) && !learnProg.done[id]) { learnProg.done[id] = true; r.ok = true; }
+    learnOut = r;
+    if (mode === "learn" && curLang() === L && learnOpen === i) renderLearn();
+    saveLearn();
+  }
+}
+// 자바스크립트: 웹 워커에서 실행 (무한 반복이어도 앱이 멈추지 않게 5초 뒤 끊어요)
+function jsWorkerMain() {
+  const fmt = (v, d) => typeof v === "string" ? (d ? "'" + v + "'" : v)
+    : Array.isArray(v) ? (v.length ? "[ " + v.map(x => fmt(x, 1)).join(", ") + " ]" : "[]")
+    : v && typeof v === "object" ? (Object.keys(v).length ? "{ " + Object.keys(v).map(k => k + ": " + fmt(v[k], 1)).join(", ") + " }" : "{}")
+    : typeof v === "function" ? "[Function]" : String(v);
+  const out = [];
+  console.log = console.info = console.warn = console.error = (...a) => out.push(a.map(x => fmt(x, 0)).join(" "));
+  onmessage = e => {
+    try { (0, eval)(e.data); postMessage({ out: out.join("\n") }); }
+    catch (err) { postMessage({ out: out.join("\n"), err: (err && err.name ? err.name + ": " + err.message : String(err)) }); }
+  };
+}
+const workerOf = fn => new Worker(URL.createObjectURL(new Blob([`(${fn.toString()})()`], { type: "text/javascript" })));
+function runJS(code) {
+  return new Promise(ok => {
+    const w = workerOf(jsWorkerMain);
+    const t = setTimeout(() => { w.terminate(); ok({ out: "", err: "⏱ 5초가 넘어서 멈췄어요. 끝나지 않는 반복이 있는지 확인해 보세요." }); }, 5000);
+    w.onmessage = e => { clearTimeout(t); w.terminate(); ok(e.data); };
+    w.onerror = e => { clearTimeout(t); w.terminate(); ok({ out: "", err: e.message || "오류" }); e.preventDefault(); };
+    w.postMessage(code);
+  });
+}
+// 파이썬: Pyodide(브라우저용 파이썬)를 웹 워커에서 실행
+let pyW = null, pyReady = false, pyWait = null;
+function pyWorkerMain() {
+  importScripts("https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js");
+  const ready = loadPyodide().then(p => { postMessage({ ready: true }); return p; }, e => { postMessage({ fail: String(e) }); throw e; });
+  onmessage = async e => {
+    const py = await ready, out = [];
+    py.setStdout({ batched: s => out.push(s) });
+    py.setStderr({ batched: s => out.push(s) });
+    const lines = e.data.stdin ? e.data.stdin.split("\n") : []; let i = 0;
+    py.setStdin({ stdin: () => i < lines.length ? lines[i++] : undefined });
+    try { await py.runPythonAsync(e.data.code); postMessage({ out: out.join("\n") }); }
+    catch (err) {
+      const m = String(err && err.message || err).trim().split("\n");
+      const at = m.filter(l => /File "<exec>", line \d+/.test(l)).pop();
+      const ln = at && at.match(/line (\d+)/)[1];
+      postMessage({ out: out.join("\n"), err: (ln ? ln + "번째 줄 → " : "") + m[m.length - 1] });
+    }
+  };
+}
+function pyStart() {
+  pyW = workerOf(pyWorkerMain); pyReady = false;
+  pyW.onmessage = e => {
+    if (e.data.ready) { pyReady = true; return; }
+    if (e.data.fail) { const w = pyWait; pyWait = null; pyW.terminate(); pyW = null; if (w) w({ out: "", err: "파이썬을 불러오지 못했어요. 인터넷 연결을 확인해 주세요." }); return; }
+    const w = pyWait; pyWait = null; if (w) w(e.data);
+  };
+}
+function runPython(code, stdin) {
+  if (!pyW) pyStart();
+  return new Promise(ok => {
+    const started = Date.now(); let runFrom = pyReady ? started : null;
+    const tick = setInterval(() => {   // 준비가 90초, 실행이 10초를 넘으면 멈추고 다음에 새로 시작
+      if (pyReady && !runFrom) runFrom = Date.now();
+      const late = runFrom ? Date.now() - runFrom > 10000 : Date.now() - started > 90000;
+      if (!late) return;
+      clearInterval(tick); if (pyW) pyW.terminate(); pyW = null; pyWait = null;
+      ok({ out: "", err: runFrom ? "⏱ 10초가 넘어서 멈췄어요. 끝나지 않는 반복이 있는지 확인해 보세요." : "⏱ 파이썬 준비가 너무 오래 걸려요. 인터넷 연결을 확인하고 다시 실행해 주세요." });
+      pyReady = false;
+    }, 300);
+    pyWait = r => { clearInterval(tick); ok(r); };
+    pyW.postMessage({ code, stdin });
+  });
+}
+// C: Compiler Explorer(godbolt.org)의 gcc 로 컴파일·실행
+async function runC(code, stdin) {
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 30000);
+  try {
+    const r = await fetch("https://godbolt.org/api/compiler/cg132/compile", { method: "POST", signal: ctl.signal,
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ source: code, lang: "c", allowStoreCodeDebug: false,
+        options: { userArguments: "-O1 -std=c11", executeParameters: { args: [], stdin },
+          compilerOptions: { executorRequest: true, skipAsm: true }, filters: { execute: true }, tools: [], libraries: [] } }) });
+    if (!r.ok) throw new Error(`실행 서버 오류 (${r.status})`);
+    const j = await r.json();
+    const txt = a => (a || []).map(x => x.text).join("\n").replace(/\x1b\[[0-9;]*[mK]/g, "").replace(/<source>/g, "코드");
+    const b = j.buildResult || {};
+    if ((b.code || 0) !== 0 || j.didExecute === false) return { out: "", err: "🔨 컴파일 오류\n" + (txt(b.stderr) || txt(j.stderr) || "컴파일하지 못했어요") };
+    const out = txt(j.stdout), er = txt(j.stderr);
+    return { out, err: j.timedOut ? "⏱ 시간이 너무 오래 걸려서 멈췄어요." : (er || (j.code ? `프로그램이 오류 코드 ${j.code} 로 끝났어요` : "")) };
+  } catch (e) {
+    return { out: "", err: e.name === "AbortError" ? "⏱ 실행 서버가 응답하지 않아요. 잠시 뒤 다시 해 주세요." : "C 실행 서버에 연결하지 못했어요. 인터넷 연결을 확인해 주세요. (" + e.message + ")" };
+  } finally { clearTimeout(t); }
 }
 
 /* ---------- 지도 (장소는 Supabase 내 계정에 저장, places.json) ---------- */
