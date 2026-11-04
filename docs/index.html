@@ -107,7 +107,7 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .sedit input,.sedit textarea{background:var(--card)}
 .sedit textarea{grid-column:1/3;min-height:64px}
 .sedit .del{border:0;background:none;color:var(--danger);font-size:22px;cursor:pointer;padding:0 8px}
-.tabs button{padding:8px 0;font-size:14px;letter-spacing:-.3px}
+.tabs button{padding:8px 0;font-size:15px}
 .lbl{font-size:13px;font-weight:700;color:var(--muted);margin-top:4px}
 .jak{font-size:11px;font-weight:700;background:var(--accent-weak);color:var(--accent);border-radius:6px;padding:2px 6px}
 .day.box{border-top:4px solid #f3efc9}
@@ -215,6 +215,17 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .pinb{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .pinb>*{transform:rotate(45deg)}
 .pinl{position:absolute;left:32px;top:2px;white-space:nowrap;font-size:12px;font-weight:700;background:#fff;color:#111;border-radius:6px;padding:1px 6px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.moremenu{position:absolute;right:16px;top:118px;z-index:20;background:var(--card);border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);padding:6px;display:grid;min-width:190px}
+.moremenu[hidden]{display:none}
+.moremenu button{border:0;background:none;text-align:left;padding:11px 12px;border-radius:8px;font-weight:600;cursor:pointer;color:var(--text)}
+.moremenu button[aria-selected="true"]{background:var(--accent-weak);color:var(--accent)}
+#moreBtn{white-space:nowrap}
+#moreBtn[aria-selected="true"]{background:var(--accent);color:#fff}
+header .wrap{position:relative}
+.cand{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line)}
+.cand:first-of-type{border-top:0}
+.cand input{margin-top:3px;width:18px;height:18px;flex:none}
+.cand .src{font-size:12px;color:var(--muted)}
 #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--text);color:var(--bg);
   padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:calc(100% - 32px)}
 #toast.show{opacity:1}
@@ -241,10 +252,13 @@ a{color:var(--accent)}
     <button role="tab" data-mode="today" aria-selected="false">오늘</button>
     <button role="tab" data-mode="week" aria-selected="true">주간</button>
     <button role="tab" data-mode="month" aria-selected="false">월간</button>
-    <button role="tab" data-mode="year" aria-selected="false">연간</button>
     <button role="tab" data-mode="report" aria-selected="false">보고서</button>
-    <button role="tab" data-mode="exam" aria-selected="false">시험</button>
-    <button role="tab" data-mode="map" aria-selected="false">지도</button>
+    <button id="moreBtn" aria-haspopup="true" aria-expanded="false">☰ 메뉴</button>
+  </div>
+  <div id="moreMenu" class="moremenu" hidden>
+    <button data-mode="exam">📝 시험 범위·진도</button>
+    <button data-mode="year">📆 연간 계획</button>
+    <button data-mode="map">🗺️ 지도·길찾기</button>
   </div>
   <div class="navrow">
     <button class="icon-btn" id="prev" aria-label="이전">‹</button>
@@ -588,7 +602,10 @@ async function load() {
   const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "map";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
-  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
+  document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
+  const more = { exam: "📝 시험", year: "📆 연간", map: "🗺️ 지도" }[mode];
+  $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
+  $("moreBtn").setAttribute("aria-selected", !!more);
   if (mode === "report") return loadReport(seq);
   if (mode === "year") return loadYear(seq);
   if (mode === "exam") return loadExams(seq);
@@ -1214,6 +1231,27 @@ async function deleteNote() {
 }
 
 
+/* ---------- 과목 묶음 (공수2·수학 → 수학 등) ---------- */
+const SUBJECT_GROUPS = [
+  ["국어", /^(국어|공국|공통국어|문학|독서|화법과작문|언어와매체)\d*$/, /국어|공국|문학|독서/],
+  ["수학", /^(수학|공수|공통수학|미적분|확률과통계|기하)\d*$/, /수학|공수|미적|확통|기하/],
+  ["영어", /^(영어|공영|공통영어|영어회화|영어독해)\d*$/, /영어|공영|영단어/],
+  ["한국사", /^(한국사|국사)\d*$/, /한국사|국사/],
+  ["사회", /^(사회|통사|통합사회|사탐|사회탐구)\d*$/, /사회|통사|사탐/],
+  ["과학", /^(과학|통과|통합과학|과탐|과학탐구실험|물리|화학|생명과학|지구과학|생물|지구)\d*$/, /과학|통과|과탐|물리|화학|생명|지구과학/],
+];
+function subjectGroup(name) {
+  const n = String(name || "").replace(/\s+/g, "").replace(/[ⅠⅡ]/g, m => m === "Ⅰ" ? "1" : "2");
+  for (const [g, re] of SUBJECT_GROUPS) if (re.test(n)) return g;
+  return String(name || "").trim();
+}
+function guessSubject(text) {   // 자유 글에서 과목 짐작 (한국사를 국어보다 먼저)
+  const order = ["한국사", "국어", "수학", "영어", "사회", "과학"];
+  text = String(text).replace(/인사탐|인문사회/g, "");   // 방과후 '인사탐'은 사회 과목이 아님
+  for (const g of order) { const e = SUBJECT_GROUPS.find(x => x[0] === g); if (e[2].test(text)) return g; }
+  return "";
+}
+
 /* ---------- 보고서 모아보기 ---------- */
 let allItems = [];       // [{kind:'date'|'free', key, title, subjects:[], blocks:[{subject,text}], lists:{...}}]
 let allQuery = "", allSubj = "";
@@ -1238,7 +1276,9 @@ async function loadAll(seq = loadSeq) {
   } catch (e) { if (seq === loadSeq) showError(e); }
 }
 function renderAll() {
-  const subj = [...new Set(allItems.flatMap(x => x.blocks.map(b => b.subject)).filter(Boolean))];
+  const ORDER = SUBJECT_GROUPS.map(g => g[0]);
+  const subj = [...new Set(allItems.flatMap(x => x.blocks.map(b => subjectGroup(b.subject))).filter(Boolean))]
+    .sort((a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99));
   $("view").innerHTML = kindBar() +
     `<input class="search" id="rsearch" value="${esc(allQuery)}" placeholder="🔍 검색 (예: 함수, 해류)">
      <div class="filters"><button data-act="rfilter" data-s="" class="${allSubj ? "" : "on"}">전체</button>
@@ -1251,7 +1291,7 @@ function renderAllResults() {
   const hl = t => { const e = esc(t); if (!q) return e; const i = e.toLowerCase().indexOf(esc(q)); return i < 0 ? e : e.slice(0, i) + `<mark class="hl">${e.slice(i, i + esc(q).length)}</mark>` + e.slice(i + esc(q).length); };
   const match = t => !q || (t || "").toLowerCase().includes(q);
   const cards = allItems.map(it => {
-    const blocks = it.blocks.filter(b => (!allSubj || b.subject === allSubj));
+    const blocks = it.blocks.filter(b => (!allSubj || subjectGroup(b.subject) === allSubj));
     const lists = allSubj ? [] : RSECS.filter(([k]) => it.lists[k]).map(([k, title]) => [title, it.lists[k]]);
     const text = it.title + " " + blocks.map(b => b.subject + " " + b.text).join(" ") + " " + lists.map(l => l[1]).join(" ");
     if ((allSubj && !blocks.length) || !match(text)) return "";
@@ -1267,7 +1307,7 @@ function renderAllResults() {
 
 /* ---------- 시험 범위·진도 (plans/exams.json) ---------- */
 const EXAM_PATH = "plans/exams.json";
-let examData = { exams: [] }, examDraft = null, examFilter = "all", examOpenPast = false;
+let examData = { exams: [] }, examDraft = null, examFilter = "all", examOpenPast = false, examCands = null;
 async function loadExamData(force) {
   const f = await getFile(EXAM_PATH, force);
   try { examData = f ? JSON.parse(f.text) : { exams: [] }; } catch (e) { examData = { exams: [] }; }
@@ -1331,7 +1371,10 @@ function renderExams() {
       <button data-act="xfilter" data-f="all" class="${examFilter === "all" ? "on" : ""}">전체</button>
       <button data-act="xfilter" data-f="정기" class="${examFilter === "정기" ? "on" : ""}">📝 정기시험</button>
       <button data-act="xfilter" data-f="수행" class="${examFilter === "수행" ? "on" : ""}">🎯 수행평가</button></div>
-    <button class="add" data-act="xnew" style="width:100%;margin-bottom:10px;background:var(--card)">+ 시험 추가</button>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="add" data-act="xnew" style="flex:1;background:var(--card)">+ 시험 추가</button>
+      <button class="add" data-act="xscan" style="flex:1;background:var(--card)">📥 계획에서 시험 찾기</button></div>
+    ${examCands ? candPanel() : ""}
     ${up.length ? up.map(examCard).join("") : '<div class="day"><div class="empty">다가오는 시험이 없어요. + 시험 추가로 과목별 범위를 적어 보세요. (예: 2차 정기시험 12/9~12/15)</div></div>'}
     ${past.length ? `<button class="btn ghost" data-act="xpast" style="width:100%;margin:6px 0 10px">${examOpenPast ? "▲ 지난 시험 접기" : `▼ 지난 시험 ${past.length}개`}</button>${examOpenPast ? past.map(examCard).join("") : ""}` : ""}`;
 }
@@ -1345,8 +1388,77 @@ function examInput(t) {
   } else examDraft[k] = t.value;
 }
 $("view").addEventListener("change", ev => { if (examDraft && ev.target.dataset.x === "kind") examDraft.kind = ev.target.value; });
+// 학사일정의 시험날 + 계획표·보고서에 적힌 수행/시험/평가 를 찾아 후보로 보여줌
+async function scanExams() {
+  const out = [], seen = new Set(), t = todayKST();
+  const have = x => examData.exams.some(e => e.date === x.date && (subjectGroup(e.subject) === subjectGroup(x.subject) || e.name === x.name));
+  const add = x => { const k = x.date + "|" + (subjectGroup(x.subject) || x.name); if (seen.has(k) || have(x) || x.date < addDays(t, -7)) return; seen.add(k); out.push(x); };
+  // 1) 학사일정 시험날 → 이어진 날짜를 하나의 정기시험으로
+  const ed = Object.entries(school().exam_days || {}).sort();
+  for (let i = 0; i < ed.length;) {
+    let j = i; while (j + 1 < ed.length && ed[j + 1][1] === ed[i][1] && (D(ed[j + 1][0]) - D(ed[j][0])) / 864e5 <= 4) j++;
+    const dates = ed.slice(i, j + 1).map(e => e[0]);
+    const subs = [...new Set(Object.values(school().timetable || {}).flat())].filter(x => !/창체|동아리|진로|체육|미술|음악/.test(x));
+    add({ kind: "정기", subject: "전 과목", name: ed[i][1], date: dates[0], src: "학사일정",
+      memo: "시험 날짜: " + dates.map(d => `${+d.slice(5, 7)}/${+d.slice(8)}(${WD[wday(d)]})`).join(", "),
+      ranges: subs.map(x => ({ text: x, progress: 0, memo: "" })) });
+    i = j + 1;
+  }
+  // 2) 계획표(주간·월간)의 일정·할 일
+  const KW = /수행|시험|평가/, NO = /수능|모의|예비소집|정기시험|학교 안 감|^✏️|^🏫/;
+  for (const p of [...files.keys()].filter(p => /^plans\/(week|month)\//.test(p))) {
+    const f = files.get(p); if (!f) continue;
+    const ref = p.includes("/week/") ? p.slice(11, 21) : p.slice(12, 19) + "-01";
+    const tbl = parseTable(f.text, ref);
+    for (const [d, day] of Object.entries(tbl))
+      for (const it of [...day.events.map(e => e.title), ...day.memos.map(taskText)])
+        if (KW.test(it) && !NO.test(it)) add({ kind: /정기|중간|기말/.test(it) ? "정기" : "수행", subject: guessSubject(it), name: it, date: d, src: "계획표", memo: "", ranges: [] });
+  }
+  // 3) 보고서의 '기억해야 할 것' 등에 적힌 날짜 + 수행
+  for (const p of [...files.keys()].filter(p => p.startsWith("plans/report/"))) {
+    const f = files.get(p); if (!f) continue;
+    const r = parseReport(f.text), y = +p.slice(13, 17);
+    for (const line of [r.remember, r.important, r.etc, r.memorize].join("\n").split("\n")) {
+      let cur = null;
+      for (const piece of line.split(/[,，]/)) {
+        const m = piece.match(/(\d{1,2})\s*\/\s*(\d{1,2})/);
+        if (m) cur = `${y}-${pad(+m[1])}-${pad(+m[2])}`;
+        if (cur && KW.test(piece) && !NO.test(piece)) {
+          const name = piece.replace(/\d{1,2}\s*\/\s*\d{1,2}/, "").trim();
+          add({ kind: "수행", subject: guessSubject(piece), name, date: cur, src: "보고서", memo: "", ranges: [] });
+        }
+      }
+    }
+  }
+  return out.sort((a, b) => a.date.localeCompare(b.date));
+}
+const candPanel = () => `<section class="day editing"><div class="dhead"><span class="date">📥 계획에서 찾은 시험</span></div>
+  ${examCands.length ? examCands.map((c, k) => `<label class="cand"><input type="checkbox" data-k="${k}" checked>
+    <div><b>${c.kind === "정기" ? "📝 정기" : "🎯 수행"} · ${esc(c.subject || "과목?")}</b> ${esc(c.name)}
+    <div class="src">${c.date.slice(5).replace("-", "/")} (${WD[wday(c.date)]}) · ${c.src}에서 찾음</div></div></label>`).join("")
+    : '<div class="empty">새로 등록할 시험을 못 찾았어요. (이미 등록됐거나, 계획에 "수행·시험·평가"라는 말이 없어요)</div>'}
+  <div class="actions" style="margin-top:8px"><button class="btn ghost" data-act="xscancel">닫기</button>
+    ${examCands.length ? `<button class="btn" data-act="xsadd" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : "선택한 것 등록"}</button>` : ""}</div></section>`;
 async function examClick(b) {
   const act = b.dataset.act;
+  if (act === "xscan") { examCands = await scanExams(); return renderExams(); }
+  if (act === "xscancel") { examCands = null; return renderExams(); }
+  if (act === "xsadd") {
+    const pick = [...document.querySelectorAll(".cand input")].filter(i => i.checked).map(i => examCands[+i.dataset.k]);
+    if (!pick.length) return toast("고른 게 없어요");
+    saving = true; renderExams();
+    try {
+      await updateFile(EXAM_PATH, text => {
+        let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
+        data.exams ||= [];
+        pick.forEach((c, k) => data.exams.push({ id: "x" + Date.now().toString(36) + k, kind: c.kind, subject: c.subject, name: c.name, date: c.date, ranges: c.ranges, memo: c.memo }));
+        data.exams.sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
+        return JSON.stringify(data, null, 2) + "\n";
+      }, `앱에서 계획의 시험 ${pick.length}개 등록`);
+      examData = JSON.parse(files.get(EXAM_PATH).text); examCands = null; toast(`✓ ${pick.length}개 등록했어요`);
+    } catch (e) { saving = false; renderExams(); showError(e, true); return; }
+    saving = false; return renderExams();
+  }
   if (act === "xfilter") { examFilter = b.dataset.f; return renderExams(); }
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
   if (act === "xnew") { if (!leaveOk()) return; examDraft = { kind: "정기", subject: "", name: "", date: "", ranges: [{ text: "", progress: 0, memo: "" }], memo: "" }; }
@@ -1517,7 +1629,11 @@ function goToday() {
 $("goToday").onclick = goToday;
 $("prev").onclick = () => move(-1);
 $("next").onclick = () => move(1);
-document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+const closeMore = () => { $("moreMenu").hidden = true; $("moreBtn").setAttribute("aria-expanded", "false"); };
+$("moreBtn").onclick = e => { e.stopPropagation(); const h = !$("moreMenu").hidden; $("moreMenu").hidden = h; $("moreBtn").setAttribute("aria-expanded", String(!h)); };
+document.addEventListener("click", e => { if (!e.target.closest("#moreMenu")) closeMore(); });
+document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.onclick = () => {
+  closeMore();
   if (b.dataset.mode === mode) return showsToday() ? undefined : goToday();
   if (!leaveOk()) return;
   mode = b.dataset.mode; store("mode", mode); anchor = todayKST(); load();
