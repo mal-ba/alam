@@ -212,6 +212,11 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .rbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .sres button{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:8px 2px;cursor:pointer;font-size:13px;color:var(--text)}
 .pin{background:none;border:0}
+.nkinds{display:grid;grid-template-columns:repeat(3,1fr)}
+.nlist a{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--text);text-decoration:none}
+.nlist a:first-child{border-top:0}
+.nlist b{display:block;font-weight:600;line-height:1.4}
+.nlist span{font-size:12px;color:var(--muted)}
 .kpin{position:relative;width:28px;height:28px}
 .pinb{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .pinb>*{transform:rotate(45deg)}
@@ -260,6 +265,7 @@ a{color:var(--accent)}
     <button data-mode="exam">📝 시험 범위·진도</button>
     <button data-mode="year">📆 연간 계획</button>
     <button data-mode="map">🗺️ 지도·길찾기</button>
+    <button data-mode="news">📰 뉴스</button>
   </div>
   <div class="navrow">
     <button class="icon-btn" id="prev" aria-label="이전">‹</button>
@@ -507,7 +513,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "map"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "map", "news"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -600,17 +606,18 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null;
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "map";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "map" || mode === "news";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", year: "📆 연간", map: "🗺️ 지도" }[mode];
+  const more = { exam: "📝 시험", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   if (mode === "report") return loadReport(seq);
   if (mode === "year") return loadYear(seq);
   if (mode === "exam") return loadExams(seq);
   if (mode === "map") return loadMap(seq);
+  if (mode === "news") return loadNews(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -822,6 +829,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("r")) return reportClick(b);
   if (act.startsWith("x")) return examClick(b);
   if (act.startsWith("q")) return placeClick(b);
+  if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); return renderNews(); }
   if (act === "ygo") { mode = "today"; store("mode", mode); anchor = b.dataset.date; return load(); }
   if (act === "pick") { if (!leaveOk()) return; editing = null; selDay = days[+b.dataset.i].iso; render(); return; }
   if (act === "sedit") {
@@ -1490,6 +1498,44 @@ async function saveExam(remove) {
     examData = JSON.parse(files.get(EXAM_PATH).text); examDraft = null; toast(remove ? "지웠어요" : "저장됨 ✓");
   } catch (e) { saving = false; renderExams(); showError(e, true); return; }
   saving = false; renderExams();
+}
+
+/* ---------- 뉴스 (docs/news.json, GitHub Actions 가 3시간마다 구글 뉴스에서 모음) ---------- */
+let newsData = null, newsCat = store("ncat") || "stock", newsQuery = "";
+async function loadNews(seq = loadSeq) {
+  $("label").innerHTML = `뉴스<span class="sub">주식 · 경제 · 세계 · 국내 · 정치 · RP</span>`;
+  $("view").innerHTML = `<div class="loading">뉴스 불러오는 중…</div>`;
+  try {
+    const r = await fetch("news.json?v=" + Date.now(), { cache: "no-store" });
+    newsData = r.ok ? await r.json() : { categories: [] };
+  } catch (e) { newsData = { categories: [] }; }
+  if (seq === loadSeq) renderNews();
+}
+function agoText(t) {
+  if (!t) return "";
+  const m = Math.round((Date.now() - new Date(t)) / 6e4);
+  return m < 1 ? "방금" : m < 60 ? `${m}분 전` : m < 1440 ? `${Math.floor(m / 60)}시간 전` : `${Math.floor(m / 1440)}일 전`;
+}
+function renderNews() {
+  const cats = (newsData && newsData.categories) || [];
+  if (!cats.length) { $("view").innerHTML = `<section class="day"><div class="empty">아직 모은 뉴스가 없어요. 조금 뒤에 다시 열어 보세요.<br>(GitHub → Actions → "뉴스 모으기" → Run workflow 로 바로 모을 수 있어요)</div></section>`; return; }
+  if (!cats.some(c => c.key === newsCat)) newsCat = cats[0].key;
+  const cat = cats.find(c => c.key === newsCat);
+  $("view").innerHTML = `<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${esc(c.name)}</button>`).join("")}</div>
+    <input class="search" id="nsearch" value="${esc(newsQuery)}" placeholder="🔍 이 분야에서 찾기 (예: 금리, 반도체)">
+    <section class="day"><div class="dhead"><span class="date">${esc(cat.name)}</span><span class="sp"></span><span class="empty" style="margin:0">${newsData.updated ? agoText(newsData.updated) + " 업데이트" : ""}</span></div>
+      <div id="nres"></div>
+      <div class="empty" style="font-size:12px">구글 뉴스에서 3시간마다 모아요. 제목을 누르면 언론사 기사로 가요.</div></section>`;
+  const inp = $("nsearch");
+  inp.oninput = () => { newsQuery = inp.value; newsList(cat); };   // 목록만 다시 그려서 한글 입력이 끊기지 않게
+  newsList(cat);
+}
+function newsList(cat) {
+  const q = newsQuery.trim().toLowerCase();
+  const items = cat.items.filter(x => !q || (x.title + " " + x.source).toLowerCase().includes(q));
+  $("nres").innerHTML = items.length
+    ? `<div class="nlist">${items.map(x => `<a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer"><b>${esc(x.title)}</b><span>${esc(x.source || "")}${x.time ? " · " + agoText(x.time) : ""}</span></a>`).join("")}</div>`
+    : `<div class="empty">${q ? "찾는 기사가 없어요." : "기사가 없어요."}</div>`;
 }
 
 /* ---------- 지도 (장소는 Supabase 내 계정에 저장, places.json) ---------- */

@@ -1,0 +1,35 @@
+name: 뉴스 모으기
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # 3시간마다 (구글 뉴스 RSS → docs/news.json)
+  workflow_dispatch:          # Actions 탭에서 바로 실행
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news
+  cancel-in-progress: true
+
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python news.py
+      - name: 저장(커밋)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/news.json
+          if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
+          git commit -m "뉴스 업데이트 ($(TZ=Asia/Seoul date '+%F %H:%M'))"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
