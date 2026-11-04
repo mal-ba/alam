@@ -210,9 +210,9 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .route{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
 .route select{width:100%;border:1px solid var(--line);background:var(--input);border-radius:8px;padding:8px;font:inherit;color:inherit}
 .rbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.gview{width:100%;height:420px;border:0;border-radius:12px;margin-top:10px;display:block}
 .sres button{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:none;padding:8px 2px;cursor:pointer;font-size:13px;color:var(--text)}
 .pin{background:none;border:0}
+.kpin{position:relative;width:28px;height:28px}
 .pinb{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .pinb>*{transform:rotate(45deg)}
 .pinl{position:absolute;left:32px;top:2px;white-space:nowrap;font-size:12px;font-weight:700;background:#fff;color:#111;border-radius:6px;padding:1px 6px;box-shadow:0 1px 3px rgba(0,0,0,.25)}
@@ -1513,14 +1513,31 @@ async function writePlaces(fn) {
   await updateFile(PLACE_PATH, text => JSON.stringify({ places: fn(parsePlaces(text)) }, null, 2) + "\n", "앱에서 장소 저장");
   places = parsePlaces(files.get(PLACE_PATH).text);
 }
-function loadLeaflet() {
-  if (window.L) return Promise.resolve();
-  return new Promise((ok, bad) => { const sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"; sc.onload = ok; sc.onerror = () => bad(new Error("지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.")); document.head.appendChild(sc); });
+/* 지도 엔진: docs/config.js 에 kakaoJsKey 가 있으면 카카오맵, 없거나 못 불러오면 OpenStreetMap(Leaflet) */
+let kakaoOn = false;
+const addScript = (src, ms) => new Promise((ok, bad) => {
+  const sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = () => bad(new Error("load"));
+  if (ms) setTimeout(() => bad(new Error("timeout")), ms);
+  document.head.appendChild(sc);
+});
+async function loadKakao() {
+  if (window.kakao && kakao.maps && kakao.maps.services) return;
+  await addScript(`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(CFG.kakaoJsKey)}&libraries=services&autoload=false`, 8000);
+  await new Promise((ok, bad) => { setTimeout(() => bad(new Error("timeout")), 8000); kakao.maps.load(ok); });
+}
+async function loadMapLib() {
+  if (CFG.kakaoJsKey) {
+    try { await loadKakao(); kakaoOn = true; return; }
+    catch (e) { console.warn("카카오맵을 못 불러와서 OpenStreetMap 으로 보여요", e); kakaoOn = false; }
+  }
+  if (window.L) return;
+  try { await addScript("https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"); }
+  catch (e) { throw new Error("지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요."); }
 }
 async function loadMap(seq = loadSeq) {
   $("label").innerHTML = `지도<span class="sub">자주 가는 곳 · 길찾기</span>`;
   $("view").innerHTML = `<div class="loading">지도 불러오는 중…</div>`;
-  try { await Promise.all([loadLeaflet(), loadPlaces()]); if (seq === loadSeq) renderMap(); } catch (e) { if (seq === loadSeq) showError(e); }
+  try { await Promise.all([loadMapLib(), loadPlaces()]); if (seq === loadSeq) renderMap(); } catch (e) { if (seq === loadSeq) showError(e); }
 }
 const placeOpts = sel => [`<option value="me" ${sel === "me" ? "selected" : ""}>📍 현재 위치</option>`,
   ...places.map(p => `<option value="${p.id}" ${sel === p.id ? "selected" : ""}>${esc(p.icon || "📌")} ${esc(p.name)}</option>`)].join("");
@@ -1544,9 +1561,9 @@ function renderMap() {
         <div class="route"><select id="rfrom">${placeOpts(routeFrom)}</select><span>→</span><select id="rto"><option value="">도착지</option>${places.map(p => `<option value="${p.id}" ${routeTo === p.id ? "selected" : ""}>${esc(p.icon || "📌")} ${esc(p.name)}</option>`).join("")}</select></div>
         <div class="rbtns"><button class="mini-btn go" data-act="qroute" data-m="traffic">🚌 대중교통</button><button class="mini-btn" data-act="qroute" data-m="walk">🚶 도보</button>
           <button class="mini-btn" data-act="qroute" data-m="car">🚗 자동차</button><button class="mini-btn" data-act="qroute" data-m="naver">🟢 네이버 지도</button>
-          <button class="mini-btn" data-act="qroute" data-m="google">🔵 구글 지도</button>${CFG.googleMapsKey ? `<button class="mini-btn go" data-act="qgview">🗺️ 여기서 구글 경로 보기</button>` : ""}</div>
+          <button class="mini-btn" data-act="qroute" data-m="google">🔵 구글 지도</button></div>
         <div class="empty">카카오맵·네이버 지도·구글 지도에서 경로·버스 도착 정보가 열려요. (구글 지도는 우리나라에서 대중교통 길찾기만 돼요)</div>
-        <div id="gbox"></div></section>
+</section>
       <section class="day"><div class="dhead"><span class="date">⭐ 자주 가는 곳</span><span class="sp"></span><button class="mini-btn go" data-act="qnew">+ 장소 추가</button></div>
         ${places.length ? `<div class="plist">${places.map(p => `<div class="pl" data-id="${p.id}"><span style="font-size:20px">${esc(p.icon || "📌")}</span>
           <div class="pn"><b>${esc(p.name)}</b>${p.memo ? `<span>${esc(p.memo)}</span>` : ""}</div>
@@ -1558,27 +1575,60 @@ function renderMap() {
   if (rf) rf.onchange = () => routeFrom = rf.value;
   if (rt) rt.onchange = () => routeTo = rt.value;
 }
-const pinIcon = (icon, name) => L.divIcon({ className: "pin", iconSize: null, iconAnchor: [14, 30],
-  html: `<div class="pinb"><span>${esc(icon || "📌")}</span></div><div class="pinl">${esc(name || "")}</div>` });
-function drawMap() {
-  if (lmap) { lmap.stop(); lmap.off(); lmap.remove(); lmap = null; }
-  draftMarker = null;
-  lmap = L.map("map", { zoomControl: true, attributionControl: true, zoomAnimation: false, fadeAnimation: false, markerZoomAnimation: false });
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(lmap);
-  lmarkers = places.filter(p => p.lat).map(p => L.marker([p.lat, p.lng], { icon: pinIcon(p.icon, p.name) }).addTo(lmap).bindPopup(`${esc(p.icon || "📌")} ${esc(p.name)}`));
-  if (placeDraft) {
-    if (placeDraft.lat) draftMarker = L.marker([placeDraft.lat, placeDraft.lng], { icon: pinIcon("📍", "여기") }).addTo(lmap);
-    lmap.on("click", e => setDraftPos(e.latlng.lat, e.latlng.lng));
+const pinHtml = (icon, name) => `<div class="pinb"><span>${esc(icon || "📌")}</span></div><div class="pinl">${esc(name || "")}</div>`;
+// 핀 하나 만들기 → { move(lat, lng) }
+function addPin(lat, lng, icon, name) {
+  if (kakaoOn) {
+    const el = document.createElement("div"); el.className = "pin kpin"; el.innerHTML = pinHtml(icon, name);
+    const o = new kakao.maps.CustomOverlay({ map: lmap, position: new kakao.maps.LatLng(lat, lng), content: el, xAnchor: 0.5, yAnchor: 1.05, zIndex: 3 });
+    return { move: (a, b) => o.setPosition(new kakao.maps.LatLng(a, b)) };
   }
+  const m = L.marker([lat, lng], { icon: L.divIcon({ className: "pin", iconSize: null, iconAnchor: [14, 30], html: pinHtml(icon, name) }) }).addTo(lmap);
+  return { move: (a, b) => m.setLatLng([a, b]) };
+}
+function mapFocus(lat, lng) {   // 그 자리로 가까이
+  if (kakaoOn) { lmap.setCenter(new kakao.maps.LatLng(lat, lng)); if (lmap.getLevel() > 3) lmap.setLevel(3); }
+  else lmap.setView([lat, lng], Math.max(lmap.getZoom(), 16), { animate: false });
+}
+function drawMap() {
+  if (lmap && !kakaoOn && lmap.remove) { lmap.stop(); lmap.off(); lmap.remove(); }
+  lmap = null; draftMarker = null;
   const pts = [...places.filter(p => p.lat).map(p => [p.lat, p.lng]), ...(placeDraft && placeDraft.lat ? [[placeDraft.lat, placeDraft.lng]] : [])];
-  if (pts.length > 1) lmap.fitBounds(pts, { padding: [45, 45], maxZoom: 16, animate: false });
-  else lmap.setView(pts[0] || [37.2636, 127.0286], pts.length ? 16 : 12);   // 기본: 경기 남부
+  const home = pts[0] || [37.2636, 127.0286];   // 기본: 경기 남부
+  if (kakaoOn) {
+    lmap = new kakao.maps.Map($("map"), { center: new kakao.maps.LatLng(home[0], home[1]), level: pts.length ? 3 : 7 });
+    lmap.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+    if (placeDraft) kakao.maps.event.addListener(lmap, "click", e => setDraftPos(e.latLng.getLat(), e.latLng.getLng()));
+    if (pts.length > 1) {
+      const bd = new kakao.maps.LatLngBounds(); pts.forEach(p => bd.extend(new kakao.maps.LatLng(p[0], p[1])));
+      lmap.setBounds(bd, 45, 45, 45, 45); if (lmap.getLevel() < 3) lmap.setLevel(3);
+    }
+  } else {
+    lmap = L.map("map", { zoomControl: true, attributionControl: true, zoomAnimation: false, fadeAnimation: false, markerZoomAnimation: false });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(lmap);
+    if (placeDraft) lmap.on("click", e => setDraftPos(e.latlng.lat, e.latlng.lng));
+    if (pts.length > 1) lmap.fitBounds(pts, { padding: [45, 45], maxZoom: 16, animate: false });
+    else lmap.setView(home, pts.length ? 16 : 12);
+  }
+  lmarkers = places.filter(p => p.lat).map(p => addPin(p.lat, p.lng, p.icon, p.name));
+  if (placeDraft && placeDraft.lat) draftMarker = addPin(placeDraft.lat, placeDraft.lng, "📍", "여기");
 }
 function setDraftPos(lat, lng) {
   placeDraft.lat = +lat; placeDraft.lng = +lng;
-  if (draftMarker) draftMarker.setLatLng([lat, lng]); else draftMarker = L.marker([lat, lng], { icon: pinIcon("📍", "여기") }).addTo(lmap);
-  lmap.setView([lat, lng], Math.max(lmap.getZoom(), 16), { animate: false });
+  if (draftMarker) draftMarker.move(+lat, +lng); else draftMarker = addPin(+lat, +lng, "📍", "여기");
+  mapFocus(+lat, +lng);
   const info = document.querySelector(".rbtns .empty"); if (info) info.textContent = `핀: ${(+lat).toFixed(5)}, ${(+lng).toFixed(5)}`;
+}
+// 장소 검색 → [{ name, addr, lat, lng }]. 카카오맵이면 카카오 장소 검색(가게·학원·역 이름도 잘 찾음)
+function searchPlaces(q) {
+  if (kakaoOn) return new Promise((ok, bad) => new kakao.maps.services.Places().keywordSearch(q, (data, st) => {
+    if (st === kakao.maps.services.Status.ZERO_RESULT) return ok([]);
+    if (st !== kakao.maps.services.Status.OK) return bad(new Error(st));
+    ok(data.map(x => ({ name: x.place_name, addr: x.road_address_name || x.address_name, lat: +x.y, lng: +x.x })));
+  }, { location: lmap.getCenter(), size: 8 }));
+  const c = lmap.getCenter();
+  return fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=6&accept-language=ko&countrycodes=kr&q=${encodeURIComponent(q)}&viewbox=${c.lng - 0.5},${c.lat + 0.5},${c.lng + 0.5},${c.lat - 0.5}`)
+    .then(r => r.json()).then(j => j.map(x => ({ name: x.display_name, addr: "", lat: +x.lat, lng: +x.lon })));
 }
 function getPos() {
   return new Promise((ok, bad) => {
@@ -1598,15 +1648,17 @@ async function placeClick(b) {
     const q = $("qsearch").value.trim(); if (!q) return;
     $("sres").innerHTML = '<div class="empty">찾는 중…</div>';
     try {
-      const c = lmap.getCenter();
-      const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=6&accept-language=ko&countrycodes=kr&q=${encodeURIComponent(q)}&viewbox=${c.lng - 0.5},${c.lat + 0.5},${c.lng + 0.5},${c.lat - 0.5}`);
-      const j = await r.json();
-      $("sres").innerHTML = j.length ? j.map((x, k) => `<button data-act="qpick" data-lat="${x.lat}" data-lng="${x.lon}">${esc(x.display_name)}</button>`).join("")
+      const j = await searchPlaces(q);
+      $("sres").innerHTML = j.length ? j.map(x => `<button data-act="qpick" data-lat="${x.lat}" data-lng="${x.lng}" data-name="${esc(x.name)}"><b>${esc(x.name)}</b>${x.addr ? `<br><span class="hint">${esc(x.addr)}</span>` : ""}</button>`).join("")
         : '<div class="empty">못 찾았어요. 다른 이름으로 검색하거나 지도를 눌러 핀을 찍어 주세요.</div>';
     } catch (e) { $("sres").innerHTML = '<div class="empty">검색이 안 돼요. 지도를 눌러 핀을 찍어 주세요.</div>'; }
     return;
   }
-  if (act === "qpick") { setDraftPos(b.dataset.lat, b.dataset.lng); $("sres").innerHTML = ""; return; }
+  if (act === "qpick") {
+    setDraftPos(b.dataset.lat, b.dataset.lng); $("sres").innerHTML = "";
+    if (kakaoOn && !(placeDraft.name || "").trim() && b.dataset.name) { placeDraft.name = b.dataset.name; const n = document.querySelector('[data-q="name"]'); if (n) n.value = b.dataset.name; }
+    return;
+  }
   if (act === "qsave") {
     const d = placeDraft;
     if (!(d.name || "").trim()) return toast("이름을 적어 주세요");
@@ -1617,7 +1669,6 @@ async function placeClick(b) {
   if (act === "qdel") { if (!confirm(`'${placeDraft.name}' 장소를 지울까요?`)) return; const id = placeDraft.id; return savePlace(list => list.filter(x => x.id !== id), "지웠어요"); }
   if (act === "qto") { routeTo = b.closest("[data-id]").dataset.id; return openRoute("traffic"); }
   if (act === "qroute") return openRoute(b.dataset.m);
-  if (act === "qgview") return showGoogleRoute();
 }
 async function savePlace(fn, msg) {
   saving = true; renderMap();
@@ -1633,15 +1684,6 @@ async function routeEnds() {
   return { from, to };
 }
 const ll = p => `${p.lat},${p.lng}`;
-// 앱 안에서 구글 지도 경로 (docs/config.js 의 googleMapsKey 가 있을 때만, Maps Embed API — 무료)
-async function showGoogleRoute() {
-  const r = await routeEnds(); if (!r) return;
-  if (!r.from) return toast("출발지를 고르거나 위치 권한을 허용해 주세요");
-  const q = new URLSearchParams({ key: CFG.googleMapsKey, origin: ll(r.from), destination: ll(r.to), mode: "transit", language: "ko", region: "KR" });
-  $("gbox").innerHTML = `<iframe class="gview" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
-    title="구글 지도 경로" src="https://www.google.com/maps/embed/v1/directions?${q}"></iframe>`;
-  $("gbox").scrollIntoView({ block: "nearest", behavior: "smooth" });
-}
 async function openRoute(m) {
   const r = await routeEnds(); if (!r) return;
   const { from, to } = r;
