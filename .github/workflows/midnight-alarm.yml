@@ -1,0 +1,68 @@
+name: 알람 예약
+
+on:
+  schedule:
+    # GitHub cron은 UTC 기준. GitHub 사정으로 몇 분~몇 시간 늦게 실행될 수 있어서
+    # 전날 밤에 미리 예약하고, 자정 실행은 보고서 복습 알림 + (밤 실행 실패 시) 대신 예약
+    - cron: "0 13 * * *"   # 한국 22:00 → 내일 알람 미리 예약
+    - cron: "0 15 * * *"   # 한국 00:00 → 어제 보고서 외울 것 / 밤 예약이 안 됐으면 오늘 알람 예약
+  workflow_dispatch:      # Actions 탭에서 수동 실행(테스트)용
+    inputs:
+      force:
+        description: "오늘 이미 예약했어도 다시 예약 (알람이 두 번 올 수 있어요)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # 계획표(plans/) 파일을 저장소에 저장하기 위해
+
+concurrency:
+  group: midnight-alarm
+  cancel-in-progress: false
+
+jobs:
+  schedule-alarms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 계획표 만들기 + 알람 예약
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        # 공개 저장소라 Actions 로그도 누구나 볼 수 있어요 → 일정 내용은 로그에 안 찍어요
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ]; then
+            python run_supabase.py $FORCE
+          elif [ -f schedule.json ]; then
+            python alarm.py $FORCE > /dev/null
+            echo "예전 방식(저장소 파일)으로 예약했어요"
+          else
+            echo "::error::GitHub Secrets 에 SUPABASE_URL 과 SUPABASE_SERVICE_KEY 를 넣어 주세요 (SUPABASE_SETUP.md 3번)"
+            exit 1
+          fi
+      - name: 계획표 저장(커밋) — 예전 방식일 때만
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ] || [ ! -f schedule.json ]; then
+            echo "Supabase 사용 중: 저장소에 커밋할 것 없음"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add plans
+          if git diff --cached --quiet; then
+            echo "바뀐 계획표 없음"
+            exit 0
+          fi
+          git commit -m "계획표 자동 업데이트 ($(TZ=Asia/Seoul date +%F))"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1

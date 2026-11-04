@@ -1,0 +1,26 @@
+{
+  "_설명": "기본 시간표(요일마다 반복). weekday: 0=월 1=화 2=수 3=목 4=금 5=토 6=일. remind_before: 몇 분 전에 알림 (0=정각, []=알림 없음)",
+  "timezone_offset_hours": 9,
+  "default_remind_before": [10],
+  "weekly": {
+    "0": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "1": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "2": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "3": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "4": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "5": [],
+    "6": []
+  },
+  "school": {
+    "school_events": ["등교", "하교", "야자"],
+    "exam_keep_events": ["등교"],
+    "period_times": [],
+    "timetable": {},
+    "off_days": {},
+    "exam_days": {},
+    "vacations": [],
+    "notes": {}
+  },
+  "report_reminder": {"time": "23:30", "only_school_days": false},
+  "todo_reminders": {"daily": ["07:30", "08:00", "21:00"], "weekday": {}, "commute_at": "08:00", "remaining_from": "21:00"}
+}
