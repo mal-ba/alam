@@ -21,6 +21,7 @@
 | **보고서** | 📅 날짜별 / 📝 자유(날짜 없이) / 📚 모아보기(검색·과목 필터) |
 | **시험** | 정기시험·수행평가, 범위별 공부 진도 0~100%, D-day |
 | **지도** | 자주 가는 곳 저장, 카카오맵·네이버 지도·구글 지도 길찾기(대중교통·도보·자동차), `docs/config.js` 에 카카오 JavaScript 키를 넣으면 지도·장소 검색이 카카오맵으로 |
+| **뉴스** | 📈 주식 · 💰 경제 · 🌍 세계 · 🇰🇷 국내 · 🏛️ 정치 · 🏦 RP(환매조건부채권) 기사 제목 모음, 3시간마다 업데이트 (☰ 메뉴) |
 
 - 고치기는 항상 ✏️ 연필 → 저장/취소 (할 일 체크박스만 바로 저장)
 - ⚙️: 계정, 로그아웃, **ntfy 알림 토픽**, 기본 시간표(JSON)
@@ -59,6 +60,7 @@
 | `docs/` | 앱 (GitHub Pages) |
 | `docs/config.js` | Supabase 주소·publishable 키 (공개돼도 되는 값) |
 | `supabase/schema.sql` | 데이터 테이블 + 행 단위 보안 |
+| `news.py` | 구글 뉴스 RSS → `docs/news.json` (`.github/workflows/news.yml`, 3시간마다) |
 | `alarm.py` | 계획표 계산·알림 예약 로직 |
 | `run_supabase.py` | 계정별로 `alarm.py` 실행 (Secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`) |
 | `.github/workflows/midnight-alarm.yml` | 매일 22:00 · 00:00 자동 실행 |
