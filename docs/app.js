@@ -232,7 +232,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -283,7 +283,7 @@ const viewTitle = () => {
   if (weekish()) { const s = weekStart(anchor), e = addDays(s, 6); return `주간 계획표 (${s.replace(/-/g, ".")} 일 ~ ${e.slice(5).replace("-", ".")} 토)`; }
   return `${+anchor.slice(0, 4)}년 ${+anchor.slice(5, 7)}월 계획표`;
 };
-const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft
+const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft
   || (repDraft && buildReport(anchor, repDraft) !== buildReport(anchor, rep.data))
   || (editing && formatRow(days[editing.i].iso, clean(editing.draft)) !== formatRow(days[editing.i].iso, days[editing.i].day));
 const leaveOk = () => !editDirty() || confirm("수정 중인 내용이 저장되지 않았어요. 그래도 나갈까요?");
@@ -326,12 +326,12 @@ function showsToday() {
 let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오기가 새 화면을 덮지 않게
 async function load() {
   const seq = ++loadSeq;
-  editing = null; repDraft = null; secEdit = null;
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web";
+  editing = null; repDraft = null; secEdit = null; weakDraft = null;
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색" }[mode];
+  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   $("noticeBtn").setAttribute("aria-pressed", mode === "notice");
@@ -344,6 +344,7 @@ async function load() {
   if (mode === "notice") return loadNotice(seq);
   if (mode === "learn") return loadLearn(seq);
   if (mode === "web") return loadWeb(seq);
+  if (mode === "weak") return loadWeak(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -533,6 +534,7 @@ $("view").addEventListener("input", ev => {
   if (examDraft && t.dataset.x) return examInput(t);
   if (tbDraft && t.dataset.tb) return tbInput(t);
   if (placeDraft && t.dataset.q) { placeDraft[t.dataset.q] = t.value; return; }
+  if (weakDraft && t.dataset.wk) { weakDraft[t.dataset.wk] = t.type === "checkbox" ? t.checked : t.value; return; }
   if (secEdit) {
     if (t.dataset.s === "text") secEdit.draft = t.value;
     else if (t.dataset.s === "must") secEdit.draft.must = t.value;
@@ -558,6 +560,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("q")) return placeClick(b);
   if (act.startsWith("L")) return learnClick(b);
   if (act.startsWith("w")) return webClick(b);
+  if (act.startsWith("K")) return weakClick(b);
   if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); newsShow = NEWS_PAGE; return renderNews(); }
   if (act === "nmore") { newsShow += NEWS_PAGE; return newsList(); }
   if (act === "ngonotice") { if (!leaveOk()) return; mode = "notice"; store("mode", mode); return load(); }
@@ -1230,7 +1233,7 @@ function ddayOf(s) {
 async function loadExams(seq = loadSeq) {
   $("label").innerHTML = `시험 범위·진도<span class="sub">정기시험 · 수행평가</span>`;
   $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
-  try { await loadExamData(true); if (seq === loadSeq) renderExams(); } catch (e) { if (seq === loadSeq) showError(e); }
+  try { await loadExamData(true); await loadWeakData().catch(() => {}); if (seq === loadSeq) renderExams(); } catch (e) { if (seq === loadSeq) showError(e); }
 }
 function examCard(x) {
   const p = progressOf(x), [dd, ddc] = x.date ? ddayOf(x.date) : ["날짜 미정", "past"];
@@ -1243,6 +1246,7 @@ function examCard(x) {
     ${(x.ranges || []).map(r => `<div class="xr"><div class="top"><span>${esc(r.text)}</span><span class="pct">${+r.progress || 0}%</span></div>
       <div class="bar ${barCls(+r.progress || 0)}"><i style="width:${+r.progress || 0}%"></i></div>${r.memo ? `<div class="memo">${esc(r.memo)}</div>` : ""}</div>`).join("")}
     ${x.memo ? `<div class="rsec"><h3>메모</h3><div class="pre">${esc(x.memo)}</div></div>` : ""}
+    ${(w => w.length ? `<div class="rsec"><h3>🩹 부족한 점 ${w.length}개</h3><ul>${w.slice(0, 5).map(k => `<li>${esc(k.text)}</li>`).join("")}${w.length > 5 ? `<li class="memo-i">…${w.length - 5}개 더 (☰ 메뉴 → 과목별 부족한 점)</li>` : ""}</ul></div>` : "")(weakOpen(x.subject))}
   </section>`;
 }
 function examForm(d) {
@@ -1410,6 +1414,103 @@ async function saveExam(remove) {
     examData = JSON.parse(files.get(EXAM_PATH).text); examDraft = null; toast(remove ? "지웠어요" : "저장됨 ✓");
   } catch (e) { saving = false; renderExams(); showError(e, true); return; }
   saving = false; renderExams();
+}
+
+/* ---------- 🩹 과목별 부족한 점 (plans/weak.json) ----------
+   { items: [{ id, subject, text, memo, done, date }] }  과목마다 모르는 것·자주 틀리는 것을 적어 두고, 알게 되면 ✓ 해결 */
+const WEAK_PATH = "plans/weak.json";
+let weakData = { items: [] }, weakDraft = null, weakSubj = store("wksubj") || "all", weakOpenDone = false;
+async function loadWeakData(force) {
+  const f = await getFile(WEAK_PATH, force);
+  try { weakData = f ? JSON.parse(f.text) : { items: [] }; } catch (e) { weakData = { items: [] }; }
+  if (!Array.isArray(weakData.items)) weakData.items = [];
+}
+const weakOpen = subj => weakData.items.filter(w => !w.done && subjKey(w.subject) === subjKey(subj));
+async function loadWeak(seq = loadSeq) {
+  $("label").innerHTML = `과목별 부족한 점<span class="sub">모르는 것 · 자주 틀리는 것</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try { await loadWeakData(true); await loadExamData().catch(() => {}); if (seq === loadSeq) renderWeak(); } catch (e) { if (seq === loadSeq) showError(e); }
+}
+function weakSubjects() {   // 적어 둔 과목 + 시간표 과목 + 기본 과목
+  return [...new Set([...weakData.items.map(w => w.subject), ...Object.values(school().timetable || {}).flat(), ...SUBJECTS].filter(Boolean))];
+}
+function weakForm(d) {
+  return `<section class="day editing rform">
+    <div class="dhead"><span class="date">${d.id ? "✏️ 부족한 점 고치기" : "🩹 부족한 점 적기"}</span></div>
+    <datalist id="wsubjects">${weakSubjects().map(x => `<option value="${esc(x)}">`).join("")}</datalist>
+    <label>과목</label><input data-wk="subject" list="wsubjects" value="${esc(d.subject)}" placeholder="예) 수학">
+    <label>부족한 점 <span class="hint">— 모르는 개념, 자주 틀리는 유형</span></label>
+    <input data-wk="text" value="${esc(d.text)}" placeholder="예) 이차함수 꼭짓점 구하기에서 부호 실수">
+    <label>메모 <span class="hint">— 어떻게 보완할지, 참고할 쪽수</span></label>
+    <textarea data-wk="memo" placeholder="예) 쎈 p.42~45 다시 풀기, 오답노트에 정리">${esc(d.memo || "")}</textarea>
+    <label class="tbcur" style="margin-top:12px"><input type="checkbox" data-wk="done" ${d.done ? "checked" : ""}><span>✓ 해결했어요<small>이제 알게 됐으면 체크 (지우지 않고 '해결한 것'에 남아요)</small></span></label>
+    <div class="actions" style="margin-top:12px">
+      ${d.id ? `<button class="btn ghost danger" data-act="Kdel" ${saving ? "disabled" : ""} style="margin-right:auto">🗑 삭제</button>` : ""}
+      <button class="btn ghost" data-act="Kcancel" ${saving ? "disabled" : ""}>취소</button>
+      <button class="btn" data-act="Ksave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : "저장"}</button>
+    </div></section>`;
+}
+const weakItem = w => `<li class="task${w.done ? " done" : ""}" data-id="${esc(w.id)}">
+    <button class="chk${w.done ? " on" : ""}" data-act="Kchk" aria-label="${w.done ? "다시 부족한 점으로" : "해결 표시"}">${w.done ? "✓" : ""}</button>
+    <span style="flex:1;min-width:0"><span>${esc(w.text)}</span>${w.memo ? `<span class="memo-i pre" style="display:block;font-size:12px;text-decoration:none">${esc(w.memo)}</span>` : ""}</span>
+    <button class="pencil" data-act="Kedit" aria-label="수정" title="수정">✏️</button></li>`;
+function renderWeak() {
+  if (weakDraft) { $("view").innerHTML = weakForm(weakDraft); return; }
+  const all = weakData.items, keys = [...new Set(all.map(w => w.subject))];
+  if (weakSubj !== "all" && !keys.includes(weakSubj)) weakSubj = "all";
+  const list = all.filter(w => weakSubj === "all" || w.subject === weakSubj);
+  const open = list.filter(w => !w.done), done = list.filter(w => w.done);
+  const groups = [...new Set(open.map(w => w.subject))];
+  const cnt = s => all.filter(w => !w.done && (s === "all" || w.subject === s)).length;
+  $("view").innerHTML = `
+    ${keys.length ? `<div class="filters"><button data-act="Kfilter" data-f="all" class="${weakSubj === "all" ? "on" : ""}">전체 ${cnt("all")}</button>
+      ${keys.map(s => `<button data-act="Kfilter" data-f="${esc(s)}" class="${weakSubj === s ? "on" : ""}">${esc(s)} ${cnt(s)}</button>`).join("")}</div>` : ""}
+    <button class="add" data-act="Knew" style="width:100%;background:var(--card);margin-bottom:10px">+ 부족한 점 적기</button>
+    ${groups.length ? groups.map(s => {
+      const xs = open.filter(w => w.subject === s), ex = examData.exams.find(x => subjKey(x.subject) === subjKey(s) && x.date && x.date >= todayKST());
+      return `<section class="day"><div class="dhead"><span class="date">${esc(s)}</span><span class="chip">${xs.length}개</span>
+        ${ex ? `<span class="dday ${ddayOf(ex.date)[1]}" title="${esc(ex.name || "시험")}">${ddayOf(ex.date)[0]}</span>` : ""}<span class="sp"></span></div>
+        <ul class="list tasks">${xs.map(weakItem).join("")}</ul></section>`;
+    }).join("") : `<div class="day"><div class="empty">${all.length ? "남은 부족한 점이 없어요 🎉" : "과목마다 모르는 개념, 자주 틀리는 유형을 적어 두세요. 알게 되면 체크해서 해결한 것으로 옮겨요."}</div></div>`}
+    ${done.length ? `<button class="btn ghost" data-act="Kpast" style="width:100%;margin:6px 0 10px">${weakOpenDone ? "▲ 해결한 것 접기" : `▼ 해결한 것 ${done.length}개`}</button>
+      ${weakOpenDone ? `<section class="day"><ul class="list tasks">${done.map(w => weakItem({ ...w, text: (weakSubj === "all" ? `[${w.subject}] ` : "") + w.text })).join("")}</ul></section>` : ""}` : ""}`;
+}
+async function writeWeak(fn, msg, okMsg) {
+  saving = true; renderWeak();
+  try {
+    await updateFile(WEAK_PATH, text => {
+      let data; try { data = text ? JSON.parse(text) : { items: [] }; } catch (e) { data = { items: [] }; }
+      data.items = fn(Array.isArray(data.items) ? data.items : []);
+      return JSON.stringify(data, null, 2) + "\n";
+    }, msg);
+    weakData = JSON.parse(files.get(WEAK_PATH).text); weakDraft = null; if (okMsg) toast(okMsg);
+  } catch (e) { saving = false; renderWeak(); showError(e, true); return; }
+  saving = false; renderWeak();
+}
+function weakClick(b) {
+  const act = b.dataset.act, id = b.closest("[data-id]")?.dataset.id;
+  if (act === "Kfilter") { weakSubj = b.dataset.f; store("wksubj", weakSubj); return renderWeak(); }
+  if (act === "Kpast") { weakOpenDone = !weakOpenDone; return renderWeak(); }
+  if (act === "Kchk") {   // 해결 체크는 바로 저장
+    const w = weakData.items.find(x => x.id === id); if (!w) return;
+    const done = !w.done;
+    return writeWeak(list => list.map(x => x.id === id ? { ...x, done } : x), "앱에서 부족한 점 체크", done ? "✓ 해결! 잘했어요" : "다시 부족한 점으로 옮겼어요");
+  }
+  if (act === "Knew") { if (!leaveOk()) return; weakDraft = { subject: weakSubj === "all" ? "" : weakSubj, text: "", memo: "", done: false }; }
+  else if (act === "Kedit") { if (!leaveOk()) return; weakDraft = structuredClone(weakData.items.find(x => x.id === id)); if (!weakDraft) return; }
+  else if (act === "Kcancel") weakDraft = null;
+  else if (act === "Kdel") {
+    if (!confirm("이 부족한 점을 지울까요?")) return;
+    const did = weakDraft.id; return writeWeak(list => list.filter(x => x.id !== did), "앱에서 부족한 점 삭제", "지웠어요");
+  } else if (act === "Ksave") {
+    const d = weakDraft, subject = cleanText(d.subject), text = (d.text || "").trim();
+    if (!subject) return toast("과목을 적어 주세요");
+    if (!text) return toast("부족한 점을 적어 주세요");
+    const w = { id: d.id || "k" + Date.now().toString(36), subject, text: text.slice(0, 300), memo: (d.memo || "").trim().slice(0, 2000), done: !!d.done, date: d.date || todayKST() };
+    return writeWeak(list => d.id ? list.map(x => x.id === w.id ? w : x) : [...list, w], `앱에서 부족한 점 ${d.id ? "수정" : "추가"}: ${subject}`, "저장됨 ✓");
+  }
+  renderWeak();
+  if (act === "Knew" || act === "Kedit") { window.scrollTo({ top: 0 }); document.querySelector(`[data-wk="${act === "Knew" && weakDraft.subject ? "text" : "subject"}"]`)?.focus(); }
 }
 
 /* ---------- 뉴스 · 공지 ----------
