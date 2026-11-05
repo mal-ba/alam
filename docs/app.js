@@ -1446,7 +1446,7 @@ function agoText(t) {
 }
 const kstHM = d => d.toLocaleTimeString("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false });
 // 회사 분야는 이모지 대신 진짜 로고 그림을 보여 줘요 (docs/logos/키.png)
-const NEWS_LOGOS = new Set(["nvidia", "lg", "meta", "hynix"]);
+const NEWS_LOGOS = new Set(["nation", "samsung", "nvidia", "apple", "hynix", "lg", "meta"]);
 const catName = c => NEWS_LOGOS.has(c.key)
   ? `<img class="nlogo" src="logos/${c.key}.png" alt="">${esc(String(c.name).replace(/^\S+\s+/, ""))}`
   : esc(c.name);
