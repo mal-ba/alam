@@ -46,7 +46,7 @@ CATEGORIES = [
     ("samsung", "🏢 삼성", search_url("삼성전자 OR 삼성 when:2d"), "삼성전자 OR 삼성그룹 OR 삼성"),
     ("nvidia", "🟩 엔비디아", search_url("엔비디아 OR NVIDIA when:3d"), "엔비디아 OR NVIDIA"),
     ("apple", "🍎 애플", search_url("애플 OR 아이폰 OR Apple when:3d"), "애플 OR 아이폰 OR 맥북"),
-    ("hynix", "💾 하이닉스", search_url("SK하이닉스 OR 하이닉스 when:3d"), "SK하이닉스 OR 하이닉스"),
+    ("hynix", "💾 하이닉스", search_url("SK하이닉스 OR 하이닉스 when:3d"), "SK하이닉스 OR 하이닉스 OR 하이닉스반도체"),
     ("lg", "📺 LG", search_url("LG전자 OR LG그룹 OR LG에너지솔루션 OR LG when:3d"), "LG전자 OR LG그룹 OR LG"),
     ("meta", "♾️ 메타", search_url("메타 플랫폼스 OR 페이스북 OR 인스타그램 OR 저커버그 when:3d"), "메타 OR 페이스북 OR 인스타그램 OR 저커버그"),
 ]
