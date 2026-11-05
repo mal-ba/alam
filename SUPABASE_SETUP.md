@@ -51,3 +51,18 @@ Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schem
 
 - 다른 사람에게는 **학교 이름, 학년, 출판사 목록, 몇 명이 등록했는지**만 보여요. 누가 등록했는지(계정·이메일)는 안 보여요.
 - 공유되는 건 각자 **지금 학년(★)** 출판사뿐이에요.
+
+## 전국 학교 목록 (한 번만: 공공데이터 키 넣기)
+이름이 같은 학교가 많아서, 앱에서 **전국 중·고등학교 목록**을 주소(지번·도로명)와 함께 보여 주고 고르게 해요.
+목록은 GitHub Actions(`.github/workflows/schools.yml`)가 한 달에 한 번 공공데이터에서 받아 `docs/schools.json` 으로 저장해요.
+
+1. https://www.data.go.kr 회원가입 → 로그인
+2. 검색창에 **전국초중등학교위치표준데이터** → **오픈API** 탭 → **활용신청** (목적: 개인 공부용 앱의 학교 선택 등). 보통 바로 승인돼요
+3. **마이페이지 → 데이터활용 → Open API → 활용신청 현황** → 그 API → **일반 인증키 (Decoding)** 복사
+4. GitHub 저장소 **Settings → Secrets and variables → Actions → New repository secret**
+   - Name: `DATA_GO_KR_KEY`, Secret: 복사한 키
+5. 저장소 **Actions → 전국 학교 목록 모으기 → Run workflow** → 1~2분 뒤 `docs/schools.json` 이 생기면 끝
+
+- 대신 나이스(https://open.neis.go.kr) 인증키를 `NEIS_KEY` 로 넣어도 돼요. 이 경우 도로명주소만 있고 **지번주소·지도 위치는 없어요**.
+- 목록이 없을 때는 앱이 예전처럼 학교 이름을 직접 적게 해요.
+- 학교 목록에서 고른 학교는 **학교 고유번호**로 친구들과 출판사를 맞춰요. 이름이 같아도 다른 학교와 섞이지 않아요.
