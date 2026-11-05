@@ -232,7 +232,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -327,11 +327,11 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null;
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩" }[mode];
+  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   $("noticeBtn").setAttribute("aria-pressed", mode === "notice");
@@ -343,6 +343,7 @@ async function load() {
   if (mode === "news") return loadNews(seq);
   if (mode === "notice") return loadNotice(seq);
   if (mode === "learn") return loadLearn(seq);
+  if (mode === "web") return loadWeb(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -556,6 +557,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("x")) return examClick(b);
   if (act.startsWith("q")) return placeClick(b);
   if (act.startsWith("L")) return learnClick(b);
+  if (act.startsWith("w")) return webClick(b);
   if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); newsShow = NEWS_PAGE; return renderNews(); }
   if (act === "nmore") { newsShow += NEWS_PAGE; return newsList(); }
   if (act === "ngonotice") { if (!leaveOk()) return; mode = "notice"; store("mode", mode); return load(); }
@@ -1540,6 +1542,126 @@ async function newsList() {
     ? `<div class="nlist">${items.slice(0, newsShow).map(x => newsLink(x, when(x))).join("")}</div>
        ${items.length > newsShow ? `<button class="btn ghost nmore" data-act="nmore">더 보기 (${(items.length - newsShow).toLocaleString()}개 더)</button>` : ""}`
     : `<div class="empty">${q ? "찾는 기사가 없어요." : y ? "이 기간 기사는 아직 모으는 중이에요." : "기사가 없어요."}</div>`;
+}
+
+/* ---------- 🔎 찾아보기 (인터넷 검색: 위키백과 바로 보기 + 검색 사이트 바로가기 + 나에게 맞춘 추천 검색어) ---------- */
+// 🔒 검색어는 위키백과(ko.wikipedia.org)에만 보내고, 다른 사이트는 내가 버튼을 누를 때만 새 창으로 열려요
+const WEB_SITES = [
+  { g: "정보", items: [
+    ["구글", "https://www.google.com/search?q="], ["네이버", "https://search.naver.com/search.naver?query="],
+    ["다음", "https://search.daum.net/search?q="], ["나무위키", "https://namu.wiki/Search?q="],
+    ["위키백과", "https://ko.wikipedia.org/w/index.php?search="], ["유튜브", "https://www.youtube.com/results?search_query="]] },
+  { g: "공부", items: [
+    ["EBSi", "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSearchResult.ebs?searchKeyword="], ["네이버 지식백과", "https://terms.naver.com/search.naver?query="],
+    ["국어사전", "https://ko.dict.naver.com/#/search?query="], ["영어사전", "https://en.dict.naver.com/#/search?query="],
+    ["구글 학술검색", "https://scholar.google.co.kr/scholar?q="], ["파파고 번역", "https://papago.naver.com/?sk=auto&tk=ko&st="]] },
+  { g: "쇼핑·가격", items: [
+    ["네이버 쇼핑", "https://search.shopping.naver.com/search/all?query="], ["쿠팡", "https://www.coupang.com/np/search?q="],
+    ["다나와 최저가", "https://search.danawa.com/dsearch.php?query="], ["11번가", "https://search.11st.co.kr/Search.tmall?kwd="],
+    ["G마켓", "https://browse.gmarket.co.kr/search?keyword="], ["당근 중고", "https://www.daangn.com/search/"]] },
+  { g: "생활", items: [
+    ["지도에서 찾기", "https://map.kakao.com/?q="], ["날씨", "https://search.naver.com/search.naver?query=날씨+"],
+    ["맛집", "https://search.naver.com/search.naver?query=맛집+"], ["레시피", "https://www.10000recipe.com/recipe/list.html?q="]] },
+];
+let webQuery = "", webRes = null, webBusy = false, webSeq = 0;
+const webRecent = () => { try { const a = JSON.parse(store("wrecent") || "[]"); return Array.isArray(a) ? a.filter(x => typeof x === "string").slice(0, 10) : []; } catch (e) { return []; } };
+const webLink = (base, q) => safeUrl(base + encodeURIComponent(q));
+const stripTags = s => String(s || "").replace(/<[^>]*>/g, "").replace(/&quot;/g, '"').replace(/&#039;|&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+
+// 내 일정·시험·할 일에서 "지금 나에게 필요할 것 같은" 검색어 만들기
+function webSuggest() {
+  const out = [], add = (q, why) => { q = q.replace(/\s+/g, " ").trim(); if (q && q.length <= 40 && !out.some(x => x.q === q)) out.push({ q, why }); };
+  const t = todayKST();
+  const soon = (examData.exams || []).filter(x => x.date >= t && x.date <= addDays(t, 30)).sort((a, b) => a.date.localeCompare(b.date));
+  for (const x of soon.slice(0, 4)) {
+    const [dd] = ddayOf(x.date), subj = x.subject || x.name || "";
+    const low = (x.ranges || []).filter(r => (+r.progress || 0) < 70).slice(0, 2);
+    for (const r of low) add(`${subj} ${r.text} 개념 정리`, `📝 ${dd} · 진도 ${+r.progress || 0}%`);
+    if (x.kind === "수행") add(`${x.name || subj} 수행평가 예시`, `📝 ${dd} 수행평가`);
+    else add(`${subj} 기출문제`, `📝 ${dd} ${x.name || "시험"}`);
+  }
+  const td = days.find(d => d.iso === t);
+  for (const m of ((td && td.day.memos) || []).filter(m => !isSys(m) && !isDone(m)).slice(0, 3)) add(taskText(m), "☑️ 오늘 할 일");
+  try { const L = learnData && curLang(); if (L) add(`${L.name.replace(/^\S+\s/, "")} 기초 문법`, "💻 코딩 공부 중"); } catch (e) {}
+  return out.slice(0, 8);
+}
+
+async function loadWeb(seq = loadSeq) {
+  $("label").innerHTML = `찾아보기<span class="sub">인터넷 검색 · 나에게 맞춘 추천</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try { await loadExamData(); } catch (e) {}
+  if (seq !== loadSeq) return;
+  renderWeb();
+}
+function renderWeb() {
+  const q = webQuery.trim(), sug = webSuggest(), rec = webRecent();
+  $("view").innerHTML = `<form class="wform" id="wform"><input class="search" id="wq" type="search" enterkeyhint="search" value="${esc(webQuery)}" placeholder="🔎 무엇이든 찾아보기 (예: 광합성, 무선 이어폰, 파이썬 반복문)" autocomplete="off">
+      <button class="btn" type="submit">검색</button></form>
+    ${q ? "" : `${sug.length ? `<section class="day"><div class="dhead"><span class="date">✨ 나에게 필요할 것 같은 검색</span></div>
+      <div class="wsug">${sug.map(s => `<button data-act="wgo" data-q="${esc(s.q)}"><b>${esc(s.q)}</b><span>${esc(s.why)}</span></button>`).join("")}</div>
+      <div class="empty" style="font-size:12px">다가오는 시험(진도가 낮은 범위), 오늘 할 일, 코딩 공부에서 골랐어요.</div></section>` : ""}
+      ${rec.length ? `<section class="day"><div class="dhead"><span class="date">🕒 최근 검색</span><span class="sp"></span><button class="mini-btn" data-act="wclear">지우기</button></div>
+      <div class="filters" style="margin:6px 0 0">${rec.map(r => `<button data-act="wgo" data-q="${esc(r)}">${esc(r)}</button>`).join("")}</div></section>` : ""}`}
+    <div id="wres"></div>
+    <section class="day"><div class="dhead"><span class="date">🌐 ${q ? `"${esc(q)}" 다른 곳에서 찾기` : "검색 사이트"}</span></div>
+      ${WEB_SITES.map(g => `<div class="lbl" style="margin-top:8px">${g.g}</div><div class="rbtns" style="margin-top:4px">${g.items.map(([n, u]) =>
+        q ? `<a class="mini-btn" href="${esc(webLink(u, q))}" target="_blank" rel="noopener noreferrer">${n}</a>` : `<button class="mini-btn" data-act="wsite" data-u="${esc(u)}">${n}</button>`).join("")}</div>`).join("")}
+      <div class="empty" style="font-size:12px">${q ? "누르면 그 사이트의 검색 결과가 새 창으로 열려요." : "위에 검색어를 쓰고 사이트를 누르면 그 사이트에서 바로 찾아 줘요."}</div></section>`;
+  $("wform").onsubmit = e => { e.preventDefault(); webSearch($("wq").value); };
+  $("wq").oninput = e => { webQuery = e.target.value; if (!e.target.value.trim() && webRes) { webRes = null; renderWeb(); $("wq").focus(); } };
+  webList();
+}
+function webList() {
+  const box = $("wres"); if (!box) return;
+  const q = webQuery.trim(); if (!q) { box.innerHTML = ""; return; }
+  if (webBusy) { box.innerHTML = `<section class="day"><div class="loading" style="padding:16px 0">"${esc(q)}" 찾는 중…</div></section>`; return; }
+  const r = webRes || {}, sum = r.summary, wiki = r.wiki || [], news = r.news || [];
+  box.innerHTML = `${sum ? `<section class="day wsum">${sum.img ? `<img src="${esc(safeUrl(sum.img))}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}
+      <div class="dhead"><span class="date">📖 ${esc(sum.title)}</span></div>
+      ${sum.desc ? `<div class="empty" style="margin:0 0 4px">${esc(sum.desc)}</div>` : ""}
+      <div class="lbody">${esc(sum.extract)}</div>
+      <a class="mini-btn" style="margin-top:8px" href="${esc(safeUrl(sum.url))}" target="_blank" rel="noopener noreferrer">위키백과에서 더 보기 ›</a></section>` : ""}
+    <section class="day"><div class="dhead"><span class="date">🔎 위키백과 검색 결과</span><span class="sp"></span><span class="empty" style="margin:0">${r.total ? `${r.total.toLocaleString()}개` : ""}</span></div>
+      ${r.err ? `<div class="err">${esc(r.err)}</div>` : wiki.length ? `<div class="nlist">${wiki.map(w => `<a href="${esc(safeUrl("https://ko.wikipedia.org/wiki/" + encodeURIComponent(w.title.replace(/ /g, "_"))))}" target="_blank" rel="noopener noreferrer"><b>${esc(w.title)}</b><span>${esc(w.snippet)}…</span></a>`).join("")}</div>`
+        : `<div class="empty">위키백과에는 딱 맞는 글이 없어요. 아래 사이트에서 찾아보세요.</div>`}</section>
+    ${news.length ? `<section class="day"><div class="dhead"><span class="date">📰 앱에 모은 뉴스</span></div>
+      <div class="nlist">${news.map(n => `<a href="${esc(safeUrl(n.link))}" target="_blank" rel="noopener noreferrer"><b>${esc(n.title)}</b><span>${esc([n.source, n.time && String(n.time).slice(0, 10)].filter(Boolean).join(" · "))}</span></a>`).join("")}</div></section>` : ""}`;
+}
+async function webSearch(raw) {
+  const q = String(raw || "").replace(/\s+/g, " ").trim().slice(0, 100);
+  webQuery = q; webRes = null;
+  if (!q) return renderWeb();
+  store("wrecent", JSON.stringify([q, ...webRecent().filter(x => x !== q)].slice(0, 10)));
+  const seq = ++webSeq; webBusy = true; renderWeb();
+  const api = "https://ko.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=8&srsearch=" + encodeURIComponent(q);
+  const res = { wiki: [], news: [] };
+  try {
+    const [s] = await Promise.all([fetch(api).then(r => r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status))), fetchNews()]);
+    res.wiki = ((s.query && s.query.search) || []).map(x => ({ title: String(x.title), snippet: stripTags(x.snippet) }));
+    res.total = (s.query && s.query.searchinfo && s.query.searchinfo.totalhits) || 0;
+    const top = res.wiki[0];
+    if (top) {
+      const p = await fetch("https://ko.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(top.title.replace(/ /g, "_"))).then(r => r.ok ? r.json() : null).catch(() => null);
+      if (p && p.extract && p.type !== "disambiguation") res.summary = { title: p.title || top.title, desc: p.description || "", extract: p.extract,
+        img: p.thumbnail && p.thumbnail.source, url: (p.content_urls && p.content_urls.mobile && p.content_urls.mobile.page) || "" };
+    }
+  } catch (e) { res.err = "인터넷 검색을 못 했어요 (연결을 확인해 주세요). 아래 사이트 버튼으로 찾아볼 수 있어요."; }
+  const words = q.toLowerCase().split(" ").filter(Boolean);
+  for (const c of newsCats()) for (const n of c.items || [])
+    if (res.news.length < 6 && words.every(w => String(n.title || "").toLowerCase().includes(w)) && !res.news.some(x => x.link === n.link)) res.news.push(n);
+  if (seq !== webSeq) return;
+  webBusy = false; webRes = res;
+  if (mode === "web" && $("wres")) webList();
+}
+function webClick(b) {
+  const act = b.dataset.act;
+  if (act === "wgo") return webSearch(b.dataset.q);
+  if (act === "wclear") { store("wrecent", null); return renderWeb(); }
+  if (act === "wsite") {
+    const q = ($("wq") && $("wq").value.trim()) || "";
+    if (!q) { toast("먼저 찾을 것을 써 주세요"); $("wq") && $("wq").focus(); return; }
+    window.open(webLink(b.dataset.u, q), "_blank", "noopener,noreferrer");
+  }
 }
 
 /* ---------- 코딩 공부 (강의: docs/learn.json, 내 진도·코드: Supabase learn.json) ---------- */
