@@ -17,7 +17,7 @@
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://dapi.kakao.com https://*.daumcdn.net;
   worker-src 'self' blob:;
-  connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.github.com https://godbolt.org https://nominatim.openstreetmap.org https://cdn.jsdelivr.net https://dapi.kakao.com https://*.daumcdn.net;
+  connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.github.com https://godbolt.org https://nominatim.openstreetmap.org https://ko.wikipedia.org https://cdn.jsdelivr.net https://dapi.kakao.com https://*.daumcdn.net;
   img-src 'self' data: blob: https:;
   style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
   font-src 'self' data:;
@@ -325,6 +325,15 @@ header .wrap{position:relative}
 .btn.ghost.danger{color:var(--danger);border-color:var(--danger)}
 .btn:disabled{opacity:.5;cursor:default}
 a{color:var(--accent)}
+.wform{display:flex;gap:8px;align-items:flex-start}
+.wform .search{flex:1;min-width:0}
+.wform .btn{flex:none;padding:9px 14px}
+.wsug{display:grid;gap:6px;margin-top:6px}
+.wsug button{display:flex;flex-direction:column;gap:2px;text-align:left;border:1px solid var(--line);background:var(--input);border-radius:10px;padding:9px 11px;cursor:pointer;color:var(--text);font:inherit}
+.wsug b{font-weight:700} .wsug span{font-size:12px;color:var(--muted)}
+.wsum img{float:right;width:96px;max-height:120px;object-fit:cover;border-radius:10px;margin:0 0 6px 10px}
+.wsum::after{content:"";display:block;clear:both}
+.rbtns a.mini-btn{text-decoration:none}
 .err{color:var(--danger);font-size:13px;white-space:pre-wrap}
 .loading{text-align:center;color:var(--muted);padding:40px 0}
 </style>
@@ -351,6 +360,7 @@ a{color:var(--accent)}
     <button data-mode="map">🗺️ 지도·길찾기</button>
     <button data-mode="news">📰 뉴스</button>
     <button data-mode="learn">💻 코딩 공부</button>
+    <button data-mode="web">🔎 찾아보기 (인터넷 검색)</button>
   </div>
   <div class="navrow">
     <button class="icon-btn" id="prev" aria-label="이전">‹</button>
