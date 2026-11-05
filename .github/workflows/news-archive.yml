@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cat: [stock, economy, world, nation, politics, rp, samsung]   # 분야마다 동시에
+        cat: [stock, economy, world, nation, politics, rp, samsung, nvidia, apple, hynix, lg, meta]   # 분야마다 동시에
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

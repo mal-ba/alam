@@ -44,10 +44,20 @@ CATEGORIES = [
     ("politics", "🏛️ 정치", search_url("정치 OR 국회 OR 대통령실 when:2d"), "정치 OR 국회 OR 대통령 OR 청와대"),
     ("rp", "🏦 RP", search_url("RP 환매조건부채권 OR RP금리 OR 발행어음 when:14d"), "RP 환매조건부채권 OR RP금리 OR 발행어음"),
     ("samsung", "🏢 삼성", search_url("삼성전자 OR 삼성 when:2d"), "삼성전자 OR 삼성그룹 OR 삼성"),
+    ("nvidia", "🟩 엔비디아", search_url("엔비디아 OR NVIDIA when:3d"), "엔비디아 OR NVIDIA"),
+    ("apple", "🍎 애플", search_url("애플 OR 아이폰 OR Apple when:3d"), "애플 OR 아이폰 OR 맥북"),
+    ("hynix", "💾 하이닉스", search_url("SK하이닉스 OR 하이닉스 when:3d"), "SK하이닉스 OR 하이닉스"),
+    ("lg", "📺 LG", search_url("LG전자 OR LG그룹 OR LG에너지솔루션 OR LG when:3d"), "LG전자 OR LG그룹 OR LG"),
+    ("meta", "♾️ 메타", search_url("메타 플랫폼스 OR 페이스북 OR 인스타그램 OR 저커버그 when:3d"), "메타 OR 페이스북 OR 인스타그램 OR 저커버그"),
 ]
 # 구글 뉴스 말고 같이 모으는 곳 (분야 키 → [(주소, 언론사 이름 없을 때 쓸 이름)])
 EXTRA_FEEDS = {
     "samsung": [("https://news.samsung.com/kr/feed", "삼성전자 뉴스룸")],
+    "nvidia": [("https://nvidianews.nvidia.com/releases.xml", "NVIDIA 뉴스룸")],
+    "apple": [("https://www.apple.com/kr/newsroom/rss-feed.rss", "Apple 뉴스룸")],
+    "hynix": [("https://news.skhynix.co.kr/feed/", "SK하이닉스 뉴스룸")],
+    "lg": [("https://live.lge.co.kr/feed/", "LG전자 LIVE")],
+    "meta": [("https://about.fb.com/news/feed/", "Meta 뉴스룸")],
 }
 PER_FETCH = 40      # 한 번에 받는 최신 기사 수 (분야마다)
 RECENT_MAX = 120    # news.json 에 남겨 두는 최근 기사 수 (분야마다)
