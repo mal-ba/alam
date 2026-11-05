@@ -13,8 +13,10 @@ on:
         type: boolean
         default: false
 
+# 🔒 데이터는 Supabase 에만 있어요. 이 작업은 저장소에 아무것도 쓰지 않으니 읽기 권한만.
+# (예전 '저장소 파일 방식'은 개인 계획표를 공개 저장소에 커밋해서 없앴어요)
 permissions:
-  contents: write   # 계획표(plans/) 파일을 저장소에 저장하기 위해
+  contents: read
 
 concurrency:
   group: midnight-alarm
@@ -23,46 +25,23 @@ concurrency:
 jobs:
   schedule-alarms:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false   # push 할 일이 없으니 GitHub 토큰을 디스크에 남기지 않아요
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
-      - name: 계획표 만들기 + 알람 예약
+      - name: 알람 예약 (Supabase 계정마다)
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           FORCE: ${{ inputs.force && '--force' || '' }}
-        # 공개 저장소라 Actions 로그도 누구나 볼 수 있어요 → 일정 내용은 로그에 안 찍어요
+        # 공개 저장소라 Actions 로그도 누구나 볼 수 있어요 → 일정 내용·이메일·토픽은 로그에 안 찍어요 (개수만)
         run: |
-          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ]; then
-            python run_supabase.py $FORCE
-          elif [ -f schedule.json ]; then
-            python alarm.py $FORCE > /dev/null
-            echo "예전 방식(저장소 파일)으로 예약했어요"
-          else
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
             echo "::error::GitHub Secrets 에 SUPABASE_URL 과 SUPABASE_SERVICE_KEY 를 넣어 주세요 (SUPABASE_SETUP.md 3번)"
             exit 1
           fi
-      - name: 계획표 저장(커밋) — 예전 방식일 때만
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        run: |
-          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ] || [ ! -f schedule.json ]; then
-            echo "Supabase 사용 중: 저장소에 커밋할 것 없음"; exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add plans
-          if git diff --cached --quiet; then
-            echo "바뀐 계획표 없음"
-            exit 0
-          fi
-          git commit -m "계획표 자동 업데이트 ($(TZ=Asia/Seoul date +%F))"
-          for i in 1 2 3; do
-            git pull --rebase && git push && exit 0
-            sleep 5
-          done
-          exit 1
+          python run_supabase.py $FORCE

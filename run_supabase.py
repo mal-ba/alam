@@ -10,8 +10,8 @@ import io
 import json
 import os
 import sys
+import re
 import tempfile
-import traceback
 import urllib.parse
 import urllib.request
 from pathlib import Path, PurePosixPath
@@ -20,6 +20,14 @@ import alarm
 
 URL = os.environ["SUPABASE_URL"].rstrip("/")
 KEY = os.environ["SUPABASE_SERVICE_KEY"]
+if not re.fullmatch(r"https://[a-z0-9-]+\.supabase\.co", URL):   # 키를 엉뚱한 곳으로 보내지 않게
+    sys.exit("SUPABASE_URL 은 https://<프로젝트>.supabase.co 형식이어야 해요")
+
+# ntfy 토픽: ntfy 가 허용하는 영문·숫자·_- 만 (URL 경로를 바꾸거나 다른 곳으로 새지 않게).
+# 추측하기 쉬운 짧은 이름은 앱(⚙️)에서 경고해요.
+TOPIC_RE = re.compile(r"[A-Za-z0-9_-]{1,64}")
+# 계정 하나가 너무 많이 저장해서 실행을 오래 붙잡지 않게
+MAX_DOCS, MAX_BYTES = 3000, 20_000_000
 
 
 def rest(method, path, body=None, prefer=None):
@@ -42,7 +50,9 @@ def safe_path(p):
 
 
 def run_user(uid, topic, extra_args):
-    docs = rest("GET", f"docs?user_id=eq.{urllib.parse.quote(uid)}&select=path,content&limit=10000")
+    docs = rest("GET", f"docs?user_id=eq.{urllib.parse.quote(uid)}&select=path,content&limit={MAX_DOCS + 1}")
+    if len(docs) > MAX_DOCS or sum(len(d["content"]) for d in docs) > MAX_BYTES:
+        return "저장한 게 너무 많아서 건너뜀"
     before = {d["path"]: d["content"] for d in docs if safe_path(d["path"])}
     if "schedule.json" not in before:
         return "시간표 없음, 건너뜀"
@@ -56,8 +66,13 @@ def run_user(uid, topic, extra_args):
         os.environ["NTFY_TOPIC"] = topic
         sys.argv = ["alarm.py", "--schedule", str(root / "schedule.json"), *extra_args]
         out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            alarm.main()
+        # stdout·stderr 둘 다 가둬요: alarm.py 의 경고에는 일정 내용이 들어갈 수 있는데 공개 로그에 찍히면 안 돼요
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
+            try:
+                alarm.main()
+            except SystemExit as e:   # alarm.py 가 sys.exit 해도 다른 계정은 계속
+                if e.code not in (None, 0):
+                    raise RuntimeError("alarm.py 종료") from None
         changed = []
         for f in root.rglob("*"):
             if f.is_file():
@@ -84,12 +99,15 @@ def main():
             topic = ""
         if not topic:
             continue
+        if not TOPIC_RE.fullmatch(topic):
+            print(f"계정 {i}: ntfy 토픽에 쓸 수 없는 글자가 있어서 건너뜀 (영문·숫자·_- 64자까지)")
+            continue
         n += 1
         try:
             print(f"계정 {i}: {run_user(row['user_id'], topic, extra)}")
         except Exception as e:  # 한 계정이 실패해도 다른 계정은 계속
+            # 오류 메시지·traceback 은 찍지 않아요 (일정 내용이 섞일 수 있음). 종류만.
             print(f"계정 {i}: 실패 ({type(e).__name__})")
-            traceback.print_exc(limit=0)
     print(f"알림 켜진 계정 {n}개 처리")
 
 

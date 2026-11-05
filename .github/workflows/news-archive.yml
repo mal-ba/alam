@@ -26,11 +26,11 @@ jobs:
       matrix:
         cat: [stock, economy, world, nation, politics, rp, samsung, nvidia, apple, hynix, lg, meta]   # 분야마다 동시에
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
-      - run: python news_archive.py --cat "$CAT" $YEAR
+      - run: python news_archive.py --cat "$CAT" ${YEAR:+"$YEAR"}
         env:
           CAT: ${{ matrix.cat }}
           YEAR: ${{ github.event.inputs.year }}
@@ -63,9 +63,10 @@ jobs:
     needs: archive
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4   # 분야별 저장이 다 끝난 뒤라 최신 내용을 받아요
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0 — 분야별 저장이 다 끝난 뒤라 최신 내용을 받아요
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
       - run: python -c "import news; news.write_index()"

@@ -1,0 +1,8 @@
+# GitHub Actions 를 커밋 SHA 로 고정해 두었어요 (태그가 바꿔치기돼도 안전하게).
+# 새 버전이 나오면 Dependabot 이 SHA 를 올리는 PR 을 만들어 줘요.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>실행 결과</title>
+<!--
+  🔒 코딩 공부의 HTML/CSS 실행 칸. 앱(index.html)이 sandbox="allow-scripts" 틀 안에 열어요.
+  - 틀 안은 '주인 없는 출처(null)'라서 내가 쓴 코드가 앱의 로그인 정보(localStorage)를 못 봐요.
+  - 이 파일을 틀 밖에서 바로 열면(=앱과 같은 출처) 아무것도 실행하지 않아요.
+  - 앱의 CSP 와 따로라서 수업 코드의 <script>·onclick 이 그대로 돌아가요.
+-->
+<script>
+if (self.origin === "null" && window.parent !== window) {
+  addEventListener("message", function (e) {
+    if (e.source !== window.parent || !e.data || typeof e.data.html !== "string") return;
+    document.open(); document.write(e.data.html); document.close();
+  }, { once: true });
+}
+</script>
+</head>
+<body></body>
+</html>
