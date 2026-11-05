@@ -201,6 +201,7 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .tbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-top:6px}
 .tbgrid div{display:flex;justify-content:space-between;gap:6px;background:var(--input);border-radius:8px;padding:7px 10px;font-size:14px}
 .tbgrid span{color:var(--muted)}
+.tbschool{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:2px}
 .tbgrades{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:6px 0 2px}
 .tbgrades button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 0;font-weight:700;font-size:13px;color:var(--muted);cursor:pointer}
 .tbgrades button.on{background:var(--accent-weak);border-color:var(--accent);color:var(--accent)}
@@ -298,6 +299,7 @@ a{color:var(--accent)}
   </div>
   <div id="moreMenu" class="moremenu" hidden>
     <button data-mode="exam">📝 시험 범위·진도</button>
+    <button data-mode="books">📚 교과서 출판사</button>
     <button data-mode="year">📆 연간 계획</button>
     <button data-mode="map">🗺️ 지도·길찾기</button>
     <button data-mode="news">📰 뉴스</button>
@@ -549,7 +551,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "map", "news", "learn"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "learn"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -642,16 +644,17 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null;
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "map" || mode === "news" || mode === "learn";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "learn";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩" }[mode];
+  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   if (mode === "report") return loadReport(seq);
   if (mode === "year") return loadYear(seq);
   if (mode === "exam") return loadExams(seq);
+  if (mode === "books") return loadBooks(seq);
   if (mode === "map") return loadMap(seq);
   if (mode === "news") return loadNews(seq);
   if (mode === "learn") return loadLearn(seq);
@@ -1385,11 +1388,12 @@ function normGrade(g) {
 }
 function savedTb(data) {   // 저장된 출판사 { grade, textbooks: {학년: [...]} } 또는 null (예전 형식: textbooks 가 배열)
   const t = data.textbooks;
-  if (Array.isArray(t)) { const g = normGrade(data.grade) || "고1"; return { grade: g, textbooks: { [g]: t } }; }
-  if (t && typeof t === "object") return { grade: normGrade(data.grade) || "", textbooks: t };
-  return null;
+  const school = data.school || "";
+  if (Array.isArray(t)) { const g = normGrade(data.grade) || "고1"; return { school, grade: g, textbooks: { [g]: t } }; }
+  if (t && typeof t === "object") return { school, grade: normGrade(data.grade) || "", textbooks: t };
+  return school ? { school, grade: "", textbooks: {} } : null;
 }
-const tbInfo = () => savedTb(examData) || TB_DEFAULT;   // 한 번도 저장 안 했으면 고1 예시
+const tbInfo = () => { const t = savedTb(examData); return t && (Object.keys(t.textbooks).length || t.grade) ? t : { ...TB_DEFAULT, school: (t || {}).school || "" }; };   // 한 번도 저장 안 했으면 고1 예시
 let tbView = store("tbgrade") || "";
 const tbViewGrade = () => GRADES.includes(tbView) ? tbView : tbInfo().grade || "고1";
 const subjKey = x => String(x || "").replace(/\s+/g, "");
@@ -1398,9 +1402,20 @@ function publisherOf(subj) {   // 지금 학년 목록에서: 같은 과목 이�
   const hit = list.find(t => subjKey(t.subject) === subjKey(subj)) || list.find(t => subjectGroup(t.subject) === subjectGroup(subj));
   return (hit && hit.publisher) || "";
 }
+async function loadBooks(seq = loadSeq) {
+  $("label").innerHTML = `교과서 출판사<span class="sub">우리 학교 · 학년별</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try { await loadExamData(true); if (seq === loadSeq) renderBooks(); } catch (e) { if (seq === loadSeq) showError(e); }
+}
+function renderBooks() {
+  if (tbDraft) { $("view").innerHTML = tbForm(tbDraft); return; }
+  $("view").innerHTML = tbCard() + `<div class="empty" style="padding:4px 6px 12px;font-size:13px">학년 버튼을 눌러 학년마다 따로 적을 수 있어요.
+    ★ 표시한 지금 학년의 출판사가 📝 시험 범위·진도의 시험 카드에 나와요.</div>`;
+}
 function tbCard() {
   const info = tbInfo(), g = tbViewGrade(), list = info.textbooks[g] || [];
-  return `<section class="day tbcard"><div class="dhead"><span class="date">📚 ${g} 교과서 출판사</span>
+  return `<section class="day tbcard">${info.school ? `<div class="tbschool">🏫 ${esc(info.school)}</div>` : ""}
+    <div class="dhead"><span class="date">📚 ${g} 교과서 출판사</span>
     ${g === info.grade ? '<span class="chip">지금 학년</span>' : ""}<span class="sp"></span>
     <button class="pencil" data-act="xtbedit" aria-label="출판사 수정">✏️</button></div>
     <div class="tbgrades">${GRADES.map(x => `<button data-act="xtbg" data-g="${x}" class="${x === g ? "on" : ""}">${x}${x === info.grade ? " ★" : ""}</button>`).join("")}</div>
@@ -1413,6 +1428,7 @@ function tbForm(d) {
   const missing = tbBase(d.view).filter(x => !d.list.some(t => subjKey(t.subject) === subjKey(x)));
   return `<section class="day editing rform">
     <div class="dhead"><span class="date">📚 ${d.view} 교과서 출판사</span></div>
+    <label>학교 이름 <span class="hint">— 선택</span></label><input data-tb="school" value="${esc(d.school)}" placeholder="예) ○○고등학교">
     <datalist id="tbsubjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
     <label class="tbcur"><input type="checkbox" data-tb="isCur" ${d.isCur ? "checked" : ""}><span><b>지금 내 학년이에요</b>
       <small>켜 두면 시험 카드에 이 학년 출판사가 나와요</small></span></label>
@@ -1433,15 +1449,17 @@ function tbInput(t) {
   const k = t.dataset.tb, row = t.closest(".tbrow");
   if (row) tbDraft.list[+row.dataset.k][k] = t.value;
   else if (k === "isCur") tbDraft.isCur = t.checked;
+  else if (k === "school") tbDraft.school = t.value;
 }
 async function saveTextbooks() {
-  const { view, isCur } = tbDraft;
+  const { view, isCur } = tbDraft, school = (tbDraft.school || "").trim();
   const list = tbDraft.list.map(t => ({ subject: (t.subject || "").trim(), publisher: (t.publisher || "").trim() })).filter(t => t.subject || t.publisher);
-  saving = true; renderExams();
+  saving = true; renderBooks();
   try {
     await updateFile(EXAM_PATH, text => {
       let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
       data.exams ||= [];
+      if (school) data.school = school; else delete data.school;
       const cur = savedTb(data) || { grade: "", textbooks: {} }, all = { ...cur.textbooks };
       if (list.length) all[view] = list; else delete all[view];
       data.textbooks = Object.fromEntries(GRADES.filter(g => all[g]).map(g => [g, all[g]]));
@@ -1449,8 +1467,8 @@ async function saveTextbooks() {
       return JSON.stringify(data, null, 2) + "\n";
     }, `앱에서 ${view} 교과서 출판사 수정`);
     examData = JSON.parse(files.get(EXAM_PATH).text); examData.exams ||= []; tbDraft = null; toast("저장됨 ✓");
-  } catch (e) { saving = false; renderExams(); showError(e, true); return; }
-  saving = false; renderExams();
+  } catch (e) { saving = false; renderBooks(); showError(e, true); return; }
+  saving = false; renderBooks();
 }
 async function loadExamData(force) {
   const f = await getFile(EXAM_PATH, force);
@@ -1507,7 +1525,6 @@ function examForm(d) {
 }
 function renderExams() {
   if (examDraft) { $("view").innerHTML = examForm(examDraft); return; }
-  if (tbDraft) { $("view").innerHTML = tbForm(tbDraft); return; }
   const t = todayKST();
   const list = examData.exams.filter(x => examFilter === "all" || x.kind === examFilter)
     .sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
@@ -1520,7 +1537,6 @@ function renderExams() {
       <button class="add" data-act="xnew" style="flex:1;background:var(--card)">+ 시험 추가</button>
       <button class="add" data-act="xscan" style="flex:1;background:var(--card)">📥 계획에서 시험 찾기</button></div>
     ${examCands ? candPanel() : ""}
-    ${tbCard()}
     ${up.length ? up.map(examCard).join("") : '<div class="day"><div class="empty">다가오는 시험이 없어요. + 시험 추가로 과목별 범위를 적어 보세요. (예: 2차 정기시험 12/9~12/15)</div></div>'}
     ${past.length ? `<button class="btn ghost" data-act="xpast" style="width:100%;margin:6px 0 10px">${examOpenPast ? "▲ 지난 시험 접기" : `▼ 지난 시험 ${past.length}개`}</button>${examOpenPast ? past.map(examCard).join("") : ""}` : ""}`;
 }
@@ -1605,18 +1621,18 @@ async function examClick(b) {
     } catch (e) { saving = false; renderExams(); showError(e, true); return; }
     saving = false; return renderExams();
   }
-  if (act === "xtbg") { if (!leaveOk()) return; tbView = b.dataset.g; store("tbgrade", tbView); return renderExams(); }
+  if (act === "xtbg") { if (!leaveOk()) return; tbView = b.dataset.g; store("tbgrade", tbView); return renderBooks(); }
   if (act === "xtbedit") {
     if (!leaveOk()) return;
     const info = tbInfo(), view = tbViewGrade();
-    tbDraft = { view, isCur: info.grade === view || !info.grade, list: structuredClone(info.textbooks[view] || []) };
+    tbDraft = { view, school: info.school || "", isCur: info.grade === view || !info.grade, list: structuredClone(info.textbooks[view] || []) };
     if (!tbDraft.list.length) tbDraft.list = tbBase(view).map(x => ({ subject: x, publisher: "" }));
-    renderExams(); return window.scrollTo({ top: 0 });
+    renderBooks(); return window.scrollTo({ top: 0 });
   }
-  if (act === "xtbfill") { tbBase(tbDraft.view).filter(x => !tbDraft.list.some(t => subjKey(t.subject) === subjKey(x))).forEach(x => tbDraft.list.push({ subject: x, publisher: "" })); return renderExams(); }
-  if (act === "xtbcancel") { tbDraft = null; return renderExams(); }
-  if (act === "xtbadd") { tbDraft.list.push({ subject: "", publisher: "" }); renderExams(); return [...document.querySelectorAll('.tbrow [data-tb="subject"]')].pop()?.focus(); }
-  if (act === "xtbdel") { tbDraft.list.splice(+b.closest(".tbrow").dataset.k, 1); return renderExams(); }
+  if (act === "xtbfill") { tbBase(tbDraft.view).filter(x => !tbDraft.list.some(t => subjKey(t.subject) === subjKey(x))).forEach(x => tbDraft.list.push({ subject: x, publisher: "" })); return renderBooks(); }
+  if (act === "xtbcancel") { tbDraft = null; return renderBooks(); }
+  if (act === "xtbadd") { tbDraft.list.push({ subject: "", publisher: "" }); renderBooks(); return [...document.querySelectorAll('.tbrow [data-tb="subject"]')].pop()?.focus(); }
+  if (act === "xtbdel") { tbDraft.list.splice(+b.closest(".tbrow").dataset.k, 1); return renderBooks(); }
   if (act === "xtbsave") return saveTextbooks();
   if (act === "xfilter") { examFilter = b.dataset.f; return renderExams(); }
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
