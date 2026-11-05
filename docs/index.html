@@ -201,6 +201,13 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .tbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-top:6px}
 .tbgrid div{display:flex;justify-content:space-between;gap:6px;background:var(--input);border-radius:8px;padding:7px 10px;font-size:14px}
 .tbgrid span{color:var(--muted)}
+.tbgrades{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:6px 0 2px}
+.tbgrades button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 0;font-weight:700;font-size:13px;color:var(--muted);cursor:pointer}
+.tbgrades button.on{background:var(--accent-weak);border-color:var(--accent);color:var(--accent)}
+.tbcur{display:flex!important;align-items:center;gap:10px;background:var(--input);border-radius:10px;padding:10px 12px;margin:4px 0 8px;cursor:pointer}
+.tbcur input{width:20px;height:20px;flex:none;margin:0}
+.tbcur span{display:flex;flex-direction:column;gap:2px;color:var(--text)}
+.tbcur small{font-size:12px;color:var(--muted);font-weight:400}
 .tbrow{display:grid;grid-template-columns:1fr 1.3fr auto;gap:6px;margin-bottom:6px}
 .tbrow input{min-width:0;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 8px}
 .tbrow .del{border:0;background:none;color:var(--danger);font-size:22px;cursor:pointer;padding:0 6px}
@@ -1349,32 +1356,74 @@ function renderAllResults() {
 /* ---------- 시험 범위·진도 (plans/exams.json) ---------- */
 const EXAM_PATH = "plans/exams.json";
 let examData = { exams: [] }, examDraft = null, examFilter = "all", examOpenPast = false, examCands = null, tbDraft = null;
-// 교과서 출판사 (exams.json 의 grade·textbooks). 아직 저장 안 했으면 1학년 기본값
-const TB_DEFAULT = { grade: "1학년", textbooks: [
+// 교과서 출판사 (exams.json 의 grade = 지금 학년, textbooks = { 학년: [{subject, publisher}] }). 중1~고3
+const GRADES = ["중1", "중2", "중3", "고1", "고2", "고3"];
+const TB_DEFAULT = { grade: "고1", textbooks: { "고1": [
   { subject: "국어", publisher: "천재(홍)" }, { subject: "수학", publisher: "비상" }, { subject: "영어", publisher: "비상" },
   { subject: "한국사", publisher: "지학사" }, { subject: "사회", publisher: "리베르스쿨" }, { subject: "과학", publisher: "미래엔" },
-  { subject: "한문", publisher: "장원스쿨" }] };
-const tbInfo = () => Array.isArray(examData.textbooks) ? { grade: examData.grade || "", textbooks: examData.textbooks } : TB_DEFAULT;
-const publisherOf = subj => { const g = subjectGroup(subj); return (tbInfo().textbooks.find(t => subjectGroup(t.subject) === g) || {}).publisher || ""; };
+  { subject: "한문", publisher: "장원스쿨" }] } };
+// 학년별로 먼저 채워 줄 과목 (2·3학년 고등은 선택과목이 학교마다 달라 기본만)
+const TB_BASE = {
+  중: ["국어", "수학", "영어", "과학", "사회", "역사", "도덕", "기술·가정", "정보", "한문"],
+  고1: ["국어", "수학", "영어", "한국사", "사회", "과학", "한문"],
+  고: ["국어", "수학", "영어"],
+};
+const tbBase = g => g.startsWith("중") ? TB_BASE.중 : g === "고1" ? TB_BASE.고1 : TB_BASE.고;
+const TB_SUBJ = {   // 과목 입력칸 추천 목록
+  중: ["국어", "수학", "영어", "과학", "사회", "역사", "도덕", "기술·가정", "정보", "한문", "체육", "음악", "미술", "생활 일본어", "생활 중국어"],
+  고: ["국어", "수학", "영어", "한국사", "사회", "과학", "통합사회", "통합과학", "공통국어", "공통수학", "공통영어", "한문",
+    "문학", "독서", "화법과 작문", "언어와 매체", "화법과 언어", "독서와 작문", "수학Ⅰ", "수학Ⅱ", "대수", "미적분", "미적분Ⅰ", "미적분Ⅱ", "확률과 통계", "기하",
+    "영어Ⅰ", "영어Ⅱ", "영어 독해와 작문", "영어 회화", "물리학", "화학", "생명과학", "지구과학", "물리학Ⅰ", "화학Ⅰ", "생명과학Ⅰ", "지구과학Ⅰ",
+    "물리학Ⅱ", "화학Ⅱ", "생명과학Ⅱ", "지구과학Ⅱ", "한국지리", "세계지리", "세계시민과 지리", "동아시아사", "세계사", "생활과 윤리", "윤리와 사상",
+    "현대사회와 윤리", "정치와 법", "정치", "법과 사회", "경제", "사회·문화", "사회와 문화", "정보", "한문Ⅰ", "일본어Ⅰ", "중국어Ⅰ", "일본어", "중국어"],
+};
+function normGrade(g) {
+  g = String(g || "").replace(/\s+/g, "");
+  if (GRADES.includes(g)) return g;
+  const m = g.match(/(중|고)?[^\d]*([1-3])/);
+  return m ? (m[1] || "고") + m[2] : "";
+}
+function savedTb(data) {   // 저장된 출판사 { grade, textbooks: {학년: [...]} } 또는 null (예전 형식: textbooks 가 배열)
+  const t = data.textbooks;
+  if (Array.isArray(t)) { const g = normGrade(data.grade) || "고1"; return { grade: g, textbooks: { [g]: t } }; }
+  if (t && typeof t === "object") return { grade: normGrade(data.grade) || "", textbooks: t };
+  return null;
+}
+const tbInfo = () => savedTb(examData) || TB_DEFAULT;   // 한 번도 저장 안 했으면 고1 예시
+let tbView = store("tbgrade") || "";
+const tbViewGrade = () => GRADES.includes(tbView) ? tbView : tbInfo().grade || "고1";
+const subjKey = x => String(x || "").replace(/\s+/g, "");
+function publisherOf(subj) {   // 지금 학년 목록에서: 같은 과목 이름 → 같은 과목 묶음 순
+  const info = tbInfo(), list = info.textbooks[info.grade] || [];
+  const hit = list.find(t => subjKey(t.subject) === subjKey(subj)) || list.find(t => subjectGroup(t.subject) === subjectGroup(subj));
+  return (hit && hit.publisher) || "";
+}
 function tbCard() {
-  const { grade, textbooks } = tbInfo();
-  return `<section class="day tbcard"><div class="dhead"><span class="date">📚 ${esc(grade ? grade + " " : "")}교과서 출판사</span><span class="sp"></span>
+  const info = tbInfo(), g = tbViewGrade(), list = info.textbooks[g] || [];
+  return `<section class="day tbcard"><div class="dhead"><span class="date">📚 ${g} 교과서 출판사</span>
+    ${g === info.grade ? '<span class="chip">지금 학년</span>' : ""}<span class="sp"></span>
     <button class="pencil" data-act="xtbedit" aria-label="출판사 수정">✏️</button></div>
-    ${textbooks.length ? `<div class="tbgrid">${textbooks.map(t => `<div><span>${esc(t.subject)}</span><b>${esc(t.publisher || "-")}</b></div>`).join("")}</div>`
-      : '<div class="empty">✏️을 눌러 과목별 출판사를 적어 보세요.</div>'}</section>`;
+    <div class="tbgrades">${GRADES.map(x => `<button data-act="xtbg" data-g="${x}" class="${x === g ? "on" : ""}">${x}${x === info.grade ? " ★" : ""}</button>`).join("")}</div>
+    ${list.length ? `<div class="tbgrid">${list.map(t => `<div><span>${esc(t.subject)}</span><b>${esc(t.publisher || "-")}</b></div>`).join("")}</div>`
+      : `<div class="empty">✏️을 눌러 ${g} 과목별 출판사를 적어 보세요.</div>`}</section>`;
 }
 function tbForm(d) {
-  const subj = [...new Set([...Object.values((schedule?.school || {}).timetable || {}).flat(), ...SUBJECTS])];
+  const lv = d.view.startsWith("중") ? "중" : "고";
+  const subj = [...new Set([...(d.isCur ? Object.values((schedule?.school || {}).timetable || {}).flat() : []), ...TB_SUBJ[lv]])];
+  const missing = tbBase(d.view).filter(x => !d.list.some(t => subjKey(t.subject) === subjKey(x)));
   return `<section class="day editing rform">
-    <div class="dhead"><span class="date">📚 교과서 출판사</span></div>
-    <datalist id="subjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
-    <label>학년</label><input data-tb="grade" value="${esc(d.grade)}" placeholder="예) 1학년">
+    <div class="dhead"><span class="date">📚 ${d.view} 교과서 출판사</span></div>
+    <datalist id="tbsubjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
+    <label class="tbcur"><input type="checkbox" data-tb="isCur" ${d.isCur ? "checked" : ""}><span><b>지금 내 학년이에요</b>
+      <small>켜 두면 시험 카드에 이 학년 출판사가 나와요</small></span></label>
     <label>과목별 출판사</label>
-    ${d.textbooks.map((t, k) => `<div class="tbrow" data-k="${k}">
-      <input data-tb="subject" list="subjects" value="${esc(t.subject)}" placeholder="과목">
+    ${d.list.map((t, k) => `<div class="tbrow" data-k="${k}">
+      <input data-tb="subject" list="tbsubjects" value="${esc(t.subject)}" placeholder="과목">
       <input data-tb="publisher" value="${esc(t.publisher)}" placeholder="출판사 (예: 비상)">
       <button class="del" data-act="xtbdel" aria-label="과목 삭제">×</button></div>`).join("")}
-    <button class="add" data-act="xtbadd" style="width:100%">+ 과목 추가</button>
+    <div style="display:flex;gap:8px">
+      <button class="add" data-act="xtbadd" style="flex:1">+ 과목 추가</button>
+      ${missing.length ? `<button class="add" data-act="xtbfill" style="flex:1">${d.view.startsWith("중") ? "중학교" : d.view} 기본 과목 넣기</button>` : ""}</div>
     <div class="actions" style="margin-top:12px">
       <button class="btn ghost" data-act="xtbcancel" ${saving ? "disabled" : ""}>취소</button>
       <button class="btn" data-act="xtbsave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : "저장"}</button>
@@ -1382,18 +1431,23 @@ function tbForm(d) {
 }
 function tbInput(t) {
   const k = t.dataset.tb, row = t.closest(".tbrow");
-  if (row) tbDraft.textbooks[+row.dataset.k][k] = t.value; else tbDraft[k] = t.value;
+  if (row) tbDraft.list[+row.dataset.k][k] = t.value;
+  else if (k === "isCur") tbDraft.isCur = t.checked;
 }
 async function saveTextbooks() {
-  const grade = (tbDraft.grade || "").trim();
-  const textbooks = tbDraft.textbooks.map(t => ({ subject: (t.subject || "").trim(), publisher: (t.publisher || "").trim() })).filter(t => t.subject || t.publisher);
+  const { view, isCur } = tbDraft;
+  const list = tbDraft.list.map(t => ({ subject: (t.subject || "").trim(), publisher: (t.publisher || "").trim() })).filter(t => t.subject || t.publisher);
   saving = true; renderExams();
   try {
     await updateFile(EXAM_PATH, text => {
       let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
-      data.exams ||= []; data.grade = grade; data.textbooks = textbooks;
+      data.exams ||= [];
+      const cur = savedTb(data) || { grade: "", textbooks: {} }, all = { ...cur.textbooks };
+      if (list.length) all[view] = list; else delete all[view];
+      data.textbooks = Object.fromEntries(GRADES.filter(g => all[g]).map(g => [g, all[g]]));
+      data.grade = isCur ? view : cur.grade === view ? "" : cur.grade;
       return JSON.stringify(data, null, 2) + "\n";
-    }, "앱에서 교과서 출판사 수정");
+    }, `앱에서 ${view} 교과서 출판사 수정`);
     examData = JSON.parse(files.get(EXAM_PATH).text); examData.exams ||= []; tbDraft = null; toast("저장됨 ✓");
   } catch (e) { saving = false; renderExams(); showError(e, true); return; }
   saving = false; renderExams();
@@ -1551,10 +1605,18 @@ async function examClick(b) {
     } catch (e) { saving = false; renderExams(); showError(e, true); return; }
     saving = false; return renderExams();
   }
-  if (act === "xtbedit") { if (!leaveOk()) return; tbDraft = structuredClone(tbInfo()); tbDraft.textbooks.length || tbDraft.textbooks.push({ subject: "", publisher: "" }); renderExams(); return window.scrollTo({ top: 0 }); }
+  if (act === "xtbg") { if (!leaveOk()) return; tbView = b.dataset.g; store("tbgrade", tbView); return renderExams(); }
+  if (act === "xtbedit") {
+    if (!leaveOk()) return;
+    const info = tbInfo(), view = tbViewGrade();
+    tbDraft = { view, isCur: info.grade === view || !info.grade, list: structuredClone(info.textbooks[view] || []) };
+    if (!tbDraft.list.length) tbDraft.list = tbBase(view).map(x => ({ subject: x, publisher: "" }));
+    renderExams(); return window.scrollTo({ top: 0 });
+  }
+  if (act === "xtbfill") { tbBase(tbDraft.view).filter(x => !tbDraft.list.some(t => subjKey(t.subject) === subjKey(x))).forEach(x => tbDraft.list.push({ subject: x, publisher: "" })); return renderExams(); }
   if (act === "xtbcancel") { tbDraft = null; return renderExams(); }
-  if (act === "xtbadd") { tbDraft.textbooks.push({ subject: "", publisher: "" }); renderExams(); return [...document.querySelectorAll('.tbrow [data-tb="subject"]')].pop()?.focus(); }
-  if (act === "xtbdel") { tbDraft.textbooks.splice(+b.closest(".tbrow").dataset.k, 1); return renderExams(); }
+  if (act === "xtbadd") { tbDraft.list.push({ subject: "", publisher: "" }); renderExams(); return [...document.querySelectorAll('.tbrow [data-tb="subject"]')].pop()?.focus(); }
+  if (act === "xtbdel") { tbDraft.list.splice(+b.closest(".tbrow").dataset.k, 1); return renderExams(); }
   if (act === "xtbsave") return saveTextbooks();
   if (act === "xfilter") { examFilter = b.dataset.f; return renderExams(); }
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
