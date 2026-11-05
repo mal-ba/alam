@@ -264,6 +264,14 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .nlist a:first-child{border-top:0}
 .nlist b{display:block;font-weight:600;line-height:1.4}
 .nlist span{font-size:12px;color:var(--muted)}
+.nbell{position:relative}
+.nbell span{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--danger);color:#fff;font-size:11px;font-weight:700;line-height:18px;text-align:center}
+.nbell span[hidden]{display:none}
+.nbell[aria-pressed="true"]{outline:2px solid var(--accent)}
+.npick{display:flex;gap:8px;margin-bottom:10px}
+.npick select{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 10px;font:inherit;color:inherit}
+.nnote{display:block;width:100%;text-align:left;border:1px solid var(--accent);background:var(--accent-weak);color:var(--accent);border-radius:12px;padding:10px 12px;margin-bottom:10px;font:inherit;font-weight:600;cursor:pointer}
+.nmore{display:block;width:100%;margin-top:8px}
 .kpin{position:relative;width:28px;height:28px}
 .pinb{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .pinb>*{transform:rotate(45deg)}
@@ -298,6 +306,7 @@ a{color:var(--accent)}
 <header><div class="wrap">
   <div class="top">
     <h1>📅 내 계획표</h1>
+    <button class="icon-btn nbell" id="noticeBtn" title="공지 (새 뉴스)" aria-label="공지">📢<span id="noticeCnt" hidden></span></button>
     <button class="icon-btn" id="reload" title="새로고침 (앱 업데이트 받기)" aria-label="새로고침">↻</button>
     <button class="icon-btn" id="openSettings" title="설정" aria-label="설정">⚙️</button>
   </div>
@@ -562,7 +571,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "learn"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -655,19 +664,21 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null;
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "learn";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
   const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
+  $("noticeBtn").setAttribute("aria-pressed", mode === "notice");
   if (mode === "report") return loadReport(seq);
   if (mode === "year") return loadYear(seq);
   if (mode === "exam") return loadExams(seq);
   if (mode === "books") return loadBooks(seq);
   if (mode === "map") return loadMap(seq);
   if (mode === "news") return loadNews(seq);
+  if (mode === "notice") return loadNotice(seq);
   if (mode === "learn") return loadLearn(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
@@ -882,7 +893,10 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("x")) return examClick(b);
   if (act.startsWith("q")) return placeClick(b);
   if (act.startsWith("L")) return learnClick(b);
-  if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); return renderNews(); }
+  if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); newsShow = NEWS_PAGE; return renderNews(); }
+  if (act === "nmore") { newsShow += NEWS_PAGE; return newsList(); }
+  if (act === "ngonotice") { if (!leaveOk()) return; mode = "notice"; store("mode", mode); return load(); }
+  if (act === "ngonews") { if (!leaveOk()) return; newsYear = ""; mode = "news"; store("mode", mode); return load(); }
   if (act === "ygo") { mode = "today"; store("mode", mode); anchor = b.dataset.date; return load(); }
   if (act === "pick") { if (!leaveOk()) return; editing = null; selDay = days[+b.dataset.i].iso; render(); return; }
   if (act === "sedit") {
@@ -1731,42 +1745,131 @@ async function saveExam(remove) {
   saving = false; renderExams();
 }
 
-/* ---------- 뉴스 (docs/news.json, GitHub Actions 가 3시간마다 구글 뉴스에서 모음) ---------- */
-let newsData = null, newsCat = store("ncat") || "stock", newsQuery = "";
-async function loadNews(seq = loadSeq) {
-  $("label").innerHTML = `뉴스<span class="sub">주식 · 경제 · 세계 · 국내 · 정치 · RP</span>`;
-  $("view").innerHTML = `<div class="loading">뉴스 불러오는 중…</div>`;
+/* ---------- 뉴스 · 공지 ----------
+   docs/news.json            : 최근 기사 (GitHub Actions 가 3시간마다 구글 뉴스에서 모음, 기사마다 처음 들어온 시각 added)
+   docs/news/<분야>/<연도>.json : 2000년 ~ 지금 기사 보관함, docs/news/index.json : 분야·연도별 기사 수
+   새 기사는 들어온 지 5시간(notice_hours) 동안 📢 공지에서 먼저 보여 주고, 그 뒤엔 📰 뉴스 탭에 같이 보여요. */
+const NEWS_PAGE = 100;
+let newsData = null, newsIndex = null, newsCat = store("ncat") || "stock", newsQuery = "", newsYear = "", newsMonth = "", newsShow = NEWS_PAGE;
+const newsYearCache = {};
+const newsCats = () => (newsData && newsData.categories) || [];
+const noticeMs = () => ((newsData && newsData.notice_hours) || 5) * 36e5;
+const isNotice = x => !!x.added && Date.now() - new Date(x.added) < noticeMs();
+async function fetchNews(force) {
+  if (newsData && !force && Date.now() - fetchNews.at < 5 * 6e4) return newsData;
   try {
     const r = await fetch("news.json?v=" + Date.now(), { cache: "no-store" });
-    newsData = r.ok ? await r.json() : { categories: [] };
-  } catch (e) { newsData = { categories: [] }; }
-  if (seq === loadSeq) renderNews();
+    if (r.ok) { newsData = await r.json(); fetchNews.at = Date.now(); }
+  } catch (e) {}
+  if (!newsData) newsData = { categories: [] };
+  updateNoticeBadge();
+  return newsData;
+}
+fetchNews.at = 0;
+const noticeGroups = () => newsCats().map(c => ({ ...c, items: c.items.filter(isNotice) })).filter(c => c.items.length);
+function updateNoticeBadge() {
+  const seen = store("nseen") || "";
+  const n = noticeGroups().reduce((s, c) => s + c.items.filter(x => x.added > seen).length, 0);
+  const el = $("noticeCnt");
+  el.hidden = !n; el.textContent = n > 99 ? "99+" : n;
+  $("noticeBtn").title = n ? `공지: 새 뉴스 ${n}건` : "공지 (새 뉴스)";
 }
 function agoText(t) {
   if (!t) return "";
   const m = Math.round((Date.now() - new Date(t)) / 6e4);
   return m < 1 ? "방금" : m < 60 ? `${m}분 전` : m < 1440 ? `${Math.floor(m / 60)}시간 전` : `${Math.floor(m / 1440)}일 전`;
 }
+const kstHM = d => d.toLocaleTimeString("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false });
+const newsLink = (x, meta) => `<a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer"><b>${esc(x.title)}</b><span>${esc(x.source || "")}${meta ? " · " + meta : ""}</span></a>`;
+
+/* 📢 공지 */
+async function loadNotice(seq = loadSeq) {
+  $("label").innerHTML = `공지<span class="sub">안내 · 새로 들어온 뉴스</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  await fetchNews(true);
+  if (seq === loadSeq) renderNotice();
+}
+function renderNotice() {
+  const groups = noticeGroups(), up = newsData.updated, hrs = newsData.notice_hours || 5;
+  const next = up ? new Date(new Date(up).getTime() + 3 * 36e5) : null;
+  const left = x => { const m = Math.max(1, Math.ceil((new Date(x.added).getTime() + noticeMs() - Date.now()) / 6e4)); return m >= 60 ? `${Math.floor(m / 60)}시간 ${m % 60}분` : `${m}분`; };
+  $("view").innerHTML = `<section class="day"><div class="dhead"><span class="date">📢 안내</span><span class="sp"></span><span class="empty" style="margin:0">${up ? agoText(up) + " 업데이트" : ""}</span></div>
+      <div style="font-size:14px;line-height:1.65">새 뉴스는 <b>3시간마다</b> 들어와요. 들어온 지 <b>${hrs}시간</b> 동안은 여기 공지에서 먼저 보여 주고, 그 뒤에는 📰 뉴스 탭에서 다른 기사들과 같이 볼 수 있어요.
+      <br>지난 기사는 📰 뉴스 탭에서 연도(2000년~)를 골라 볼 수 있어요.${next ? `<br>다음 업데이트: ${next > Date.now() ? kstHM(next) + " 쯤" : "곧"}` : ""}</div>
+      <button class="btn ghost nmore" data-act="ngonews">📰 뉴스 탭으로</button></section>
+    ${groups.length ? groups.map(c => `<section class="day"><div class="dhead"><span class="date">🆕 ${esc(c.name)}</span><span class="badge">${c.items.length}</span></div>
+      <div class="nlist">${c.items.map(x => newsLink(x, `${x.time ? agoText(x.time) + " · " : ""}${left(x)} 뒤 뉴스 탭으로`)).join("")}</div></section>`).join("")
+      : `<section class="day"><div class="empty">지금은 새로 들어온 뉴스가 없어요. 다음 업데이트 때 여기에 먼저 보여요.</div></section>`}`;
+  const newest = groups.flatMap(c => c.items.map(x => x.added)).sort().pop();
+  if (newest && newest > (store("nseen") || "")) store("nseen", newest);
+  updateNoticeBadge();
+}
+
+/* 📰 뉴스 */
+async function loadNews(seq = loadSeq) {
+  $("label").innerHTML = `뉴스<span class="sub">주식 · 경제 · 세계 · 국내 · 정치 · RP · 2000년~</span>`;
+  $("view").innerHTML = `<div class="loading">뉴스 불러오는 중…</div>`;
+  const [, idx] = await Promise.all([fetchNews(true),
+    fetch("news/index.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null)]);
+  newsIndex = idx;
+  if (seq === loadSeq) renderNews();
+}
+function newsYears(key) {
+  const y = (newsIndex && newsIndex.categories && newsIndex.categories[key] && newsIndex.categories[key].years) || {};
+  return Object.keys(y).filter(k => y[k] > 0).sort().reverse().map(k => [k, y[k]]);
+}
+async function loadNewsYear(key, y) {
+  const k = key + "/" + y;
+  if (!newsYearCache[k]) {
+    try {
+      const r = await fetch(`news/${k}.json?v=${encodeURIComponent((newsIndex && newsIndex.updated) || Date.now())}`);
+      newsYearCache[k] = r.ok ? ((await r.json()).items || []) : [];
+    } catch (e) { return []; }
+  }
+  return newsYearCache[k];
+}
 function renderNews() {
-  const cats = (newsData && newsData.categories) || [];
+  const cats = newsCats();
   if (!cats.length) { $("view").innerHTML = `<section class="day"><div class="empty">아직 모은 뉴스가 없어요. 조금 뒤에 다시 열어 보세요.<br>(GitHub → Actions → "뉴스 모으기" → Run workflow 로 바로 모을 수 있어요)</div></section>`; return; }
   if (!cats.some(c => c.key === newsCat)) newsCat = cats[0].key;
-  const cat = cats.find(c => c.key === newsCat);
+  const cat = cats.find(c => c.key === newsCat), years = newsYears(cat.key);
+  if (newsYear && !years.some(([y]) => y === newsYear)) newsYear = "";
+  const nn = cat.items.filter(isNotice).length;
+  const mons = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
   $("view").innerHTML = `<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${esc(c.name)}</button>`).join("")}</div>
+    ${nn && !newsYear ? `<button class="nnote" data-act="ngonotice">📢 새 뉴스 ${nn}건은 지금 공지에서 먼저 보여요 → <span style="font-weight:400">(들어온 지 5시간 뒤 여기로 와요)</span></button>` : ""}
+    <div class="npick"><select id="nyear" aria-label="기간">
+      <option value="">🕒 최근 30일</option>${years.map(([y, n]) => `<option value="${y}"${y === newsYear ? " selected" : ""}>${y}년 (${n.toLocaleString()}개)</option>`).join("")}</select>
+      ${newsYear ? `<select id="nmonth" aria-label="달"><option value="">전체 달</option>${mons.map(m => `<option value="${m}"${m === newsMonth ? " selected" : ""}>${+m}월</option>`).join("")}</select>` : ""}</div>
     <input class="search" id="nsearch" value="${esc(newsQuery)}" placeholder="🔍 이 분야에서 찾기 (예: 금리, 반도체)">
-    <section class="day"><div class="dhead"><span class="date">${esc(cat.name)}</span><span class="sp"></span><span class="empty" style="margin:0">${newsData.updated ? agoText(newsData.updated) + " 업데이트" : ""}</span></div>
+    <section class="day"><div class="dhead"><span class="date">${esc(cat.name)}${newsYear ? ` · ${newsYear}년` + (newsMonth ? ` ${+newsMonth}월` : "") : ""}</span><span class="sp"></span><span class="empty" style="margin:0">${newsData.updated ? agoText(newsData.updated) + " 업데이트" : ""}</span></div>
       <div id="nres"></div>
-      <div class="empty" style="font-size:12px">구글 뉴스에서 3시간마다 모아요. 제목을 누르면 언론사 기사로 가요.</div></section>`;
+      <div class="empty" style="font-size:12px">구글 뉴스에서 3시간마다 모으고, 2000년부터의 지난 기사도 연도별로 모아 둬요. 제목을 누르면 언론사 기사로 가요.</div></section>`;
   const inp = $("nsearch");
-  inp.oninput = () => { newsQuery = inp.value; newsList(cat); };   // 목록만 다시 그려서 한글 입력이 끊기지 않게
-  newsList(cat);
+  inp.oninput = () => { newsQuery = inp.value; newsShow = NEWS_PAGE; newsList(); };   // 목록만 다시 그려서 한글 입력이 끊기지 않게
+  $("nyear").onchange = e => { newsYear = e.target.value; newsMonth = ""; newsShow = NEWS_PAGE; renderNews(); };
+  if ($("nmonth")) $("nmonth").onchange = e => { newsMonth = e.target.value; newsShow = NEWS_PAGE; renderNews(); };
+  newsList();
 }
-function newsList(cat) {
-  const q = newsQuery.trim().toLowerCase();
-  const items = cat.items.filter(x => !q || (x.title + " " + x.source).toLowerCase().includes(q));
+async function newsList() {
+  const cat = newsCats().find(c => c.key === newsCat), box = $("nres");
+  if (!cat || !box) return;
+  const y = newsYear, q = newsQuery.trim().toLowerCase();
+  let items;
+  if (y) {
+    const k = cat.key + "/" + y;
+    if (!newsYearCache[k]) box.innerHTML = `<div class="loading" style="padding:16px 0">${y}년 기사 불러오는 중…</div>`;
+    items = await loadNewsYear(cat.key, y);
+    if (y !== newsYear || cat.key !== newsCat || mode !== "news" || !$("nres")) return;
+    const fresh = new Set(cat.items.filter(isNotice).map(x => x.link));   // 공지 기간인 기사는 공지에서
+    items = items.filter(x => !fresh.has(x.link) && (!newsMonth || x.time.slice(5, 7) === newsMonth));
+  } else items = cat.items.filter(x => !isNotice(x));
+  if (q) items = items.filter(x => (x.title + " " + x.source).toLowerCase().includes(q));
+  const when = x => !x.time ? "" : y ? x.time.slice(0, 10).replace(/-/g, ".") : agoText(x.time);
   $("nres").innerHTML = items.length
-    ? `<div class="nlist">${items.map(x => `<a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer"><b>${esc(x.title)}</b><span>${esc(x.source || "")}${x.time ? " · " + agoText(x.time) : ""}</span></a>`).join("")}</div>`
-    : `<div class="empty">${q ? "찾는 기사가 없어요." : "기사가 없어요."}</div>`;
+    ? `<div class="nlist">${items.slice(0, newsShow).map(x => newsLink(x, when(x))).join("")}</div>
+       ${items.length > newsShow ? `<button class="btn ghost nmore" data-act="nmore">더 보기 (${(items.length - newsShow).toLocaleString()}개 더)</button>` : ""}`
+    : `<div class="empty">${q ? "찾는 기사가 없어요." : y ? "이 기간 기사는 아직 모으는 중이에요." : "기사가 없어요."}</div>`;
 }
 
 /* ---------- 코딩 공부 (강의: docs/learn.json, 내 진도·코드: Supabase learn.json) ---------- */
@@ -2205,6 +2308,15 @@ document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b
   mode = b.dataset.mode; store("mode", mode); anchor = todayKST(); load();
 });
 // ↻ : 앱 자체도 최신 버전으로 다시 받기 (캐시 우회), 지금 보던 탭·날짜는 그대로
+// 📢 공지: 새 뉴스가 들어오면 빨간 숫자, 누르면 공지 화면
+$("noticeBtn").onclick = () => {
+  closeMore();
+  if (mode === "notice" || !leaveOk()) return;
+  mode = "notice"; store("mode", mode); load();
+};
+fetchNews();
+setInterval(() => fetchNews(true), 15 * 6e4);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) fetchNews(); });
 $("reload").onclick = () => {
   if (!leaveOk()) return;
   const q = mode === "report" && reportKind === "date" ? `report=${anchor}` : mode === "today" ? `day=${anchor}` : "";
