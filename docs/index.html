@@ -1405,13 +1405,14 @@ const sharedKey = sch => sch && sch.id ? sch.id : schoolKey(sch && sch.name);   
 /* 전국 중·고등학교 목록 (docs/schools.json, GitHub Actions 가 한 달에 한 번 공공데이터에서 모음) */
 let SCHOOLS = null;
 const schoolShort = n => n.replace(/여자고등학교$/, "여고").replace(/남자고등학교$/, "남고").replace(/고등학교$/, "고").replace(/여자중학교$/, "여중").replace(/남자중학교$/, "남중").replace(/중학교$/, "중");
+const sidoShort = x => ({ 경상남도: "경남", 경상북도: "경북", 충청남도: "충남", 충청북도: "충북", 전라남도: "전남", 전라북도: "전북", 전북특별자치도: "전북", 강원특별자치도: "강원", 강원도: "강원", 제주특별자치도: "제주", 세종특별자치시: "세종" })[x] || "";
 async function loadSchools() {
   if (SCHOOLS) return SCHOOLS.length ? SCHOOLS : null;
   try {
     const r = await fetch("schools.json", { cache: "no-cache" }); if (!r.ok) throw 0;
     const d = await r.json(), F = d.fields;
     SCHOOLS = d.schools.map(a => { const o = Object.fromEntries(F.map((f, i) => [f, a[i]]));
-      o.hay = (schoolKey(o.name) + " " + schoolShort(schoolKey(o.name)) + " " + schoolKey(o.jibun) + " " + schoolKey(o.road) + " " + o.sido).toLowerCase(); return o; });
+      o.hay = (schoolKey(o.name) + " " + schoolShort(schoolKey(o.name)) + " " + schoolKey(o.jibun) + " " + schoolKey(o.road) + " " + o.sido + " " + sidoShort(o.sido)).toLowerCase(); return o; });
     SCHOOLS.updated = d.updated;
   } catch (e) { SCHOOLS = []; }
   return SCHOOLS.length ? SCHOOLS : null;

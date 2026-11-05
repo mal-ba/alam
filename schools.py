@@ -4,7 +4,9 @@
 GitHub Actions(.github/workflows/schools.yml)에서 한 달에 한 번 실행돼요.
 학교 이름이 같은 학교가 많아서, 앱에서 주소를 보고 정확한 학교를 고르게 하려고 써요.
 
-출처 (둘 중 키가 있는 것을 써요. 둘 다 있으면 1번)
+출처 (아래 순서로 있는 것을 써요)
+ 0. 공공데이터포털에서 내려받은 '전국초중등학교위치표준데이터' CSV 파일 — python schools.py 파일.csv
+    (키 없이 손으로 갱신할 때)
  1. 공공데이터포털 '전국초중등학교위치표준데이터' 오픈API  — GitHub Secret DATA_GO_KR_KEY
     지번주소 + 도로명주소 + 위도·경도
  2. 나이스 교육정보 개방 포털 '학교기본정보'             — GitHub Secret NEIS_KEY
@@ -14,6 +16,7 @@ GitHub Actions(.github/workflows/schools.yml)에서 한 달에 한 번 실행돼
   {"updated": "...", "source": "...", "fields": [...], "schools": [[id, 이름, 종류, 시도, 지번주소, 도로명주소, 위도, 경도], ...]}
   종류: "중" 또는 "고"
 """
+import csv
 import json
 import os
 import re
@@ -109,6 +112,23 @@ def from_data_go_kr(key):
     return out, "공공데이터포털 전국초중등학교위치표준데이터"
 
 
+# ---------- 0. 내려받은 CSV 파일 ----------
+def from_csv(path):
+    out, ref = [], ""
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        for it in csv.DictReader(f):
+            it = {clean(k).lstrip("\ufeff"): v for k, v in it.items()}
+            k = kind_of(it.get("학교급구분") or it.get("학교명"))
+            if not k or "폐" in clean(it.get("운영상태")):
+                continue
+            jibun, road = clean(it.get("소재지지번주소")), clean(it.get("소재지도로명주소"))
+            sid = clean(it.get("학교ID")) or f"{clean(it.get('학교명'))}|{road or jibun}"
+            out.append(["D" + sid, clean(it.get("학교명")), k, sido_of(jibun, road) or clean(it.get("시도교육청명")),
+                        jibun, road, num(it.get("위도")), num(it.get("경도"))])
+            ref = max(ref, clean(it.get("데이터기준일자")))
+    return out, "공공데이터포털 전국초중등학교위치표준데이터" + (f" (기준일 {ref})" if ref else "")
+
+
 # ---------- 2. 나이스 학교기본정보 ----------
 def from_neis(key):
     base = "https://open.neis.go.kr/hub/schoolInfo"
@@ -140,12 +160,16 @@ def from_neis(key):
 
 def main():
     dk, nk = os.environ.get("DATA_GO_KR_KEY", "").strip(), os.environ.get("NEIS_KEY", "").strip()
-    if dk:
+    if len(sys.argv) > 1:
+        schools, source = from_csv(sys.argv[1])
+    elif dk:
         schools, source = from_data_go_kr(dk)
     elif nk:
         schools, source = from_neis(nk)
     else:
-        raise SystemExit("DATA_GO_KR_KEY 또는 NEIS_KEY 를 GitHub Secrets 에 넣어 주세요 (SUPABASE_SETUP.md 참고)")
+        # 키가 없으면 지금 있는 docs/schools.json 을 그대로 둠 (CSV 로 손으로 갱신하는 경우)
+        print("DATA_GO_KR_KEY·NEIS_KEY 가 없어서 건너뛰어요. 지금 있는 docs/schools.json 을 그대로 써요.")
+        return
     # 같은 id 는 하나만, 이름·주소 순 정렬
     seen, uniq = set(), []
     for s in schools:
