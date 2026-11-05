@@ -100,9 +100,9 @@ def parse(xml_bytes, limit=None, default_source=""):
         source = (src_el.text or "").strip() if src_el is not None else default_source
         if source and title.endswith(" - " + source):      # "제목 - 언론사" 에서 언론사 떼기
             title = title[: -len(" - " + source)].strip()
-        if not title or not link:
+        if not title or not link.lower().startswith(("https://", "http://")):   # javascript: 같은 주소는 버림
             continue
-        x = {"title": title, "source": source, "time": "", "link": link}
+        x = {"title": title[:300], "source": source[:100], "source": source, "time": "", "link": link[:2000]}
         k = item_key(x)
         if k in seen:
             continue

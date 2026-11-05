@@ -8,6 +8,7 @@
 - 처음 설정: [SUPABASE_SETUP.md](SUPABASE_SETUP.md)
 
 > 🔒 이 저장소는 공개예요. 앱 **코드**만 있고, 개인 일정·보고서·시험·시간표는 저장소가 아니라 Supabase 에 있어요.
+> 🔒 보안 정리는 [SECURITY.md](SECURITY.md) 에 있어요.
 > 지도에 저장한 장소도 Supabase 내 계정에 저장돼요 (`places.json`). 예전에 기기에만 저장했던 장소는 지도를 처음 열 때 계정으로 옮겨져요.
 
 ## 앱 탭
@@ -60,6 +61,10 @@
 | 파일 | 내용 |
 |---|---|
 | `docs/` | 앱 (GitHub Pages) |
+| `docs/index.html` | 화면(HTML·CSS) + 🔒 보안 정책(CSP) |
+| `docs/app.js` | 앱 코드 (예전엔 index.html 안에 있었어요. CSP 때문에 따로 뺐어요) |
+| `docs/boot.js` | 앱보다 먼저: 다른 사이트의 틀(iframe) 안에서 열리면 숨김 + `config.js` 새로 받기 |
+| `docs/sandbox.html` | 코딩 공부 HTML·CSS 실행 칸 (앱 로그인 정보에 못 닿는 격리된 틀) |
 | `docs/config.js` | Supabase 주소·publishable 키 (공개돼도 되는 값) |
 | `supabase/schema.sql` | 데이터 테이블 + 행 단위 보안 |
 | `news.py` | 구글 뉴스 RSS → `docs/news.json` + 연도별 보관함 `docs/news/<분야>/<연도>.json` (`.github/workflows/news.yml`, 매시간 깨워서 3시간 지났으면 모음) |
@@ -68,3 +73,4 @@
 | `alarm.py` | 계획표 계산·알림 예약 로직 |
 | `run_supabase.py` | 계정별로 `alarm.py` 실행 (Secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`) |
 | `.github/workflows/midnight-alarm.yml` | 매일 22:00 · 00:00 자동 실행 |
+| `SECURITY.md` | 🔒 보안: 무엇을 어떻게 지키는지 + 대시보드에서 직접 할 일 |
