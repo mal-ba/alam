@@ -1,11 +1,95 @@
 {
- "updated": "2026-11-05T14:56+09:00",
+ "updated": "2026-11-05T15:28+09:00",
  "notice_hours": 5,
  "categories": [
   {
    "key": "stock",
    "name": "📈 주식",
    "items": [
+    {
+     "title": "美 ‘AI 규제 쇼크’에 韓 증시 휘청…양대 시장 매도 사이드카",
+     "source": "시사저널",
+     "time": "2026-11-05T15:18+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5BdzY2TXBuaW5fbFRVX0tVa0lBcDMzaFE4SVpGUnc2VndWLUlmbkdFLVVwcWFPQjhkYUtvWmpOX3pxUVRLMWQxTnZUalVoR0E4em1KdUFpeXVCN2VxSUVIU1RRS05acE1vZHJha1FzZ9IBc0FVX3lxTE1TbUdWVXdyZGFLaWpFVkdBNkl4OGxqU0VvdkFaSlJ4Nll1dWEtWmRpeHdRaE5hYlhIaUZZdDZGUHAzVkE1dURnXzhiR3U4cFZDbmhoYmRuMGZjN0huM1FGUjkwMzVhTF9paUEzdHV3Zkp3Ums",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피·코스닥 급락…양 시장 매도 사이드카 발동",
+     "source": "BBS불교방송",
+     "time": "2026-11-05T15:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE13a2NMUkJCT2tCWTFGRWliVVAzQS1qU21lRGwwdVBOTjl2ZjJuWklXcTY4dEJVdG1NYThYSjZ4OXF2cThTY0J5NmY5cHlSR2lwRHBOemlpS3drTG9DVE1GbVU0UTBqUjdQOE9B",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피 상장사 826곳, 자사주 소각·배당 공시 강화...유상증자·중복상장 주주보호도 확대",
+     "source": "녹색경제신문",
+     "time": "2026-11-05T15:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1BZXhUaTBjRUJqbWJQS0czMThwdjlybmlsQWlqeERVODVtWHZOVFB3dHlHN0dPUjZqSkFuT3VPZkNPSmh4aUFTTW4xekx0V19NNXdWSnRLbWR1NDlGWjc5b1EyeU5jTjQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[중국 특징주] 中 가구 제조장비 업체 '난싱주식', '글로벌 납품 역량 강화'",
+     "source": "뉴스핌",
+     "time": "2026-11-05T15:03+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1LYXMwT2dRN0hpWU1kdzNtZS1hY1dHSUpkNWd0b19uUjltR3RjU0lMWEJadkRmSXU2UkRIMEo3aGt1T0dDd0czeXFiLXJYTS0ybldBLXlUUko2dWhJ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스닥, 매도 사이드카 발동...올해 16번째",
+     "source": "라이센스뉴스",
+     "time": "2026-11-05T15:03+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE12ZVRCZVBXZy05MFhnRGMxRHFlSGxCa0NvcUNfRFF5RHlKYlV6SVQxUFlQNkhKMkExaHdHUFRkNjMzMzA0Tmg3TGgtcHpRNWxpWTl1YW9xWmtoX3BNYXc1b0t2aGVwLXNDZVVn",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "블루웨이브 쇼크…코스피·코스닥, 매도 사이드카",
+     "source": "국제신문",
+     "time": "2026-11-05T15:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQLV9MSFhWd2p5bWI0RUNXYXZiNzNkYUV6WjVUdHF3clczT3NQcEZWNS1tUTdOamZEc3UtZmxZa2V5c1JxdGtZNGdWTTNNV05vQS1XSUI4aGtIbG9nN2F1RFQ2SWhHY0hjb0JUeHlTZ29vbFUtdUJRZTdfQ29PNUNHajA5Y3MzODRDb1NNYW5n",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "미 데이터센터 규제·신재생 득세…코스피 변수로",
+     "source": "뉴스토마토",
+     "time": "2026-11-05T15:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9GRlQ3SE9YdXdHdUM4SjNPWTVhTWNHT1Bhemktc3VRR1IwX1U4ZkY4c3QxSExSSUJUUTlGOGUzc3dvNDBoSkJZekNHVi1pVDhEUWZEY3ZnZ05YSG1aS2lOYw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스닥 5%대 급락에 매도 사이드카...680선 붕괴",
+     "source": "뉴스핌",
+     "time": "2026-11-05T14:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5FaGpnZ3JyMFRUODNqSXRsR2IwZmswaEhPTk5RSlVkSy1rbnF0ZDhxTEJZbjRSWnVPUEZyVF9adGlINEJLbEFmaGNtS08xcmhfSVNYUW1nalRveERx",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스닥 5%대 급락에 매도 사이드카 발동…670선서 등락",
+     "source": "마켓인",
+     "time": "2026-11-05T14:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1MTkZnaWllV3NoLUswTE5Ud1M2RlV2ZGNPTW8xMXcwYTVrNU91eHFmcFFwTDZXMVppUzNqYUgtTkJDRmN4ajdHdW5IWElGc2NoNUNBNTVIU3M3ajNCUm9SRGJfZ2staEw4cXZkWklrS0VUcGc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피, 美 데이터센터 규제 우려에 4%대 급락…외국인 2조5000억 넘게 던졌다 By 알파경제 alphabiz",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-05T14:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE0yekRoVjFIV3JEYk4wSHdWODBEQU1RQnpwNVB2UGZuN25FVjdSYUQ1VUVZY3FOZzZCaVAtbWFlSmhTaXc2dU1ySUxjNVZ0X0g2Qm9DNXFSZkh5VFRGdjFnUTNLOUgwSl80S1Z5TFdUeHA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AI 데이터센터 규제 우려…코스피·코스닥 동반 '매도 사이드카'[장중시황]",
+     "source": "뉴스1",
+     "time": "2026-11-05T14:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBmc2FhRVRGTGNZdHhsdzQwN290Z0x1NGFBVE9fdnprRXA0THBrZ3NCUWRrNGxNZW41bXNmWFJoZ3VrU05MeEtaRmwyTGI1MW0wYndETUxHb1JXTTA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[인터뷰] 최서연 작가 \"주식은 기술 아닌 삶의 태도…멘탈의 안전벨트부터\" By EBN",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-05T14:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1WZnd5Nm5iLVVjUXNkNFNrRkxlWndGS3lwN3FnTnJEY2NHaE8zNGtMY1NOXzJraVpNY3BPTUszQ05TVmlPWndjR2ZBc1c4TlN1ZEliQ1ZvWHZ3QlI2cFIxSWVwMWg3SnpuQWUzd0RqR28",
+     "added": "2026-11-05T15:28+09:00"
+    },
     {
      "title": "코스피 이어 코스닥 매도 사이드카 발동(1보)",
      "source": "뉴스투데이",
@@ -14,11 +98,11 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
-     "title": "[속보] 코스피 이어 코스닥도 매도 사이드카",
+     "title": "코스피 이어 코스닥도 ‘매도 사이드카’ 발동",
      "source": "Chosunbiz",
      "time": "2026-11-05T14:45+09:00",
      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOTFLbUVlTHlQMnpfQjY4dmNvMVhPdFpIM2Fzc1V5M0p3M19STGRYc1ZFZC16dy0xY0pkRmJrbmZGYm9UT3JOcjc4azNPU2huRjNhRVZYbF85RkdVSWRNZUFnODJUbGgzNjRreThzcFM1eFBaMGpaeTZoZ3hWVTVKTHZDYWJ4UnZH0gGcAUFVX3lxTE01MWRVQmJvcERKSURaZWFDblhlRjdvVWJ5NE5WekZzS1JvNk4yMUNXV3FhUkkwVXQ3aFY5SE5oSlJ0cDIxNHcxSW05a2ZwRDN5MmlEQmZ3WkdUNGg2dnh2WjNPMXdaT0Y4bzhwZGdWSVEwM1I0dFc4UTRWY3Y1OVA0S3hfQ0M1dGtJUnk1cFJkbndJZEF5MDZsQkhSRA",
-     "added": "2026-11-05T14:56+09:00"
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "급락장에 코스피 이어 코스닥도 매도 사이드카",
@@ -84,10 +168,17 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
-     "title": "[속보] 급락장에 코스피 이어 코스닥도 매도 사이드카",
+     "title": "[속보] 코스피 이어 코스닥에도 매도 사이드카 발동‥5% 급락",
      "source": "MBC 뉴스",
      "time": "2026-11-05T14:32+09:00",
      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1maEVqLTRId200R2ozRW9VUi03Q0JuNkxWN1pkM0JhUEpnbDctN29VeWJOekxPRm01QVhkSDBUMWRMTVZBV2M5NE50bVo0M1d2ejZzS1h2aXNnMVUwcFo3b0tKUDIxcW1sM1NkWks2RGtjUmd10gF0QVVfeXFMTmVwMTVNOG9ycFM4UEpmXzQxVFJjd3gzbk9iYmJybXFNUTRNNjJKelNYWHVLTHppWnBlZlFTbHA5MDNTY1BKSXJaaERxOFE4aWdEM2xCLThQZTFNYjlDcFg2ZjVZZ2VESkx1OEc5aUxNMXh6ckM",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[속보] 급락장에 코스피 이어 코스닥도 매도 사이드카",
+     "source": "JTBC",
+     "time": "2026-11-05T14:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE54SnprMWZWSkp2akl4eDZ6RVRWT0hPTDV4cVNGNDRhdWhNQWNjQ21pV2ZTak1EbFU3U0JkU1hlMTN1RXdNTV83TkpxN01mOHdfWGdoSA",
      "added": "2026-11-05T14:56+09:00"
     },
     {
@@ -105,6 +196,13 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "'블루웨이브' 쇼크에 5%대 급락...코스닥도 매도 사이드카",
+     "source": "메트로신문",
+     "time": "2026-11-05T14:30+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBMV2xDb1BGTnhwVmJEUEFNSm50UWxybk81b3V1bFVfX2VBWVlpTDN1WUNBazZfMksxN3lhVUVlbFpieXI4T2hmdURVRVp6Sm43RlJ2QWc3RGE5Wl81OWx3Zg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "[속보] 코스닥, 매도 사이드카 발동",
      "source": "서울파이낸스",
      "time": "2026-11-05T14:28+09:00",
@@ -116,6 +214,13 @@
      "source": "KB Think",
      "time": "2026-11-05T14:20+09:00",
      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBBbE5YMlp5QVQ2X2s1WktSMi10ek9QUHhPYWpHTXZaTk1BUW9KRGJwbnJjQlFzWTE2VVl4bUZGai1seDY2TjR2WjZfbTFBdlMxSmNTNVVtVk0wczc4MjdBU2Y4N252T1RfLXN3V0FWNDlfZw",
+     "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "[속보] 코스피 이어 코스닥도 매도 사이드카",
+     "source": "메트로신문",
+     "time": "2026-11-05T14:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE55SXZVWHhLYWJqUTFDMktyc2tJejdBeHgyMm05X0R1SzN1RUF4TEFicVZLZ1lHTlpqQ1FsU0lUQzNpSTRValA4YzJYcjhNZTVrMWhkb3JMUmNwTFhxNGYxVw",
      "added": "2026-11-05T14:56+09:00"
     },
     {
@@ -503,11 +608,32 @@
    "name": "💰 경제",
    "items": [
     {
+     "title": "강남3구 하락 속 서울 아파트 매맷값 상승세 3주째 둔화",
+     "source": "한겨레",
+     "time": "2026-11-05T15:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFByc1ZxZjhRTjE5c1FFblFjNkh4cUtiZ2VRRzJkcU5HUWE1YlY5S0lkQVZyVTVBcl9GMk5GZTZTNFREOTBLUnQ5aXhMYzU3NS1WNVVkQUlyYVpzU3ZteEhMZ0FOWnM2R2Nt",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "의료진에겐 '가장 긴 6분' 해결해줄까…GE헬스케어, 심장 진단 약물 '라피스캔주' 국내 도입",
+     "source": "MEDI:GATE NEWS",
+     "time": "2026-11-05T14:43+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9hZnZ5THpLVVJDcG5FaDFmQkdmTWN2SnhYdjBVZk5WaUszVEd5MTczaG45UThDMUZSNXJZb0huOTFNcjhraGdfV1F1Smh2SEU1REprdmxhRQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "지역의 작은 아이디어가 세계시장까지 도약! - 전체 | 카드/한컷 | 멀티미디어",
      "source": "대한민국 정책브리핑",
      "time": "2026-11-05T14:40+09:00",
      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNLWNNcllaY2FaY2hwY1VCRjZqVzZHN2VUVzN4dFU4YWNheXRFOFJoN0VPRjlmYUJmWXFmVngxdmtOMDVqR0VrZ1hpNW1XWDdPaUlsZmhpX0RXaG1fNFE3aVVOa0d0aWxFRlZHUDN4cGVmd0RUMnRubHFDMzNqWENxQ0lQR0hncXZ4TXZN",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "[속보] 코스피 이어 코스닥에도 매도 사이드카 발동‥5% 급락",
+     "source": "MBC 뉴스",
+     "time": "2026-11-05T14:32+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1maEVqLTRId200R2ozRW9VUi03Q0JuNkxWN1pkM0JhUEpnbDctN29VeWJOekxPRm01QVhkSDBUMWRMTVZBV2M5NE50bVo0M1d2ejZzS1h2aXNnMVUwcFo3b0tKUDIxcW1sM1NkWks2RGtjUmd10gF0QVVfeXFMTmVwMTVNOG9ycFM4UEpmXzQxVFJjd3gzbk9iYmJybXFNUTRNNjJKelNYWHVLTHppWnBlZlFTbHA5MDNTY1BKSXJaaERxOFE4aWdEM2xCLThQZTFNYjlDcFg2ZjVZZ2VESkx1OEc5aUxNMXh6ckM",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "\"테슬라, FSD 허위광고로 고객 기만\" 소비자단체 제소 By The Guru",
@@ -524,11 +650,25 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "카카오, 자사주 1500억원 매입·소각…인적분할 비율·일정도 변경 By EBN",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-05T14:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBLQi1vdnMtVTdHa1BmNXVTTE5uT05tSDdqTHV5ZEVmVUpnWlpBc3dUeWlSM2s1WWZCSU80YzBiSGN6aW9vOXZmRTlzQkctci1ETlNJb0FtZkE4bzc2VTZDbGx2Tk94LU53M3VkMHJVemo",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "서울 아파트 91주 연속 올라...오름 폭은 3주 연속 줄어",
      "source": "조선일보",
      "time": "2026-11-05T14:03+09:00",
      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNWWZjMzlieExKSmo3MnMxWEk4X3A1SDY4VllrbWJqSTFXd3R2RHFmNUpQMEI3NGMzZnVZbXV0VXowcWItNlFQRE1fSGxvdWhDYk8zZkxKZTlKOU5xVFJ2Q3JYNVpMdTc3SmV2WjYtNGhwZU4yRHZLcEpzMTQ3T1A2ZlJNaWRJcXVK",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5천612억원…석화 부진에도 예상치 상회",
+     "source": "연합인포맥스",
+     "time": "2026-11-05T13:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9HeTVXeTNjNWt0ek1tdlZvT1ZNc2h3S3k4VjlVa3JOYTZtZlpEeGRzeXpUSnUtelRqUjBDUFJpMHRVR0M5NVlkam5rYmZwNC1YdFRwNHh3aXVjM2VsRmZJQXFPQWFvVmxieE01TTFUUzc",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "[환율 전망] 미국 블루 웨이브, 2006년 중간선거의 기억",
@@ -552,11 +692,32 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "한 달간 47.3만 건 정보유출…가상자산업권까지 전수 점검",
+     "source": "KBS 뉴스",
+     "time": "2026-11-05T12:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5zY01SUHFTZGpqOFV5T2htd1NGYWctdHlrbjBtWV9kN09GYnp4Q2RQSXQzb29OOGJWTkF3TTl3NkRHa0NncjQ2ZXIwdUxkY3JjR0RDTnZkWkFKNWZyVUtTTlZBeC1jUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "브릴스, ’2026 로보월드 어워드’ 최우수상…4년 연속 수상 By EBN",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-05T11:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE0zamVycnRkWmg1NWhBQ3F6RUdQYUJfbDRFMkRWNTNMLXdjOTA3MDFFRlBReG8wYnl0MVduRC00Z0JRUkpScUtSanFUQ0FVeWdDZVdhZHIwMHhtQm12eWt6aEtlZ09kNTFwckJVem9qZ24",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "심장진단 새 선택지 ‘라피스캔’…표적진단 개막",
      "source": "데일리메디",
      "time": "2026-11-05T11:15+09:00",
      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5ucDByRU13ZDEzM1N1M0puUTMwM002UnZxMnNXUExueE9DamJ3c0pUUVBWU3JUZ1EzUG04YkdfdVlJVU5wMC1OakFYT0Fac2VxNHVUNl8yZEtfdndvNTBZSWNILWhTTkRf",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "美 중간선거 후 종전 기대감에도…\"이란 에너지 재건은 또 다른 문제\"",
+     "source": "연합인포맥스",
+     "time": "2026-11-05T11:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAzYm8xemlKZy1jUmVyRGNnZ3hjWFdQQ1BRWWNXdzdFWjhsYzhKQ2pzcDhwdDBaQkNOWXJKaW1ZSzc4Qm9sLVRVcEJKNUN5eUNFYU9SV01jOWl6SW5Zd3dVek5GOUstU0ZJMjBSdklwa28",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "고점 대비 반토막 난 삼전닉스…내년 실적 믿고 지금 사도 될까",
@@ -685,11 +846,25 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "‘9월 경상 흑자’ 사상 첫 600억달러 돌파…반도체 수출 260% ‘껑충’",
+     "source": "경향신문",
+     "time": "2026-11-05T08:18+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1CMW1fZkg0TzBXa1FlY0ktYzlMXzNvRk9OV0xFck1qVEJZZkc2YUhqdnRlMmZWQXFzWUczNHd6b3drWmp0NGp2cFBWNzhmdHJsQWpXYVZsN3R1Z9IBX0FVX3lxTE9SWlJOQUgyMjBWNjkyVnZiTkxRZ2RkenloRXJ3LUVscEJFTHpMaXlzR09oOGVVam4yeEE2NnZRYnRaeEE1V25QbFlsUFZ4b2xGWnVIaGhCbUFMLU1lcVRZ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "9월 경상수지 흑자 사상 첫 600억달러 돌파",
      "source": "한겨레",
      "time": "2026-11-05T08:13+09:00",
      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9fOXAzcnRuMGxYa0FwbnpUcHVsUnRJem54bXAwR0U0Y0RpeGJTc3R0bVNwWC1HUWV1emROSy04bFYwcXN4Ynl6dGxoSHFxc0ZJQ25ZQnpGMXBPZllLWl8xNEd3eVJqNUktbG95cEdPUG9mZw",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "KTX-SRT 통합 두 달만에 고속철도 이용객 12.6% 증가",
+     "source": "KBS 뉴스",
+     "time": "2026-11-05T08:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBOTmY1NThib3ppN29fQXdDVWRlcGFuMzNXNTFheTc1cnZRVnVVWVBjX1BZdWxzbGp4Y2czZXlJeHZNZzZKS1RWQkVqZEpwVXBtTEZrY3ZSYVNGMmM",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "9월 경상수지 사상 첫 600억 달러 돌파…“반도체 수출 증가”",
@@ -832,6 +1007,13 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "400포인트 넘게 출렁인 코스피…AI 투자에는 경고등, 관세 압박은 그대로",
+     "source": "KBS 뉴스",
+     "time": "2026-11-04T21:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5BeXVSVU9seGVheF9MRjV1bEl6bWx0dldFazUwb0UwM3JTeXAzSndQSUtPOER3NEVOVFlMTGtjMDlvcnNCb3hndm1tVmtMdXFucTQ3UlRVWV9iVTQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "최태원, SK하이닉스 미국 AI투자법인 이사회 의장 맡아",
      "source": "연합뉴스",
      "time": "2026-11-04T20:45+09:00",
@@ -957,6 +1139,13 @@
    "name": "🌍 세계",
    "items": [
     {
+     "title": "젤렌스키, 미·러와 3자협상 앞두고 백악관 특사들과 통화",
+     "source": "연합뉴스",
+     "time": "2026-11-05T14:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5FYVRNdTFZSzRzZEFUMnVhWG9QZEZsN1JLWTdFMldJM3RyN210ZXpQemFyWFcxQWE2aExIdGpMendDdFRmSnJLOFhmcm53SWhOTUJYbGZQYmNoeGvSAWBBVV95cUxNNm82cm1SZVFKN25JRGJkaXczSmdWdC1DeHhqNEhQdjhDUUJPMlpYalZSR2hXYTZyYWxXU0plNXpmamZ1cmhmZzktNV9TY0d0NmhTVGxKbVlEemlQWHhndXE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "\"저 투표했어요\" 뒤덮은 스티커‥'ICE 폭주' 눌렀던 분노 '꾹'",
      "source": "MBC 뉴스",
      "time": "2026-11-05T13:57+09:00",
@@ -969,6 +1158,20 @@
      "time": "2026-11-05T13:53+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1RbHZ4ZW4zX0lmNV9QalR1YXNyOXVfVGFJZjNHZUNRLS1nU3NxcTdUaHlGbG50QW9ESHRkRGpUWFlrM1ZwX2RfZ2dHWlJnZW5sbEhUU1BGWWtaRWtDWmc",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "남미서 뺑소니에 숨진 33세 한국인…세계일주 유튜버 ‘진쓰레블’이었다",
+     "source": "서울신문",
+     "time": "2026-11-05T13:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE4yMWtxWDJQaVVZOXJTT0NSYjF1Y1hFVXAxcmF0MFl3RGpIUU5wNWx0X3FveEpUT0JMSmNmcC0yeEl6YThLaFJCM2ozNjFiZ196SWhMUzdoNDNaR1FDRVpobWRSQkJNT1dxeDRyS052SQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "인니 대통령 전화 도청 파문 확산…자카르타에 군병력 대거 배치",
+     "source": "연합뉴스",
+     "time": "2026-11-05T12:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE8xUFhoOXltYWNHZEx0X1ZpQ1Z1Y2xqeTVyaUhOclpBRVFaLXByMm92SzVDZFZKelRlTUxUVXlQZ3cyaC1mVHFBZVNIVi1Gb0RMbV9uZ0RqT1lMbjDSAWBBVV95cUxNMjZnY0NQYVJ5VmhQNUNiYVhfdVhGQmpNSzlZdklYMEJOelJFSnZrQXFHNndwZ0lrVTR4aS1HMHVlSkpDb3pGSE5BOEZVdkZScThtT3l5OGpuUm50YUNWM1Y",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "청해부대 임무구역, 호르무즈 해협 인근까지 확대…초계기·잠수정도 투입",
@@ -1013,6 +1216,20 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "\"중간선거 참패한 트럼프, 헤그세스 국방장관 교체 검토\"",
+     "source": "MBC 뉴스",
+     "time": "2026-11-05T10:33+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1XMlYySGkzQVBvbS05UUh1MXhxS0Q1MHIwd01aMlZzYlFpOXhlR0ZDb2U3T05JMHhCVVFENmJ6YnI1bmpxWFozbjNXUUtQX3oyV2tsV2tRSEtDcHl0U0tUX1BzekRyb2YyTHFFRjBJVmU3Y0RO0gF0QVVfeXFMTWt3aUE4czFWUTdIc1NBTl9DMEloU0NROWlrWUIwZERrWTRLQ1p2MUxXZm9ILXRyRW5QOGhPSjh6TDVxTFhQekk5NlhiWUNxVjB4a0NibzhoNmE1bEh6cG5CZ3NxTTlxbkhqeFRYVDc0cTNqcjU",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "네타냐후 거취는…이스라엘 대통령, 정당별 연정 협의 착수",
+     "source": "연합뉴스",
+     "time": "2026-11-05T10:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBwOFhQYVdZUFpNeEtrUlMtSUxZLUZoVlJxclU3ZEQxUExaUnY3M0hzM3pJM3V5RExrWkRnT2hiVEJXbnF2cWFNd3B1MjFlUGVXbDJLSUFMaXg4NTDSAWBBVV95cUxOMTdxZW5nS3NTV29PUnpJRmZTQUJ5NmVFS2FOc1U0bEZNdHNOUDY0RW5NVUd0VXlkbkZ4Y2ZoVWoyU0FWWFF1UlU3TTJuNG5lWGJaWnpydzF1WU5uajFmNmY",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "“중간선거 참패하더니”… ‘러시아 경유 입항 거부’ 외친 美 민주당의 매운맛 경고 [월드픽]",
      "source": "서울신문",
      "time": "2026-11-05T10:06+09:00",
@@ -1025,6 +1242,13 @@
      "time": "2026-11-05T09:43+09:00",
      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5zNVVYbjlSbUhpVlk5ZUd1eDNSSDFlSjhjdXFoTjVqX3VZeGVDek5Ld1poS1U5Wmk0bUdqV1lGdTRuWlhmTzY3N3N2ZGNUejE4ZWNtdE5ySXdDTWPSAWBBVV95cUxNTm9fQk1LdjF1M2NMOTluRHZaU2dTVVVqMzh2LXFNN0JadVpBMWhJdzYxcTFHVzl4WWZMTG01ZUVLMUxWU0dQNXE2MWtKaGhacmpOWjdCSVo1aGRlX090REQ",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "호텔 간판에 “트럼프 아웃“·’이란에 멱살’ 트럼프…’풍자 밈’ 봇물",
+     "source": "연합뉴스TV",
+     "time": "2026-11-05T09:43+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBScnp6ZFdlUXNmck84eTFIUXFsWEZLLWk1Y1BMUF9SaW5QQ21UWXZWM2JQRWkwZEozX3B1Zl9BNXhSOGpaWHRaSGNiY0YwQmpsbmlrZVFFQVM2YTE4ZnpFcVJLanB2Z0k",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "'무사히 끝난 중간선거'…CA 주·연방정부 유권자 관련 갈등은 계속",
@@ -1237,6 +1461,20 @@
      "added": "2026-11-05T08:42+09:00"
     },
     {
+     "title": "COP31 앞두고 “해외 감축보다 국내 감축 우선해야”",
+     "source": "환경일보",
+     "time": "2026-11-04T17:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1PTDdBaUptTzFpTlo5TkdRUnM0dHFGV1hYTGZVWFNtNXVrbkNXQ0d1UFN4cnBlV1lhRXNiWnFKU0VHVXVDOVRhbEUyMlhHX1RTQTlKMm1KbGpXR2FhUEMyendzdjRUM0FU",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[속보]미 최초 무슬림 상원의원 탄생···민주당 엘사예드, 미시간주 선거 승리",
+     "source": "경향신문",
+     "time": "2026-11-04T16:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1DVjNWY2xienlER2hxWHgwNVcwVFBxenhOMExGR1hValBoVXE4MWNXbzJVbzk5ck9fcXZXMUR0VmhqcU96ZE02WGxqN2xZaFBnNzVwSjVRYmNWZ9IBX0FVX3lxTE52UkQ3anJKSGhoYVpaR0Q0LTE1TDZMU2JQa1d6N096QmQ3QXJ3MzI3WTdGWUpCVG1zWUpjVENWVGp6WEpqM1IzY1EwdlpZQTdnWF9vZi1vdi1ITXNKbW13",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "맨가슴 드러낸 채 마라톤 뛴 女…\"유방암 인식 향상 위해\"",
      "source": "한국경제",
      "time": "2026-11-04T16:39+09:00",
@@ -1307,6 +1545,13 @@
      "added": "2026-11-05T08:42+09:00"
     },
     {
+     "title": "'우주'에서 참여한 美중간선거 참여…투표용지 어떻게 보냈을까",
+     "source": "마켓인",
+     "time": "2026-11-04T14:47+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9OOHQxSmRTZkU3Ulh5emZ3bTZLYm9MZjc5eUJZNVB4cVVSRF9sOTQ1QUxqVnpYd2poSDZCQlo1elhfTUZjTTdIaHJ1cXlYS3JSdEpLZXB3dHV4WEdOZ3VNZDJjdGZYaVVGZk9QOWFKWGlhQ3c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "AI 탓에 더 뜨거워진 지구, 그러나 식어버린 유엔지구총회 리더십",
      "source": "한겨레21",
      "time": "2026-11-04T14:14+09:00",
@@ -1354,6 +1599,13 @@
      "time": "2026-11-04T10:35+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1KUmhRUU0xVTN6OVZ3b3k4b2ZNV2xiQ3ZuVTlHMlozQXRTbmtpUGVtcS1OMFB0YzZiLV9nc1BSMGpjS1REZGNGVDNfc0tGaENqX1U1dGVod0VVYjZvUTNWemF3QVhsd2c",
      "added": "2026-11-05T08:42+09:00"
+    },
+    {
+     "title": "유권자 출구조사…트럼프 반대 43%·지지투표 16%",
+     "source": "부산파이낸셜뉴스",
+     "time": "2026-11-04T10:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBST2NIQWhqVy1lSmt1dWJQSVdrQ1lMZFlQVlAzUngxX1pXRHluWkt1OVR6M2ZTWnJJVjVadkY5RVR5X0dJV3RuNTEtdFk0Snp5cW1BSVFIRUppTks4",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "유럽 여객기 7편 겨냥 ‘폭탄 위협’…전투기 출격·공항 일시 폐쇄",
@@ -1404,6 +1656,13 @@
    "name": "🇰🇷 국내",
    "items": [
     {
+     "title": "현장감 높인 한국소임상수의사회 컨퍼런스 성황..차기 회장에 민경현 부회장",
+     "source": "데일리벳",
+     "time": "2026-11-05T15:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE52UGtMZHNkRDNfOEV0QVhqb0VhOEN5ZTFlRXZFWkE5d2VxRTdLSlJEa01yWDVlSWEtTE9aOGFheFlRMnYyYktSbGpYcG0yU2JwOG5qc0FNemtwZl9qeXpB",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "국힘 김태호 “한동훈 복당 대승적 추진해야”…친한계 “큰 울림”",
      "source": "KBS 뉴스",
      "time": "2026-11-05T14:42+09:00",
@@ -1423,6 +1682,20 @@
      "time": "2026-11-05T14:17+09:00",
      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9FTlRlbG5ST2VIbHRwbVF1ODR0YjNiX2JodFRJNmswdWE2OHZQazhHb3JUS0h0U1oxbkVXV0xONUFNSGhHRXNIT0pUYjgxSndXMkZ2azhhQXdkLUY0c0MtaWxxaThIZ3plZ3RGWVF2OGg",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "성평등부, ‘동성애는 비행’ 청소년 상담 매뉴얼 논란에 수정키로…인권교육 강화",
+     "source": "경향신문",
+     "time": "2026-11-05T14:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9YbEZhN1lHNUh1VWR5M0RXSkkxdVBZb3F2dVUtcTNhemU5cmdLRHZWV0lCN2YxSlpzYUVOTXVpN0pKTTI1VldYRm1MZUZzWF9jcWdvTUpCbWxHUdIBX0FVX3lxTE41Uk55MC1Wcko1MjdYMFFDY2FfOE5BZ2JGYnp0TWU4TWo3N1UxTWJBSm9iOVJCXzFMVXF4dUhkcDlZRHlaMXBBeHhKQUdKUTZuS1dDbFJtekJfZXh3LUZ3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "장동혁, 趙의장에 \"조작기소 특검법 본회의 상정시 역사에 기록\"[영상]",
+     "source": "노컷뉴스",
+     "time": "2026-11-05T13:51+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE45WE1VcUNxRUptVmxTS2dqd29pOHhLeTRZcWZ6aFRuTVRuZjduQUNiM2JQUTRqZTJtOU5xX2ttTjJBVmRUbnM5VnBaWmlEM2RkaEE",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "손끝으로 만나는 한글! 훈맹정음 반포 100주년 기념 '한글 점자주간'",
@@ -1446,6 +1719,27 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "윤석열 당선무효형에 “397억 반환, 확정되면 수용” 국힘 박형수 공개발언",
+     "source": "한겨레",
+     "time": "2026-11-05T13:22+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9SZUZYdEN1Z1NMYTRZcmZaWHpVX3hZV1RZUUtmVFhNODh1RnlCNE9saDBDOU9TWnBHczhycTRFVnlEalRveEJUVWwwb3Q5SUJxSFJ4TEZQQWMxeEFuYldjNWdrdlVVLTRYM0xNbDJRSnp6N1Ns",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "서울 ‘체감 영하 5도’…이번 주 토요일, 올가을 들어 가장 춥다",
+     "source": "한겨레",
+     "time": "2026-11-05T12:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5GaWpaSjdvNUVKNW1tb1ZhT0FtZlc1bXBFTGZYRE9Jb2xXRk52dTNmNEQ0MDJNOEU2aTRpSUJlLWtkUmhGMmxka3FBYU9FZjNJbXRLNFNsTVlfNk9hTEdYR0JBc25iUmtDTmM5RA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "외교부, ‘캄보디아 사태’ 2년 뒤에야 여행경보 조정…감사원 “업무처리 해태”",
+     "source": "조선일보",
+     "time": "2026-11-05T12:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQMGZNTXBwUnBiOXJHOEpIUjFYTzNzbzNac3dtcTM0aVBiTFQ5SlJ2NlhMb3R1ZFM3VjNTb3RVN0NPSjB6V09FV29oUC04cDd6S2FIYW82SEFMWFdoRFZCc1RRcHdTNzNWODRuMjI0dnM5RkdpQm1nMU9jNWtOUFh3MFZuNGk3RHFiSFNxNUNqU0Q",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "AI로 안구 신생혈관질환 치료 표적 후보 2종 발굴",
      "source": "데일리메디",
      "time": "2026-11-05T12:06+09:00",
@@ -1460,6 +1754,20 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "[2026 한일시니어포럼] 박재만 복지부 통합돌봄지원관 “돌봄기본권 논의 필요해”",
+     "source": "이투데이",
+     "time": "2026-11-05T11:49+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBjUXRaS2liRk1HZXlfN1FYOFpXV0FaaW1VckZDc2JzNUg4UC16MFoyMFBDX29OWExxUUZfVFZXOHZfdVJUeU1WSVNuUFVveGJLdmFGMUR6R0pGdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "11월인데 태풍 북상 중?…“올겨울 온화하고 잦은 눈비”",
+     "source": "KBS 뉴스",
+     "time": "2026-11-05T11:45+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1WOXB6aG9yOWd4SjMweEdZQkR6djdpT1Z2YXVYdllzTUFQVDgyQmdzSVY4b2k2c3VTajZoUlQ2ZWVhNWVURnpyemhUVFd5ZUNoVEdCVnlBTFBheDg",
+     "added": "2026-11-05T08:42+09:00"
+    },
+    {
      "title": "’한지’ 인류무형유산 ’등재 권고’…북한 ’태권도’ 단독 등재 눈앞",
      "source": "연합뉴스TV",
      "time": "2026-11-05T11:43+09:00",
@@ -1467,11 +1775,25 @@
      "added": "2026-11-05T08:42+09:00"
     },
     {
+     "title": "국힘 김태호 “한동훈 전격 복당 추진해야”···당내선 “그런 말할 때 아냐” 반발도",
+     "source": "경향신문",
+     "time": "2026-11-05T11:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1JS2RHMHVYTDFjbGk4d1BlWkxtSmNSYS1BZmwwaE9aOXNDUFc3UU03bDVCTXNhS0d0ZngyLUh5SWo1ZDdCbXREQnFEc0Q2MHV3dnIwZzlqck1hQdIBX0FVX3lxTE4xOUtYMTFJUERFQmJCcFhlWExqTVJ5eW5MWEZPTVFNNFlhMTY0ZlhqeXBiemllUnVVVVpkcnppT2Z3TWpEVHl6NGFFS2hfVDFzUndkQTVhQno3NUNEWkxr",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "장동혁 \"'공소취소' 특검 강행하면 국민이 정권 취소\"",
      "source": "MBC 뉴스",
      "time": "2026-11-05T10:59+09:00",
      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9Bd2JBT2EyX0FUdDZiU2xLbGQzSXVIR3NGVzJEdW9zTEJIRzBKcFdrUUY0ZWJJWG5uRUhTajd2dTJRTk05ZmlpekhRbDBjWEg4b0xRTTUzX2FnVEtWNnBGZmxralBYcll4SHlOZWxBWEVzUHd0NTE3QtIBeEFVX3lxTE9jdnhMb2ZoMFJYUVV0ekoySE5nanRkb0Raei1yUkJUSUlaREQxNjRSVS1HSEd2VEp1TThyemVTdHRwTTFsYTdWU285Y2VTcVdXWEdQTUFJWTZYUjZPWndUeWxIeHQ1cXVLbUQ3ZGducVhSeDdfUkViaA",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "서울 은평구서 전 연인 살해한 남성 검거…스토킹 범죄 이력 있어",
+     "source": "KBS 뉴스",
+     "time": "2026-11-05T10:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9rMVhMQ3l6ck1sV1VXbEUxdTdLMS1xS19CemxILXhabnhXQ21WUk05bXAxdGxrOWV4S2ZnUXg2Tk5QUmo1ajktbmgyUnR4QXZ6M2oyamlaNl9HTk0",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "사회적기업의 성과와 새로운 도전, ‘밸류업 데이’에서 만나다",
@@ -1544,6 +1866,13 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "[속보] 출근길 우이신설선 전구간 열차 운행 지연…복구 중",
+     "source": "연합뉴스TV",
+     "time": "2026-11-05T08:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1qMmQ4OWNKa0IybHUxdXZrUmwzaDBNaTBYNERMUHoxblBkUWN2Vk5kQTg4TFFSbFJzUjNJUFBnYWlxQ3NQVXNZSGZpTnQ0V3F0Qzk2N2x3ZjVPYkJ0alZuc2tvbmxLQWs",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "“미안해” 사고 수습하다 발목 절단된 경찰이 아내에게 건넨 첫마디",
      "source": "문화일보",
      "time": "2026-11-05T08:43+09:00",
@@ -1579,6 +1908,13 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "“5명 중 1명은 공포 느꼈다”…서울 택시 타기 무서운 이유 [잇슈 키워드]",
+     "source": "KBS 뉴스",
+     "time": "2026-11-05T06:56+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5MNGp2Z1VFQ0kybVd0RUlPeDhNOFFsUVQyclNacXIxaF9UcjBrRGU2QVNPekItWGVxb0hsQVAtM05iU2ZoWkZjc2xuendSVVRkXy1TUGJZSEhPUEk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "교통카드 안 찍히자 당황한 국가유공자…버스기사 “이미 요금 다 내셨다”",
      "source": "매일경제",
      "time": "2026-11-05T06:40+09:00",
@@ -1607,6 +1943,13 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "[르포] 스카프 아저씨에 외국인까지… 남대문 상가 임대료는 올랐다",
+     "source": "Chosunbiz",
+     "time": "2026-11-05T06:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOak5fMXFmbkROblNjYVQxRUwyMjNOZ256Q19jb3l4VC1jb2VrbDdMVkh3a0tXWkJPWXJLVW5QLTAyWmdYdjB4S1FRZ3A0UnZ2YWFhVWhLUmltM2JENFN6d3d2NV9SZDl6OTJqMGVZYXRWWWd5cGoyM2dtM0I5V29YNW1Cbkpack9UUlBwbDBpZXlEVENUOTBPWtIBrAFBVV95cUxOa1NKMXFJdVdmXzlzUlY0OHAyQWZGY1d6dlk3ZERPVlhhS29qSU1yQ09YeVItWHhsV3o3N0M3TDYzdFE1czdJNkctV2c5bjBWZWI4QVdqcVZYVGcyX3kyeVEyaEplX09pMWdaaGc1d09aSXd2T05hdl9HN19pRUVhUUhvZWJTR2JieThkeWc0QUMyZlZXNy1NTEtibEh5QWNiUENPM1pKemZ5NXZz",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "전국 오후부터 비…제주 강풍 주의",
      "source": "KBS 뉴스",
      "time": "2026-11-05T05:03+09:00",
@@ -1633,6 +1976,13 @@
      "time": "2026-11-05T00:54+09:00",
      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE4wUE5oQUR3YkV1T0hzTlJHcXhWQ094dVlzN0dKZjI2dDRvZTRIaDZKMzM1S080N2RXOF9RckVMbERjNjNycER5S3lLelp2Ykh6aWV3c3BaUzZ1bjdJdGVSTS1YQQ",
      "added": "2026-11-05T08:42+09:00"
+    },
+    {
+     "title": "이 대통령, ‘전광훈 교회’ 강제집행 불발에 “법 어겨도 버티면 되는 세상 없다”",
+     "source": "한겨레",
+     "time": "2026-11-05T00:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFAxVERzZzd5RUJ0V1hXTjdZbldXUDJlcGpsQUg0TEVrOWhIUnI5NjlmS1BhaGk5aFB0TzN3Tk9hNUhseEFqUEFfZkJlOUxPbTh4OHJ3ZEl0TUpSMjNxc09jaXhsSWs1RFJ3RHBj",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "숨진 남편 약상자마다 5만원권이…약국 덕분에 3천만원 찾아",
@@ -1824,13 +2174,6 @@
      "added": "2026-11-05T08:42+09:00"
     },
     {
-     "title": "11월인데 태풍 북상 중?…“올겨울 온화하고 잦은 눈비”",
-     "source": "KBS 뉴스",
-     "time": "2026-11-04T14:20+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1WOXB6aG9yOWd4SjMweEdZQkR6djdpT1Z2YXVYdllzTUFQVDgyQmdzSVY4b2k2c3VTajZoUlQ2ZWVhNWVURnpyemhUVFd5ZUNoVEdCVnlBTFBheDg",
-     "added": "2026-11-05T08:42+09:00"
-    },
-    {
      "title": "‘5·18 왜곡 혐의’ 지만원, 구속적부심…“석방해달라”",
      "source": "KBS 뉴스",
      "time": "2026-11-04T14:14+09:00",
@@ -1857,6 +2200,160 @@
    "key": "politics",
    "name": "🏛️ 정치",
    "items": [
+    {
+     "title": "세종시, 국회 입법박람회서 행정수도특별법 제정 공감대 확산",
+     "source": "뉴스핌",
+     "time": "2026-11-05T15:25+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1yU1VkQ1RxNXFCdkpuT0hIbFdXSnhTQ0MxcGxsWjVpWTE2UEFmNEd0bi1UVWtjRUZZSlhySExOYS02NEMxNmVBSENYQzk4QXNCa0JmS2JLSXlMbGRS",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "국회에 출연연 처우개선 예산 요청…NST 연구 기능은 NO",
+     "source": "지디넷코리아",
+     "time": "2026-11-05T15:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9RaFc4NnZJT1JrRzJ5ZHBGcHUxU0QtYUkwU0hUZkhKN05Rd3Q2am12Wm81MXhEalY0TFBMbFhvYkpxajZCdXBja3ViSFJ2LTZxLUhvZ1FB",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "청해부대 작전구역 확대·초계기 투입…파병연장안 조만간 국회 제출",
+     "source": "국제신문",
+     "time": "2026-11-05T15:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOMjhrcmUzZmVEVXI3Q1BWRnRENWVtNm9LWFpsbEdNR1VHMTFPR08ybkRuTmlEVFNCWjI5d0VGdlVoTWxTM0RFVEwzbEtkTVV1VnUyVHRyb2J1c1U1MDhpdldoS3c2QnEyRTh0M0h3M3VFVXp1cllLVGdGXzF3aGc5SGUyZVBMSkdjVUtWaWZtU1dUc0U",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "이홍기 거창군수, 국회 방문… 거창사건 배·보상법 조속 처리 건의",
+     "source": "아시아경제",
+     "time": "2026-11-05T15:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9BUUozT3pLeU15ZFJUeWtrWXhPcG5zR05ua3dxdHYxZGdPTlZVM2o4MEdQcWs1YzlfMWE1WnV0MXdiSHVEVzl6UnVha3htM0RPanFmWkVaUkg1dk5Pa2E5ZA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[속보]김태규 제명 촉구 결의안, 국회 본회의 상정",
+     "source": "뉴시스",
+     "time": "2026-11-05T15:16+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9jTnFzYzlBQldRQXVqRzd3TGF4MG02WERGWTJ2d3d5TWRqdWx4UEJ3UkV3N3l5VUVabWRCVTFPUWZtM2dFUVROQ3NpNUdFTk9iTkdhQnR3eGVzZ1B4Q3pWMNIBeEFVX3lxTFAtZXFWci12V2RXenhWcFh1aUJzUXNYWmk0Vkd0SFN1SzRLSFp0V2laR2htSEl3dWtPdjhLR2xPRnV3bHJhSjREaUZEbjl4UTF1WlRrNExkaUVWbV9kU0ZlSmhvZTRCdlJneVU4SVJnd3lfQV9wSEZjTQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[속보] ‘내란 옹호’ 김태규 제명 촉구 결의안 국회 상정",
+     "source": "서울경제",
+     "time": "2026-11-05T15:15+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9OOFhWb1ppWnk2UmNvd1pZVzRERENnMGpGSE9hdFZUS0JRTFV1NlZDNVdpcjRPZmNvYU8wUTluQ2VTZ3ZDWmxISVgwczdBbUZHUkxFRjA0UllXRDR0YWpz0gFTQVVfeXFMTVdSR2Nycks0ZW1oLVJYLURXa0MxVHpBZ1FuMHQybjN6VDA1cW5hQ1FDcm9wQ25wSXV0cUNsQVhDUEVvMU43MmVOMERmcHpCOHZtZTA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "안신일 세종시의장, 국회서 “행정수도 특별법 연내 제정” 촉구",
+     "source": "농수축산신문",
+     "time": "2026-11-05T15:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1odXA4eGVnSjRfRTBmTUE0MXFLN0VjV3VxVlRhVS1yc1BrWmcwQk8yTFhNUVlqZEFlMjBPSE91YVU5czBua3Q2MmxJelItaG8tb2NOMTJ0a0ZHREJELWp2UW1BYnVLSTJseDB0LQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "천안아산역~R&D집적지구 890m 보행통로 추진…국회·지자체 협력",
+     "source": "농수축산신문",
+     "time": "2026-11-05T15:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1IelhwVkVMRlA3RDFtanhuT2N2SmFMaFRYN2p1X1NSWElFMVVMeEFna2JjS2JaVU9yc2FSLVRLdGZXdHBtZ1Z5YURIQXdHSkVOekhabEM4b2JpWkVvOVhpNFpvXzRTbTl2MTk0aw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "상속받은 가상자산 누락된다면?...두나무, 국회서 개선된 조회 시스템 구축 제안",
+     "source": "리버티코리아포스트",
+     "time": "2026-11-05T15:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1GTkxNaDVubjc1cGJWSHlvU3YzQlpPNlpxLWtReEQ3RVhlQmxSTnFwSDdhSDNmRU53M0hZNERUM0I0dWg0S3IzU25qYlktd0lfR3R2QVl4YlFoWVhfQTFMTEZ4MNIBZ0FVX3lxTE5CQXlTNURwbHh4Q3ZjWWh6Q3ZfcHdWT2tObDlmMmtHN2tJVGlINklxM09hLUNDc09NTlhqUlFFc1JxRDR1X1Y1TVp6cHlYdHlpbzBCakMzdXRGRWFKbWRVa0V0RzJPWWs",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "이만희 국회 보건복지위원장, 국립경국대 의대 신설 확정 환영",
+     "source": "세이프투데이",
+     "time": "2026-11-05T15:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE52WnI0N3l6MnF3WnJaeHJsR0JkZlN2TWd0QzJNcGh5YUJhLW41VUZfTW9MV1NFSGVCQ1Etb2d2NDNwY25QZG95czRmSGV3NEh2RGN6Ujdzazc4akp2TlRaQXRUV21UUl9ndHfSAW5BVV95cUxOVWpzVkNaaDNlcm5ON01sb1psWkMtWHlycFdLdlZsSG9nTHFLM1BETjkxRC0xQlFic1E1LXhLNGJDb2tOTzNlYTd0dWEyVm9ZQUhMRWdqT29JUGs4UUtENlBPaU5wVDZXaU5EeEg4Zw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "박동식 사천시장, 국회 찾아 우주항공복합도시 특별법 제정 요청",
+     "source": "경남미디어",
+     "time": "2026-11-05T15:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE50Y3FKSlU5aVNWUVRIUVQ1R0FhV0lwU09odmhKWC1UN1VHQ1NkNEFHRVhCazgzSWtYQzNNWGtJMm9fbHpGMnhIR1lkblhDR3lHUzFweDk2TWt3N2plQjdacGU5WjlVOHhyeEtr",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "제주 소방관 한 끼 급식 지원 '1542원' 전국 최하위권",
+     "source": "제민일보",
+     "time": "2026-11-05T15:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1yOERkdTNqdEFic3N4UkFkZnpULURUU2drSDd4U2RSM1M5ODBrRi1aaG8xZUZnS2tGcUE1TFBxOEZyUFZYRkxYWU1hS2VRWFlYSDlldGhkel80a3hhM09Va2lHMEpPQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "김교흥 국회의원, 국회 예산소위 선임... 인천 주요 현안 예산 확보 나선다",
+     "source": "인천뉴스",
+     "time": "2026-11-05T15:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBUVlM0YldTQXFZZjhTcEI2NUNkSXUxS3d0cnRwLUNiYXpfMjZ6cVhyOGVmNzlUcXZQZ3R0TjRJRFdUYmFPRVdFSDlZeUhIMlVTLTlNS3czT1BmWGFOc25KNmpKS1hPNFZmWU5GVHVXSQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"강원특별법으로 특별하고 행복하게\" 강원도, 국회 입법박람회에서 강원특별법 소개 > 뉴스데스크",
+     "source": "MBC 강원영동",
+     "time": "2026-11-05T15:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9mbzFuUmg4VExLWEZnY2xPb2x6eWZ0RlVvSGpLZVE3X0tlWEQxQllybDlqdWNwQkdnYzRiNVJ5dTBQZUlVYlFFcVVpSQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "국힘 강한 반대 속 '특검법' 상정... \"양측 입장 듣고 국회의장이 결정\"",
+     "source": "OhmyNews",
+     "time": "2026-11-05T15:03+09:00",
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9mYVA4blBJdFJ0OWRMWU5aT1dDNDBJNUhpaW5aLS1YMEtTY3kxN1VGNDdKV2VIUE94aE9Td1ZCdEN6OFVhMkNxeDJnNlF1M3cxQjFETUtyOWpQZXRBUlF2VXoyQnpQSEpDNk1XcDRmcE5ZUFdMTE5v",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "대구시, ‘국립치의학연구원' 유치 총력...국회 토론회 개최",
+     "source": "이로운넷",
+     "time": "2026-11-05T15:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE8wckVOTWZFUFhYRGY2V3lGdjZ5Wjg4Um9SM0VZcUF4ekswS0VPTGlmTjA3T3VDWk9DUS00MTRyMUxDMXpDdFJZYkRlRUJhSUY1Tk9jQk5WMjEtWGF4dFF6UFRVaXM5QQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "거창군의회, 거창사건 희생자 배·보상 특별법 국회 통과 촉구",
+     "source": "아시아경제",
+     "time": "2026-11-05T15:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE01SVNpaU85aWhSLVA3OFpvY0haNjI0N1BuVDd2Y2N2dXg0LTdGYUt4ZFQ3NFhFQXhZVmFCX2MyWndocWlrbExOa1VVT1R6YmdfeV9FVjdHdjdGZWphUENuYw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "비대면진료 국민동의청원 5만명 돌파…국회 복지위 심사",
+     "source": "전자신문",
+     "time": "2026-11-05T14:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFAzRjF4X0xPVzMzcVp5dWRmUkNPNVVmaTdENWtDRENhLUFOS2luMENmYl9OMVp4RlJzdzJSdThwRXNLMkVhRXpXejE0cmdMZw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "국립치의학연구원 대구 유치를 위한 국회 토론회 개최",
+     "source": "자치행정신문",
+     "time": "2026-11-05T14:53+09:00",
+     "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQcUZnRjRPa3NOVEJaWHk0VFZSbmIxTDlCN2hHMmNaRVF4UThDOGllbzhkX0syLXhRMWN1dGFzQUlZVUNDTGlJUnk3UUJCLWJ3WE5YREExb2pUUUdtbnhfc3BTSUppckZYZWN0c19tQmJrbTg1MC1qYkM4bFJ4bkY2SjI5QWx3R1RnZFZsQTFFVUwtNEp5Q2xvWW9GTUZIT21weGhoY0RoekZXbU14SG1F",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "로봇·수소차·누리호 한자리에…국회 입법박람회 개막",
+     "source": "뉴시안",
+     "time": "2026-11-05T14:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1jUG1TM2tNenVWZUxFNUZ6S1FDMDg5amFrZjdpb2NuUklqN0FGdGQzQXpQeHZlWDUzN042N01KeFJTcFVpWGNGTXdWZTUzQVM5VkVLVENqMm5lOUxRRC02MkdEdWE0RDVUUG81bQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "경남도, ‘우주항공복합도시 특별법’ 11월 국회 상정 촉구",
+     "source": "경남신문",
+     "time": "2026-11-05T14:51+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE4taTZYVFd2UUM1TkNMQmRLaXBlUnRoNlhCYUZPS2ZUX2Q4TUlZOS1ZYXA3YnQ2eWJYc3M1bUhxRHBWVzhBb2p0TFZFVG1OdGdSLTAydWh6YjVqZw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "저상 광역버스 표준모델, 국회·기술대전 이어 수소엑스포서 선보여",
+     "source": "소셜포커스",
+     "time": "2026-11-05T14:49+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9xQkpjMVRzeEU5V09RYW9XcU5sVnFibzZWMDktNkNQZVAydE5Qem9GNGJDZ0U0aUY2Zlp2ell6anFxRlpxajVqd0ljR0NCX1NfY0RlVkc5aVVYU1k2b0RpcUZBRDgyejgxN184R2F0ckM",
+     "added": "2026-11-05T15:28+09:00"
+    },
     {
      "title": "김교흥 의원, 국회 예산소위 선임…민생·인천 현안 챙긴다",
      "source": "푸드투데이",
@@ -1898,6 +2395,20 @@
      "time": "2026-11-05T14:30+09:00",
      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1JcEFfX09pd2pMLVAtcFRHOG12VU04c2JmYkJROUR1OVlBOWFtYnR3Y1B1Ymg4VWVWVldJZ0NrU3RtT0pPWkpETm9scExLdkFKcHR4T0s4cG9qdjk1M3RoLXhsRVotMUJsV21UWEpYUQ",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "가상자산 과세 유예 공식 제안…전제인 디지털자산기본법은 국회에 아직 없다",
+     "source": "녹색경제신문",
+     "time": "2026-11-05T14:25+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9HQ0I0MENHTXp6cEMwYU93VTJkV0Fyb1VScXlRcjJOMlpWTlc5RmpzR3RlVm9ZQkVkRkg1SnFiZlcySFdvU3lRT1lReXQ4eHNwbHA0SHc5YnhlVVMyQVptMUpRc3RkQVlS",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "비대면진료 제한 반대 청원 5만명 돌파…국회 복지위 회부",
+     "source": "청년의사",
+     "time": "2026-11-05T14:20+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE92dUFsVmRYYVdXdDcxUDdrVW9oeHptZHVnb3MyVXZPa0NZNmdPTUZNRjZyd1ZaWTVpVzhWTlltbGRFTU1HYmZKT0VjeGVSLWNLcVg5MEZUdWtHNGIyOXhxNV9MQ2hVeUxSbkJjYjJCdFI",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "지방시대위원회, 국회입법박람회 참여…‘5극3특 국가균형성장 전략’ 홍보",
@@ -1977,11 +2488,25 @@
      "added": "2026-11-05T14:56+09:00"
     },
     {
+     "title": "행정수도특별법 연내 제정 총력…세종시, 국회서 여론전",
+     "source": "대전일보",
+     "time": "2026-11-05T13:49+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1kSFA3T1d2YzkwVmJfeVVFOHNxNFJmUnE0ZWpmUGNxdnRhRmZQWUhnNDlEaWlBV2dNcFVOc1JYZE1FYnJIenFuYUVRSTdpcUlRbF91UkxqNFZpNmN6ZzhpY1Q2QS1GLTRNcjVrV0dGY9IBc0FVX3lxTE9qUURwMkFVeGFySjlqX2xaR3FkRlZMTUVEZUIxLUZJMENMWmhiQVhmR3hwbGhuZWVBM3Q0NmF4RnhvTWFUWmpQbkxSQzZSeG5aaGlyN2pfQUktbW5WNzBVUl9mUjNoMUlwZDFoUXN2UHR5OEE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
      "title": "국민과 함께 미래를 여는 국회 입법박람회",
      "source": "뉴스핌",
      "time": "2026-11-05T13:46+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1uLVVKVjJHQkVMZGlHZFROQTNnSTN4aDBwZDZrWkxzV0xMdEgyTlMyVmk1TVQ1djBpOUVQdEYtam5yTUxpRmRMOVVvOFdlZWV1UktmcEdHME1vbVR0",
      "added": "2026-11-05T14:56+09:00"
+    },
+    {
+     "title": "[ET톡]책임의 정치",
+     "source": "전자신문",
+     "time": "2026-11-05T13:46+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5JWmNBU2JqSzBrM3N6czE0TTdteURINmQ4WkllYVh6X3ZUUHppanJ4bHhUbURldWhhWXBwbFc1Q2ZvQU41LUFiQV8yZHJLdw",
+     "added": "2026-11-05T15:28+09:00"
     },
     {
      "title": "국민희망입법제안문 받은 조정식 국회의장",
@@ -2471,6 +2996,1946 @@
      "time": "2026-10-25T16:00+09:00",
      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1lSkxGdzg1emF6cUZNNWo4SkkxbEZwbXZWNUg1bUVESEhwaE1Tc3dGaGZDZmhGZjRMdW41d3lNamhORG44WkZvQTdUZGM2TS0telNPRHZIVy1lMFRIYVlEa0Q0T19uU3BOX1pr0gFwQVVfeXFMUG9SQkM2RlZiNmd5bG9WZ3JzaGtnSmhtQjNDS3RMTEdiVW5jQzJLTHgxQ2RiTml2X1NzVkNVVTdwWWFJaWs0VmtxNWowUmN5Wkc4MUxQZHlMVkRfaW9KNWJLRi1PNm1zYzY1VTRySFpmVg",
      "added": "2026-11-05T08:42+09:00"
+    }
+   ]
+  },
+  {
+   "key": "samsung",
+   "name": "🏢 삼성",
+   "items": [
+    {
+     "title": "삼성, ‘미래기술육성사업 2026 애뉴얼 포럼’ 개최",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-05T23:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1-%eb%af%b8%eb%9e%98%ea%b8%b0%ec%88%a0%ec%9c%a1%ec%84%b1%ec%82%ac%ec%97%85-2026-%ec%95%a0%eb%89%b4%ec%96%bc-%ed%8f%ac%eb%9f%bc-%ea%b0%9c%ec%b5%9c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[2026 다카르 청소년올림픽] 메달 너머의 가능성을 그리다… 차세대 올림피언들과 나눈 도전과 성장의 이야기",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-05T17:00+09:00",
+     "link": "https://news.samsung.com/kr/2026-%eb%8b%a4%ec%b9%b4%eb%a5%b4-%ec%b2%ad%ec%86%8c%eb%85%84%ec%98%ac%eb%a6%bc%ed%94%bd-%eb%a9%94%eb%8b%ac-%eb%84%88%eb%a8%b8%ec%9d%98-%ea%b0%80%eb%8a%a5%ec%84%b1%ec%9d%84-%ea%b7%b8%eb%a6%ac",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "노조만 6개…삼성전자, 내년 임금교섭 셈법 더 복잡해진다",
+     "source": "조세일보",
+     "time": "2026-11-05T15:25+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE42UU9CMktRbDRnZ2ZuVkhCVWtKcmdhY3ZoTkpBYkhOckQxSTgtUFRWbkRkVVM0R3hXdzlscFB6TVhIRkxoZTNza29WWkl4czgzVUQtcW96UzZCaTlYZG95TXA1dkRJOTktZGg3RkN1SkpxS2Rx",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 미래기술육성사업 '우수 연구자' 10명 첫 선정",
+     "source": "팍스경제TV",
+     "time": "2026-11-05T15:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBYT3ZCaS1meDd3TXZUSTk1bDBjaGxIVWhlR1JZYU5NYnI2SF81T3R0T0k2c1U3bm9iX1VKRjE4OUloZVZNb3lIU01sZUJ5N0puVFNkcFVxbDZLRUtwNDVOT1BQRGV1NGc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자 제6노조 설립 추진…동행노조 전 집행부 주도",
+     "source": "서울경제TV",
+     "time": "2026-11-05T15:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1TeE5DTmlIbElyamFqa2JaWEh4dVZwbU9ndmFJM1B1eUlfeklwYzlVNUJhTGFhaS1iWjY1d25yZUN2YzFxaFZZTlpYSHhpYi1XVXBxRmswTEFUc29SbEc3NVhDVXg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 3개월 만에 장중 '20만전자' 붕괴…8% 급락[핫종목]",
+     "source": "뉴스1",
+     "time": "2026-11-05T15:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFAtVzJubVZZSTRwNlZZNmpGNl9kWVpoeENPUGdjRDFwX2dQSlRUcktUWXlWeE5tUFNmdTEzVFdiclhoZ0RhVjlDYWRIUVVOZFR1ZXBJQUtFZDRQVDVocnNj",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "배예슬 소장 “검진 특화 강북삼성병원의 AX, 쌓아온 데이터로 일상 건강관리 나선다\"",
+     "source": "MEDI:GATE NEWS",
+     "time": "2026-11-05T15:16+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1XSzh6b08tdzVEdlZHLW1LMlcxTHYtd3JwOEdWeEhyMjFOQTh6NGtRR3N2ZVQ3Ti1tdVd4SVNEMkxFNzlOWUo5UUZWMkc5RGdjUjV3alFWaw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성·SK 추격하던 中 YMTC '급제동'…증시 폭락에 상장 차질",
+     "source": "조세일보",
+     "time": "2026-11-05T15:15+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9ua2xNeXA4RDhBMEpkeTBKcEd2SzJCank2VXJueXZCXzBtREp6MDhvbkJVaTE0SlFJTkt0cWozMUJpbnc0SC1JaXVHbW1uTVBtWkVVdTlRLWc3dUxKNG9wYmVmcmtlMDBKVE53N19tZWExSVBW",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 미래기술육성사업 14년 결실 공유…우수 연구자 10명 첫 선정",
+     "source": "폴리뉴스 Polinews",
+     "time": "2026-11-05T15:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9GdXZROUp6MHpjV2xDZjZHSGQ2TG1mdFlKTjlGV2dfb09aN3E3dXNROTdQNGJJT0JCYl9URjAzUzNNRG8zTjBFRkVzVGtkXzd2MmJYa1VTN25OdFp6TEs4aWF0Vms4cjFYeFJEZkln",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 국내외 미래 지원 '확대'",
+     "source": "테크M",
+     "time": "2026-11-05T15:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9xSnRTN01LSjhnYzhGYnFpbHlWLTM0eHc3Z05kTlFhdDI2cU1Td3M2cUhTbl9rM21URmNUbE9PRXdISjRFNEItcm1BWldybWpRdmFJRVdfcHRITTVkU085ZjVyRnBqUdIBakFVX3lxTE54cWpKTFF3anIyWHNrUmhBRW9Idnl3TVlPU0N3WTJneEFRZzB2RjFYRXJNY216NEc4dEdFSjBCeE5WZUFtZmc0QTVHTTlEQWV5TVAxWGY5WW1NOFhqUGtJRFpyWmlUaENfV2c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"앙리가 왜 여기서 나와\"…삼성이 '축구 전설' 앞세운 까닭",
+     "source": "한국경제",
+     "time": "2026-11-05T15:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9Ib1FZb2RfQjhHRFB5MjNXRnpyX3QwcnVFenprTmNFMWxpMm53aVhIX0JlVjlWSTRHaV84NGo3ZF9OM0Job2pVcGpnSjB4ODI3ejRiVDQtbVd1dw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[데스크칼럼] 삼성전자 성과급의 역설 : 네이버 블로그",
+     "source": "Naver Blog",
+     "time": "2026-11-05T15:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNc0JxVHhBbXZETnJaU0hqLWE3QlVfbE1SdG5hSUtYSE8tR3NDUFphOHhMa2Z0UGJwX2RESmFlOThsNU5sVWRsWXV2bEs3SkMtcGZvbXozbzVTdmxrZjZnd212UnlKbVIwMXAxSTNOZ0w5WGRIRXBKVU92OExHU0FEZlFZTFhuYm8ybEFlbnE4QQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "KT, 삼성전자와 고속철도 통신 품질 개선 나선다 外",
+     "source": "톱데일리",
+     "time": "2026-11-05T15:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE91ZGpLWTUzemtWYWNHSjVXcVNmelU2VUY4R0d1b1VlWjRvZG9IeGRIOEc4ai1talVQUlRVX1BaOThmdUtTeTRyM2tIbmFKS2tw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성 14년간 지원한 미래기술육성사업 우수연구자 10명 시상",
+     "source": "동아일보",
+     "time": "2026-11-05T15:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE15bzhHUThoeW43ZkwzbUpsdF94VTNGSS01MFpBSFRqQVRPLWlQbFpFU2sxUENYXzNmN19hQzJxb1EtUkVXY1owVklzUGhvNDBwemtMamluTk1RTGpqMG85WlJweHR4cnhXbUdiZUt6RQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성화재서비스손사노조, '삼성화재 갑질 중단' 촉구 1인 시위",
+     "source": "뉴스토마토",
+     "time": "2026-11-05T15:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBXUFZTSVF5UG5JVzF4V3hQdGlyM0o3VjBuZ0N1aFdpVGRIYWIzLVJhY2RldlNsYm5hWGV6ZFV6UEpxQzNmYl92aEpXY2ZocVFIWXZ1Sl9KcWlmSFlUby1yNw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 안방서 한국시리즈 주도권 잡을까⋯3차전 장타 승부 주목",
+     "source": "경북신문",
+     "time": "2026-11-05T15:06+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5HbmpwLUZzSEZUQkpuRlNfUUk1NEw3M3lwcDF1ZmxtQ1YwOC1vczNua3Y5OEZLcmthcEl1TEhlX0lJeGJ2UkFRYjMwbGc2c3FueWQxSDFFNV8",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "속보 삼성전자, 장중 한때 20만 원 붕괴...SK하이닉스도 10% 가까이 급락",
+     "source": "YTN",
+     "time": "2026-11-05T15:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1ZZVJXc1FhYWNpNE9wWE1oT2NBWmxyYUJENmVuSE1ERlpnU0tWWFI0aTdtVlAyVWZKR1k0V3p3Mm5scElCdE9uNFo3ZGdEb0RzTkg1YkFjc1NGX2VZOVE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, ‘미래기술육성사업 포럼’ 개최…우수 연구자 10명 선정",
+     "source": "더나은미래",
+     "time": "2026-11-05T15:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBhTVVpUjJTR29HYThNclNYWVlHRjlXWHd0a0ZUdjJfamhBU3U3WTYtRWhldVBlMDk1Ui1YUmRLZk5jc1ltY1RyZlZTR2M5dTllUEE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 미래기술육성사업 14년 첫 결실…우수연구자 10명 시상",
+     "source": "동아일보",
+     "time": "2026-11-05T15:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5adWhlRkV3aU45MHZ0cEZJb3h3UFNHcWgyUFBWSDh6UTlzclFiUXhvVm5XOWFMb3BGRURRb0ZoQ1NURHV4N2VZMFFjcC1sS2VHMHJBVUdlRTN2Vm5vYXdkM01sMXV3Y2x4ZXFrX1lQWTVOSW9Mb1HSAWZBVV95cUxPUi11bnpGOWhVZXJLRHRqdHRHcHNON0RCR0lCZGhEaU40bmhkdzZOTzVVVFRCZ1g2bmIyWUNERmhtU2p0LW5OUkdJeWtVQm1vZkNNOW56elNfeHh4YnVIUjhSckxqYXc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "‘삼성 113조원’ 첨단산업 아산... '아산자이 그랜드파크’ 관심",
+     "source": "글로벌경제신문",
+     "time": "2026-11-05T14:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBOU3YtRk83eG5WcnFsa3dhQ2FzTTlFeXV2VkhIVTA1azRuUUF2ck43RzdiQkZobWJ5VkdUQUtHLUZtZ3pLRF92Y2hrdVdXUUZzdHhCNndzLTFDLW9wV0lKTHpJUEloQnJCU3FUUNIBcEFVX3lxTE53VjdMRkNMUjg0MkNqNVlhY0lKLTdqZVRibkJoUHJvTXNRTDNfX0pmN0VzMlVjYWswTEtHeWU3azVFbFBFRU52c2ZOZ3c2S09EUHo1bzIyZkFSR0M4NWF4emJjOHhfQlFjcmRvYjUyUkg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "kt·삼성, 대구서 한국시리즈 3차전 격돌…우승 분수령",
+     "source": "애드뉴스인천",
+     "time": "2026-11-05T14:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE41NmthaE1yQkxyblhSN1JudjdLQVQ2SXBPUW8wYmk4clZVSmpLVWZXai02UGZQLTdGWXA1eHdMaGVpUFA0X0R1TnhXVUlUbDNLMmJMa050NWtCdVRHLWs4Q1gtNjR1QkY0dko0",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 1.2조 투자한 미래기술 연구 성과 공개…기초과학부터 AI·반도체·차세대 에너지까지 연구 생태계 구축",
+     "source": "인공지능신문",
+     "time": "2026-11-05T14:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9HbkxEZS1yTXJ3elgydF9zVUNOcU54SzJoU25VZFNZX1QzaEc5cGNDczdTOTdwMGNVbmVvX3ZJVmJkQ016VzZZMUJ2bU1ZRm1vRkRjdVdBM2JwOFU4RDZrUjJOT1dHMGc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "민주당 승리에 AI 투자 위축 우려…삼성·SK HBM 수요는 괜찮나",
+     "source": "뉴스핌",
+     "time": "2026-11-05T14:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9adkFjc2M0RUdZMFlMQWd1dGNmYXhqUFkwbUNYbWdDc1FFeFB2bzIyVF83YXIxM2xTZWNaODNJUE1qRzBsWjZ0ZDR2VGxobW8xckJJR0xxMTZFR2NH",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 미래기술 R&D에 1조2000억원 투입…우수 연구자 10명 첫 선정",
+     "source": "더트래커",
+     "time": "2026-11-05T14:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1IdVgtTmFDRUdnR0tPaURoaGF0MGhSNUxCYU40YmN4SndYZTJIX2g5VmVsdE1fRk12T09hRXQ0M2dmSjlrUldMdi15QklabksyYXNZc2NGWEQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"빗물로 분수 돌리고 생태 배운다\"…삼성물산 놀이터, 세계 조경상 쾌거",
+     "source": "경기신문",
+     "time": "2026-11-05T14:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBBd0RWYzhLMDY3Sk96TEtINzFJSnQ5MWl0eG5GU01NZlZYRWlMM19mOE0tR3dKdDE0RlZkX1VuOS1UWFIwSUhpc1Zzd3J6UmFIQ09lNmdabUtKYUNCZXZDcFdB",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "美 민주당 압승에도 LG엔솔·삼성SDI 약세…2차전지 '진짜 반등' 가능할까",
+     "source": "인베스트조선",
+     "time": "2026-11-05T14:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOUlR6NHJSX0R6VDljWkJtOVBXZjZkcWpCT1poZHFQN3VCVEo1dHpsWVoxeWV3aXlBd215Q052RHhDbERlQ19PMG5UNzRibkpOZm1udmdsV0ZVeGhtV25udm1XN2JwM3pKc2pSRU5GUThXSWZwQWNnUUZlR1h0eWJpRjBBSQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자 제6노조 `유니온샵` 설립 신고…동행노조 갈등설 공방",
+     "source": "매일신문",
+     "time": "2026-11-05T14:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1WQk93enRrc21UWlR2Q0t4TFJqNFV4ZjFiQi1Cd1RQWWNydVlRbnVGVGctS2hXQ1NJWjVEZUh1cm93U3RtUHRaOUwzdVhwZXVvWUhYV3dYc1lsVlZLYjd2WEN3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "또 쪼개진 삼성전자 노조…제6노조 설립 추진",
+     "source": "전자신문",
+     "time": "2026-11-05T14:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5QTS02VFU2LW5Xd0s0aVB1T1hBNVF2LWgwNkYzNE1uMjVXMUFTREhnWVJ4N3pHZGx4cGV0T2h2eGRlM3o1YVNBd2EzeTRFUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "‘무노조 삼성’에서 6개 노조 난립…노노 갈등 심화 우려",
+     "source": "매일일보",
+     "time": "2026-11-05T14:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1pWlVlb1I3WUx5djNlTXZ4Zkl0dU5yTXFuZWVWZnYtdXRFY010emM1V3RXN3l1c3ZzLTdDaEw3aTBvQm5oajc5bXh0UERYNnkwNjBSbEUxZmpYV21fUGNFWmpfYVI",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자 6번째 노조 설립 추진…기존 노조 간 갈등설에 입장차",
+     "source": "www.ebn.co.kr",
+     "time": "2026-11-05T14:49+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9VaEVRQ0VocVJIRVlXWmczTFdOTUR0cXZPUVh5Tk1RWlVNS21lQmRUS2NnU2hta3I5WVA4ZXdXZXVaLXJxcWViRWlSNzljM3pPLVJTb25wOGRiZElLRi1jMzJlMHFLNkpz",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 6번째 노조 설립 추진…기존 노조 간 배경 두고 공방",
+     "source": "미래경제",
+     "time": "2026-11-05T14:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE82MFV2Tk1jbGk5eDBUTTRDQXpKVTdyb0ViUTFSTjhaanRrQVFjeWZwSUFpLUhUbHgwNDZTWVVURE5uRjZkX2d5MENKX3E4bTh1SUF3OHRqNlhvaWU5MmE4cERwQXlFdkJobGVXXw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 中 TV 경쟁사에 패널 의존…가격인상에 수익성 압박",
+     "source": "서울이코노미뉴스",
+     "time": "2026-11-05T14:42+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBYeU5PR2xZZER6QWx1WG1qZ3Vmc1JOaHRqSW1JbGtua1U3M2g2RWh2Q2t2amZRaHA5QTdLTGlGdFRLTGN4ZXZ2cHJDZHJaZ0JUbl9KbExiZ19vOW1YeXR3dTdEQ1NPd3diYXltZFln",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "`선발진 변화 준다` 반격 성공한 삼성 라이온즈, 한국시리즈 전략 수정",
+     "source": "매일신문",
+     "time": "2026-11-05T14:36+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFAxTFYxZGxwWUdIeU1MN1NXODJMVHNuNlhCWHRCV3QzNS1rdGM1U0x4WXpvSjZ6S1V3R2ZPajFFODJtT0F3THhaX1BhcHJyNURVLWlTUkNsRUlBZG5WRU9Tb2Rn",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "1.2조 쏟은 삼성의 '과학 씨앗'…코스닥 상장사 키웠다",
+     "source": "비즈워치",
+     "time": "2026-11-05T14:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ZSmxwWHI0VGdVdzRMajl0bEZsTlRkM2FRQkNXNV9DaENmZ2ZhUWRWeE9KV1pkZkh5U3JOUWZ0bEpTTDQ5ejhPQUdxT2p1N3owbUY0enJSZ2lHTzA3aVBTQ0tRTlBtRW16TkdUMw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자 제6노조 설립 추진…성과급 갈등에 노조 지형 흔들",
+     "source": "OBC 뉴스",
+     "time": "2026-11-05T14:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE14TmgweWE2RDh2Nzk0LUxwZlRmV3VwUVpZMXVtWnBZeUtTYm9DcEhPeUJOcHRGa2MzTEhOdHRrandqeHZ1WWNsRUlCOWotS2RtNTZHcXM5V25tVXRrTE0wQXl5R1dzS0RN",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 미래기술에 1.2조 투자…우수 연구자 10명 첫 선정",
+     "source": "매일산업뉴스",
+     "time": "2026-11-05T14:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE02elk4SElqTmJ5bHB2blNmbmFUeUU0M0t5T2hZWEpoZTJCUTlqb0p4NklJRnNfMjZ2TG1CTHU5bEQzWGRwU2VJSWx3aWR4LTFTd01UWEw4X0N6SnpzYktjR0dNQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성 태블릿 출하량 22% 감소…글로벌 2위 유지",
+     "source": "뉴스핌",
+     "time": "2026-11-05T14:28+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9CQm13RHBSbzF3NU5rZG1qU1VjX2xiYm9LRnI5R21mSmhOMHk4VjBtZFNYZEJOY3pNWXppT1d2VWNaUzhiSGxhQU1xQXNuQkVFYm80NGdvdEtPUG1L",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 14년간 1.2조 들인 미래기술육성사업…우수 연구자 10명 첫 선정",
+     "source": "아시아투데이",
+     "time": "2026-11-05T14:27+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1tYkxaUFhNUFFyRW1GeDl6dXozY19HdHprZU9yTzVWNV9FZkRvN1ZEYVEzeTIwTGhoNmJoMmZMYTRxLVVrVUJEUXJsSXltd09iaVJjaloxN0U3Y05mQ3AxOFYtVG1FQmxsSUU1QzJR",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자 제6노조 설립 추진…동행노조 내부 갈등설",
+     "source": "중앙신문",
+     "time": "2026-11-05T14:27+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi0gJBVV95cUxOY1dWN2Q3RlEwRzhHNGI3ak8zTW9uQm9JQmxyMHFjVHpZSm1XcFMzUFVpVkZlSVAxN0tlbFV5OVJaaGJzSmcxUVlGOFg2bVMtZGVRTjBHOFdfbGQtQUJSTUpKbzROal82b01OMmRROUtVNEFXMXh1ejFBamVoX1U4TUdBMm9TczhiNmZTaXlGVWNHYnQtOHdJMkpyYmc0V1NhaTJ0ek1jMTRZbXRNQjBzTW5uc25TRW84TkRjVUR3aWhOYzVWTDdXVng1SDM0RGIxT1NZVFNsVkhFTnpWWmh0ek53S3ZzZHg0VFlWajJjVG9vaERlVEhZSW91QzVCOTNrVV9XcUlMZDZ6Z0c1T3Z2NEhwc0tJMDdocXdGUWZpOE9tcm9CVURzTGVUMi1JZFdHSTFvb1FnTElRcHB1ZUxtUkRsT0huWlJGZWFMLWVBdjVSQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 미래기술육성사업 14년 결실…우수 연구자 10명 첫 선정 By EBN",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-05T14:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5zTThDT2V2R3JCTzlhNHVOdXFMdEdqZGtDbmpfTlVWaXBmQ21tX0p1WUZ4V0VSNkd6VDdHUy1ZSUl4Q01TMzZ1N3gtUUJXUmpveTVxb0FzM0FNOUhpX3RRSFgxUVJ4TC1iRjBpSUhBU3E",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"14년 R&D 결실 한자리에\"…삼성미래기술육성사업, 우수 연구자 10인 첫 시상",
+     "source": "아시아경제",
+     "time": "2026-11-05T14:22+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9ZWmY1QVctNXNKamp1WnRsU1MtU2tHNGlYVmxqdklhb0h4Sy1wVEpVUDBjTnpsYU9VclFUb1pHd2lLQzVWRXJsNU5tTnZScHF1VjA2V2pJR21VTXFTU1FSb1V3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"AI 가전만 잘 고르면 끝? 구독도 놓치면 후회합니다\"… 삼성전자, 신혼부부의 새로운 후회를 자극하다",
+     "source": "브랜드브리프",
+     "time": "2026-11-05T14:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1JcTJOOFlVS3FTLTI4Ukx2eEpwLVlZTEhlbHFENkQzSnBxVTZ6eGNZTXlwMEVvZUZsdDJnUXJiMzFiX0VNTEJOYTh4NEJSc1RjQXFxOUhqS2hjZFk2Sm9Vczh0ZlUxYVhvQU1lZll4bVNkZmZZQXZHYk1CNXQ1Zw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 갤럭시 버즈 ‘청력 체크’ · ‘청력 케어’ 기능 식약처 허가 획득",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-04T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ea%b0%a4%eb%9f%ad%ec%8b%9c-%eb%b2%84%ec%a6%88-%ec%b2%ad%eb%a0%a5-%ec%b2%b4%ed%81%ac-%ef%82%9e-%ec%b2%ad%eb%a0%a5-%ec%bc%80%ec%96%b4-%ea%b8%b0%eb%8a%a5",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자서비스, 한국서비스품질지수 에어컨 AS 부문 2년 연속 1위",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-04T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90%ec%84%9c%eb%b9%84%ec%8a%a4-%ed%95%9c%ea%b5%ad%ec%84%9c%eb%b9%84%ec%8a%a4%ed%92%88%ec%a7%88%ec%a7%80%ec%88%98-%ec%97%90%ec%96%b4%ec%bb%a8-as-%eb%b6%80%eb%ac%b8-2",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[영상] 거거익선의 시대, 색을 키울 차례입니다: 삼성 Micro RGB TV [삼분컷 EP.7]",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-03T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%98%81%ec%83%81-%ea%b1%b0%ea%b1%b0%ec%9d%b5%ec%84%a0%ec%9d%98-%ec%8b%9c%eb%8c%80-%ec%83%89%ec%9d%84-%ed%82%a4%ec%9a%b8-%ec%b0%a8%eb%a1%80%ec%9e%85%eb%8b%88%eb%8b%a4-%ec%82%bc%ec%84%b1-micro-rgb",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, ‘2026 다카르 청소년올림픽’ 공식 후원",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-02T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026-%eb%8b%a4%ec%b9%b4%eb%a5%b4-%ec%b2%ad%ec%86%8c%eb%85%84%ec%98%ac%eb%a6%bc%ed%94%bd-%ea%b3%b5%ec%8b%9d-%ed%9b%84%ec%9b%90",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자-KT, AI·디지털 트윈 기반 네트워크 자율 운용 기술 상용망 검증",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-02T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-kt-ai%c2%b7%eb%94%94%ec%a7%80%ed%84%b8-%ed%8a%b8%ec%9c%88-%ea%b8%b0%eb%b0%98-%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ec%9e%90%ec%9c%a8-%ec%9a%b4%ec%9a%a9-%ea%b8%b0",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "이재용 삼성전자 회장, 미래 반도체 패키징 기술 일본 현장 점검",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-02T01:21+09:00",
+     "link": "https://news.samsung.com/kr/%ec%9d%b4%ec%9e%ac%ec%9a%a9-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ed%9a%8c%ec%9e%a5-%eb%af%b8%eb%9e%98-%eb%b0%98%eb%8f%84%ec%b2%b4-%ed%8c%a8%ed%82%a4%ec%a7%95-%ea%b8%b0%ec%88%a0-%ec%9d%bc%eb%b3%b8",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, AI 가전 크리에이터 ‘삼성 크루’ 운영",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-01T19:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-ai-%ea%b0%80%ec%a0%84-%ed%81%ac%eb%a6%ac%ec%97%90%ec%9d%b4%ed%84%b0-%ec%82%bc%ec%84%b1-%ed%81%ac%eb%a3%a8-%ec%9a%b4%ec%98%81",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성, 샘 올트먼과 ‘AI 혁신’ 간담회 개최 ‘AI Driven’ 경영 강화… 전사적 AX 추진 가속",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-11-01T02:20+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1-%ec%83%98-%ec%98%ac%ed%8a%b8%eb%a8%bc%ea%b3%bc-ai-%ed%98%81%ec%8b%a0-%ea%b0%84%eb%8b%b4%ed%9a%8c-%ea%b0%9c%ec%b5%9c-ai-driven-%ea%b2%bd%ec%98%81-%ea%b0%95%ed%99%94",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "소비자와 소상공인 모두를 위한 ‘삼성전자와 함께 하는 코리아 그랜드 페스티벌’ 진행",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-30T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%86%8c%eb%b9%84%ec%9e%90%ec%99%80-%ec%86%8c%ec%83%81%ea%b3%b5%ec%9d%b8-%eb%aa%a8%eb%91%90%eb%a5%bc-%ec%9c%84%ed%95%9c-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90%ec%99%80-%ed%95%a8%ea%bb%98-%ed%95%98",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "자원순환을 통해 새로운 가치를 만들다! 삼성전자 DS부문의 지속가능한 미래를 위한 노력",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-30T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%9e%90%ec%9b%90%ec%88%9c%ed%99%98%ec%9d%84-%ed%86%b5%ed%95%b4-%ec%83%88%eb%a1%9c%ec%9a%b4-%ea%b0%80%ec%b9%98%eb%a5%bc-%eb%a7%8c%eb%93%a4%eb%8b%a4-%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-ds%eb%b6%80",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 2026년 3분기 실적 발표",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-29T19:08+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026%eb%85%84-3%eb%b6%84%ea%b8%b0-%ec%8b%a4%ec%a0%81-%eb%b0%9c%ed%91%9c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "JBL과 바워스앤윌킨스의 역사를 조명하는 ‘사운드 레전드’ 전시 행사 현장",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-29T17:00+09:00",
+     "link": "https://news.samsung.com/kr/jbl%ea%b3%bc-%eb%b0%94%ec%9b%8c%ec%8a%a4%ec%95%a4%ec%9c%8c%ed%82%a8%ec%8a%a4%ec%9d%98-%ec%97%ad%ec%82%ac%eb%a5%bc-%ec%a1%b0%eb%aa%85%ed%95%98%eb%8a%94-%ec%82%ac%ec%9a%b4%eb%93%9c-%eb%a0%88%ec%a0%84",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[삼성 AI 구독②] 고르는 설렘을 일상의 만족으로…삼성전자가 제안하는 혼수 가전 공식",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-29T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1-ai-%ea%b5%ac%eb%8f%85%e2%91%a1-%ea%b3%a0%eb%a5%b4%eb%8a%94-%ec%84%a4%eb%a0%98%ec%9d%84-%ec%9d%bc%ec%83%81%ec%9d%98-%eb%a7%8c%ec%a1%b1%ec%9c%bc%eb%a1%9c%ec%82%bc%ec%84%b1",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 브랜드가치 7년 연속 세계 5위",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-28T22:36+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%eb%b8%8c%eb%9e%9c%eb%93%9c%ea%b0%80%ec%b9%98-7%eb%85%84-%ec%97%b0%ec%86%8d-%ec%84%b8%ea%b3%84-5%ec%9c%84",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 2026 한국품질만족지수(KS-QEI) 평가서 18년 연속 최다 부문 1위…냉장고 통산 20회 1위 선정",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-28T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-2026-%ed%95%9c%ea%b5%ad%ed%92%88%ec%a7%88%eb%a7%8c%ec%a1%b1%ec%a7%80%ec%88%98ks-qei-%ed%8f%89%ea%b0%80%ec%84%9c-18%eb%85%84-%ec%97%b0%ec%86%8d-%ec%b5%9c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, 한국 식약처 허가로 갤럭시 워치 수면 무호흡 기능 고도화",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-28T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ed%95%9c%ea%b5%ad-%ec%8b%9d%ec%95%bd%ec%b2%98-%ed%97%88%ea%b0%80%eb%a1%9c-%ea%b0%a4%eb%9f%ad%ec%8b%9c-%ec%9b%8c%ec%b9%98-%ec%88%98%eb%a9%b4-%eb%ac%b4%ed%98%b8",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자, ‘삼성월렛 머니’ 해외 결제 서비스를 위한 업무 협약 체결",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-27T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1%ec%a0%84%ec%9e%90-%ec%82%bc%ec%84%b1%ec%9b%94%eb%a0%9b-%eb%a8%b8%eb%8b%88-%ed%95%b4%ec%99%b8-%ea%b2%b0%ec%a0%9c-%ec%84%9c%eb%b9%84%ec%8a%a4%eb%a5%bc-%ec%9c%84%ed%95%9c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[삼성 AI 구독①] 구매 이후까지 책임진다…배송·설치·서비스 ‘삼박자’로 완성한 맞춤형 케어",
+     "source": "삼성전자 뉴스룸",
+     "time": "2026-10-27T17:00+09:00",
+     "link": "https://news.samsung.com/kr/%ec%82%bc%ec%84%b1-ai-%ea%b5%ac%eb%8f%85%e2%91%a0-%ea%b5%ac%eb%a7%a4-%ec%9d%b4%ed%9b%84%ea%b9%8c%ec%a7%80-%ec%b1%85%ec%9e%84%ec%a7%84%eb%8b%a4%eb%b0%b0%ec%86%a1%c2%b7%ec%84%a4%ec%b9%98",
+     "added": "2026-11-05T15:28+09:00"
+    }
+   ]
+  },
+  {
+   "key": "nvidia",
+   "name": "🟩 엔비디아",
+   "items": [
+    {
+     "title": "엔비디아 손잡은 네이버, '오픈AI·앤트로픽' 등 신규 AI 고객사 유치 '시동' : 네이버 블로그",
+     "source": "Naver Blog",
+     "time": "2026-11-05T15:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxONk9rb3ZITHlWRlBIaFJkb3J3cTNyTnY1WHV6eG1FZFdNTDJJNU0xU2lKb0otZ1Z0M2loOUV0NVFwN2dxTzFMd1IxdHhOSXRiM3dSN1FBZ0FHWUMtYTV0UG9HNDROSlBaWkNmRU9pOC0yME5WODF5SGg2MW1KMGFKUnItbF9sXy1uMTVfVk4xbw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "“AI 마지막 제약은 정치” 미 중간선거, 엔비디아·MS 희비 갈랐다... 향후 전망은?",
+     "source": "TheMiilk",
+     "time": "2026-11-05T14:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5PUDY0RkkxOGMwSW02aFl5YmJIbk12a0EyVnVRaVE0TXBSUi03V0RaZzdNQV96SVA0OEF0SWktcTZNYlQ1bWZCalFpeEdKbm9K",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"딸은 메타, 아들은 엔비디아\"…김보연, 자녀 근황에 용돈까지 공개",
+     "source": "이투데이",
+     "time": "2026-11-05T13:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFA0Q3lmcVYwNHIzaXQ2eUtXSDVrS0ZDSFBfWGFuRDc0YmRvTzVFendqYnJnVzRKS1FGem5RdUxYZVVmSGs5cHRndG1nRlZqekZIdVYzWG90TTU4YWtpdHlpUlpmRjBHb3Nld1h0aHNkMFh4WXRC",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[GAM]AMD 3조달러 AI 영토 장악 나섰다 ② 오픈 생태계로 엔비디아 맹추격",
+     "source": "뉴스핌",
+     "time": "2026-11-05T12:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5DRDlTY1ktUERGNVE1aEZwMHdSRUVLZ0hMZ3ZEYU5jQV9JM3NoRmNrUHNaVVBHelZXVHMtaEJGcXVEdkZSak54VVRiMHVkQXBkYmhRUFpwY0c0UWRo",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[오늘 이 종목] \"성호전자, 엔비디아 생태계 진입… 후성, 반도체 특수가스 수요 폭증\" - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T12:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE0tLVIyem5zejU2czJPYldyRzZSX2trZE5DT0U5T3pxSzk0NGR5UjhBRVFKSzcyY3ZsMzFUZTRxNnJxU1dIWDlxZEtuZlNpd1hfMDRrbHRFYlpRMXNlN1VzN1VNZ3MtQ3RH0gFuQVVfeXFMT1ZZdWYzOXBTVUJuNDJ0NmpJeDk3RktvV25VcjhOMS15M3kwQlNxVldQeFRRTFJxV0JhcGQwZy01SVpxVHQwVmpfSUdnTGJBcUZUMnJyLVpYMjliYnNCMzBpZWtjelVmU1FrRl9tQ1E",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "볼보, 엔비디아와 자율주행 협력 확대…차세대 차량에 AI 기술 적용",
+     "source": "스포츠월드",
+     "time": "2026-11-05T11:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1oN3gzamd5MldTTjJvZVpXTVRtTC1JRGpXVTBlOG5yNE13enhmTW1xWUl6QVA2VUtQVEE5SVFub1B5UXhvQXZXdnVQSnRQWDR0VlBGeHZsYi14cWR6ZlUyTEV3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "이노시뮬레이션, 엔비디아 기반 '피지컬 트윈' 공개… AI 검증 시장 공략 - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T10:15+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBBbU9rS2pRQk5VU2tlLXg2WXVJLXBmQ1pQSDZuNzYwWHVsV0pOS2tHU21rd19fUUJjY3hQaTFqNnBKS2x4cGp6UHhQMTAwbXFneDlrbDNjZWN5aDZqazNzbTZpUVRrQUNy0gFuQVVfeXFMUDU4c3JFdjM3NFYzVm5Dak16bWNHQ3RrTW9lVmpkaDl1OTI3ZlpZT0hNaVJ3ejRNWF84NTUxM1VHdkQ1bDd3U0ZKRS0tQ0cydG9EaVBmZVR0eFhJOHRZNUYtRGFJVHE4VFllSHg4bFE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아·테슬라가 공장 돈 대는데…주가는 밀린 삼성전기",
+     "source": "자본시장뉴스",
+     "time": "2026-11-05T10:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5OeUJUTHVXb1oyUnRyQmxTbGJyZDhUaUVaSE1zcFBlZFpCaU9fOUVOOEZpdmxqbXBCQVdmUFU0ZWdiM1pWU1pGbnYyYTZYUE1KdXZzdWZNOU5pcGVDNWxMVzRaSWo3bUk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "美 민주당 의회 장악에 기술주 희비…MS 6% 뛰고 엔비디아·테슬라 하락",
+     "source": "디지털투데이",
+     "time": "2026-11-05T09:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE56WGJCZVFGdUFKR0t0WXJXTWFWaGJLSW5sdk50aHV5Y3dlYXpvUXBXZ1dhNUg3Q21WbklnWktVV1dOS3FCc0FPdU51dzZJNDJrUVVvSHRWdlpaOHppdUo4QUpuc3pVVGUxcUJxTzNwTllqNzA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "김보연, 두 자녀 IT 기업 근무 “딸은 메타, 아들은 엔비디아” : 연예",
+     "source": "재경일보",
+     "time": "2026-11-05T09:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5lUEFJTFc2aExnQVZzOThyTFdZRG1GNm5neXpFenpiZXBPeG9PTjBERVozVWNyUmdUQ09qOHZqMlJuZGJDOEN5aHd6TQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "에티나, 2U NVIDIA 인증 서버로 엣지 AI 인프라 유연성 확보",
+     "source": "스페셜타임스",
+     "time": "2026-11-05T09:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBuVnVuMFZfVHQ0U2N4UUsyN2FCdnNXWEZ1czZ5bmw2UWM1QXJZRGthM3hQWVNleXc2aG1tNnlXc1JReXdoS0FnLWs3ZG1RV0tkSEdWXzNseUpWSWZENGtEbWRYbk8yN3UxcDY3RWIwT05rckk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "배우 남편과 이혼 14년 만…자식농사 대박 난 여배우 “아들은 엔비디아, 딸은 페이스북”",
+     "source": "위키트리",
+     "time": "2026-11-05T09:33+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9HY05PeGl6R2s1SklZWVl5VXBKdUJzS2tCeUVSMEk1RXQ1cXNCY011dXFXODRwbkZSX0o2QzdIaFcyWnBUVWN4WjNkX1JqRzI3Vnd6TmJ3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[특징주] 네이버 주가, 18만원선 회복... 엔비디아 협력 기대감",
+     "source": "금강일보",
+     "time": "2026-11-05T09:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE12WDBjWmtwX3FrMzcxMzI5NDh2NWVfblppUlJsSGoxLXRtSDQ2R3VSaldvZXQ0ZlN3dnpwemk4ZTd5cWNwVHJLcFFFYnRyQWFRUmd0WEJFN2pCd0NPWk5qaFl1V2VlbEZpR1E",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"딸은 메타, 아들은 엔비디아\"…1년에 용돈만 1만불 받는 여배우 누구?",
+     "source": "아이뉴스24",
+     "time": "2026-11-05T08:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE96YkNlaG12bzNZMk1uRTRtVlZhN0lwdG10NGtCc2MwZ0Fkcm5wdHpmWHlJQ2pNMFZoQ2FnSmk1akIwbGY0QjN4VXZPRQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "볼보, 엔비디아와 자율주행 협력 확대…’아이즈 오프·마인드 오프' 주행 단계적 도입... : 네이버 블로그",
+     "source": "Naver Blog",
+     "time": "2026-11-05T08:53+09:00",
+     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPNjdtNVZMZGVnQ0ZJQng0SFhJbEJsTlE2c2E0YzlLNVdlN2JaZGw3TUJYZEhrd2MzMkpXbWwxazhYVnEtWEc4cVBmckp3WXZNb0JuTkJ4MXBmNkQyWE5FOTAzUjBjdGV6QlpXVmtCR01nWjZTZndaV3ljRkc1cXRwVk1XRWZTN3lwMGpILXlHOWdZZXdHVzh4OA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "미 중간선거 민주당 장악에 뉴욕증시 폭등...엔비디아·반도체 폭락",
+     "source": "국제뉴스",
+     "time": "2026-11-05T08:25+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9oZmh6c0ZRQXlSMDlpWEpQX3J0dVZMOFpxUGhaekxKWjl4TDdlVjdMY1NYak9EMkhpSUJJLUNERk93ZEFrMWZ4NmREQW5pNENzQW1oMVRMbTdsUVA1OE1HM3FzQ3Y3SERaaGh1ajR3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아, 중국엔 줄 칩이 없다…97조원 주문에 1%만 인도",
+     "source": "솔루션뉴스",
+     "time": "2026-11-05T08:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9CMUFyTUM1RnEwNXY2b2wxejMtQmZhekVKUVBNZGJON1lsUEpCMTFxYlBoRm1tV2ZJNTBwZllyejJiMzN5MlZFWGFyTzdrb29WOGhhcnJEQnZ5S2VkUGFFRXB2Yk9HbTlOMkFZ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "중국, 엔비디아 칩 주문량의 1%만 받을 것으로 예상",
+     "source": "IDNFinancials",
+     "time": "2026-11-05T08:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxPR2pzU00tQ19mQkZFclQtdjhIR1FEVktLZDl6WGFoa3lFVGFOU0tfQ2ZfX2lycXF5d2toYXVmWUx5aGNWZU5TREJsZ3FXSFFLVHFKUjltUlVLcVh5QnJxNW83U3ROaDBuWTRZQnByWDdpZnJJRTNsMWxIUnAtNzZzWEp6THVDR055bGtseXNrbUlBOTBtcXJDWUotakx2b1JtTlBEd0xmTndFM3NWcjV6eHVXTk5PT3RWRDRzeDNONlVqbjlHSUM1QXpncHpDbjJ5aDE0N3JIWC0zdTFuN09jTkFhbU5lTEJMc01NdlRLUE1CaVZnNmFQaklxbjc1QlA2RkpnbkN5TC01X3pXamRmOVNFLThXYlFObHF2c1IyZ2lLemRQOWZaYmV1VFhvWWJwVWoyMWw3NlFJUmhzTnNPSnlBOHhjdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "“딸은 메타, 아들은 엔비디아 다닌다”…김보연, 자식 농사 대박",
+     "source": "동아일보",
+     "time": "2026-11-05T07:56+09:00",
+     "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1pVFgxWmNTTU5SVkVJYlVCZEcwNU9KNWZPc1U1dWRHcmk1a254RXE3VjlESHlZc2Fqem13WldPenAtSnUyNWU2MGlZbHVlZm50QTRZU3RtcUQxOG9TRF92MDExWjh0SjRfTjlTdmhydW1CLWhKQTZ2YWQ1YmdzUdIBZkFVX3lxTE5FVUVkTy1La2ZQRFdyM3pPUk1UV1l2VE92SllqOWRobS1EczZaQXBTMnpzc2JycVJpMGR1Rjk0eEFiejlNNXQ0c2ZuM1NCb0NycEx4WTM1UmhBNzF5ODVGZmlGWDY2UQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "600만개 주문했는데 고작 1%…中 빅테크, 엔비디아(NVDA.O) 칩 품귀",
+     "source": "메디컬투데이",
+     "time": "2026-11-05T07:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBJeHFtdUlIQ29fd0RzNEN4X0dQaURNZTluMlN4WTVHM09FQVFLWnpna1dGZ1lNWVBCSTVWOGJXN0VjbndVdjQ3RjFmMS1iRFZNVWc4SG9GQk5DYS1UTUV6TC11bjVhdmJkbjlQZQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아·마이크론·SK하이닉스 '와르르'…애플·마이크로소프트는 폭등랠리",
+     "source": "핀포인트뉴스",
+     "time": "2026-11-05T07:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5VdV9FeXM4cGRjR1dleExNOVRGNEVUU3YzX2hrOW80YUR5b2lVNGNtQVNZNmFsVHY5YkhGSHk2Y2ZySHpjWTYzdDA3a05aZjZJRUpvVTBKLXFnNW1Jdk5VbER5eEphSDVwR09yRXlObG5qbVnSAXdBVV95cUxNdFRwNTBGNjVBU0QwTXpVeGcxNTBzM20yTFV0UGxsWXZJb0R6cGNXN1FtSnBvcDM1a0lWSkVmcTc1dG9xQzdLY09jeW4zaWR2SDlnTFNrRHFSWndldzh2UHZwSWZRUkF2bkREOURkeXhKeVZEUEFwbw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[속보]미국 증시 엔비디아·마이크론·테슬라 급락…애플·마이크로소프트 급등과 대조",
+     "source": "CBC뉴스",
+     "time": "2026-11-05T07:30+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE56cThyQUNOeUFsX2tLNHFBem4yM0x3cnhDaE0xWXBWdG9qTDN4OGtoaDBkRWxwTUV3Mjk4a2ZZLVBIbkcxR3NBM2xrenJZZWJDRkk2X1VMelJ6WUNJcmIzZU1JQUdBSGJS",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아·마이크론 약세, 필라델피아 반도체지수 3%대 급락...뉴욕증시 랠리서 홀로 소외",
+     "source": "싱글리스트",
+     "time": "2026-11-05T06:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBoOEJZRWdGeGFNWGNIV01sbUpNd1BXUVZQbjljdTBHWmYta1FGWEt5dHlVWHBBbk9KUVRTNHRaRWtZSkJiMVB6QnJBMS1LMzh0S19qNHBBR1lvVXRtQzJsVm5ENEhCdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "“딸은 메타, 아들은 엔비디아”…김보연, 두 자녀 근황 깜짝 공개",
+     "source": "헤럴드경제",
+     "time": "2026-11-05T06:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1SU1E5MzV0R04wa3RRQ0tJblhrUUdjRVgwOEJfTHE1dnl2dnhDdHFveExoejVpNktIWnUyUml1RlVQa0UtTm5Rd3NYS2Q5RnNMN1pLZ2RKNA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아, 'AI 데이 서울' 9일 개최···어떤 주제 오갈까?",
+     "source": "글로벌E",
+     "time": "2026-11-05T06:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBBZFRuY01YOXJYSWd5TXhmc29IbVRhY3BBV3RMSkpYQ3JkZHQ5dTJsNVpSOVNJT3dnd1NJM2tjQmZiN1M5ajhxcms4dGtaaDBDVUJaTlJqcG9xUFVLdzJZbzdIelRKaFBQRjc40gFvQVVfeXFMTVF3WmFBQjl4ZDBFdkpVNmc0UVVCc05KTXhaSjdBVXlIazliYk1ZSEpkQmxJdlNLdXhUSUNzRGxVYkJQTXVEN1BQemw1dHBCak9lQkRhYXFOY0ItZk9EOE9PVEw4dDRfZ2gzcldocVBR",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA Corp (NVDA) 주식 마감했습니다 하락 3.12%에 11월4일: 변동을 뒷받침하는 사실",
+     "source": "TradingKey",
+     "time": "2026-11-05T06:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPSUdkaUQ0aGVxeTh2LTg1TXRzT0VIYTBEalpOSVQ5Vmw5aFdKdWkyNXU3X2hqRzdvaUpjMHQzSm1BU2ozRzRGZnY1WE9lMHR2UVVWdTMzcWROT2luczVHZkowNHNZNXV5TGdJdWxWdlVwSHhTSDdWT3dRcXpNc29qSVVyVU91azNjMFZrWG1HOA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "김보연 두 자녀 근황 공개…‘딸은 메타, 아들은 엔비디아’ : 연예",
+     "source": "재경일보",
+     "time": "2026-11-05T06:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5tWDM4Y2djdG5vQklZWmFxVzRnR09odTBiLTl4T0lVUGFaZFF4Y1NDdlRQMjFSdlJLVExQNXJWY1RiMXhtWFctNlB5Yw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아 칩 사도 꽂을 전기가 없네...몸값 뛰는 '맞춤형 칩·전력기기株'",
+     "source": "이투데이",
+     "time": "2026-11-05T06:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1LVGNzaGFvVUMtMGQ4Rng4ZUVvQ2RkR0V4dkJ2SVdQRXlvMDJtYmdmZU1XM19ydTU5VnZ1UllOaUtUNWVONmkxTktiOG5ZdGxpMmt5dw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "'이혼' 김보연, 자식농사 성공...아들 엔비디아·딸 메타 \"용돈은 1년에 1300만 원밖에\" (찐여배우들)",
+     "source": "엑스포츠뉴스",
+     "time": "2026-11-05T05:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1xSzZwaWRvamJqRl9mWW5IcnVqS19IWlZsYVNzOF9jSU00dXJScGR5U1pJa2txMDZ3NjNRS3dGRXI1akNLb0d6YThKTDBHeG55UzZaaQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AMD, 2027년 매출 80% 성장 승부수…AI 반도체 시장에서 엔비디아 추격 속도 높인다.",
+     "source": "제민일보",
+     "time": "2026-11-05T05:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFB1OXpXQUcxUE9nek5ybEtCQ0JHVGNVXzNIZzk1VmYtTXA4dU5OdGVYcVlCLS1STUI4QzlSSGlGeGJsWURKQmdBU1A3dDZaY0RwNlNNZmdwWS1GeGcxbzNXN0dGMG1UeUk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "엔비디아, 중국발 102조 원 GPU 주문에도 공급난 심화…AI 반도체 생산능력 한계 드러나",
+     "source": "제민일보",
+     "time": "2026-11-05T05:08+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5hNnVIMUUwRmdfcDRkSDZqLVZJY2tqcTRUMXFsbjI3TkQ3a1V3cFdQYzNpRXlRdFV6ZVo3anVCdTRDanJ2cjEzWVAxc1J5SWJpRk1FVzNBZFVrUXVvUlRveW9xQ3pWUVk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "로봇이 배울 '세상' 만든다…엔비디아 눈길 사로잡은 韓 3D 기업 - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T05:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9sOXVxaTNJbzMyWlAzclQ1cXdfeE5LN3ZobnVLLXlKUzRXVGlleGdsZjk4YkY4amgxRm9iWUwyaUczMFFma2laT05teHJnSWRjTm9kUkx5X3BXWTNHWW9hWHpLT1VIU2tUZTJBSzZtWGUtN2J6SzRn0gF8QVVfeXFMUGxFbVU1bUw0RGxmQkM4U05jMlNmckY0Rm1DSTlwYVJSSExGQ0NBMlhJRVlQTmozTExMUmIwMXBENFVZOGk3Z2xrdTA0SVJqcjYxOGNrekxzTU0tUThaUlpBZU9hX0g4M2xzdnhwODRhTEczVkpHM2FmaFFLdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"아들 엔비디아·딸 메타 다닌다\"…배우 김보연, 자녀 근황 공개",
+     "source": "파이낸셜뉴스",
+     "time": "2026-11-05T04:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFB0eVVRN1B1am04NXZjbEJrQmphN1VBRXY3M0FpWHhiS3Vkc01DbU83MUxkVGtYMmJvT1k2LUh5aGMzM19Zc1FwaTR1TTRjR21RcnJyTV96QW1Bdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "텍사스發 인허가 빗장에 멈칫한 빅테크… 엔비디아·메모리 증설 시계 늦추나",
+     "source": "글로벌이코노믹",
+     "time": "2026-11-05T03:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZmhITkRVYWZXSTFITFNwNjRGbm9Cam41dUdKOHRZMzlNeEFtOHI1bGZvUm9CT3diMVlmQnlISTdjUHRNS3lKMS1JUXRiWE5waXd4dk1BTFEzOWtfeldGV3ZkbWw0dGtGbzdDSEZVMmhkdmlLWC1qUzh5NWVNZDhLSlJYWGZTYmc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "가상세계에 마련한 로봇 '배움터'… 엔비디아도 주목 - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T03:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA2QnRvQnh1b0h4YW1TS3U3Q1FfcTdsbHFlSS1qbFRESTBYYUtpYndZRUFfV1JsYk1JNkZrN2F6eXVyZnhza2xLOHl2amZyZUo1V2lxWW5BQWNHcm9SQjloRW85S0Jtc3FaOXl3WmxxdHFUQjUxUERj0gF8QVVfeXFMTWZOZl9za2o5bTVXZFhzMG9PcUpZYXlSZTR5X0g2Mk9hNnVsOVQxZ0l3dGpJS3hoNFJmS3MwRHFGckR0SFpTWEtaRW03aDdXSVZQcWxYbUYxZHBzeGoyMF9NU3Y2YXBQc1dOVmcza1V1QzlsZ0RjTm9QYUd4Rg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "볼보자동차, 엔비디아와 파트너십 확대 - 차세대 자율주행 안전 기술 개발 가속화 - 차세대 모델에 엔비디아 하이페리온 및 할로스 기술 결합한 신기술 도입 예정",
+     "source": "Naver Blog",
+     "time": "2026-11-05T01:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9CNDEyd3EyS1pWSEdjUGxoVHR2ZDNxUjN0LXBSZEdjaGlxdnBjRy1pbmNlbm5lVlNDT2ozX1ROSmlFcExHUEs2czY1dmgxM2I0Ynh2VGtEZVhHYnFsUlpMa3czTHRfZG5BQUpjZ1VBcW5ReTRxdm5Oemo3aEI",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "중국 AI기업들, 엔비디아 칩 대량 주문했는데…\"당분간 1%만 받을 듯\"",
+     "source": "SBS 뉴스",
+     "time": "2026-11-05T00:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE8yQ05UZUpjUlJqZkVldDNfYUFYNm5SVGZCVTQyWWJtRjlLZExzTjViQm94UWJrZHJkaFdfVTdpalFLM3ZfZmJWa0RCemZDRlRXUXRXUWRNVHRxZzRhUTViT0NiM3BXS0JTeWc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[뉴욕증시 마감] 엔비디아·마이크론 등 반도체주 반등…애플은 아이폰 듀오 수급 불안 등으로 하락세",
+     "source": "CBC뉴스",
+     "time": "2026-11-05T00:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBzNjUwNFZ6MFNYNWc3RkRBVVloZmNiU3ZvNzBQcFNFeUlSLWhQVkMxNnBPWkVUX053cmhLZnExcUhPVUJKNVRCNFJxRFZNSzNCU2QyNmpKNGU4ajlkUDFETDBrV0s1T3E3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "“딸은 메타, 아들은 엔비디아”…‘자식 농사’ 대박 난 여배우",
+     "source": "중앙일보",
+     "time": "2026-11-04T23:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE54LXBUM1BkZ0ZtaW1NVHQteU1nb3I1N0JkaTZoS3FmdmhVTF9melNoUDFfdUdIZ1ZNWHBpc2lwMUp4MlpqZVN3SS1WS294WjNJeFNhQnNR",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Nvidia RTX Spark의 암호화된 펌웨어, Linux 추론 속도를 35% 수준으로 낮춤",
+     "source": "GeekNews",
+     "time": "2026-11-04T22:36+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5LNk9FdE5POU40b2dpSGE1cng2UkZqQVE1OS11aVd0MzN5cjNSOVZBcmEyNWtBWHVOOGhUbGQ0NklVTlZfMVdwMk9adw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-11-04T01:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/ai-semiconductor-fabs/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-11-03T16:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/cities-physical-agentic-ai-applications/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-31T00:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/ai-joins-the-search-for-extraterrestrial-signals/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-29T22:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/geforce-now-thursday-phantom-blade-zero/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-29T06:00+09:00",
+     "link": "https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-29T00:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA and Oracle Expand NVIDIA Vera Rubin to Multi-Gigawatt Scale and Bring NVIDIA Vera CPU to Oracle Cloud Infrastructure",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-28T01:00+09:00",
+     "link": "https://nvidianews.nvidia.com/news/nvidia-and-oracle-expand-nvidia-vera-rubin-to-multi-gigawatt-scale-and-bring-nvidia-vera-cpu-to-oracle-cloud-infrastructure",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "How AI Is Changing the Pace of Discovery for Millions Living With Dementia",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-28T00:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/open-source-ai-tools-cbrain-dementia/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA and Meta to Expand Collaboration on Muse and Muse Family of Models Amid Robust Growth",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-27T14:52+09:00",
+     "link": "https://nvidianews.nvidia.com/news/nvidia-and-meta-to-expand-collaboration-on-muse-and-muse-family-of-models-amid-robust-growth",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Kazakhstan Expands Compute for Its AI Future",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-23T11:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/kazakhstan-ai-compute-ecosystem/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-23T00:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/minerva-platform-infrastructure/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T22:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/geforce-now-thursday-call-of-duty-modern-warfare-4/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T14:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/european-financial-services-organizations-open-models-proprietary-intelligence/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T14:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/cosmos-open-train-evaluate-deploy-world-models/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "How Companies Are Using NVIDIA DSX to Break the Power Bottleneck",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T14:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/dsx-power/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T14:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/european-retail-open-models-robotics/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T14:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/europe-earth-2-open-models-weather-climate-prediction/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "NVIDIA Open Models Power a New Wave of European Public Sector Projects",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-22T14:00+09:00",
+     "link": "https://blogs.nvidia.com/blog/european-public-sector-open-models/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-21T19:50+09:00",
+     "link": "https://blogs.nvidia.com/blog/local-ai-gtc-rtx-dgx-spark-station-sync/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure",
+     "source": "NVIDIA 뉴스룸",
+     "time": "2026-10-21T19:45+09:00",
+     "link": "https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/",
+     "added": "2026-11-05T15:28+09:00"
+    }
+   ]
+  },
+  {
+   "key": "apple",
+   "name": "🍎 애플",
+   "items": [
+    {
+     "title": "김유정, 몸매 이렇게 좋았나…밀착 레깅스에 '애플힙', 잘록한 허리라인 '깜짝' [★해시태그]",
+     "source": "www.xportsnews.com",
+     "time": "2026-11-05T15:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1IQVpMRERPVXVkX25MRW5fbC04X1BQSnhWcWFWdk9TOG5yVWNaVWV5OWVJQ3E0MlhfRjdGbVpibGJLb1hGWVRIZDF2TEk0bVdJRnl1Yw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플도 울상…메모리값 폭등에 스마트폰 시장 위축",
+     "source": "프라임경제",
+     "time": "2026-11-05T15:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBjek5OQXdBUDJzV2I5aEk4QlpJNXVFY0FpckI5VTlxWlBuRGhkY2N4c21Ra3U0UmZrMWpJcV9DU2ZqRUZ0Y2dOYmdPN25QV2pmZVZtckFvYW9jQTl2R1ROMg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "3분기 스마트폰 매출 1,140억 달러…애플 점유율 50% ‘사상 최고’",
+     "source": "IT비즈뉴스",
+     "time": "2026-11-05T15:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5yanhmUGlqVmtPWS1qaUtmdkQ1V2xJeVRfWnNjQ21MRWdSU1ZIVTJTZTVyVC1VSVM4Z0dYYlVFWVZKNEdlUmUtMGhXUEM1SHVZM1Y5VXhtTFYtaXNMTTVfeU5IaWwyTnVvd0x1Sw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "시프트업 니케, '홍련: 신살' 출시 후 한일 애플 매출 1위",
+     "source": "월요신문",
+     "time": "2026-11-05T14:51+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9sa194S1FYdkRiYUFoRzlMbVlfelF0a0puSXpXdnJUalh3RkQya2VYNXQ1cnRlcXZwbTNrU1ZwWF9tYmt4RmNjOTNXd29YeXhrczZSR1JoWk9xSWl6MFpvdE9tMjNzbzhITVE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "'스누피 스페셜: 크리스마스까지 12일', 13일 애플TV 공개",
+     "source": "싱글리스트",
+     "time": "2026-11-05T14:51+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFA2LTJjd3VZTVVPWl9nTmFwQVpnVHZVeWUydy1mV2RxME4zcFBtMFBsNlBvd196UWdTbXVva2pHeFNCcXVId3k1emNCSzR2NndMRW0zZUdWeXBxdFF2bGxfRTJpcHZEUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 듀오 화면 결함 논란… 구매 대기자 40% “구매 의사 철회”",
+     "source": "매일경제 마켓",
+     "time": "2026-11-05T14:19+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFByV0xMYlJnUGsxV0JmcmpDVDlYd0NWZDluVkh5LTdKbUdUZklPYURJYldEb3U3REY4RGgwYms5bVN1U19rMjFUX0FZQk1pT2RqdkE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"이럴 줄 알고 안 샀다\"…애플 야심작 출시하자마자 '술렁' [이슈+]",
+     "source": "한국경제",
+     "time": "2026-11-05T14:19+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1fZUMtclQ2ZnlLemlxejhnQVNMZllVNlptVWJEeHl1Z2NQaE9wSEFWcHlCbS1EcnpzQTlDNFRxVGxRTlFrbVNvUUdzRFB4c25kc2J0MV9KaVpYUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"애플, 차세대 맥북 네오 출하량 2배로…내년 1600만대 목표\"",
+     "source": "지디넷코리아",
+     "time": "2026-11-05T14:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE4wMDN4T3NvaFdhbnhXNXFBbXY1dWctWVVwczB2a0xkOC15YTlUUzk0Qk5pOFFxb2g5aHRNWk1lS1c0V0tJSnpybXhsZnhXRWhTWjhCN3J3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "돈 많은 애플도 AI 비용엔 ‘짠손’⋯직원 사용 한도 싹둑",
+     "source": "이투데이",
+     "time": "2026-11-05T14:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE96RS1xYl9xdjBHSVllVE5jUDVfaU44V0dJZHRuME93djJGcDRpeUJiVHNyTFk0cnBlVkVoT0xQRkMyaDJBY0hoVnVnUUxYSGxmYkJhTG44NGk3dDBOczJUbXBuTnNVNnNtTnY5TTBqY3ZiZHM1",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 듀오 품질 논란 장기화…소비자 10명 중 4명 “구매 포기”",
+     "source": "전자신문",
+     "time": "2026-11-05T14:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE8tOGhSbVN0elM4NEduajFhM2Q5NXlwQmR2ZVR0YWNmdGRRZGlQbF81QWV5anVsSktoYkN5Ui1TSU0wMzRYanZXWXI3SzdkUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "구글 지도, 아이폰 듀오 최적화 업데이트…듀얼 디스플레이 지원 추가",
+     "source": "케이벤치",
+     "time": "2026-11-05T14:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE82enMyWXUybmRJSktoSHhaZWVfUUJJQ1hNZGoxRHVXc21jM0U3cF85ZGNtbm9VMExJZmhXc0lNdGk0bUNuX0c1dA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "해지하려니 할인 제안…애플 '구독 유지 메시지' 도입",
+     "source": "디지털투데이",
+     "time": "2026-11-05T14:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1lWFBoaF95Y0hHTVV1THVvaFJuUW13ZVhZbXJGeHgzazhxUXIxSy1FRlRaYXUta3phVnJnVXY1dlpNX2l2a3JBdUdRTE9xMGEzczMxTDBfaVV2WkJoS0lWbVV1bHFKNVNtaF8tb01YdlhMenc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플, 사내 AI 사용 한도 축소…마음껏 쓰라더니 결국 돈줄 죄었다",
+     "source": "디지털투데이",
+     "time": "2026-11-05T14:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBXUUhaQkhFUkp5ZEJ5N0dlaVZPOW9TdXI4dWVWaGt1aWtOT0VlYkpIejlJamJXemQ4MVJXcDdKVTB1VlFYeF9mY0pHYUNEczVGUGdFTElPNDQ0T0JwTU5tRVZ0M2lkbGR6RHVlcC1oS0s2b2s",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "예산군 애플파워 휠체어농구팀, 장애인체육대회 동메달",
+     "source": "충남문화신문",
+     "time": "2026-11-05T13:45+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFA5ZTVxYWNYQ0tPRENHSlRjT2xZQVd3LUZDNDlha1RqY2FEcHFraEx1NzBQbXVnYWg0QTNMb3RoSUV5MUZVUkw2VXJMQ2p4bWp5YXN6LTVDVnZFVzdOMUZSSHJfejR5TU0wUnfSAWxBVV95cUxQalRwdkNFbkE4dWFUSWVnSUZHeng0cURjZlZEYWFiUXdqN2lWUWlTckJHZGtPS0s5dzYxZU1FV2VzWDZ2SUotUi1rYUVOVFQyY0JLaXRlQ2phYVVFdjNNLXZkM3lERkpBUFQ0Z3g",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "'애플 폴더블폰' 아이폰 듀오 내구성 논란에…삼성 갤럭시 Z 폴드8 경쟁력 부각",
+     "source": "메트로신문",
+     "time": "2026-11-05T13:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5BeEcwY3Zab3J5RmFqV2xpZEJ2eDN2LWY4aWVDRGFLN2tBRGZjcWRoSlNfdm5vLUk1Wk9jeV90UkxrSTZLMnRZdVg1a0U1T0t2X2k0UFIteHkwQThfSEtVQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플 '맥북 네오2' 개발 박차…2027년 1600만대 판매 노린다",
+     "source": "디지털투데이",
+     "time": "2026-11-05T13:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE0tVEZUUmp6SS1qRzVOOThROWVQd2VYSnFqNS04cDJ1VWxQTHZrZk1uM1M0TlZUMG11N21IV1hSOUFzVDFOSzh0OVpPQlM3c3NBb1Zqb3VIdlBwa1l3RnNtbUhZbEdFQnl5dXNoaGRsdEttQVE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "7년 늦은 '아이폰 듀오'…첫발부터 신뢰 '반토막'",
+     "source": "아시아타임즈",
+     "time": "2026-11-05T13:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5XUWJobEQxeG5nN2w3bkpqSzB6T2lyOVVwcV9rakJKNEtOdk5qTEJnbnNFY2tnUTZDZDNZbTFLU2RiSzU4VmwwNGdmN3BmWHBhWmM1QVhmUUJYNWRrYXc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플 4분기 매출 11% 늘어…메모리 가격에 이익 주춤 : 기업",
+     "source": "재경일보",
+     "time": "2026-11-05T11:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9mX1F1cXJMYWw0WWRrN1lnd25HcHQ1Q0pKMEZBRlBuNmZnVTh0WnFSUmRQRmlWWFVvdTlZdWhvbldpQXFTZGNuZkZ4VQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플, 수요일 주가 5% 상승한 이유는?",
+     "source": "Benzinga",
+     "time": "2026-11-05T11:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPdzZEaHJnM1BwOEJLYlNNbFhqeHFVR0RQMTJQeHU5QmtOQVdZUDFQRWpxNHVzVE5yRWRSbTFJYkFKdVNsV1lsYV9HOFNPb0laY0lOYk9nNHhZM18zb1NQUFVaTC1wT3RqRVpsaVQ1MEtBVE9yQXpGT0c4aktzV0VoVkU5dE1TalYwNFlfVUJZbkRfdlN4ZWpOcUVHQlR3Z0x2RGx5SGtQaW40Sy0zT05sNnl0aUgwLVVOYk1RSTcycy1DUXRkRGh4OVBlQkFmaHJOaU92LU9qbXFoVjdrTkNqNERjUzVzbFdCSDFMWEMxMDN1V090Ui16Tg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플도 AI 비용 긴축…\"직원 사용 예산 하루 300→100달러 축소\"",
+     "source": "뉴스1",
+     "time": "2026-11-05T11:35+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5veGtHcVRwdnMxRVQzanl6UUFZVDVhdy1tSGc3VmtBdERJZGJ2ZVEwTzRzQUpDMFViOVNyVW9td3NkSmJKSEQ5c0hWLXdQWGdpN2QtdUNva0psM1JmSE40a1JZeFJ1OU0",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스, 애플 '홈팟 미니 2'에 2GB 메모리 공급",
+     "source": "한국신용신문",
+     "time": "2026-11-05T11:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8tRDNGUHlqVS13R1hrUzQyM29DdTQ1MFV6SFJoR1BDSVM3OHlHWFZ5bl9jT3BIV3drRWt5RVNoOXl6dUxxemZYNi12bUNZOGZKZXA5ZUsyQU40bDJyX3RaQzdwcGMxWkZpWWJz",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰은 C2·갤럭시는 엑시노스…스마트폰 '칩 독립' 빨라진다",
+     "source": "뉴시스",
+     "time": "2026-11-05T11:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5VY1lCdExBWVJTTER1VUVYTVhUSDJtNk9abGk1UkRfQTQ1SWJPN296UXk1Y3ZDUHV2djdiT3ZLLXdvcklKYTM0QlUwdzlDbHNDbTBPeXZ3YXJYVXlsTHVZdNIBeEFVX3lxTFA3QmpNNHR5eW1kZXhhdnpyeDZoOE0tZ2Z1ZExDQVVKZlBlSEFjVmNtT2tVSGhGeTZyenNJX204YUFSWldablBoVGdYWUtSREJSeEdGMG5jaE5WdnotRzc5UVJ0Wnp4SUZvX0VZUFpicHFRb0VmT19iOA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 18은 더 큰 배터리와 더 비싼 가격을 가질 것입니다",
+     "source": "VOI.ID",
+     "time": "2026-11-05T11:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE13RWM2NUpoVmRJa0cwYzFPMmZUaXpPMktQSXBCMTZaMVhXVV9RV0Q1bWp5MWFNUmtsa3duQk5STFJGODhQS0ZYbzFiONIBQkFVX3lxTE8tSUVWMVYyRm9wVmNoang3cVhlOGtHOFBPaklsT1Job2tWMUZEV0VqVVl1VmMyeTBJcEZSSzlXcmpwZw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플, '아이폰18e' 성능만 높인다…A20 칩 외에는 큰 변화 없을 듯",
+     "source": "케이벤치",
+     "time": "2026-11-05T10:56+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5sWTlrUXBWelRoS0RHRnlrNDZ4dUFrckt3M2N3MFJQWkVza0NRQnRTZzA0V1RHa2lvY29aN0twVzU1eC1GU0liag",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"내재화 외치더니 비용 옥죄기\"…애플, 직원 'AI 예산' 전격 삭감",
+     "source": "이데일리",
+     "time": "2026-11-05T10:56+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNWkpoSlloSG84TDBUZm1ZQlJobkt3MjJZY3NFTzNOQzVOSXdCdmpXZWNFNjU0LUFWbXAzb2ZQS3FfQUt1bjh4WmRPdmpKU2xRN0U5aFNwTFJfdm9HRVBnUXNIa1VBVEdjVXExSHlHRFhRT0RscXRNX0t4RWtCc1ZmWA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "대한아이스하키협회, 애플라인드스포츠와 후원 계약 연장…2028년까지 동행",
+     "source": "일간스포츠",
+     "time": "2026-11-05T10:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE54VWpKMDNrNkZJTnRpQUYyUXBxTHNleWJaOXc5VFRZazEzdk5mbF9hN3RGV0lZUHVVR3BJVmVwcWh6SnRLakFwRTBVbG1EeUNuZ3VsaE9fcHI5U28",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AI 열풍에 올라탄 빅테크···애플·MS, 직원 사용 한도 조인다",
+     "source": "뉴스웨이",
+     "time": "2026-11-05T10:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1oY1RsNHptd0syak9pbDB4M1JMd2x2dFV6RkMxNTZfYm5FTVBYWEMwWU8wRkxKS3RkRWpBSnppcmFDNTdBNzZxN3QwdTY3ZlNYSU1POHp3RldBRHFSQlRHejFjc09KQ29h",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 듀오 '화면 파손'에 대기자 40% '구매 포기'..애플, 구매심리 되살릴 수 있을까",
+     "source": "뉴스웍스",
+     "time": "2026-11-05T10:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1DN2NRQk1fbTVLN2RvTTR1OGZzMUc3ejRDT1k0MjZ0YkYyUS1GSnhkR3c0anNXb0RNeWxBWEFfc3owWGlIZGFsUFJJUnEzMzNhN0FUSDIzS3k3bHZEUGFCZk5ENWN5dnl6SGJpWjBxb9IBc0FVX3lxTE9hWG9ZaFpQQm4wOHI1el9JSWhQUkxrQjlhVU5HRndpc09TajdXSHplbVVJMmh0RUVFNDNmZkVYTmd0OTVadFFjV2dUOC16cnk0R21NM0t1SEd2Z3pzUzZILTQycXZnal9fcnVleEUtaVBMS3c",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 듀오, 화면 파손 논란에 구매심리 '흔들'…'소비자 40% 이탈'",
+     "source": "데일리한국",
+     "time": "2026-11-05T10:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5KWmpCQzQxNTYwYVNUU0hFMG4xSXVLLVVlN1h4VTNmYmk5aXRnT2FSY3MzeHFaV1VYU1VXNG8zNktGbDVINkRaTjVhVldhaHc4SDVoVGhXcW55VzZBalRFX0IzOGNjeEFkUEprSVQ3RdIBc0FVX3lxTE5zaGtBWF9vMXlsa1YyWjU5dzNVdWdUM0xBVWtJelVzNUR4WEFXR2E3TDdhRHptdkQwS2xiQi1TZnpDVjA1eVlGc0Z3ZVdad0NySjF2U0VNM19ZVHZneHpEenB3RlVyWHc4bHJrRUxDaWZOTDA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플 차기 '맥북 네오' RAM 12GB로 업그레이드…판매량 두 배 늘어나나",
+     "source": "케이벤치",
+     "time": "2026-11-05T10:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBqZzNTUEVFTzAtd1JuQVpBc3VIUWlrMUNZQXFtYlFVN3VzYXV2UGVmZHpFeWtlWkNwMzZyeWZOaTdCaUR3Q05vNA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 20주년 모델, 측면까지 감싸는 곡면 유리 디자인 루머",
+     "source": "디자인 나침반",
+     "time": "2026-11-05T10:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxObzNDTFJ6MndJV0s1VjdCcTFBMW1panIza2ZrWDZ5UGNST2c2alI1andhLXI2Z2dtb3gxakVXTTZwbVFBcWtBYlkwVW9kWVJKdTNKV3BuYUh6WU5KQ010SW5QeThya05sRUsxVWpGdXZBcng1MEotMVlpaGZzQ1RIYWMyTG51dGIzQW5BOHJ5TQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 음악 햅틱 지원곡, 애플뮤직 재생목록서 확인",
+     "source": "비건뉴스",
+     "time": "2026-11-05T10:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1ickRsbWZkY3ZHdDRGdVFNQk9nWGdvZFJBT3ZFT0RQMzVYd2t6YVZwSFlzX0ZjWmF1MmRCTVZJeWlPRDV6ZVNLNmsxRVJtRGZJQ2hESVZqMDJ5TkQ3ZHpueDR0czM1QQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플 첫 폴더블폰 '크랙게이트'…삼성, 폴더블 주도권 굳히나",
+     "source": "뉴스투데이",
+     "time": "2026-11-05T09:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9PQ085aGg1TlZ3RG5EZ0xrQUpIbnVTSUJKSzZYYy1OSmlOclZ2ZHdVZ1YyY0VuM2V5eFNuaDVPREdMTVpJREpFQTF0ckNndDhEX1k5RHdkYmdvQmphVGc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"고장 몇 대 안 돼\" 애플 변명 무색 제때 교환도 못해줘 [여의도 Pick!]",
+     "source": "MTN 머니투데이방송",
+     "time": "2026-11-05T09:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9KUFFmQm5HVWJORmJlMERBWWhfR0pnOVlNSUVCT0NsdzM5Tl9KNGprZHkxbkl3ZHZySjVpd0g2NDlMUXV5NVBXVGpTWVRDRkZqYU1UbHVDR0tIcUktLVRn",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"329만원 주고 샀다 깨질라\"…아이폰 듀오 화면 균열에 구매심리도 흔들",
+     "source": "뉴시스",
+     "time": "2026-11-05T09:46+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9mSC0tVTRES09OWk9SOEthcVlzdmY4QlZMNmsxanF5TDBuenJ6b3NUQUtrRDRqeVNDUDRqaWllRldLVDNzb0ZiVUhFS05zdzR6REd4X3F0bF9wNWY3U0dZTNIBeEFVX3lxTFBuUWdmNVp4Z2FhUHc1TC1vSlcwT2JueHBPVm1mbDl4SHpLaEZxb0NjOHBtY1QtdXEtVE9YYUhieWhCRHR6NE9YSjNvYnZYZkp5OTFLekhRdzdPZF85RlpqblFSQm1hMEtzbEc4dmM5S2J1TDE5OElZVQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AI 토큰 지출 관리 나선 애플…엔지니어 한도 300달러서 200달러 : 국제",
+     "source": "재경일보",
+     "time": "2026-11-05T09:45+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9HSVlSVm8tbG9tSzNvU3JENVFfN28yMTlZMkhnVnpxdXQxVEUwcUdhSWgwU1Nfdm5SU0pHcnFWblBBeUN5TDVfNFRmdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플 '아이폰 듀오' 악재 추가...업계 '화면 파손, 힌지 설계·제조 실수'",
+     "source": "테크M",
+     "time": "2026-11-05T09:42+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9xQnFhZ3B4YS1uOUhXRlNwWTVSS0hzQXZmWGE1MndRRUxVSGdfYjlYVFNYN0w3bDdGQ3hHVnRPdVRyY0JIemxnSHlYQ1BZT19odDFMSzdIYmpvLWJOaG51WUJ0amtPd9IBakFVX3lxTFBySlM4cDNSajFPZUduaWU3NVp5cjRZTmswOThDOXhqNDZieEhjajc2akt6VVppbGFoS19fTUNJS3RzWUd3RGxyajR1QVc1dDFXel9zZUtBTDQ5ZHVOV0E2LUhHM2g5X19mc0E",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "아이폰 듀오 화면 파손 논란…소비자 40% \"구매 신뢰 잃었다\"",
+     "source": "뉴스핌",
+     "time": "2026-11-05T09:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9pZGdkVkI2UU9hOWp2a3RqcFNCVDhMYXlaOGlPSzBGMlFXQTZZZ09zbm9KM0VGX1hZTlNWa2xLa0ZiSmJXeS1qYnJuUlhhUmgtaTFmV1NoWmV6dlFs",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"애플도 직원들 AI 토큰 사용한도 삭감\"",
+     "source": "연합뉴스",
+     "time": "2026-11-05T09:30+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9lbnl0TnU0VjlObkRzS0RZcDB4YURFTl9sbjJnRlQyVlZrejBJcC1LeGVVTHhBYnRkUWdITGFITEJMTDExLUFZUWl1WGg1djU2MndFakkwNkNzQ1daOS0zStIBYEFVX3lxTE9lbnl0TnU0VjlObkRzS0RZcDB4YURFTl9sbjJnRlQyVlZrejBJcC1LeGVVTHhBYnRkUWdITGFITEJMTDExLUFZUWl1WGg1djU2MndFakkwNkNzQ1daOS0zSg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "애플 폴더블폰 화면 파손 주장 확산…소비자 내구성 우려 커져",
+     "source": "충청시사신문",
+     "time": "2026-11-05T09:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFA4ZWJVUHYzdXhmZnZGdlZsV3M2NXlpbUZMdk8xbmlMWS1yXzdaYXFydTFGR2hib1pOZENLN0pSOWtxeGVDTTZUR2ZTSGZzV0VmbWNKOElNV1pnTGVSRmpTWDdfSXhWVkxhMWk4",
+     "added": "2026-11-05T15:28+09:00"
+    }
+   ]
+  },
+  {
+   "key": "hynix",
+   "name": "💾 하이닉스",
+   "items": [
+    {
+     "title": "\"헬스장 쌤, 대출 당겨 하이닉스 올인\"…'인간지표'로 투자 고심하는 개미",
+     "source": "파이낸셜뉴스",
+     "time": "2026-11-05T15:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFA5WHZTM3dqWnVEcDZYdzRTVEZIRkRTanREUnBYdl9XVGU5TXJVYU1JdlhDT2JWaENRQWJncURrelpPOXpOWmt2eWRJY0JDSzVWRkp1Zzh5QWtFdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "10월 밸류업 공시 활발…삼전·하이닉스 44조 배당",
+     "source": "이투데이",
+     "time": "2026-11-05T15:06+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE40ZGlzVGZVbVZWdDY2VnNUTUdDeC1rUGFCb3dSM2I3Tl9pUFJSZ2FKXzFlZjFnaFdtMzluV2dVZTVZWUlUaUpJRVJ2SzExMzJzSmNXag",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "美, SK하이닉스 中공장 장비 반입 제동…中매체 美 압박 맞서야",
+     "source": "아주경제",
+     "time": "2026-11-05T15:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9FWHhaMlFudXV0SURpa2pyVkJ2blZtR2RlRFl0dnRkemtUcTlrOHpMNERPalVJTkJrYTdGWU5tQl9LdUR5YkMyd3YzWGRZR0h1eWlNVXBWcWg0d9IBWEFVX3lxTE1xZEZBcThOOG1pT1U5eVhjR0RvNFpkdkpmYmZBZWItcm1DbnUwRVM0S2g5VjZkWlRUQnAycnhiVUR0Wk1RUW85VmFtTGNsYUJiYlBicmxSR0U",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "최태원, SK하이닉스 미국 AI 투자법인 이사회 의장 맡는다",
+     "source": "브레이크뉴스",
+     "time": "2026-11-05T15:04+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE9sNy1JOFVHQ3NaMmtnRFNpNWd4S3MxZm9MenpsSzFodTd3WWltVmpWOXRYRHhHUktpRUhDTC13ZTQ5Ul9LbjNF",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "속보 삼성전자, 장중 한때 20만 원 붕괴...SK하이닉스도 10% 가까이 급락",
+     "source": "YTN",
+     "time": "2026-11-05T15:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1ZZVJXc1FhYWNpNE9wWE1oT2NBWmxyYUJENmVuSE1ERlpnU0tWWFI0aTdtVlAyVWZKR1k0V3p3Mm5scElCdE9uNFo3ZGdEb0RzTkg1YkFjc1NGX2VZOVE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[속보] “삼성전자·SK하이닉스마저 무너졌다”…코스피 장중 5300선 추락, 또 매도 사이드카",
+     "source": "데일리25",
+     "time": "2026-11-05T14:36+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE16WmtncDlZYkxUa0d6eUZQSUdFSVBPaEl6MnU0b1JIajVqSzBWU3p2Q3VUUlloaVc0REp0WUZoUHkxemJOUXhLMV9pcFV2SnY5cnUzNlJtTzhWUGVEaGNyNGg1UGhUWExKX2VUSw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "데이터센터 규제 우려에 증시 급락, 삼성전자·SK하이닉스 동반 추락",
+     "source": "공감신문",
+     "time": "2026-11-05T14:18+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE83NFk1cS02TXBQTWlpMFZyZ1MwY2Z2RWs1Y0RWaDYyTFktU0RfZkxmVHBhM1BJTlFJak1razVZbFk5R2tUbVpTMkhCSGRDMlJ1ZWFyMm9feXBDUkNkb2ZYVy00WFI2Mzlk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피, 매도 폭탄에 4%대 붕괴.. 삼성전자·SK하이닉스 낙폭 확대 > 뉴스",
+     "source": "지데일리",
+     "time": "2026-11-05T14:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB2V182VW5HTlMxcjNEQUxXUW5UeHViejlvcHFQcUxFTVI5UXpNYjhQMkN5dmxFb0U5WjR0R0d1dTFCa1RQUXp0d2ZTcUdud00wVE5XNGdoU2EwaGJtbklrTjBnMTdONUNUUjlTNg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피 4.7% 폭락…삼성전자·SK하이닉스 급락에 매도 사이드카",
+     "source": "OBC 뉴스",
+     "time": "2026-11-05T14:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE11bWF5dGw5WXB2NkZTaTdQMWdLSFZmM09ESjY0QkFINWRESGtKTkY5NkNNVzNPR0p5MlJoLXhHRFowaS1fMy1Fci1hU2JpSnZ2WUtzellMVGgwODl6QmNCaElNTDlzM1hY",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "美 민주당 의회 장악…삼성·SK하이닉스, 반도체 35% 세액공제 연장 주목",
+     "source": "뉴스핌",
+     "time": "2026-11-05T13:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1NckVBel9NaEJvU1Vsb2J3bWtxZmRjc1Ayb1ZLaGF3aUFJQmtnM0s0X1l3OENsOVYtMGJTUFZ0R2trR1RkQ3YtYU5NSFpNTlM3TmJPWmRYTXNYY2Ez",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "최태원 SK 회장, 美AI 투자법인 의장 직접 맡아 진두지휘 한다",
+     "source": "산경일보",
+     "time": "2026-11-05T13:53+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE42YVVqQ2JUSXhycDkzZUlScnlZWk4yNURfNFVBWDU1bDFIRTJ2NGdldXRIY1AwbzdvUFdrZDZudUtBOUlhVGgwSVNzTkFEM2hsRmt4eG5IWDlydWRxdGo4SFVFSXlpempYZnpxelYweVE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SKT, 미 AIDC업체 '펭귄솔루션스' 지분 전량 'SK하이닉스'로",
+     "source": "신아일보",
+     "time": "2026-11-05T13:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBJMHpCVHJkdDZzV3gzdHNUWmVLMzRXWUxpempqWVUyT2JxZ2Fxdkp1UjVHWVpmN19rNmZyMnBnOGFmMm5DZG9UWjFMVnVVNTA3WDVLY3ZmMm5JbFd5SGdxdWtCa3RySV9JR3I3SlN6LXE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "최태원, SK하이닉스 美 AI법인 HYAICO 의장",
+     "source": "비건뉴스",
+     "time": "2026-11-05T13:33+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9vbXZva1RPdVp6djN5clZ5alJIclhZYUpLOGxfTm1jaE41S2ZhbXNLOE9XTmxYWG12anFxQXVaZlBPUG51bjZSUHNfYVFrSS1oNHNMTzV2TTNtMkd6V3BCVUYwejF4dw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[Ceo's Decision] 최태원 회장, SK하이닉스 美AI 투자법인 이사회 직접 이끈다",
+     "source": "글로벌에픽",
+     "time": "2026-11-05T13:18+09:00",
+     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5uY0k2NmJjVE5tS3AtaU1rNVcwN21rVndMem9mVU5JQ3R4S0ItRlZFVHN2d3lZb1pVWFd6bXZONVV5Ui10ZUY0bS1YblBEU1Z4MXZfT2dkV3VvUVhqT3NxSFFMREtUVTRsVzZkRHZVd0w0M2trWXE1d0sxSHM",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자·SK하이닉스 44조원 배당…상장사 밸류업 공시 확대",
+     "source": "산경투데이",
+     "time": "2026-11-05T13:15+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5BckRJZ2twM3JxM2VTbUY4N19RUGZRVWx6cU9PcUl0ajQwY3dfWE1QQnZrV2tFU1BNYWpqcFBhejZoTjhBMkdGYldPZDZXRVE4MmE4QlpMazA3Ymp3YWtwVFFaazZPRHFra3NmRmVCWmXSAXRBVV95cUxPVUZrdTlSbVctek9WMUVXTXdFZS1raVFPejY5YmRUUkVEeXJaUnhMUldzaHJ2NzdVRDF2bkJhLVZmWEdfaVdpSXAtckY3T3BlZlVtRjVQNU5SalJHR1Y2akdqMnM2c2lqWmF4ZExDNW5TeW1HNg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스 주가가 오늘 급락한 이유는?",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-05T12:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9Ta00yaU5DZms2NXJ5amxYNGZ3UmN3MXN6RU1wcUxSRHpfQ05XelljUG5lbklDUzFTQm1HcWtQdnRRSGlOWU9fS0IzU0N3TFpJTFRNYVBzMkpJZU8tZVRQWXhKYkgzNDZrSndKWEFxSzEwcXlyWHJ3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자·하이닉스 주가 폭락 중인데... 현대차는 폭등하는 이유가 있었다",
+     "source": "위키트리",
+     "time": "2026-11-05T12:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9Kc19za1ducG1ma2FYSWVqd2tEMFVyRUlnSi1tSmRDeGd3d1FUSktCQ3hwaTlQWXlxYl8yRHhQSU5JLVBvNlp5NGNyY1ZZNlNoSEp3VjFR",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스·삼성전자, 미국 중간선거 후 주가 폭락...골드만삭스 \"지나친 비관\"",
+     "source": "코인리더스",
+     "time": "2026-11-05T12:20+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE5ZQnM0eWtLRXlrY3FZQV9waFkyX1lHaGJEek9kV092anhRSkp0T29BV0JSTF9XVm1Pa19sTWJMU3F0clF3cFBrY2tR",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피 '美중간선거 쇼크'... SK하이닉스 -6.6% 삼성전자 -5.3% '휘청'",
+     "source": "금융소비자뉴스",
+     "time": "2026-11-05T11:45+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5NcDBQY21tZldISlVYdmNaUnVUUjFsVk9BSkMwOHZvR1pGWnM1Qnd3ZFhfbHpTdG1EQUYwTE9wM3VnOC13cC1rOVNmNkZ0V01nQjBITS16LVJMMWMydmc3WFdhV2NERS0zZnc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자와 SK하이닉스 동반 급락...美 민주당 압승에 '데이터센터 규제 우려'",
+     "source": "내외뉴스통신",
+     "time": "2026-11-05T11:40+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBsR2t0b2FhRmpGcVVxODJnYTZSN3pZV1ZFUXlOdmFJb200V01oVWJYcGtKcktYOXNuQVhQblA4eEM0VzR4MUR2OFJnVjlaNUdJTnFxbG9mU1VGbnVEeUUwbnM3NjBqRzVRbjNoSNIBcEFVX3lxTE40MWhBSmt2cTR2N3NRT3ZnN1JuYWxydjAzVFU1VUhoLTU1VWh2dXNBNmFsWDZRM3RicFFqRWIyTWFOWW5XTXRqdl9GaGFVNzFBWG5fM0dvZl80N2Q1dHpGaS1aTVhtSFhZcGR3bmVickM",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "코스피, 개인 '받치기' 안간힘.. 삼성전자·SK하이닉스 급락 행진 > 뉴스",
+     "source": "지데일리",
+     "time": "2026-11-05T11:35+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5aYXI0LXNyNW1pYW1lUjkyaklzYWotQW5BWVNKajkzMjR0a0hqTWZralQxaW1QODZMekI3Ri1ZbU9lNkFiOHRBaDNNU1dBUjlZNzBKMFU0LVNXYThXX0psNFhJMEFCRzYyWVBKMg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "미국 장비 못 얻은 SK하이닉스, 中측 “미국 압박에 저항해야”",
+     "source": "이데일리",
+     "time": "2026-11-05T11:30+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPaEZ3UndrQ2Z6WXQ5RlVJVTVESUkxRExFQ1Jmc2NqQkxMU0I1N1phLWo0WXVaczU4d3ZOVUtPcmg3UldaQ0ZEOVNZR0R1SnEtLVpvbEpiT0hyelE1WjM5T1VYUGVPUWxEaGdvbzNVVnp5MUxBZ2RMRFdBa0Z6bTJ1YQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스, 애플 '홈팟 미니 2'에 2GB 메모리 공급",
+     "source": "한국신용신문",
+     "time": "2026-11-05T11:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8tRDNGUHlqVS13R1hrUzQyM29DdTQ1MFV6SFJoR1BDSVM3OHlHWFZ5bl9jT3BIV3drRWt5RVNoOXl6dUxxemZYNi12bUNZOGZKZXA5ZUsyQU40bDJyX3RaQzdwcGMxWkZpWWJz",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "최태원, SK하이닉스 美 AI 투자법인 이사회 의장 맡아",
+     "source": "인더스트리뉴스",
+     "time": "2026-11-05T11:22+09:00",
+     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9YR25FUXlzRWxCQ3FBYkhPMXJwU3NrWVl3OVRFTGdlX0E1OTdJTEtLWTU5dU41TTBuVkZjWlM2cnIzRXlSZ1JqTk5OVWI3UWcxaF9NZm9YcmNzc19ySFdfYWpzVmd5X1lQSkFSMUxJYnVOQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[미국 중간선거] 삼성전자·하이닉스 주가가 폭락하는 이유",
+     "source": "위키트리",
+     "time": "2026-11-05T11:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBZR3hUaVpGaldCVHlxYlFUY28yYlpjOFNidGg3bUNiQ3JSV01LbEVMcWxFVE96RUQxdjZJaWJhdzd2Ujd0dWszNks3NGo1Y0dFVjA5Wjln",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "최태원이 직접 키 잡는다…SK하이닉스 美 AI 투자법인 'HYAICO' 의장 맡아",
+     "source": "The PR 더피알",
+     "time": "2026-11-05T11:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9uczlBcWxuaFRJMkM4YVktVXcyOGdjQVhJdGlVRWhYODlvWHd4TXRUQUw1QWthSWNmWUZadnRkd0RlaHNxaDZDeDNFeHFqMTY4RlI3ZDZjVUw0anJGUGRqNHY0Z0tPV0lCcHfSAW5BVV95cUxOWEZIY2pJUHBrSnhJTHI1ZENKM0RnREtkeW5oMW9CT0hPd2dRN0dBNDUyVjJuZGtENV9LLUdMZzBKWU5fb000X1NiaGhQWGdybE9lQ0h4UUY5clladzdhOWdUQU1TdU1UYmZIVVpkdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[이슈 60초] \"삼전 6%·하이닉스 8%\" 미국 '블루웨이브' 파장 한국 증시 '대폭락'",
+     "source": "청년일보",
+     "time": "2026-11-05T11:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9wNVllcmJTS214bzRrSk5yZFc5dzBkbVI5SHZkdjBBenpSNWhLcHRBa002SDBtbUV5aEZCTUFUS3JKRmhrSUxtN0JoNWN3SWhtWjRxc2ViakF6Zm1nZ2FmWDVRV1V5RXM",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스, 美 AI 투자법인 ‘하이코’ 확정",
+     "source": "IT조선",
+     "time": "2026-11-05T11:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1TRDdXUjlIRFEyUVo1ODE1UXVHOWxRZVB2MWJWUlJiUzhDakZKQjlSQUF6Mk9BbXNSbTlfbVJlZ056Z2ZhcUhXQXk0QTdYeW9uZHdMeUptNVZFTDlqXzQ1NW9GT2toSVFaWTZoeUFITUrSAXRBVV95cUxPNER1ODJWOEZfSU93U0FBRm8yMmRfMlkzR2JoelQ1dmN5cllpMHRRRTNGSzF1bmpuMGtzNEZ5N1NqYlNaVVlja3JkUy1uRTdQdHplZ05MXzdSdmtveU40OTFlZ0tBUXFfcUs0Mldxa2hYWXMxUg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "고점 대비 반토막 난 삼전닉스…내년 실적 믿고 지금 사도 될까",
+     "source": "매일경제",
+     "time": "2026-11-05T11:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE04cVhrdEY0VjNfR2RCWmJjQ3dEWVNFc2djWE4yb1hmWUhXbTlWWllkRllIcHhTWTJhY2FlNGllTllBaTBUNlJONHM4UkYzS0RleEE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스 급락에 줍줍…삼바는 팔았다 [주식 초고수는 지금]",
+     "source": "매일경제",
+     "time": "2026-11-05T10:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9wb1l4eDNEWDgzZ0ltN1BRbnpKaGxwdWpqeGJMcndpeElnU0Jyc2EyNXlGUTdndnBUMXZjVFJJeElFSmRUQ0ZoT0Q4ZEwzc1QwUVE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자·SK하이닉스 급락에 코스피 '휘청'···매도 사이드카 발동",
+     "source": "스마트비즈",
+     "time": "2026-11-05T10:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBVemM4QzBUMmlFR2hqUjRIeE5YYzlWTUJoM1BOZlRBQWZYRzBObjNnQzAwN2dwY3FoaHJYR0pFSFdVcjY3eUZsczVtWHRMaWQ2VEJvVzdwako1bkNEV3lIMEY1ZGx1Y3NVQnNTdg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "“삼성전자 6%·하이닉스 9% 추락”…코스피 4.7% 폭락, 매도 사이드카 발동",
+     "source": "디지털데일리",
+     "time": "2026-11-05T10:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBGMmlHNUV1WUNEcGl6dW0xcGdVaG50Y1NtUVpZTnBLSmNxY0U2T01yUUMxZEFlOXE4WnZBUm9XWTdkNDViXzhxbHZfZm9vOHBxTDY2aGhGY0F3MnRYbU9GSExWOEw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성·SK하이닉스, HBM 가격 협상력 확인…AMD \"인상분 고객과 나눠 부담\"",
+     "source": "뉴스핌",
+     "time": "2026-11-05T10:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBrRC1RRUhSMXBMcGJ6OGMxb2tfWTM1cU1ERkU2ZWlTdEVhYW1wSUFlUGFkQmlUWEZZWTVTZHFwYUV6cWF6alg2ME1fQXpLVy1PM0xkaVlkWUgtOXZl",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스 美 AI 법인 의장 맡은 최태원, 14兆 투자 ‘결단·속도’ 드라이브",
+     "source": "뉴시안",
+     "time": "2026-11-05T10:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE14RnVEdzJpN3dXWEtLbkhpVTZtbGN0d0RQcE5EQ1ZNX1l0UG4tQjg3ZV8xZkpTSktlWDZiY1hCbkI3Qjk1bjZuZFFjc2FFN0h2TVU1Y18xdE5vSVZJUVh4dWlDa29wbzExdnpudA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "美 '블루웨이브'에 코스피 5420대로 AIDC규제 우려…SK하이닉스 9%↓",
+     "source": "중소기업신문",
+     "time": "2026-11-05T10:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE0yT0IzQnhKanprVGpLbkk4UWpaa3l5bzVIbDVNX2RSUUtacTdRM2g0NEVBamdqYWZLc1VJTjJiaUJzSm84Nm5yelZNNGNHU09ibnFVdUNxMV8zaUJnWEZHd2hNOTU5MnRhRnhxXw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "SK하이닉스 주가 장중 9%대 내려, AI 데이터센터 우려에 삼성전자도 약세",
+     "source": "비즈니스포스트",
+     "time": "2026-11-05T10:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1Gck5HOFFqejZEMlowN0dnYkdHdHJVUXNyZFJFb2JhcjZmSG5GZWZFUXp5SVN0MVVVNDVIcFc4cnpxY3duZ2hLSVRCX3F6bVJQb2xXZ0NxUDFEZ25YbHpwMmVXa0ttZVJEMHVMeWd6Z3h5YWM",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "삼성전자·SK하이닉스 `와르르`…코스피 4%대 폭락에 매도 사이드카 발동",
+     "source": "매일신문",
+     "time": "2026-11-05T10:26+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5SWmRNUmNOR19SdnQ3T2p3UXF2QURRX3NXeGhKYmkyYkNqclJ1SUptb3lvbEw1Q0xQcl9QeFlhSG5CQU9wQ3BoWWoydnNES05CYXVpcG1RTTE4cWphWjN6eVh3",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "금리 안정이 주식시장 반등 조건",
+     "source": "www.yonhapmidas.com",
+     "time": "2026-11-05T10:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5RcGhBREhFaEdTREN3WmlCR3NQeVN4YWx6TzFGOHJoS2xnUGRMTkV0Ti1BQWVxTE5fdjJVc3lCLUhwbzRRcmxtY3U3RVptcUF2YUgxdTZwMWJEQk9CZzNjODhkZUIxZ0FQc2dUaVRR",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[쩐의 승부사] 삼성전자·SK하이닉스 흔들리는데…“AI 거품 붕괴 단정 일러”",
+     "source": "경북일보",
+     "time": "2026-11-05T10:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5DNlBwNlZqYVc2b1dzTFpmdFFDUE5UVUI3cGU2SzQ5eE1nZks4d0VUU1hoLTBlUjh0V1ZWLTJrNWg5djlhT1dRUldjMFlEWUI2SmM1NTg2OWp5M1hwTXltdmFXNmw4aXl2dmdJaWVIYw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "중국 관영매체 \"삼성전자 SK하이닉스 중국 반도체 공장 중요, 미국 규제로 한국 기업 피해\"",
+     "source": "비즈니스포스트",
+     "time": "2026-11-05T10:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBNYjRDcHZXU0dlbWFJUUs1MEx2LTAtWVdvNjZhV0xRUG54ZTRrMi1tSU9lSGxfa1plSktRT3hsQkJ5ZUZ5VnU5Qm0wSzdiajlPMUwwd0N0NFdaTXBUMUp3ZGlOMzB6LWlYQ0p3NzktUzNqQlE",
+     "added": "2026-11-05T15:28+09:00"
+    }
+   ]
+  },
+  {
+   "key": "lg",
+   "name": "📺 LG",
+   "items": [
+    {
+     "title": "LG화학, 3Q 영업익 17% 감소…‘석화 적자 전환’ 직격탄",
+     "source": "뉴시안",
+     "time": "2026-11-05T15:26+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1TcWhveklERXJraldMUVd5SU1OeXprUk1iU3dVSDE2cEtiUHpscmJyUW1PQVpiemJoaElJS2VVMWZURHJ6NWtxQkpmTXNvRm9obkZVcFlEcUcxN0xDS0hRNnowOW9qNzdub0dwUA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5612억 17% 감소⋯석화 1770억 적자 전환",
+     "source": "엠투데이",
+     "time": "2026-11-05T15:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9pUl9XR2RFZzVKWmhpREF1YWkyUzdtalA1MG9iRVAzRXRyS2EtakYyX2xsbkZFU21RVnZmVG1QbkZNZnlORGpnVmY2X1pDUmRoR0lkdW9adDN3MTRxc1prX1JQZ2t0enBUMTlreXZCcw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 배터리 호조에도 석화 적자전환…\"엔솔 지분 활용해 주주환원\"",
+     "source": "인베스트조선",
+     "time": "2026-11-05T15:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPZWtyYjRGMmFzRW5JUmpOcWVfdWx2S2dEeGJzTW5YcTIzRE9hY3RLOFNRVC1rYjFjd0czLWFhMW1BdlppV2dDUzNzOTRSR3FvTkJ5NnJfZ3BzS3JReDRydUFPMDd6OHNaY1JodXRtU1VYTEJvRnhTcUQ4bkgtbGQ1ZFJsZw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3Q 영업익 5612억 17.4%↓…석유화학 적자 전환",
+     "source": "파이낸셜뉴스",
+     "time": "2026-11-05T15:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9HakpmRlV6VTkwVDM1aDF3OVRNTUpzUEwzUXg2OFZkbUg1YlMza1Fwd2tieUZQcHpHd0E0MWxadmY5Q1AxNlM0MXFLYjhwSVBrRllmTGlhaVhxdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5612억원…석유화학 적자에 수익성 하락",
+     "source": "디지털데일리",
+     "time": "2026-11-05T15:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBpVTcwc0NDaDVubUxVSnprRmpPd3l0SW1CR3Z2RjdvcFg5OG84UzFrbTdlQnFwMk5mQXhUM20tMDV0RGlvXzhPc29BUy03dnNtRS1weDVUeEZNOFhrX3JBaUJB",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기도 영업이익 5000억원대 호실적 달성",
+     "source": "라이센스뉴스",
+     "time": "2026-11-05T15:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE82ZWZpRGZBZU9kaDU5OC05MW9iM1NIamliNWVnM2xKR3ZmYkNBY3E5N3FtUDJmZFVUa255Sjh2NDNoVmQ1bkx2aUplUzdRWU1WcW90Zmo1MjVIMlh1ajNWWjJhQk93azNvLVpr",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학 CFO \"주가 상당히 저평가…환원 '자사주 매입·소각이 효과적\"",
+     "source": "연합인포맥스",
+     "time": "2026-11-05T15:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE92U0xUUWtleUlpQUFTSFZjWTRkT2k5SHY4bElHLWNkd2gtZFVYLXY0UmgwazJ2S1JWbmlscHhiaUprV0FpMjBEcXh2YTE3VEN5X3JnLXR4VkhEdkdtNzNyZUJpM25nZHgyRDZBNnBxc1Y",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업이익 5612억…전년比 17.4%↓",
+     "source": "글로벌이코노믹",
+     "time": "2026-11-05T15:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNN1RMOWU2OGMwWHA2cEcwY3BOU1hjMGFXRWExYm9kOWlsVXFKSk1UYzdHWW5URjVPN0FYVHFEMjk0OWRVY2lEZFIxM21WT1BGZjNHV0xjOTFwSGdCeDE3ZHl1MkhDZXdXeDlaSnJ6bk5mbERzYXNFd1BsMUhzbjRRSnNKVmVyUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학 3분기 영업익 17%↓…고유가 부담에 석유화학 적자(종합2보)",
+     "source": "매일경제 마켓",
+     "time": "2026-11-05T15:08+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBsb3g2UEl4TzA2cDFoVVFCUGRZZ0J1Yy1HTVVPRE45WGJpa0sySjhtUTcweGd5TzJ5RkczbjBnbVI1Vm9ZUmZ1Z3FmYXhmX0V1cHc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG그룹, AI 활용한 안전 혁신 사례 공유 外",
+     "source": "톱데일리",
+     "time": "2026-11-05T15:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBnSTJVaWFaMG9YVHNwbnY2R0xodzhIOUhQRFowV1BOLWJSdFlQUU9Mc2N3OXBpaHpmOExDeXlPTVRWOVFvSHNhSHJuc21rYU9i",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "'158km' LG 새 외인은 자선사업가인가...미스터리, 왜 100만달러 '꽉 채워' 안 받았나",
+     "source": "조선일보",
+     "time": "2026-11-05T15:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPNTEydkx1VlFWRkNGd3JZNlVSSkFjMHdOcGUtSWhESW9Id0xaYzM4ZjE2eWZ4ME5JZ3lOUjBMXzJiVy01U1FzeExWUndlMTNLM2RMS1VVckNWTl83bnBxTndHMFo0cjlQbjhzRVVPWml5UWNrR042ek1HZTVrQWZ3eWd3SQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 매출 15조4960억원…석유화학 적자전환에 수익성 둔화(상보)",
+     "source": "뉴스투데이",
+     "time": "2026-11-05T15:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5salItZXE1TUlZdUllRzlDbG54Vk9MSGk5RDk2NEZXdWtIbjNleTd2YTZnaDVHWVVZQVFSMzNSTkdTUVdzZHRzcFYyVjVFaFNpdGZlRUtPeUhoZzNPVkE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "에이본 84억에 판 LG생활건강…다음 매물 해태htb",
+     "source": "자본시장뉴스",
+     "time": "2026-11-05T15:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1NNURrUGJZc0xvcU5nNGdUaE42eEJVMzJUaTJDOWlhRllpN21xRzZwZm9vWGNaWEVPQ1o1WXZyVlhTZWxZT0Vhc29OMlRoVVplM3BLclVkYTM4MmJBR3hCTFQ5aHBkZkE",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학 3분기 영업익 5612억…석유화학은 적자 전환",
+     "source": "뉴스토마토",
+     "time": "2026-11-05T14:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5KanYxdWEzb2RVc1g2dzZUc2ZTQUZSTVU0Y0V6bzVEMVJJZzYzUTlUamZfZ3lEZFVOVDB1SnVGMzZMYTRKY05oU3Atdk53dDVYaEdOOHMwMTFJNGZ6QjZOaw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업이익 5612억…전년 대비 17%↓",
+     "source": "Chosunbiz",
+     "time": "2026-11-05T14:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQZC1wYVhKS1FDcFB6Y1V5OUtzby1pQXVuR2RmYndNbjBDOTFSRjljcjVkWUN2WDFabjYwblhCUGhiR2VaRUNtQWVZVVk3SHRJcGtLNU1yelF6V2p5cklhUC1sRG9JOTRsR192alhYbmtEekJYZGtsZlpFa0F3V0VzZzlfSVDSAZgBQVVfeXFMTzJiTGJGWDRGR1BucEV1MmY2aml2cVA1V0I4d242NHdYSjA1N2FBa0x1RjUyR09JbllkckFyQ0FwZWxlV1MzSnFJVUpEaTlicDBpODVpRVZRaVdaYTF3eXVnQ3JaSlk2TVlNN0RuRkluVmZTZExJVlYzbXM5bXlFVExuNU4zTjgyTk5zMzR3RlBOeGNzYXFSdWk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG그룹, 안전보건환경 콘퍼런스 개최…AI로 산업안전 강화",
+     "source": "뉴스포스트",
+     "time": "2026-11-05T14:55+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8yOHRnQXlOby1LZmhPVG9zSzNGVmk0OHo0ekVpMVdvUloxVmNDTXp4QURhckZqN3pqQUp0aW1LRGlQS0d6UFVuY2FjakhXTlZZcGUzZzJJa2pwN2w5Z0pJdHpfdzBJUXBp",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "美 민주당 압승에도 LG엔솔·삼성SDI 약세…2차전지 '진짜 반등' 가능할까",
+     "source": "인베스트조선",
+     "time": "2026-11-05T14:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOUlR6NHJSX0R6VDljWkJtOVBXZjZkcWpCT1poZHFQN3VCVEo1dHpsWVoxeWV3aXlBd215Q052RHhDbERlQ19PMG5UNzRibkpOZm1udmdsV0ZVeGhtV25udm1XN2JwM3pKc2pSRU5GUThXSWZwQWNnUUZlR1h0eWJpRjBBSQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[컨콜] LG화학 \"LG엔솔 지분 유동화 연계해 주주환원 계속할 것\"",
+     "source": "아시아에이",
+     "time": "2026-11-05T14:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE42NkRLYmZDNVA2NTR3S1dXZG5tN0JZM3Q3Y2JJTmh6OFppVGJWZWxnZHFVbjdrQ0tZTW1OUmJTT3NaVFNOa1JMOHhYcmgyV0RBU0otc1dlT0puUzhLNFBOZGZnLVhKSjlERGfSAW5BVV95cUxPOGV1NDRycmxHcU1wZlhwdFVNZVBPbjdrQlItRzk5cjM4amtDMlktYTFOUkRNYW40RVZna3FHekoyelRLWDFtWFlka0Y3UDNoNHphUmt6RmExSGFpTEEtLU44S08zbmFZclpUdDNCQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG, 외국인 투수 ’이정후 동료’ 벡 영입…“어떤 선수 교체할지 미정“",
+     "source": "연합뉴스TV",
+     "time": "2026-11-05T14:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE56bGEyc3JtdGhtRVZEQ0o0Q0RYb3Vma2ktVS1aWWh4NGhzcERtX09ybG1UbWhSVGg2MWItSTZfSGZWUkJfVkg3YklHalFlVWwyV0JtWG9FSE9MVHFPbC11cG4tV0F1Skk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 석화 침체에 발목…3분기 영업익 전년比 17.4%↓",
+     "source": "뉴스웍스",
+     "time": "2026-11-05T14:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1xbFBFQk0tSTJFaHdmcV9UNmVSN1FVWnBWUm1pREVaOGx0aGVFMUYzcUd5MGlKTFdScnBVMXl3a2RQMVBHN1Jlb3BjY0xMQmhQcjNoOFZNUFRCUXBDVW5oMUJpS053bng3R21TYk05d9IBc0FVX3lxTFBRUnBsMzFfT3ZtTldOR0psb0I5T1hZM2FPNGJ4LUdhVzE2bUR5amdoNEZtdElFU1BTTk1jaWdBaW15YWhtMnZWUDg3alRNUjlhZjRwc2N1QmJfZUR5d1dUMTNxdkVPM3JCcDJ0akF3Qm41eDA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3Q 영업익 5612억…전년대비 17.4% 감소",
+     "source": "신아일보",
+     "time": "2026-11-05T14:51+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBJb1VrTTE4Z2podzl3b2tqaUxQNTBMMl9nMW9KcHJmdE1yckdUQTVGei1KVHg2WEkxOXlwdFBlQWtHU19OdVBCUXhVRE5XSWxUeXFuU1QyX2UtZGt5SmUteXdOa2ZDX0lPNm1TUXRBQUw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5612억원…석유화학 적자에도 ESS가 버팀목",
+     "source": "아시아경제",
+     "time": "2026-11-05T14:42+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE93cHdzTmVreDloTDAxT0JWRHdfbTRJNVNZOWJRSmRpZ3hJVnJSU3FteXRGRDRwY1ByUnc0R3k4b0QtUWs5ODhWa1lRTzhtc0hfUVoxdEMtOUVBMjNVZFVkVQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "“최대한 많은 이닝 소화” LG, 샌프란시스코 출신 트리스탄 벡 영입",
+     "source": "스포츠동아",
+     "time": "2026-11-05T14:41+09:00",
+     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1kOWJlOHFHWlpXQlFuRTlaU09WVTFPU2lEQXhmbGpVdnZsdUpESjdEeDBwRDUyMVFnaE9JSW9yb0taZ0N3NnFJQVpIRm8wOUxiS2kzU293RXZlTW5kLWp6Y1VjZmNXWTFUZF9SMGFSVEhxUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG유플러스, 3분기 영업이익 84.1% 증가… 일회성 인건비 기저효과 반영",
+     "source": "이코노미톡뉴스",
+     "time": "2026-11-05T14:41+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA4bU1UT2RQU3dhb3R6NGU4cmZDVWR5MFhjOEUwUlpSR3c0aFZXbmVBNDMzUHZWLVJhQlJ3cjNTTDQ0bVRRR3RYZmJxdElEb1JoOXJNZTFnMV9lVmFxM3ZrN2hEOTZCZmQ4S1czaQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"해외 진출 위해 방출 요청한 듯\" LG, 158km 이정후 동료 영입에 美 즉각 반응 \"KBO에선 선발 가능성 높아\"",
+     "source": "SPOTV NEWS",
+     "time": "2026-11-05T14:40+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE02ZDg1MmJmTUViMWRBVmpaTWlPN0NXeDVFSnEwMEtyc2R1enUtUmFlSGdfRGtCcHVXZHJmYzBhZW1FdTNvU3JIVTFzOVpIdm5IQjVJa0VObmV1MXhCWnBrODJwX2tVemg4dTdoLUQzQVg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "석화 적자에 발목 잡힌 LG화학…3분기 영업익 5612억원",
+     "source": "마이데일리",
+     "time": "2026-11-05T14:39+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1VVTI3dTJocFR2U0VlU3FtSC0xNTh1VTJXbjFKSTJLeGNHV2FQRkNnOWR3WGhiTUlnVGw3eG9tUEc0MTFqWmp1WHB6NUFxY002Rks2Mjd0eElfWXd4UlkwNldPYm8xQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5천612억원…석화 부진에도 예상치 상회(종합)",
+     "source": "연합인포맥스",
+     "time": "2026-11-05T14:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE10TmxWWjdLbWs2eWtZVDl2a21pcGtfUXdQa3E4OENBOUtlTG95YUVhVzFacWJSVlJDd244Skl4SzZWeV9CaTY5VUgwdEdsdXJRejROeFp5TFQ5a0lGZi1iSlJ1RngzRmdCZHdBeFg3Wmk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[컨콜]LG화학 \"고밀도 LFP 양극재 기술 이미 확보\" - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T14:22+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1seG8tQVVPQkU5eEV2MmNLNXJaNk55UDNrSFdtbG91WmhaTnM5eTVxSnhxOXBmTzdMazBxNmlrYlR2b211M3hGMWlMRXFJLVBzUks4anlqRHdWYndzYVRreDRZR1lSQk5uOTRSdDJQTGd6QV93dnVSdVhn0gF_QVVfeXFMUGJsRE50eDJPREFJbVptTU5DN3ppcmJkUkx6Q016bzR4dnhHMUpGXzBJWDBWRndxVmhzWUxneGJTZWhZR2RMR2huZFR6SHJFdThmU3JGVkhjNXJCdVNKVDVvZGticV9KZ2M0MUNac0hYanlZcWtEYk1nVm1wckVLQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5612억원…전년比 17.4%↓",
+     "source": "주간한국",
+     "time": "2026-11-05T14:20+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9iWnFkNU55bEtObklnTlZUOFlhOWE0ZUxVaDlKRnQybmtrUng3S0lsbDFHTWozUVVLZjMtanZPVXR4US10SkEyMGRxNGdoUmxPVWJZYUduNElkS3UzSnJtcjVzUTVjeFBINEtMNE12YmnSAXRBVV95cUxObm5Tejk1eFB6eFU1cXVLY1E1Sng5NlJaaWpvQVFOdGV6WnU0VUVNTFRQSWh4d3lGamlsdlpUNWxQNTFEWWlDVlBLeFc5RWxTSzlpeXVrMWd4am42ZlZsa0xsdEFHSXc4M0ZtUWlpelpKRUpOdA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[컨콜]LG화학 \"사업 재편안, 올해 안에 제출할 것\" - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T14:19+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBZeHM5TEwxVl9jTEpBT3kzcXRPSkZBMkhZbG1hUUNCN2Q4UWxwRmVyMzBkcC1BcHBETmpHQmtCWVJGcUhiTmk4YXFyMkJvV3EyU0NnNjJkbE10R3IteHdpN0syeGtUQVluZnBtR9IBckFVX3lxTE0taHk5cXREUUllX2FyMlZtbXRySTR2dlRUVFFXWGFUc3BPb0tGcVFseHp2Uk42WThqRzg1aWVQT3BxQkhlWXFHTGhjbS1UTy1UcjNkcHc3dnBPckxyaFY3T1RGYTdqd2E5VEVybmUtaUdXdw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업이익 5,612억원…전년동기 比 17.4% 감소",
+     "source": "대한경제",
+     "time": "2026-11-05T14:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5UbEtHX2lpdTBGejJzQ3VEemNocnB2T2VWWllZbWVIOUd2X2JtR21nR3VEdXh2Vjdmd3A1cTZYN21QYm1QRThNVmF6bHpucUs5SlhFSHlqU2hkbWg1dV9WT3BWblUxbVZCSzRudDJSdXh4Q0Zj",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AI가 CCTV 모니터링 넘어 설비 차단까지…LG, ‘산업안전 AX’ 속도 낸다",
+     "source": "비즈월드",
+     "time": "2026-11-05T14:15+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBjTlZmU2F1djEta25jWnRpSERLRktuOUZLSWxhMTdRSzk1aEk5UDR1Y3kyYXpuYzA5S0J6Nm5iYUlZenRTZVpLdldTU3B3SzFFWVJ0TEJVbkNUYlVMcXNfeVFrLTdsT1RKdWc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5612억…전년 比 17%↓ - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-05T14:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE51cl9YWmNlZUhuNTZJWUZEcTNmc1A4Uk94RzFMZEFWMl9OSFhJNW1hMjJLQWJQTF8tSWxPbFdkSjFvSUxKQzBpSGtGVjRQNkFoQ0VVdjEwdVVtVVJFOTY3cVhNTjZ3bml3NkdrV2FYeXc3a2c3cHAzWEtR0gF_QVVfeXFMTVdMMmZjalpZbHVWZE1Qb21KR1g3NjZBeU5kOXU0aU1aZ1F3WFBGdjhMLVVjU0pObXhPTlY3NXRpT1Y3MlRfNHFGc0hUSkNIZUFHVUdqaVVIZ0M4ejVZY0U5OW8zaVRmTEhBbnQ5emFKOEh1ZzZESHRMR3RXN3loYw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 매출 34%↑· 영업익 17.4%↓ …석유화학 적자에도 배터리·첨단소재가 방어",
+     "source": "매일산업뉴스",
+     "time": "2026-11-05T14:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1NdTZfbFpSM0tlNXFtZmR6YjlOMXFHRTRwMmRINGJkejdjR3ZuM1JwV0VHUGxLWGlScjJzSjdEV1BRSEtQbGlRMzZCNmRVMjBkSVVxcUJDeVNtbUVvQlZyMFprQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3Q 영업익 5612억원…전년比 17.4%↓",
+     "source": "ER 이코노믹리뷰",
+     "time": "2026-11-05T14:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5IcWsySldic0hyQlFISjhMQ214eDBYYUgyc2Z2UHBuNEJVSk5tdDdmLVF0eVVKUklPY2JzanBJTHdmYW41bXZIWDRDVjRLamtsN0w4amxUUXpnaEZOS1lhM3Z1SUR2d2xYRVo5NQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG,그룹 안전환경 콘퍼런스 개최…AI로 산업현장 안전 혁신",
+     "source": "스페셜경제",
+     "time": "2026-11-05T14:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9RZkJGUEhaOEotY1l5Z3cydmNWdnhmeTN2UFVWc044dlhPMGh5MHFacE81RkRkZlpUUnJZTW5tcmxsLS1VTlQ0cWtlbVdoZW1ycmVMMzhuNC14a24tTW1PTl9VaHJIUWNHa3FZMg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학, 3분기 영업익 5612억원…석유화학 부문 적자전환",
+     "source": "뉴스핌",
+     "time": "2026-11-05T14:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBsV08tZTEyenZTSDFwT3dwTW1SRDcyMHlIb0Z0UU1Cek9lZHFoV1V0MXJJaUFmemowNFotbDRVdEhWcTl3WmZlOF9oeEdIQzc1SHZHcktPSUJMc016",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG화학 3분기 실적 발표…석유화학 적자 반전에 영업이익 감소",
+     "source": "https://www.2news.co.kr/",
+     "time": "2026-11-05T14:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBCYTFvVDZqQmhQU0ozRFpBdHIwbjNxQ3ZNYk9EU0VxWGFuQWlkMnNVbXZEQWVXTlN1bDlzanZ4akFOVEJ5d2Z0RWlUZlJqUHZtU09Vd1FiaUI2amlpMDQ2emJfY010RHpS",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "K배터리, 북미 ESS 점유율 20% 돌파… LG엔솔 3분기 2위",
+     "source": "글로벌이코노믹",
+     "time": "2026-11-05T14:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNWEJwV1pBdm0taTZTa3ZTeUtHWU9CbE9uc0ZFUTl0SmhzY05fVmVad2FLYkJyX2xQbVEzM2RtZ21rR2tWcDktejE2eEFsR0xaX1hFam81MXJKQWI1dS1VOGkwaWZtc19QOG9qdVdwRm9pZzlRMmt5NFhqR05tWG5ra01XOHVDUQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "LG 어떻게 현역 메이저리거 100만달러 안 주고 데려왔을까 [IS 비하인드]",
+     "source": "일간스포츠",
+     "time": "2026-11-05T13:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBZa3piY08zc3Q3bVQ2d1AxZEJqa1Nia2FSN2IxNmpJSE9OV095aml1UDFOcHAwYWMzYXcyUjlTOXo2TFNFdF9LRzREME9WZHlqZ3lzMWl1LUJYS28",
+     "added": "2026-11-05T15:28+09:00"
+    }
+   ]
+  },
+  {
+   "key": "meta",
+   "name": "♾️ 메타",
+   "items": [
+    {
+     "title": "메타 사장 \"美 신규 데이터센터 건설 매우 어려워질 것\"",
+     "source": "한국경제",
+     "time": "2026-11-05T15:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1OX3BrV3l6NWtyWGE4OTBHMDZ1MVZ1NEljQ0RWelBFLTJZZC1PYW40VDlLLXItSk8tTkV4X28yX2U5MW1mZmd0ZGVhZ01UYzgzamppTmN6b0stZw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타 사장 美 데이터센터 신규 건설 난항 전망 : 국제",
+     "source": "재경일보",
+     "time": "2026-11-05T15:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBvV1ZnU0NPWERyU3lZX0wySlhESEdDaVZUS1h4ckdLUGVsRWhHMnR0MFpwdW9acVpBenh6eVRzWmxLekhmam9yWDhWSQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타 사장 \"신규 데이터센터 건설은 매우 어려워질 것\"",
+     "source": "매일경제 마켓",
+     "time": "2026-11-05T15:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9KMjJoVW5wWk1MN2xYSUxSMWMybC11ZmlQTU00ME9ub3dUNll5dzA3QnFrdHZPb1NPOFh5dk82VllYSXo5VVc4amlfQUJzLVZYMmc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타(META), 첫 유로 채권 발행...미국 채권에는 580억 달러 쏠림",
+     "source": "코인리더스",
+     "time": "2026-11-05T10:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTFBTeHlxbG9naXJsRUEteEFjSXdLZTBFdnN4MEIxUkZhSFBaZ1BDS0hGMkpsOHhtUDh1bFlJN1QxRHFDVndfUTdQcTVn",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "김보연, 두 자녀 IT 기업 근무 “딸은 메타, 아들은 엔비디아” : 연예",
+     "source": "재경일보",
+     "time": "2026-11-05T09:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5lUEFJTFc2aExnQVZzOThyTFdZRG1GNm5neXpFenpiZXBPeG9PTjBERVozVWNyUmdUQ09qOHZqMlJuZGJDOEN5aHd6TQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타, 첫 유럽 채권 발행…사상 최대 청약에 14조원 조달",
+     "source": "메디컬투데이",
+     "time": "2026-11-05T08:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5RUmpmazRDdGhZTVFTREhVY0JvNW9QNXJWZV9IcXhFS01pRTZ5U01Wd2tQLXRIbS1xckl2ZS1lY2NuVDdwdG9FZ1F0aVE2SkQ4N3NuM0lGSVVXSEJPV09LS2xpdnJNWVVmQUpWRQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "\"AI 코딩 주도권 잡아라\"…메타(META.O), AI 코딩 스타트업 '컨덕터' 인수로 오픈AI 추격",
+     "source": "메디컬투데이",
+     "time": "2026-11-05T07:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1mQkxwQU8yRDBOTFFrSm91U0lDZ19CcUJYbGhtVTR5S0ZTSlhQMGFvU21NVUU4Rko2M3huaEItSTVaZlNIc2Z1R0lSQWFsdklhN0ZiOUFwSnBhUlIxQWFfSHhVTjBiUWxsbC1uZQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타, 하루 간격으로 달러·유로화 채권 발행…이틀새 34兆 조달",
+     "source": "아시아경제",
+     "time": "2026-11-05T06:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFA0TUl0cE9nVzdiYmhyaEVJd3lFbjNxeWpxR0IxaERUSmlaalNpOXlCSjhVQnVoY0ZPVGRlSS1BTTNEUWJ5cFQ4ZF9PQy14YkRxMnlHSmlLWjNyZzBRTnJHSw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "'AI 투자 박차' 메타 폭풍 자금 조달…이번엔 90억유로 규모 회사채",
+     "source": "연합인포맥스",
+     "time": "2026-11-04T23:51+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1LbkpGWVlXUjJEdkNJLWdQUEI3N18tTDVkSnhsblFJX0ZsWFdETFAzYW9hQTQtNWNIclhnSmxIZEQ4UFZTZWVvMDcySVVJYXJ1Z0RJOERXRkh1V0tpSVgwU2hCcHN6eWdQWDFnSDR4THk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타(META) 주가는 AI 투자에도 불구하고 할인된 가격에 거래될 수 있다",
+     "source": "Simply Wall St",
+     "time": "2026-11-04T20:22+09:00",
+     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNb29BXzRNSXJjY3lIMVE5TExnYWE5X2RMeVFQVGhlMUNia3ZMSkZPdnJiNUlLSGpEcXl0LXoxcGtaTVpGdFUxTUVXRzVzZGw4VXdSRzRDdGwtOHFwcVY3aVBhV3k3MVVGYks3UWwyWnA1Vkp2TURLRzNZdU9JeFhnZWxsMlVwY2pvcGVNeFpwTEFqdi1lZXBPVtIBmAFBVV95cUxNb29BXzRNSXJjY3lIMVE5TExnYWE5X2RMeVFQVGhlMUNia3ZMSkZPdnJiNUlLSGpEcXl0LXoxcGtaTVpGdFUxTUVXRzVzZGw4VXdSRzRDdGwtOHFwcVY3aVBhV3k3MVVGYks3UWwyWnA1Vkp2TURLRzNZdU9JeFhnZWxsMlVwY2pvcGVNeFpwTEFqdi1lZXBPVg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타, 유로화 선순위 채권 6개 시리즈 공모 추진…나스닥 채권시장 상장 신청 예정",
+     "source": "데이터투자",
+     "time": "2026-11-04T20:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1rc1BBTlF4MEVha3ByR3FMcmxRTXZNT0M1dHBzUzdwazNsUkw0NGZBbWd6c3RXbjVYOWhOYUNMMTBpWDdXRTgtVVpwSF9Tb0FkZmYtRVNJS043SFNQMEtRczV4M09mTUZNZFZ3OGlRazV6ckk",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타 신용등급 AA- 지켰지만…S&P가 전망 낮춘 까닭 : 네이버 블로그",
+     "source": "Naver Blog",
+     "time": "2026-11-04T16:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPTGY3RGh6aUJlcEVyRlZmamZ6YXJ4TkE2YlhPbU9idmFhbHlpRDctWEFKUHp5aE9JaWdyZ1I4WnRuYTFXRkgtRms4MHMxYkpiV0l1dTVpY1NZRkJUaHJmWnRMRllpTUVKUEJqTmFtVUh0aHhDNWxETjlIYWRVS2xSOUhUVmR4N05YNjgtS1ZCQQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타 플랫폼스, 화요일 주가 2% 이상 오른 이유는?",
+     "source": "Benzinga",
+     "time": "2026-11-04T09:27+09:00",
+     "link": "https://news.google.com/rss/articles/CBMitwJBVV95cUxQNmoxaklybUw2UHY0YW83ZGIxUHpXR2Z2RWt0d3lmb0VqQ0dRaXgyVUhSU2hQNDMxRnFhY1R4LXZVNHJfOFBBVWdaS0RYU3haVHpjcEhIT2d1RnY2dEpqMy00eXdtbVp1X3NqZTU0NzktRE11bUI3U1RsajJJRmx0bXZ5NGE3aTJ0QTZieGtZcEJYSWhuSkRVaG9sMjQwMEVxSGhtcndodHRabVFSRE5DX2c3Z0Nfd09ldFFuOGFheUdKQzZfcjVhbmJlMm1mZjllQzMtelR6Mnd0MEUzRDlDMnZkbWpjcC1RNXVDeXRIZ1laSG1VX0NWUmh4QTZaeFVvVWhETE9hMjljdHZld0M4TUk5cFpaaDY1ang0V2ZJZ25OZGJxWWU4LUo4dXlLOTVvWjBDbFp5VQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "오라클·구글 이어 메타도 20조 회사채 발행…돈 몰렸지만, 금리 더 높아져",
+     "source": "국민일보",
+     "time": "2026-11-04T09:04+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1lTTZzNW8tNW0yQUYtVU9LWDRHZy1tNEs1eEY0bHNmRnBZYTBYcDI2bFRYTC0wYXlPV3R4R05aUkU2TjNDdXZweWc5UVBtUGNXV2xraUd4VDc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[美특징주]메타, AI 투자 확대 위해 최대 250억달러 회사채 발행 추진",
+     "source": "이데일리",
+     "time": "2026-11-04T06:46+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPV0RkX19NeWNocnlIOXFNeWhhX0dOT2NHVkN6SVVROHFESWhXUFM1ckpQZ1E3NTN3a1I0UGJNV2hVcmFWemdsUU1obnR4OF8xOTgzSklBbjJPYzBua2NVeDY3emZwQlU1amlkYTVpakpVN19POXJWelB4TW44d3FRYQ",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "4월엔 129조원 주문 몰렸는데…메타, 식어가는 투심 속 '27조원 채권' 승부수｜Global Money Club",
+     "source": "중앙일보",
+     "time": "2026-11-03T23:44+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBKMzAxdTNJZE9kdDVwbVlGQldLVDF5MzgzLUgzWDFfTjRTQXhsM1EtNkNZQmNTcFltREpOVkxIY3h0NXpEdTlZQjY5VGQ3QlpSRFMyVWRJNllJUDA",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "메타, 5개 시리즈 선순위 채권 공모 추진…유로화 채권 동시 공모 가능성도",
+     "source": "데이터투자",
+     "time": "2026-11-03T22:32+09:00",
+     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE45YXJlZ2dVUjVmdTBJY01kZTIzcmp5b3NMZXdpWjRjTVdqR21LV2NDRm45VU91Yk1TcEpMWW56cW1zcnBhczNHbHh6a3R2UlBpaUtTbHdNWkQyMkxpb0xhbm4ta2VKOWhpcjJLODFZOHpDdmc",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Scott Galloway: Zuckerberg Is “Clearly Coming for YouTube” and Its 16% of TV Time",
+     "source": "TIKR.com",
+     "time": "2026-11-03T06:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPQnduZXhRcDRlRkU1dzh3Z0NxV1BnRWxnQ1NrTHNZbk10SUtmV0JtSVFoVHV2S1JJOHlmRFZpbDhnX0ZjaHNCeDk3RWVtblRONWVqQnRpbGNHQkllVmdSR2FULTBKc3hyMlA3Qm9hTTdxY2NCTW1sUVdhS2lMSWRxM2hCc3EwRjdKbm1kcExKOHA4aUxBMS1UMWpZcjRmbFdlbWpHV2V0SUVOZw",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "[이슈&논라] 독자 만나려면 기사도 내놔라?…메타 ‘뉴스 무단수집 약관’에 제동",
+     "source": "뉴스스페이스",
+     "time": "2026-11-03T05:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBfVGxvYUpBS2NXeHRxQWZBeEJBQ3NoN0ZiRUVwR2ZnZHBXNEdSMzlVZDY4eXk4aWtTNzJVR2w3NEVjcjhkU1d2VjhSUUZDM01qUU9PRkxIOUpzWkJXWl9qTg",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "블룸버그 \"메타, 200억 달러 규모 채권 발행 추진\"",
+     "source": "뉴스핌",
+     "time": "2026-11-03T04:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5sRDV0Zlk5RTM1QXNjODF6Sk5NNG1FSUxaYWFZbGlMR0RBM0xmSEthVXNzbm9IQmhQRzFsVVlwajNxMk9FLThQUE1FN1hFdUFVbzByNVZSa2FUMWQ4",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "AI 과잉 투자 회의론 커지는데…달러·유로채 꺼내 든 메타, 흥행 통할까｜Global Money Club",
+     "source": "중앙일보",
+     "time": "2026-11-03T01:56+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9RVy1sSC1mV0NXOEdoc29UVHBZXzlGM2REZFExSC1jY2h4U19pRS03V3BpSlhiLXRiYzJaV2JSaUUwVGo1REt1U2E2TTdPOFlKUDhrYng2OXVpcnM",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Meta 플랫폼에서 새로운 자녀 보호 모니터링 알림 기능을 출시하고 있습니다.",
+     "source": "Vietnam.vn",
+     "time": "2026-11-02T19:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQcGQ3M1JURnRIUW9vbzVEZExrMDVkSVNIaEdjaFVJalN1Zlg5NnExdlZJU3pYamlUQ0JYT0J3UlY3NjBSdFdzaVJNMTZJaDZfUmFzUEpvQkxlbzhMMEU4Mkdleko1UzVuRXNjQ1IxVTJsUHp1dkJaeS04RzRQQTJsMDRfOUI5NTJNOHczRWtpR1lSMWsyVDg3dnVLaDZBcC1s",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "L’avenir appartient à tous: Meta et INCA s’associent pour soutenir les personnes aveugles, sourdes et aveugles ou ayant une basse vision au Canada",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-30T02:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/lavenir-appartient-a-tous-meta-et-inca-sassocient-pour-soutenir-les-personnes-aveugles-sourdes-et-aveugles-ou-ayant-une-basse-vision-au-canada/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "The Future Is for Everyone: Meta and CNIB Partner to Support Canadians Who Are Blind, Deafblind or Have Low Vision",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-30T02:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/the-future-is-for-everyone-meta-and-cnib-partner-to-support-canadians-who-are-blind-deafblind-or-have-low-vision/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Meta Partners With Five US Universities to Accelerate Medical and Scientific Breakthroughs",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-29T02:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/meta-partners-with-five-us-universities-to-accelerate-medical-and-scientific-breakthroughs/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Muse Is Now Available in Singapore: The World’s First Personal AI Agent Built for Everyone",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-28T09:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/muse-is-now-available-in-singapore-the-worlds-first-personal-ai-agent-built-for-everyone/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "New Tools for the Admins Who Build Communities on Forum",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-24T01:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/new-tools-for-the-admins-who-build-communities-on-forum/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "More Than Three Quarters of Small Business Owners Say AI Makes Them More Productive, But Most Need More Guidance",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-15T09:50+09:00",
+     "link": "https://about.fb.com/news/2026/10/more-than-three-quarters-of-small-business-owners-say-ai-makes-them-more-productive-but-most-need-more-guidance/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Meta, Milan’s Pinacoteca di Brera, and EssilorLuxottica Expand Access to Art Through AI Glasses",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-15T01:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/meta-milans-pinacoteca-di-brera-and-essilorluxottica-expand-access-to-art-through-ai-glasses/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Now You Can Invite Anyone to a WhatsApp Call",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-14T23:24+09:00",
+     "link": "https://about.fb.com/news/2026/10/introducing-whatsapp-guest-calling/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Farah Khan at Edits Film Festival: “Content breakthroughs come from spontaneity, relatability and realness”",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-14T20:39+09:00",
+     "link": "https://about.fb.com/news/2026/10/farah-khan-at-edits-film-festival-content-breakthroughs-come-from-spontaneity-relatability-and-realness/",
+     "added": "2026-11-05T15:28+09:00"
+    },
+    {
+     "title": "Your Algorithm, Your Words: New Ways to Shape What You See on Facebook",
+     "source": "Meta 뉴스룸",
+     "time": "2026-10-14T01:00+09:00",
+     "link": "https://about.fb.com/news/2026/10/introducing-your-algorithm-facebook/",
+     "added": "2026-11-05T15:28+09:00"
     }
    ]
   }
