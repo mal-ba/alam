@@ -470,7 +470,7 @@ function monthGrid() {
   days.forEach((d, i) => {
     const items = [
       ...d.day.memos.filter(m => !isDone(m)).map(m => `<span class="ci${isSys(m) ? " sys" : ""}">${esc(taskText(m).replace(/ - .*$/, "").replace(/^🏫 |^✏️ /, ""))}</span>`),
-      ...examsOn(d.iso).map(x => `<span class="ci xm">📝${esc(x.subject || x.name)}</span>`),
+      ...examsOn(d.iso).map(x => `<span class="ci xm">📝${esc(x.label)}</span>`),
       ...d.day.events.filter(e => !st.has(e.title)).map(e => `<span class="ci ce">${esc(e.title)}</span>`),
     ];
     const cls = ["cell", dateCls(d.iso), d.iso === today ? "today" : "", d.iso === selDay ? "sel" : "", examOf(d.iso) ? "exam" : "", schoolOff(d.iso) ? "off" : ""].join(" ");
@@ -1148,7 +1148,7 @@ async function writeTb({ sch, view, isCur, list }) {   // sch: { name, id, addr,
     data.grade = isCur ? view : cur.grade === view ? "" : cur.grade;
     return JSON.stringify(data, null, 2) + "\n";
   }, `앱에서 ${view} 교과서 출판사 수정`);
-  examData = JSON.parse(files.get(EXAM_PATH).text); examData.exams ||= [];
+  setExamData(files.get(EXAM_PATH).text);
   if (isCur) await pushShared(sch, view, list);
 }
 let tbView = store("tbgrade") || "";
@@ -1218,13 +1218,36 @@ async function saveTextbooks() {
   catch (e) { saving = false; renderBooks(); showError(e, true); return; }
   saving = false; renderBooks();
 }
+/* 정기시험: { kind:"정기", name, date(시작), end(끝), subjects: [{ subject, date(그 과목 시험날), ranges: [{text, progress, memo}] }], memo }
+   수행평가: { kind:"수행", subject, name, date, ranges: [{text, progress, memo}], memo } */
+function normExam(x) {   // 예전 정기시험(과목 하나 + ranges)을 과목 목록 형식으로
+  if (x.kind === "수행") { x.ranges ||= []; return x; }
+  x.kind = "정기";
+  if (!Array.isArray(x.subjects)) {
+    const rs = x.ranges || [];
+    x.subjects = x.subject === "전 과목" ? rs.map(r => ({ subject: r.text, date: "", ranges: +r.progress || r.memo ? [{ text: "전체", progress: +r.progress || 0, memo: r.memo || "" }] : [] }))
+      : x.subject || rs.length ? [{ subject: x.subject || "", date: "", ranges: rs }] : [];
+    x.subject = ""; delete x.ranges;
+  }
+  x.subjects.forEach(v => { v.ranges ||= []; v.date ||= ""; });
+  return x;
+}
+function setExamData(text) {
+  try { examData = text ? JSON.parse(text) : { exams: [] }; } catch (e) { examData = { exams: [] }; }
+  examData.exams = (examData.exams || []).map(normExam);
+}
 async function loadExamData(force) {
   const f = await getFile(EXAM_PATH, force);
-  try { examData = f ? JSON.parse(f.text) : { exams: [] }; } catch (e) { examData = { exams: [] }; }
-  examData.exams ||= [];
+  setExamData(f && f.text);
 }
-const examsOn = s => (examData.exams || []).filter(x => x.date === s);
-const progressOf = x => x.ranges && x.ranges.length ? Math.round(x.ranges.reduce((a, r) => a + (+r.progress || 0), 0) / x.ranges.length) : 0;
+const examsOn = s => (examData.exams || []).flatMap(x => {   // 달력에 보일 이름 (정기시험은 과목별 시험날이 있으면 과목으로)
+  const subs = x.kind === "수행" ? [] : (x.subjects || []).filter(v => v.date === s && v.subject).map(v => ({ label: v.subject }));
+  return subs.length ? subs : x.date === s ? [{ label: x.subject || x.name }] : [];
+});
+const allRanges = x => x.kind === "수행" ? x.ranges || [] : (x.subjects || []).flatMap(v => v.ranges || []);
+const avgProg = rs => rs && rs.length ? Math.round(rs.reduce((a, r) => a + (+r.progress || 0), 0) / rs.length) : 0;
+const progressOf = x => avgProg(allRanges(x));
+const mdw = s => `${+s.slice(5, 7)}/${+s.slice(8)} (${WD[wday(s)]})`;
 const barCls = p => p >= 70 ? "" : p >= 30 ? "mid" : "low";
 function ddayOf(s) {
   const n = Math.round((D(s) - D(todayKST())) / 864e5);
@@ -1235,36 +1258,66 @@ async function loadExams(seq = loadSeq) {
   $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
   try { await loadExamData(true); await loadWeakData().catch(() => {}); if (seq === loadSeq) renderExams(); } catch (e) { if (seq === loadSeq) showError(e); }
 }
+const rangeBars = rs => rs.map(r => `<div class="xr"><div class="top"><span>${esc(r.text)}</span><span class="pct">${+r.progress || 0}%</span></div>
+  <div class="bar ${barCls(+r.progress || 0)}"><i style="width:${+r.progress || 0}%"></i></div>${r.memo ? `<div class="memo">${esc(r.memo)}</div>` : ""}</div>`).join("");
+const weakBox = subj => (w => w.length ? `<div class="rsec"><h3>🩹 부족한 점 ${w.length}개</h3><ul>${w.slice(0, 5).map(k => `<li>${esc(k.text)}</li>`).join("")}${w.length > 5 ? `<li class="memo-i">…${w.length - 5}개 더 (☰ 메뉴 → 과목별 부족한 점)</li>` : ""}</ul></div>` : "")(weakOpen(subj));
 function examCard(x) {
   const p = progressOf(x), [dd, ddc] = x.date ? ddayOf(x.date) : ["날짜 미정", "past"];
+  const perf = x.kind === "수행", subs = perf ? [] : x.subjects || [];
+  const when = x.date ? mdw(x.date) + (x.end && x.end > x.date ? ` ~ ${mdw(x.end)}` : "") : "";
+  const head = perf
+    ? `<span class="date">${esc(x.subject || "")}</span>${publisherOf(x.subject) ? `<span class="chip">${esc(publisherOf(x.subject))}</span>` : ""}`
+    : `<span class="date">${esc(x.name || "정기시험")}</span>`;
   return `<section class="day" data-id="${x.id}">
-    <div class="dhead"><span class="xkind ${x.kind === "수행" ? "perf" : ""}">${x.kind === "수행" ? "수행평가" : "정기시험"}</span>
-      <span class="date">${esc(x.subject || "")}</span>${publisherOf(x.subject) ? `<span class="chip">${esc(publisherOf(x.subject))}</span>` : ""}<span class="dday ${ddc}">${dd}</span><span class="sp"></span>
+    <div class="dhead"><span class="xkind ${perf ? "perf" : ""}">${perf ? "수행평가" : "정기시험"}</span>
+      ${head}<span class="dday ${ddc}">${dd}</span><span class="sp"></span>
       <button class="pencil" data-act="xedit" aria-label="수정">✏️</button></div>
-    <div class="empty" style="margin-top:2px">${esc(x.name || "")}${x.date ? ` · ${x.date.slice(5).replace("-", "/")} (${WD[wday(x.date)]})` : ""}</div>
-    <div class="xr"><div class="top"><span>전체 진도</span><span class="pct">${p}%</span></div><div class="bar ${barCls(p)}"><i style="width:${p}%"></i></div></div>
-    ${(x.ranges || []).map(r => `<div class="xr"><div class="top"><span>${esc(r.text)}</span><span class="pct">${+r.progress || 0}%</span></div>
-      <div class="bar ${barCls(+r.progress || 0)}"><i style="width:${+r.progress || 0}%"></i></div>${r.memo ? `<div class="memo">${esc(r.memo)}</div>` : ""}</div>`).join("")}
+    <div class="empty" style="margin-top:2px">${perf ? esc(x.name || "") + (when ? " · " + when : "") : when || "시험 날짜를 적어 주세요"}</div>
+    ${perf ? "" : subs.length ? `<div class="xsubs">📚 ${subs.length}과목 · ${subs.map(v => esc(v.subject || "과목?")).join(" · ")}</div>`
+      : `<div class="empty">✏️을 눌러 시험 보는 과목과 범위를 적어 보세요.</div>`}
+    ${allRanges(x).length ? `<div class="xr"><div class="top"><span>전체 진도</span><span class="pct">${p}%</span></div><div class="bar ${barCls(p)}"><i style="width:${p}%"></i></div></div>` : ""}
+    ${perf ? rangeBars(x.ranges || []) : subs.map(v => { const vp = avgProg(v.ranges), pub = publisherOf(v.subject), wk = weakOpen(v.subject).length;
+      return `<div class="xsub"><div class="xsh"><b>${esc(v.subject || "과목?")}</b>${pub ? `<span class="chip">${esc(pub)}</span>` : ""}
+        ${v.date ? `<span class="xsd">${mdw(v.date)}</span>` : ""}<span class="sp"></span>${v.ranges.length ? `<span class="pct">${vp}%</span>` : ""}</div>
+        ${v.ranges.length ? rangeBars(v.ranges) : '<div class="memo">시험 범위를 아직 안 적었어요</div>'}
+        ${wk ? `<div class="memo">🩹 부족한 점 ${wk}개</div>` : ""}</div>`; }).join("")}
     ${x.memo ? `<div class="rsec"><h3>메모</h3><div class="pre">${esc(x.memo)}</div></div>` : ""}
-    ${(w => w.length ? `<div class="rsec"><h3>🩹 부족한 점 ${w.length}개</h3><ul>${w.slice(0, 5).map(k => `<li>${esc(k.text)}</li>`).join("")}${w.length > 5 ? `<li class="memo-i">…${w.length - 5}개 더 (☰ 메뉴 → 과목별 부족한 점)</li>` : ""}</ul></div>` : "")(weakOpen(x.subject))}
+    ${perf ? weakBox(x.subject) : ""}
   </section>`;
 }
-function examForm(d) {
-  const subj = [...new Set([...Object.values(school().timetable || {}).flat(), ...SUBJECTS])];
-  return `<section class="day editing rform">
-    <div class="dhead"><span class="date">${d.id ? "✏️ 시험 수정" : "📝 새 시험"}</span></div>
-    <datalist id="subjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
-    <label>종류</label><select data-x="kind"><option value="정기" ${d.kind !== "수행" ? "selected" : ""}>정기시험</option><option value="수행" ${d.kind === "수행" ? "selected" : ""}>수행평가</option></select>
-    <label>과목</label><input data-x="subject" list="subjects" value="${esc(d.subject)}" placeholder="예) 수학">
-    <label>시험 이름</label><input data-x="name" value="${esc(d.name)}" placeholder="예) 2차 정기시험, 영어 말하기 수행">
-    <label>날짜</label><input type="date" data-x="date" value="${esc(d.date)}">
-    <label>📖 범위와 진도 <span class="hint">— 범위를 나눠 적고, 얼마나 공부했는지 0~100%</span></label>
-    ${d.ranges.map((r, k) => `<div class="xrow" data-k="${k}">
+const rangeRows = rs => rs.map((r, k) => `<div class="xrow" data-k="${k}">
       <input data-x="rtext" value="${esc(r.text)}" placeholder="범위 (예: 3단원 해수의 순환 p.80~95)">
       <button class="del" data-act="xrdel" aria-label="범위 삭제">×</button>
       <div class="sl"><input type="range" min="0" max="100" step="10" data-x="rprog" value="${+r.progress || 0}"><b>${+r.progress || 0}%</b></div>
-      <input class="m" data-x="rmemo" value="${esc(r.memo || "")}" placeholder="메모 (예: 교과서 2회독, 문제집 남음)"></div>`).join("")}
-    <button class="add" data-act="xradd" style="width:100%">+ 범위 추가</button>
+      <input class="m" data-x="rmemo" value="${esc(r.memo || "")}" placeholder="메모 (예: 교과서 2회독, 문제집 남음)"></div>`).join("");
+const timetableSubjects = () => [...new Set(Object.values(school().timetable || {}).flat())].filter(x => x && !/창체|동아리|진로|자율|체육|미술|음악/.test(x));
+function examForm(d) {
+  const subj = [...new Set([...Object.values(school().timetable || {}).flat(), ...SUBJECTS])];
+  const perf = d.kind === "수행";
+  return `<section class="day editing rform">
+    <div class="dhead"><span class="date">${d.id ? "✏️ 시험 수정" : "📝 새 시험"}</span></div>
+    <datalist id="subjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
+    <label>종류</label><select data-x="kind"><option value="정기" ${!perf ? "selected" : ""}>정기시험</option><option value="수행" ${perf ? "selected" : ""}>수행평가</option></select>
+    ${perf ? `
+    <label>과목</label><input data-x="subject" list="subjects" value="${esc(d.subject)}" placeholder="예) 수학">
+    <label>수행평가 이름</label><input data-x="name" value="${esc(d.name)}" placeholder="예) 영어 말하기 수행">
+    <label>날짜</label><input type="date" data-x="date" value="${esc(d.date)}">
+    <label>📖 범위와 진도 <span class="hint">— 범위를 나눠 적고, 얼마나 준비했는지 0~100%</span></label>
+    ${rangeRows(d.ranges)}
+    <button class="add" data-act="xradd" style="width:100%">+ 범위 추가</button>` : `
+    <label>시험 이름</label><input data-x="name" value="${esc(d.name)}" placeholder="예) 2학기 기말고사, 2차 정기시험">
+    <label>시험 기간 <span class="hint">— 끝나는 날은 선택</span></label>
+    <div class="xdates"><input type="date" data-x="date" value="${esc(d.date)}"><span>~</span><input type="date" data-x="end" value="${esc(d.end || "")}"></div>
+    <label>📚 시험 보는 과목과 범위 <span class="hint">— 과목마다 범위를 나눠 적고, 얼마나 공부했는지 0~100%</span></label>
+    ${d.subjects.map((v, i) => `<div class="xsub edit" data-s="${i}">
+      <div class="xsh"><input data-x="ssubj" list="subjects" value="${esc(v.subject)}" placeholder="과목 (예: 국어)">
+        <input type="date" data-x="sdate" value="${esc(v.date || "")}" title="이 과목 시험 보는 날 (선택)">
+        <button class="del" data-act="xsubdel" aria-label="과목 삭제">×</button></div>
+      ${rangeRows(v.ranges)}
+      <button class="add" data-act="xradd" style="width:100%">+ ${esc(v.subject || "이 과목")} 범위 추가</button></div>`).join("")}
+    <div style="display:flex;gap:8px">
+      <button class="add" data-act="xsubadd" style="flex:1">+ 과목 추가</button>
+      ${timetableSubjects().some(x => !d.subjects.some(v => subjKey(v.subject) === subjKey(x))) ? '<button class="add" data-act="xsubfill" style="flex:1">📚 시간표 과목 넣기</button>' : ""}</div>`}
     <label>메모</label><textarea data-x="memo" placeholder="시험 방식, 준비물 등">${esc(d.memo || "")}</textarea>
     <div class="actions" style="margin-top:12px">
       ${d.id ? `<button class="btn ghost danger" data-act="xdel" ${saving ? "disabled" : ""} style="margin-right:auto">🗑 삭제</button>` : ""}
@@ -1286,19 +1339,28 @@ function renderExams() {
       <button class="add" data-act="xnew" style="flex:1;background:var(--card)">+ 시험 추가</button>
       <button class="add" data-act="xscan" style="flex:1;background:var(--card)">📥 계획에서 시험 찾기</button></div>
     ${examCands ? candPanel() : ""}
-    ${up.length ? up.map(examCard).join("") : '<div class="day"><div class="empty">다가오는 시험이 없어요. + 시험 추가로 과목별 범위를 적어 보세요. (예: 2차 정기시험 12/9~12/15)</div></div>'}
+    ${up.length ? up.map(examCard).join("") : '<div class="day"><div class="empty">다가오는 시험이 없어요. + 시험 추가로 정기시험에 보는 과목과 과목별 범위를 적어 보세요. (예: 2차 정기시험 12/9~12/15)</div></div>'}
     ${past.length ? `<button class="btn ghost" data-act="xpast" style="width:100%;margin:6px 0 10px">${examOpenPast ? "▲ 지난 시험 접기" : `▼ 지난 시험 ${past.length}개`}</button>${examOpenPast ? past.map(examCard).join("") : ""}` : ""}`;
 }
 function examInput(t) {
-  const k = t.dataset.x, row = t.closest(".xrow");
+  const k = t.dataset.x, row = t.closest(".xrow"), sub = t.closest(".xsub");
+  const v = sub ? examDraft.subjects[+sub.dataset.s] : null;
   if (row) {
-    const r = examDraft.ranges[+row.dataset.k];
+    const r = (v ? v.ranges : examDraft.ranges)[+row.dataset.k];
     if (k === "rtext") r.text = t.value;
     else if (k === "rmemo") r.memo = t.value;
     else if (k === "rprog") { r.progress = +t.value; t.nextElementSibling.textContent = t.value + "%"; }
-  } else examDraft[k] = t.value;
+  } else if (v && k === "ssubj") v.subject = t.value;
+  else if (v && k === "sdate") v.date = t.value;
+  else if (k !== "kind") examDraft[k] = t.value;
 }
-$("view").addEventListener("change", ev => { if (examDraft && ev.target.dataset.x === "kind") examDraft.kind = ev.target.value; });
+$("view").addEventListener("change", ev => {
+  if (!examDraft || ev.target.dataset.x !== "kind" || ev.target.value === examDraft.kind) return;
+  const d = examDraft; d.kind = ev.target.value;
+  if (d.kind === "정기" && !d.subjects.some(v => v.subject || v.ranges.length)) d.subjects = [{ subject: d.subject || "", date: "", ranges: d.ranges.length ? d.ranges : [{ text: "", progress: 0, memo: "" }] }];
+  if (d.kind === "수행" && !d.ranges.some(r => r.text)) { const v = d.subjects.find(v => v.subject) || {}; d.subject ||= v.subject || ""; d.ranges = (v.ranges || []).length ? v.ranges : [{ text: "", progress: 0, memo: "" }]; }
+  renderExams();
+});
 // 학사일정의 시험날 + 계획표·보고서에 적힌 수행/시험/평가 를 찾아 후보로 보여줌
 async function scanExams() {
   const out = [], seen = new Set(), t = todayKST();
@@ -1309,10 +1371,9 @@ async function scanExams() {
   for (let i = 0; i < ed.length;) {
     let j = i; while (j + 1 < ed.length && ed[j + 1][1] === ed[i][1] && (D(ed[j + 1][0]) - D(ed[j][0])) / 864e5 <= 4) j++;
     const dates = ed.slice(i, j + 1).map(e => e[0]);
-    const subs = [...new Set(Object.values(school().timetable || {}).flat())].filter(x => !/창체|동아리|진로|체육|미술|음악/.test(x));
-    add({ kind: "정기", subject: "전 과목", name: ed[i][1], date: dates[0], src: "학사일정",
+    add({ kind: "정기", subject: "", name: ed[i][1], date: dates[0], end: dates.length > 1 ? dates[dates.length - 1] : "", src: "학사일정",
       memo: "시험 날짜: " + dates.map(d => `${+d.slice(5, 7)}/${+d.slice(8)}(${WD[wday(d)]})`).join(", "),
-      ranges: subs.map(x => ({ text: x, progress: 0, memo: "" })) });
+      subjects: timetableSubjects().map(x => ({ subject: x, date: "", ranges: [] })) });
     i = j + 1;
   }
   // 2) 계획표(주간·월간)의 일정·할 일
@@ -1345,7 +1406,7 @@ async function scanExams() {
 }
 const candPanel = () => `<section class="day editing"><div class="dhead"><span class="date">📥 계획에서 찾은 시험</span></div>
   ${examCands.length ? examCands.map((c, k) => `<label class="cand"><input type="checkbox" data-k="${k}" checked>
-    <div><b>${c.kind === "정기" ? "📝 정기" : "🎯 수행"} · ${esc(c.subject || "과목?")}</b> ${esc(c.name)}
+    <div><b>${c.kind === "정기" ? "📝 정기" : "🎯 수행"}${c.kind === "정기" ? "" : " · " + esc(c.subject || "과목?")}</b> ${esc(c.name)}
     <div class="src">${c.date.slice(5).replace("-", "/")} (${WD[wday(c.date)]}) · ${c.src}에서 찾음</div></div></label>`).join("")
     : '<div class="empty">새로 등록할 시험을 못 찾았어요. (이미 등록됐거나, 계획에 "수행·시험·평가"라는 말이 없어요)</div>'}
   <div class="actions" style="margin-top:8px"><button class="btn ghost" data-act="xscancel">닫기</button>
@@ -1362,11 +1423,11 @@ async function examClick(b) {
       await updateFile(EXAM_PATH, text => {
         let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
         data.exams ||= [];
-        pick.forEach((c, k) => data.exams.push({ id: "x" + Date.now().toString(36) + k, kind: c.kind, subject: c.subject, name: c.name, date: c.date, ranges: c.ranges, memo: c.memo }));
+        pick.forEach((c, k) => { const { src, ...x } = c; data.exams.push(normExam({ id: "x" + Date.now().toString(36) + k, ...x })); });
         data.exams.sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
         return JSON.stringify(data, null, 2) + "\n";
       }, `앱에서 계획의 시험 ${pick.length}개 등록`);
-      examData = JSON.parse(files.get(EXAM_PATH).text); examCands = null; toast(`✓ ${pick.length}개 등록했어요`);
+      setExamData(files.get(EXAM_PATH).text); examCands = null; toast(`✓ ${pick.length}개 등록했어요`);
     } catch (e) { saving = false; renderExams(); showError(e, true); return; }
     saving = false; return renderExams();
   }
@@ -1386,22 +1447,45 @@ async function examClick(b) {
   if (act === "xtbsetup") { if (!leaveOk()) return; tbDraft = null; return showSchoolSetup(); }
   if (act === "xfilter") { examFilter = b.dataset.f; return renderExams(); }
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
-  if (act === "xnew") { if (!leaveOk()) return; examDraft = { kind: "정기", subject: "", name: "", date: "", ranges: [{ text: "", progress: 0, memo: "" }], memo: "" }; }
-  else if (act === "xedit") { if (!leaveOk()) return; const id = b.closest("[data-id]").dataset.id; examDraft = structuredClone(examData.exams.find(x => x.id === id)); examDraft.ranges ||= []; }
+  const sub = b.closest(".xsub"), rangesOf = () => sub ? examDraft.subjects[+sub.dataset.s].ranges : examDraft.ranges;
+  const blankRange = () => ({ text: "", progress: 0, memo: "" });
+  if (act === "xnew") { if (!leaveOk()) return; examDraft = { kind: examFilter === "수행" ? "수행" : "정기", subject: "", name: "", date: "", end: "", subjects: [{ subject: "", date: "", ranges: [blankRange()] }], ranges: [blankRange()], memo: "" }; }
+  else if (act === "xedit") {
+    if (!leaveOk()) return; const id = b.closest("[data-id]").dataset.id;
+    examDraft = structuredClone(examData.exams.find(x => x.id === id));
+    examDraft.ranges ||= []; examDraft.subjects ||= []; examDraft.subject ||= ""; examDraft.end ||= "";
+  }
   else if (act === "xcancel") examDraft = null;
-  else if (act === "xradd") examDraft.ranges.push({ text: "", progress: 0, memo: "" });
-  else if (act === "xrdel") examDraft.ranges.splice(+b.closest(".xrow").dataset.k, 1);
+  else if (act === "xradd") rangesOf().push(blankRange());
+  else if (act === "xrdel") rangesOf().splice(+b.closest(".xrow").dataset.k, 1);
+  else if (act === "xsubadd") examDraft.subjects.push({ subject: "", date: "", ranges: [blankRange()] });
+  else if (act === "xsubdel") { const v = examDraft.subjects[+sub.dataset.s]; if (v.ranges.some(r => r.text) && !confirm(`${v.subject || "이 과목"}을(를) 범위까지 지울까요?`)) return; examDraft.subjects.splice(+sub.dataset.s, 1); }
+  else if (act === "xsubfill") {
+    examDraft.subjects = examDraft.subjects.filter(v => v.subject || v.date || v.ranges.some(r => r.text));
+    timetableSubjects().filter(x => !examDraft.subjects.some(v => subjKey(v.subject) === subjKey(x))).forEach(x => examDraft.subjects.push({ subject: x, date: "", ranges: [blankRange()] }));
+  }
   else if (act === "xsave") return saveExam(false);
   else if (act === "xdel") { if (!confirm("이 시험을 지울까요?")) return; return saveExam(true); }
   renderExams();
   if (act === "xnew" || act === "xedit") window.scrollTo({ top: 0 });
-  if (act === "xradd") [...document.querySelectorAll('.xrow [data-x="rtext"]')].pop()?.focus();
+  if (act === "xradd") [...document.querySelectorAll((sub ? `.xsub[data-s="${sub.dataset.s}"] ` : "") + '.xrow [data-x="rtext"]')].pop()?.focus();
+  if (act === "xsubadd") [...document.querySelectorAll('.xsub [data-x="ssubj"]')].pop()?.focus();
 }
 async function saveExam(remove) {
   const d = examDraft;
-  if (!remove && !(d.subject || d.name || "").trim()) { toast("과목이나 시험 이름을 적어 주세요"); return; }
-  const clean = { ...d, id: d.id || "x" + Date.now().toString(36), subject: (d.subject || "").trim(), name: (d.name || "").trim(),
-    ranges: d.ranges.filter(r => (r.text || "").trim()).map(r => ({ text: r.text.trim(), progress: Math.max(0, Math.min(100, +r.progress || 0)), memo: (r.memo || "").trim() })) };
+  const cleanR = rs => (rs || []).filter(r => (r.text || "").trim()).map(r => ({ text: r.text.trim(), progress: Math.max(0, Math.min(100, +r.progress || 0)), memo: (r.memo || "").trim() }));
+  const base = { id: d.id || "x" + Date.now().toString(36), kind: d.kind === "수행" ? "수행" : "정기", name: (d.name || "").trim(), date: d.date || "", memo: (d.memo || "").trim() };
+  let clean;
+  if (base.kind === "수행") {
+    clean = { ...base, subject: (d.subject || "").trim(), ranges: cleanR(d.ranges) };
+    if (!remove && !(clean.subject || clean.name)) { toast("과목이나 수행평가 이름을 적어 주세요"); return; }
+  } else {
+    const subjects = d.subjects.map(v => ({ subject: (v.subject || "").trim(), date: v.date || "", ranges: cleanR(v.ranges) })).filter(v => v.subject || v.ranges.length);
+    const sd = subjects.map(v => v.date).filter(Boolean).sort();
+    const date = base.date || sd[0] || "", last = [d.end || "", sd[sd.length - 1] || ""].sort().pop();
+    clean = { ...base, date, end: last > date ? last : "", subjects };
+    if (!remove && !(clean.name || subjects.length)) { toast("시험 이름이나 과목을 적어 주세요"); return; }
+  }
   saving = true; renderExams();
   try {
     await updateFile(EXAM_PATH, text => {
@@ -1410,8 +1494,8 @@ async function saveExam(remove) {
       if (!remove) data.exams.push(clean);
       data.exams.sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
       return JSON.stringify(data, null, 2) + "\n";
-    }, `앱에서 시험 ${remove ? "삭제" : d.id ? "수정" : "추가"}: ${clean.subject} ${clean.name}`.trim());
-    examData = JSON.parse(files.get(EXAM_PATH).text); examDraft = null; toast(remove ? "지웠어요" : "저장됨 ✓");
+    }, `앱에서 시험 ${remove ? "삭제" : d.id ? "수정" : "추가"}: ${clean.subject || ""} ${clean.name}`.replace(/\s+/g, " ").trim());
+    setExamData(files.get(EXAM_PATH).text); examDraft = null; toast(remove ? "지웠어요" : "저장됨 ✓");
   } catch (e) { saving = false; renderExams(); showError(e, true); return; }
   saving = false; renderExams();
 }
@@ -1675,11 +1759,18 @@ function webSuggest() {
   const t = todayKST();
   const soon = (examData.exams || []).filter(x => x.date >= t && x.date <= addDays(t, 30)).sort((a, b) => a.date.localeCompare(b.date));
   for (const x of soon.slice(0, 4)) {
-    const [dd] = ddayOf(x.date), subj = x.subject || x.name || "";
-    const low = (x.ranges || []).filter(r => (+r.progress || 0) < 70).slice(0, 2);
-    for (const r of low) add(`${subj} ${r.text} 개념 정리`, `📝 ${dd} · 진도 ${+r.progress || 0}%`);
-    if (x.kind === "수행") add(`${x.name || subj} 수행평가 예시`, `📝 ${dd} 수행평가`);
-    else add(`${subj} 기출문제`, `📝 ${dd} ${x.name || "시험"}`);
+    const [dd] = ddayOf(x.date);
+    if (x.kind === "수행") {
+      const subj = x.subject || x.name || "";
+      for (const r of (x.ranges || []).filter(r => (+r.progress || 0) < 70).slice(0, 2)) add(`${subj} ${r.text} 개념 정리`, `📝 ${dd} · 진도 ${+r.progress || 0}%`);
+      add(`${x.name || subj} 수행평가 예시`, `📝 ${dd} 수행평가`);
+      continue;
+    }
+    for (const v of (x.subjects || []).filter(v => v.subject).slice(0, 3)) {
+      const low = (v.ranges || []).filter(r => (+r.progress || 0) < 70).slice(0, 1);
+      for (const r of low) add(`${v.subject} ${r.text} 개념 정리`, `📝 ${dd} · 진도 ${+r.progress || 0}%`);
+      if (!low.length) add(`${v.subject} 기출문제`, `📝 ${dd} ${x.name || "정기시험"}`);
+    }
   }
   const td = days.find(d => d.iso === t);
   for (const m of ((td && td.day.memos) || []).filter(m => !isSys(m) && !isDone(m)).slice(0, 3)) add(taskText(m), "☑️ 오늘 할 일");

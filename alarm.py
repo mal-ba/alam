@@ -355,18 +355,38 @@ def exam_lines(d, within=14):
         exams = json.loads(path.read_text(encoding="utf-8")).get("exams", [])
     except ValueError:
         return []
+    def days_to(s):
+        try:
+            return (date.fromisoformat(s) - d).days
+        except (TypeError, ValueError):
+            return None
+
+    def prog(ranges):
+        return round(sum(int(r.get("progress", 0) or 0) for r in ranges) / len(ranges)) if ranges else 0
+
+    def dday(n):
+        return "D-DAY" if n == 0 else f"D-{n}"
+
     out = []
     for x in sorted(exams, key=lambda x: x.get("date") or "9999"):
-        try:
-            n = (date.fromisoformat(x["date"]) - d).days
-        except (KeyError, ValueError):
+        n = days_to(x.get("date"))
+        subjects = x.get("subjects")
+        if x.get("kind") != "수행" and isinstance(subjects, list):
+            # 정기시험: 과목별 시험날이 있으면 과목마다, 없으면 시험 하나로
+            name = x.get("name") or "정기시험"
+            dated = [(days_to(v.get("date")), v) for v in subjects if v.get("date")]
+            hits = [(m, v) for m, v in dated if m is not None and 0 <= m <= within]
+            for m, v in hits:
+                out.append(f"{dday(m)} [시험] {name} {v.get('subject', '')} (진도 {prog(v.get('ranges') or [])}%)")
+            if not hits and n is not None and 0 <= n <= within:
+                rs = [r for v in subjects for r in (v.get("ranges") or [])]
+                subs = "·".join(v.get("subject", "") for v in subjects if v.get("subject"))
+                out.append(f"{dday(n)} [시험] {name}{f' ({subs})' if subs else ''} (진도 {prog(rs)}%)")
             continue
-        if 0 <= n <= within:
-            ranges = x.get("ranges") or []
-            prog = round(sum(int(r.get("progress", 0)) for r in ranges) / len(ranges)) if ranges else 0
+        if n is not None and 0 <= n <= within:
             kind = "수행" if x.get("kind") == "수행" else "시험"
             name = " ".join(v for v in (x.get("subject", ""), x.get("name", "")) if v)
-            out.append(f"{'D-DAY' if n == 0 else f'D-{n}'} [{kind}] {name} (진도 {prog}%)")
+            out.append(f"{dday(n)} [{kind}] {name} (진도 {prog(x.get('ranges') or [])}%)")
     return out
 
 

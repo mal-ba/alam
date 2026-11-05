@@ -221,6 +221,21 @@ header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 82
 .xrow .sl input{flex:1}
 .xrow .sl b{min-width:44px;text-align:right;font-variant-numeric:tabular-nums}
 .xrow .m{grid-column:1/3}
+.xsubs{font-size:13px;font-weight:700;margin-top:6px;word-break:keep-all}
+.xsub{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
+.xsub .xsh{display:flex;align-items:center;gap:6px;font-size:15px}
+.xsub .xsh .sp{flex:1}
+.xsub .xsh .pct{font-weight:800;font-variant-numeric:tabular-nums}
+.xsub .xsd{font-size:12px;color:var(--muted)}
+.xsub > .memo{font-size:12px;color:var(--muted);margin-top:4px}
+.xsub.edit{border:1px solid var(--line);border-radius:12px;padding:8px;margin:0 0 8px}
+.xsub.edit .xsh{margin-bottom:6px}
+.xsub.edit .xsh input{min-width:0;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 8px;font:inherit;color:inherit}
+.xsub.edit .xsh input:not([type]){flex:1;font-weight:700}
+.xsub.edit .xsh input[type=date]{flex:none;width:9.5em}
+.xsub.edit .del{border:0;background:none;color:var(--danger);font-size:22px;cursor:pointer;padding:0 6px}
+.xdates{display:flex;align-items:center;gap:6px}
+.xdates input{flex:1;min-width:0}
 .tbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-top:6px}
 .tbgrid div{display:flex;justify-content:space-between;gap:6px;background:var(--input);border-radius:8px;padding:7px 10px;font-size:14px}
 .tbgrid span{color:var(--muted)}
