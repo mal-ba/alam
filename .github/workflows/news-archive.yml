@@ -44,7 +44,15 @@ jobs:
           if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
           git commit -m "예전 뉴스 보관함: $CAT ($(TZ=Asia/Seoul date '+%F %H:%M'))"
           for i in 1 2 3 4 5 6; do
-            git pull --rebase --autostash -X theirs && git push && exit 0
+            # 다른 작업이 먼저 저장했으면 그 위에 올리고, 자동으로 만드는 index.json 은 다시 만들어요
+            if git pull --rebase --autostash -X theirs; then
+              python -c "import news; news.write_index()"
+              git add docs/news/index.json
+              git diff --cached --quiet || git commit -q -m "뉴스 보관함 목록"
+              git push && exit 0
+            else
+              git rebase --abort 2>/dev/null || true
+            fi
             sleep $((RANDOM % 10 + 5))
           done
           exit 1
