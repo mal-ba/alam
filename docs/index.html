@@ -1361,10 +1361,6 @@ const EXAM_PATH = "plans/exams.json";
 let examData = { exams: [] }, examDraft = null, examFilter = "all", examOpenPast = false, examCands = null, tbDraft = null;
 // 교과서 출판사 (exams.json 의 grade = 지금 학년, textbooks = { 학년: [{subject, publisher}] }). 중1~고3
 const GRADES = ["중1", "중2", "중3", "고1", "고2", "고3"];
-const TB_DEFAULT = { grade: "고1", textbooks: { "고1": [
-  { subject: "국어", publisher: "천재(홍)" }, { subject: "수학", publisher: "비상" }, { subject: "영어", publisher: "비상" },
-  { subject: "한국사", publisher: "지학사" }, { subject: "사회", publisher: "리베르스쿨" }, { subject: "과학", publisher: "미래엔" },
-  { subject: "한문", publisher: "장원스쿨" }] } };
 // 학년별로 먼저 채워 줄 과목 (2·3학년 고등은 선택과목이 학교마다 달라 기본만)
 const TB_BASE = {
   중: ["국어", "수학", "영어", "과학", "사회", "역사", "도덕", "기술·가정", "정보", "한문"],
@@ -1393,7 +1389,47 @@ function savedTb(data) {   // 저장된 출판사 { grade, textbooks: {학년: [
   if (t && typeof t === "object") return { school, grade: normGrade(data.grade) || "", textbooks: t };
   return school ? { school, grade: "", textbooks: {} } : null;
 }
-const tbInfo = () => { const t = savedTb(examData); return t && (Object.keys(t.textbooks).length || t.grade) ? t : { ...TB_DEFAULT, school: (t || {}).school || "" }; };   // 한 번도 저장 안 했으면 고1 예시
+const tbInfo = () => savedTb(examData) || { school: "", grade: "", textbooks: {} };
+const schoolKey = x => String(x || "").replace(/\s+/g, "");
+const cleanTb = list => (list || []).map(t => ({ subject: String(t.subject || "").trim(), publisher: String(t.publisher || "").trim() })).filter(t => t.subject || t.publisher);
+const sameTb = (a, b) => JSON.stringify(cleanTb(a)) === JSON.stringify(cleanTb(b));
+// 학교 공유 (Supabase school_textbooks 표). 표가 아직 없으면 null
+async function sharedChoices(school, grade) {
+  if (!SB || !sbUser) return null;
+  const { data, error } = await SB.rpc("school_textbook_choices", { p_school: schoolKey(school), p_grade: grade });
+  if (error) { console.warn("공유 출판사", error.message); return null; }
+  return (data || []).map(r => ({ list: cleanTb(r.textbooks), people: r.people })).filter(r => r.list.length);
+}
+async function sharedSchools(q) {
+  if (!SB || !sbUser || schoolKey(q).length < 2) return [];
+  const { data, error } = await SB.rpc("school_names", { p_q: q });
+  return error ? [] : data || [];
+}
+async function pushShared(school, grade, list) {   // 내 지금 학년 출판사를 학교 공유 목록에 올림
+  if (!SB || !sbUser || !schoolKey(school) || !GRADES.includes(grade)) return;
+  list = cleanTb(list);
+  const q = SB.from("school_textbooks");
+  const { error } = list.length
+    ? await q.upsert({ user_id: sbUser.id, grade, school: schoolKey(school).slice(0, 40), textbooks: list.slice(0, 40), updated_at: new Date().toISOString() }, { onConflict: "user_id,grade" })
+    : await q.delete().eq("user_id", sbUser.id).eq("grade", grade);
+  if (error) console.warn("공유 출판사 저장", error.message);
+}
+// 내 데이터(exams.json)에 학교·학년·출판사 저장 + 지금 학년이면 공유
+async function writeTb({ school, view, isCur, list }) {
+  school = (school || "").trim(); list = cleanTb(list);
+  await updateFile(EXAM_PATH, text => {
+    let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
+    data.exams ||= [];
+    if (school) data.school = school; else delete data.school;
+    const cur = savedTb(data) || { grade: "", textbooks: {} }, all = { ...cur.textbooks };
+    if (list.length) all[view] = list; else delete all[view];
+    data.textbooks = Object.fromEntries(GRADES.filter(g => all[g]).map(g => [g, all[g]]));
+    data.grade = isCur ? view : cur.grade === view ? "" : cur.grade;
+    return JSON.stringify(data, null, 2) + "\n";
+  }, `앱에서 ${view} 교과서 출판사 수정`);
+  examData = JSON.parse(files.get(EXAM_PATH).text); examData.exams ||= [];
+  if (isCur) await pushShared(school, view, list);
+}
 let tbView = store("tbgrade") || "";
 const tbViewGrade = () => GRADES.includes(tbView) ? tbView : tbInfo().grade || "고1";
 const subjKey = x => String(x || "").replace(/\s+/g, "");
@@ -1409,7 +1445,8 @@ async function loadBooks(seq = loadSeq) {
 }
 function renderBooks() {
   if (tbDraft) { $("view").innerHTML = tbForm(tbDraft); return; }
-  $("view").innerHTML = tbCard() + `<div class="empty" style="padding:4px 6px 12px;font-size:13px">학년 버튼을 눌러 학년마다 따로 적을 수 있어요.
+  $("view").innerHTML = (SB && sbUser ? `<button class="add" data-act="xtbsetup" style="width:100%;background:var(--card);margin-bottom:10px">🏫 학교·학년 바꾸기 / 친구들이 등록한 출판사 보기</button>` : "")
+    + tbCard() + `<div class="empty" style="padding:4px 6px 12px;font-size:13px">학년 버튼을 눌러 학년마다 따로 적을 수 있어요.
     ★ 표시한 지금 학년의 출판사가 📝 시험 범위·진도의 시험 카드에 나와요.</div>`;
 }
 function tbCard() {
@@ -1452,22 +1489,10 @@ function tbInput(t) {
   else if (k === "school") tbDraft.school = t.value;
 }
 async function saveTextbooks() {
-  const { view, isCur } = tbDraft, school = (tbDraft.school || "").trim();
-  const list = tbDraft.list.map(t => ({ subject: (t.subject || "").trim(), publisher: (t.publisher || "").trim() })).filter(t => t.subject || t.publisher);
+  const d = tbDraft;
   saving = true; renderBooks();
-  try {
-    await updateFile(EXAM_PATH, text => {
-      let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
-      data.exams ||= [];
-      if (school) data.school = school; else delete data.school;
-      const cur = savedTb(data) || { grade: "", textbooks: {} }, all = { ...cur.textbooks };
-      if (list.length) all[view] = list; else delete all[view];
-      data.textbooks = Object.fromEntries(GRADES.filter(g => all[g]).map(g => [g, all[g]]));
-      data.grade = isCur ? view : cur.grade === view ? "" : cur.grade;
-      return JSON.stringify(data, null, 2) + "\n";
-    }, `앱에서 ${view} 교과서 출판사 수정`);
-    examData = JSON.parse(files.get(EXAM_PATH).text); examData.exams ||= []; tbDraft = null; toast("저장됨 ✓");
-  } catch (e) { saving = false; renderBooks(); showError(e, true); return; }
+  try { await writeTb(d); tbDraft = null; toast(d.isCur && schoolKey(d.school) && SB ? "저장됨 ✓ 우리 학교 친구들도 볼 수 있어요" : "저장됨 ✓"); }
+  catch (e) { saving = false; renderBooks(); showError(e, true); return; }
   saving = false; renderBooks();
 }
 async function loadExamData(force) {
@@ -1634,6 +1659,7 @@ async function examClick(b) {
   if (act === "xtbadd") { tbDraft.list.push({ subject: "", publisher: "" }); renderBooks(); return [...document.querySelectorAll('.tbrow [data-tb="subject"]')].pop()?.focus(); }
   if (act === "xtbdel") { tbDraft.list.splice(+b.closest(".tbrow").dataset.k, 1); return renderBooks(); }
   if (act === "xtbsave") return saveTextbooks();
+  if (act === "xtbsetup") { if (!leaveOk()) return; tbDraft = null; return showSchoolSetup(); }
   if (act === "xfilter") { examFilter = b.dataset.f; return renderExams(); }
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
   if (act === "xnew") { if (!leaveOk()) return; examDraft = { kind: "정기", subject: "", name: "", date: "", ranges: [{ text: "", progress: 0, memo: "" }], memo: "" }; }
@@ -2160,6 +2186,81 @@ function showLogin(err) {
   };
 }
 const DEFAULT_SCHEDULE = "{\n  \"_설명\": \"기본 시간표(요일마다 반복). weekday: 0=월 1=화 2=수 3=목 4=금 5=토 6=일. remind_before: 몇 분 전에 알림 (0=정각, []=알림 없음)\",\n  \"timezone_offset_hours\": 9,\n  \"default_remind_before\": [\n    10\n  ],\n  \"weekly\": {\n    \"0\": [\n      {\n        \"title\": \"등교\",\n        \"start\": \"08:30\",\n        \"remind_before\": []\n      },\n      {\n        \"title\": \"하교\",\n        \"start\": \"16:00\",\n        \"remind_before\": [\n          0\n        ]\n      }\n    ],\n    \"1\": [\n      {\n        \"title\": \"등교\",\n        \"start\": \"08:30\",\n        \"remind_before\": []\n      },\n      {\n        \"title\": \"하교\",\n        \"start\": \"16:00\",\n        \"remind_before\": [\n          0\n        ]\n      }\n    ],\n    \"2\": [\n      {\n        \"title\": \"등교\",\n        \"start\": \"08:30\",\n        \"remind_before\": []\n      },\n      {\n        \"title\": \"하교\",\n        \"start\": \"16:00\",\n        \"remind_before\": [\n          0\n        ]\n      }\n    ],\n    \"3\": [\n      {\n        \"title\": \"등교\",\n        \"start\": \"08:30\",\n        \"remind_before\": []\n      },\n      {\n        \"title\": \"하교\",\n        \"start\": \"16:00\",\n        \"remind_before\": [\n          0\n        ]\n      }\n    ],\n    \"4\": [\n      {\n        \"title\": \"등교\",\n        \"start\": \"08:30\",\n        \"remind_before\": []\n      },\n      {\n        \"title\": \"하교\",\n        \"start\": \"16:00\",\n        \"remind_before\": [\n          0\n        ]\n      }\n    ],\n    \"5\": [],\n    \"6\": []\n  },\n  \"school\": {\n    \"school_events\": [\n      \"등교\",\n      \"하교\",\n      \"야자\"\n    ],\n    \"exam_keep_events\": [\n      \"등교\"\n    ],\n    \"period_times\": [],\n    \"timetable\": {},\n    \"off_days\": {},\n    \"exam_days\": {},\n    \"vacations\": [],\n    \"notes\": {}\n  },\n  \"report_reminder\": {\n    \"time\": \"23:30\",\n    \"only_school_days\": false\n  },\n  \"todo_reminders\": {\n    \"daily\": [\n      \"07:30\",\n      \"08:00\",\n      \"21:00\"\n    ],\n    \"weekday\": {},\n    \"commute_at\": \"08:00\",\n    \"remaining_from\": \"21:00\"\n  }\n}\n";   // docs/schedule.example.json 과 같음
+/* ---------- 처음: 우리 학교·학년 정하기 → 같은 학교·학년 친구들 출판사가 맞는지 묻기 ---------- */
+const tbSkipKey = () => "tbskip_" + (sbUser ? sbUser.id : "");
+async function needSchoolSetup() {
+  if (!SB || !sbUser || store(tbSkipKey())) return false;
+  try { await loadExamData(); } catch (e) { return false; }
+  const t = savedTb(examData);
+  return !(t && t.school && t.grade);
+}
+async function showSchoolSetup() {
+  const info = tbInfo();
+  let grade = info.grade || "";
+  $("label").innerHTML = `우리 학교·학년<span class="sub">교과서 출판사</span>`;
+  $("prev").style.visibility = $("next").style.visibility = "hidden"; $("goToday").hidden = true;
+  $("view").innerHTML = `<div class="panel"><h2>🏫 우리 학교와 학년을 알려 주세요</h2>
+    <p class="empty">같은 학교 같은 학년 친구들이 등록한 교과서 출판사를 불러올게요.</p>
+    <label class="lbl">학교 이름</label>
+    <input id="suSchool" list="suSchools" value="${esc(info.school || "")}" placeholder="예) ○○고등학교" autocomplete="off">
+    <datalist id="suSchools"></datalist>
+    <label class="lbl">지금 학년</label>
+    <div class="tbgrades" id="suGrades">${GRADES.map(g => `<button data-g="${g}" class="${g === grade ? "on" : ""}">${g}</button>`).join("")}</div>
+    <div id="suMsg" class="err" hidden></div>
+    <div class="actions" style="margin-top:14px">
+      <button class="btn ghost" id="suLater" style="margin-right:auto">나중에 할게요</button>
+      <button class="btn" id="suNext">다음</button></div></div>`;
+  let timer = 0;
+  $("suSchool").oninput = () => { clearTimeout(timer); timer = setTimeout(async () => {
+    if (!$("suSchool")) return;
+    const list = await sharedSchools($("suSchool").value);
+    if ($("suSchools")) $("suSchools").innerHTML = list.map(r => `<option value="${esc(r.school)}">${r.people}명</option>`).join("");
+  }, 300); };
+  $("suGrades").onclick = ev => { const b = ev.target.closest("button[data-g]"); if (!b) return; grade = b.dataset.g;
+    $("suGrades").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b)); };
+  $("suLater").onclick = () => { store(tbSkipKey(), "1"); toast("☰ 메뉴 → 📚 교과서 출판사에서 언제든 정할 수 있어요"); load(); };
+  $("suNext").onclick = async () => {
+    const school = $("suSchool").value.trim();
+    if (!school || !grade) { $("suMsg").hidden = false; $("suMsg").textContent = "학교 이름과 학년을 골라 주세요"; return; }
+    $("suNext").disabled = true; $("suNext").textContent = "찾는 중…";
+    showSchoolChoices(school, grade, await sharedChoices(school, grade));
+  };
+}
+function showSchoolChoices(school, grade, choices) {
+  const mine = cleanTb(tbInfo().textbooks[grade]);
+  const opts = [...(mine.length ? [{ list: mine, mine: true }] : []), ...(choices || []).filter(c => !(mine.length && sameTb(c.list, mine)))];
+  const grid = list => `<div class="tbgrid">${list.map(t => `<div><span>${esc(t.subject)}</span><b>${esc(t.publisher || "-")}</b></div>`).join("")}</div>`;
+  const head = choices === null && !mine.length
+    ? `<p class="empty">친구들과 공유하는 기능이 아직 준비되지 않았어요. 우리 학교 출판사를 직접 적어 주세요.</p>`
+    : opts.length
+    ? `<p>같은 학교 같은 학년에서 등록한 교과서 출판사예요.<br><b>우리 학교 ${grade} 출판사가 이게 맞나요?</b></p>`
+    : `<p>아직 <b>${esc(school)} ${grade}</b> 출판사를 등록한 사람이 없어요.<br>처음으로 등록해 주세요! 같은 학교 친구들이 쓸 수 있어요.</p>`;
+  $("view").innerHTML = `<div class="panel"><h2>📚 ${esc(school)} · ${grade}</h2>${head}
+    ${opts.map((o, k) => `<section class="day tbopt" style="margin:10px 0">
+      <div class="dhead"><span class="date">${o.mine ? "지금 내 계정에 저장된 출판사" : opts.length > 1 ? `${k + 1}번` : "친구들이 등록한 출판사"}</span>
+        ${o.people ? `<span class="chip">${o.people}명이 등록</span>` : ""}</div>${grid(o.list)}
+      <button class="btn" data-k="${k}" style="width:100%;margin-top:10px">✅ ${opts.length > 1 ? "이게 맞아요" : "네, 맞아요"}</button></section>`).join("")}
+    <div id="suMsg" class="err" hidden></div>
+    <div class="actions" style="margin-top:12px;flex-wrap:wrap">
+      <button class="btn ghost" id="suBack" style="margin-right:auto">‹ 뒤로</button>
+      <button class="btn ${opts.length ? "ghost" : ""}" id="suOwn">✏️ ${opts.length ? "아니에요, 다르게 등록할게요" : "출판사 등록하기"}</button></div></div>`;
+  $("suBack").onclick = () => showSchoolSetup();
+  $("suOwn").onclick = () => {   // 직접 등록: 출판사 화면의 수정 칸으로 (첫 후보나 기본 과목을 미리 채움)
+    const base = opts.length ? opts[0].list : tbBase(grade).map(x => ({ subject: x, publisher: "" }));
+    tbDraft = { view: grade, school, isCur: true, list: base.map(t => ({ ...t, publisher: opts.length ? t.publisher : "" })) };
+    tbView = grade; store("tbgrade", grade); store(tbSkipKey(), "1");
+    mode = "books"; store("mode", mode); load(); window.scrollTo({ top: 0 });
+  };
+  $("view").querySelectorAll(".tbopt button[data-k]").forEach(b => b.onclick = async () => {
+    b.disabled = true; b.textContent = "저장 중…";
+    try {
+      await writeTb({ school, view: grade, isCur: true, list: opts[+b.dataset.k].list });
+      tbView = grade; store("tbgrade", grade); store(tbSkipKey(), "1");
+      toast("✓ 우리 학교 출판사로 저장했어요"); mode = "books"; store("mode", mode); load();
+    } catch (e) { b.disabled = false; b.textContent = "✅ 다시 시도"; $("suMsg").hidden = false; $("suMsg").textContent = "저장 실패: " + (e.message || e); }
+  });
+}
+
 // 처음 로그인한 계정: 빈 시간표로 시작
 async function showOnboard(msg) {
   $("view").innerHTML = `<div class="panel"><h2>👋 처음 오셨네요</h2>
@@ -2233,6 +2334,7 @@ async function start() {
       const s = await getFile("schedule.json");
       if (!s) return showOnboard();
       schedule = JSON.parse(s.text);
+      if (await needSchoolSetup()) return showSchoolSetup();
       return load();
     } catch (e) { return showLogin(e.message || String(e)); }
   }
