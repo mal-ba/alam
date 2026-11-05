@@ -375,6 +375,30 @@
     "2025": 415,
     "2026": 492
    }
+  },
+  "samsung": {
+   "name": "🏢 삼성",
+   "years": {}
+  },
+  "nvidia": {
+   "name": "🟩 엔비디아",
+   "years": {}
+  },
+  "apple": {
+   "name": "🍎 애플",
+   "years": {}
+  },
+  "hynix": {
+   "name": "💾 하이닉스",
+   "years": {}
+  },
+  "lg": {
+   "name": "📺 LG",
+   "years": {}
+  },
+  "meta": {
+   "name": "♾️ 메타",
+   "years": {}
   }
  }
 }
