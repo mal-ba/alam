@@ -31,8 +31,12 @@ TAIL = "hl=ko&gl=KR&ceid=KR:ko"
 FIRST_YEAR = 2000
 
 
-def search_url(q):
-    return f"{BASE}/search?q={urllib.parse.quote(q)}&{TAIL}"
+def search_url(q, tail=TAIL):
+    return f"{BASE}/search?q={urllib.parse.quote(q)}&{tail}"
+
+
+# 해외 언론 (영어) 구글 뉴스 검색
+TAIL_EN = "hl=en-US&gl=US&ceid=US:en"
 
 
 # (키, 이름, 최신 기사 주소, 예전 기사 검색어)
@@ -41,6 +45,8 @@ CATEGORIES = [
     ("economy", "💰 경제", f"{BASE}/headlines/section/topic/BUSINESS?{TAIL}", "경제 OR 금리 OR 물가 OR 환율"),
     ("world", "🌍 세계", f"{BASE}/headlines/section/topic/WORLD?{TAIL}", "국제 OR 외신 OR 정상회담 OR 유엔"),
     ("nation", "🇰🇷 국내", f"{BASE}/headlines/section/topic/NATION?{TAIL}", "사회 OR 사건 OR 교육 OR 날씨"),
+    ("diplomacy", "🤝 외교", search_url("외교 OR 정상회담 OR 유엔 OR 안보리 OR 외교장관 OR 외무장관 OR 국무장관 OR 휴전 협상 OR 평화회담 OR G7 OR G20 OR NATO when:2d"),
+     "외교 OR 정상회담 OR 유엔 OR 안보리 OR 외무장관 OR 국무장관 OR 평화회담"),
     ("politics", "🏛️ 정치", search_url("정치 OR 국회 OR 대통령실 when:2d"), "정치 OR 국회 OR 대통령 OR 청와대"),
     ("rp", "🏦 RP", search_url("RP 환매조건부채권 OR RP금리 OR 발행어음 when:14d"), "RP 환매조건부채권 OR RP금리 OR 발행어음"),
     ("samsung", "🏢 삼성", search_url("삼성전자 OR 삼성 when:2d"), "삼성전자 OR 삼성그룹 OR 삼성"),
@@ -52,6 +58,12 @@ CATEGORIES = [
 ]
 # 구글 뉴스 말고 같이 모으는 곳 (분야 키 → [(주소, 언론사 이름 없을 때 쓸 이름)])
 EXTRA_FEEDS = {
+    # 외교: 한국 언론만이 아니라 해외 언론·유엔 소식도 같이 (영어 제목)
+    "diplomacy": [
+        (search_url('diplomacy OR diplomatic OR summit OR "UN Security Council" OR "UN General Assembly" '
+                    'OR "foreign minister" OR "secretary of state" OR "peace talks" OR ceasefire when:2d', TAIL_EN), "Google News"),
+        ("https://news.un.org/feed/subscribe/en/news/all/rss.xml", "UN News"),
+    ],
     "samsung": [("https://news.samsung.com/kr/feed", "삼성전자 뉴스룸")],
     "nvidia": [("https://nvidianews.nvidia.com/releases.xml", "NVIDIA 뉴스룸")],
     "apple": [("https://www.apple.com/kr/newsroom/rss-feed.rss", "Apple 뉴스룸")],
