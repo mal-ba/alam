@@ -43,7 +43,12 @@ CATEGORIES = [
     ("nation", "🇰🇷 국내", f"{BASE}/headlines/section/topic/NATION?{TAIL}", "사회 OR 사건 OR 교육 OR 날씨"),
     ("politics", "🏛️ 정치", search_url("정치 OR 국회 OR 대통령실 when:2d"), "정치 OR 국회 OR 대통령 OR 청와대"),
     ("rp", "🏦 RP", search_url("RP 환매조건부채권 OR RP금리 OR 발행어음 when:14d"), "RP 환매조건부채권 OR RP금리 OR 발행어음"),
+    ("samsung", "🏢 삼성", search_url("삼성전자 OR 삼성 when:2d"), "삼성전자 OR 삼성그룹 OR 삼성"),
 ]
+# 구글 뉴스 말고 같이 모으는 곳 (분야 키 → [(주소, 언론사 이름 없을 때 쓸 이름)])
+EXTRA_FEEDS = {
+    "samsung": [("https://news.samsung.com/kr/feed", "삼성전자 뉴스룸")],
+}
 PER_FETCH = 40      # 한 번에 받는 최신 기사 수 (분야마다)
 RECENT_MAX = 120    # news.json 에 남겨 두는 최근 기사 수 (분야마다)
 RECENT_DAYS = 30    # news.json 에는 최근 30일 기사만 (그 전 기사는 연도별 보관함에서)
@@ -73,7 +78,7 @@ def item_key(x):
     return re.sub(r"\W", "", x["title"])[:40]
 
 
-def parse(xml_bytes, limit=None):
+def parse(xml_bytes, limit=None, default_source=""):
     root = ET.fromstring(xml_bytes)
     out, seen = [], set()
     for it in root.iter("item"):
@@ -82,7 +87,7 @@ def parse(xml_bytes, limit=None):
         if link.endswith("?oc=5"):
             link = link[:-5]
         src_el = it.find("source")
-        source = (src_el.text or "").strip() if src_el is not None else ""
+        source = (src_el.text or "").strip() if src_el is not None else default_source
         if source and title.endswith(" - " + source):      # "제목 - 언론사" 에서 언론사 떼기
             title = title[: -len(" - " + source)].strip()
         if not title or not link:
@@ -180,6 +185,11 @@ def main():
         try:
             got = parse(fetch(url), PER_FETCH)
             ok += 1
+            for extra_url, src in EXTRA_FEEDS.get(key, []):
+                try:
+                    got += parse(fetch(extra_url), PER_FETCH, src)
+                except Exception as e:
+                    print(f"{key}: {src} 못 받음 ({type(e).__name__})", file=sys.stderr)
         except Exception as e:   # 한 분야가 실패해도 예전 기사는 그대로 둠
             print(f"{key}: 못 받음 ({type(e).__name__})", file=sys.stderr)
             got = []

@@ -259,7 +259,7 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .lbar i{display:block;height:100%;background:#10b981}
 .lnav{display:flex;gap:6px;margin-top:12px}
 .lnav .sp{flex:1}
-.nkinds{display:grid;grid-template-columns:repeat(3,1fr)}
+.nkinds{display:grid;grid-template-columns:repeat(4,1fr)}
 .nlist a{display:block;padding:10px 0;border-top:1px solid var(--line);color:var(--text);text-decoration:none}
 .nlist a:first-child{border-top:0}
 .nlist b{display:block;font-weight:600;line-height:1.4}
@@ -1807,7 +1807,7 @@ function renderNotice() {
 
 /* 📰 뉴스 */
 async function loadNews(seq = loadSeq) {
-  $("label").innerHTML = `뉴스<span class="sub">주식 · 경제 · 세계 · 국내 · 정치 · RP · 2000년~</span>`;
+  $("label").innerHTML = `뉴스<span class="sub">주식 · 경제 · 세계 · 국내 · 정치 · RP · 삼성 · 2000년~</span>`;
   $("view").innerHTML = `<div class="loading">뉴스 불러오는 중…</div>`;
   const [, idx] = await Promise.all([fetchNews(true),
     fetch("news/index.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null)]);
