@@ -44,3 +44,10 @@ GitHub Secrets: 저장소 **Settings → Secrets and variables → Actions → N
 매일 22:00·00:00 GitHub Actions가 `run_supabase.py`를 실행해요.
 `settings.json`에 ntfy 토픽이 있는 **계정마다** 그 계정의 일정으로만 알람을 예약해요.
 공개 로그에는 이메일이나 일정 내용 없이 "계정 1: 알림 8개 예약"처럼 개수만 남아요.
+
+## 학교·학년별 교과서 출판사 공유 (한 번만)
+같은 학교 같은 학년 친구가 등록한 출판사를 새로 로그인한 사람에게 "이거 맞아요?" 하고 보여 주려면 공유 표가 필요해요.
+Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schema.sql) 전체를 다시 붙여넣고 **Run** 하세요. (여러 번 실행해도 괜찮아요)
+
+- 다른 사람에게는 **학교 이름, 학년, 출판사 목록, 몇 명이 등록했는지**만 보여요. 누가 등록했는지(계정·이메일)는 안 보여요.
+- 공유되는 건 각자 **지금 학년(★)** 출판사뿐이에요.
