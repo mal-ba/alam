@@ -1445,6 +1445,11 @@ function agoText(t) {
   return m < 1 ? "방금" : m < 60 ? `${m}분 전` : m < 1440 ? `${Math.floor(m / 60)}시간 전` : `${Math.floor(m / 1440)}일 전`;
 }
 const kstHM = d => d.toLocaleTimeString("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false });
+// 회사 분야는 이모지 대신 진짜 로고 그림을 보여 줘요 (docs/logos/키.png)
+const NEWS_LOGOS = new Set(["nvidia", "lg", "meta", "hynix"]);
+const catName = c => NEWS_LOGOS.has(c.key)
+  ? `<img class="nlogo" src="logos/${c.key}.png" alt="">${esc(String(c.name).replace(/^\S+\s+/, ""))}`
+  : esc(c.name);
 const newsLink = (x, meta) => `<a href="${esc(safeUrl(x.link))}" target="_blank" rel="noopener noreferrer"><b>${esc(x.title)}</b><span>${esc(x.source || "")}${meta ? " · " + meta : ""}</span></a>`;
 
 /* 📢 공지 */
@@ -1462,7 +1467,7 @@ function renderNotice() {
       <div style="font-size:14px;line-height:1.65">새 뉴스는 <b>3시간마다</b> 들어와요. 들어온 지 <b>${hrs}시간</b> 동안은 여기 공지에서 먼저 보여 주고, 그 뒤에는 📰 뉴스 탭에서 다른 기사들과 같이 볼 수 있어요.
       <br>지난 기사는 📰 뉴스 탭에서 연도(2000년~)를 골라 볼 수 있어요.${next ? `<br>다음 업데이트: ${next > Date.now() ? kstHM(next) + " 쯤" : "곧"}` : ""}</div>
       <button class="btn ghost nmore" data-act="ngonews">📰 뉴스 탭으로</button></section>
-    ${groups.length ? groups.map(c => `<section class="day"><div class="dhead"><span class="date">🆕 ${esc(c.name)}</span><span class="badge">${c.items.length}</span></div>
+    ${groups.length ? groups.map(c => `<section class="day"><div class="dhead"><span class="date">🆕 ${catName(c)}</span><span class="badge">${c.items.length}</span></div>
       <div class="nlist">${c.items.map(x => newsLink(x, `${x.time ? agoText(x.time) + " · " : ""}${left(x)} 뒤 뉴스 탭으로`)).join("")}</div></section>`).join("")
       : `<section class="day"><div class="empty">지금은 새로 들어온 뉴스가 없어요. 다음 업데이트 때 여기에 먼저 보여요.</div></section>`}`;
   const newest = groups.flatMap(c => c.items.map(x => x.added)).sort().pop();
@@ -1501,13 +1506,13 @@ function renderNews() {
   if (newsYear && !years.some(([y]) => y === newsYear)) newsYear = "";
   const nn = cat.items.filter(isNotice).length;
   const mons = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
-  $("view").innerHTML = `<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${esc(c.name)}</button>`).join("")}</div>
+  $("view").innerHTML = `<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${catName(c)}</button>`).join("")}</div>
     ${nn && !newsYear ? `<button class="nnote" data-act="ngonotice">📢 새 뉴스 ${nn}건은 지금 공지에서 먼저 보여요 → <span style="font-weight:400">(들어온 지 5시간 뒤 여기로 와요)</span></button>` : ""}
     <div class="npick"><select id="nyear" aria-label="기간">
       <option value="">🕒 최근 30일</option>${years.map(([y, n]) => `<option value="${y}"${y === newsYear ? " selected" : ""}>${y}년 (${n.toLocaleString()}개)</option>`).join("")}</select>
       ${newsYear ? `<select id="nmonth" aria-label="달"><option value="">전체 달</option>${mons.map(m => `<option value="${m}"${m === newsMonth ? " selected" : ""}>${+m}월</option>`).join("")}</select>` : ""}</div>
     <input class="search" id="nsearch" value="${esc(newsQuery)}" placeholder="🔍 이 분야에서 찾기 (예: 금리, 반도체)">
-    <section class="day"><div class="dhead"><span class="date">${esc(cat.name)}${newsYear ? ` · ${newsYear}년` + (newsMonth ? ` ${+newsMonth}월` : "") : ""}</span><span class="sp"></span><span class="empty" style="margin:0">${newsData.updated ? agoText(newsData.updated) + " 업데이트" : ""}</span></div>
+    <section class="day"><div class="dhead"><span class="date">${catName(cat)}${newsYear ? ` · ${newsYear}년` + (newsMonth ? ` ${+newsMonth}월` : "") : ""}</span><span class="sp"></span><span class="empty" style="margin:0">${newsData.updated ? agoText(newsData.updated) + " 업데이트" : ""}</span></div>
       <div id="nres"></div>
       <div class="empty" style="font-size:12px">구글 뉴스에서 3시간마다 모으고, 2000년부터의 지난 기사도 연도별로 모아 둬요. 제목을 누르면 언론사 기사로 가요.</div></section>`;
   const inp = $("nsearch");
