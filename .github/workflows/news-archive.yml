@@ -44,7 +44,7 @@ jobs:
           if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
           git commit -m "예전 뉴스 보관함: $CAT ($(TZ=Asia/Seoul date '+%F %H:%M'))"
           for i in 1 2 3 4 5 6; do
-            git pull --rebase -X theirs && git push && exit 0
+            git pull --rebase --autostash -X theirs && git push && exit 0
             sleep $((RANDOM % 10 + 5))
           done
           exit 1

@@ -96,7 +96,8 @@ def main():
     for key, _, _, q in cats:
         total, reqs = run_category(key, q, args.year, deadline, MAX_REQUESTS)
         print(f"[{key}] 이번에 {reqs}번 검색, 새 기사 {total}개")
-    news.write_index()
+    if not args.cat:   # 분야 하나만 받을 땐 index.json 은 마지막 index 작업이 만들어요 (동시에 고치면 충돌)
+        news.write_index()
 
 
 if __name__ == "__main__":
