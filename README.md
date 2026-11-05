@@ -63,7 +63,7 @@
 | `docs/config.js` | Supabase 주소·publishable 키 (공개돼도 되는 값) |
 | `supabase/schema.sql` | 데이터 테이블 + 행 단위 보안 |
 | `news.py` | 구글 뉴스 RSS → `docs/news.json` + 연도별 보관함 `docs/news/<분야>/<연도>.json` (`.github/workflows/news.yml`, 매시간 깨워서 3시간 지났으면 모음) |
-| `news_archive.py` | 2000년~지난달 기사를 분야·달마다 조금씩 채움, 진행 상황 `docs/news/progress.json` (`.github/workflows/news-archive.yml`, 4시간마다 / Actions 에서 바로 실행) |
+| `news_archive.py` | 2000년~지난달 기사를 분야·반달마다 채움 (6개 분야 동시에), 진행 상황 `docs/news/progress/<분야>.json` (`.github/workflows/news-archive.yml`, 6시간마다 남은 것 이어서 / Actions 에서 바로 실행) |
 | `docs/learn.json` | 코딩 공부 강의 내용 (`learn_gen.py` 로 만들어요: `python learn_gen.py docs/learn.json`) |
 | `alarm.py` | 계획표 계산·알림 예약 로직 |
 | `run_supabase.py` | 계정별로 `alarm.py` 실행 (Secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`) |
