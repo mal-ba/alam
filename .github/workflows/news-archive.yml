@@ -2,46 +2,72 @@ name: 예전 뉴스 모으기 (2000년~)
 
 on:
   schedule:
-    - cron: "41 */4 * * *"   # 4시간마다 조금씩 (다 채우면 바로 끝나요)
+    - cron: "41 */6 * * *"   # 6시간마다 남은 것 이어서 (다 채우면 바로 끝나요)
   workflow_dispatch:
     inputs:
       year:
-        description: "이 연도만 받기 (비우면 남은 것 이어서)"
+        description: "이 연도만 받기 (비우면 2000년~지난달 남은 것 전부)"
         required: false
         default: ""
-      max_requests:
-        description: "이번에 받을 달 수 (분야×달)"
-        required: false
-        default: "300"
 
 permissions:
   contents: write
 
 concurrency:
-  group: news
+  group: news                # news.yml 과 같은 파일을 고치니 하나씩 차례로
   cancel-in-progress: false
 
 jobs:
   archive:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        cat: [stock, economy, world, nation, politics, rp]   # 분야마다 동시에
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python news_archive.py $YEAR
+      - run: python news_archive.py --cat "$CAT" $YEAR
         env:
-          MAX_REQUESTS: ${{ github.event.inputs.max_requests || '300' }}
-          MAX_MINUTES: "40"
+          CAT: ${{ matrix.cat }}
           YEAR: ${{ github.event.inputs.year }}
+          MAX_MINUTES: "100"
+      - name: 저장(커밋)
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "docs/news/$CAT" "docs/news/progress/$CAT.json"
+          if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
+          git commit -m "예전 뉴스 보관함: $CAT ($(TZ=Asia/Seoul date '+%F %H:%M'))"
+          for i in 1 2 3 4 5 6; do
+            git pull --rebase -X theirs && git push && exit 0
+            sleep $((RANDOM % 10 + 5))
+          done
+          exit 1
+        env:
+          CAT: ${{ matrix.cat }}
+
+  index:
+    needs: archive
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4   # 분야별 저장이 다 끝난 뒤라 최신 내용을 받아요
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -c "import news; news.write_index()"
       - name: 저장(커밋)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/news
+          git add docs/news/index.json
           if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
-          git commit -m "예전 뉴스 보관함 채우기 ($(TZ=Asia/Seoul date '+%F %H:%M'))"
+          git commit -m "예전 뉴스 보관함 목록 ($(TZ=Asia/Seoul date '+%F %H:%M'))"
           for i in 1 2 3; do
             git pull --rebase && git push && exit 0
             sleep 5
