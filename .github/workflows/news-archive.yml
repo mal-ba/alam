@@ -1,0 +1,49 @@
+name: 예전 뉴스 모으기 (2000년~)
+
+on:
+  schedule:
+    - cron: "41 */4 * * *"   # 4시간마다 조금씩 (다 채우면 바로 끝나요)
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "이 연도만 받기 (비우면 남은 것 이어서)"
+        required: false
+        default: ""
+      max_requests:
+        description: "이번에 받을 달 수 (분야×달)"
+        required: false
+        default: "300"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python news_archive.py $YEAR
+        env:
+          MAX_REQUESTS: ${{ github.event.inputs.max_requests || '300' }}
+          MAX_MINUTES: "40"
+          YEAR: ${{ github.event.inputs.year }}
+      - name: 저장(커밋)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/news
+          if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
+          git commit -m "예전 뉴스 보관함 채우기 ($(TZ=Asia/Seoul date '+%F %H:%M'))"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1

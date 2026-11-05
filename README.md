@@ -21,7 +21,8 @@
 | **보고서** | 📅 날짜별 / 📝 자유(날짜 없이) / 📚 모아보기(검색·과목 필터) |
 | **시험** | 정기시험·수행평가, 범위별 공부 진도 0~100%, D-day, 📚 교과서 출판사는 ☰ 메뉴에서 학교·학년별(중1~고3)로 등록, 처음 로그인하면 전국 학교 목록(지번·도로명 주소)에서 우리 학교를 고르고, 같은 학교·학년 친구들이 등록한 출판사가 맞는지 물어봄 |
 | **지도** | 자주 가는 곳 저장, 카카오맵·네이버 지도·구글 지도 길찾기(대중교통·도보·자동차), `docs/config.js` 에 카카오 JavaScript 키를 넣으면 지도·장소 검색이 카카오맵으로 |
-| **뉴스** | 📈 주식 · 💰 경제 · 🌍 세계 · 🇰🇷 국내 · 🏛️ 정치 · 🏦 RP(환매조건부채권) 기사 제목 모음, 3시간마다 업데이트 (☰ 메뉴) |
+| **뉴스** | 📈 주식 · 💰 경제 · 🌍 세계 · 🇰🇷 국내 · 🏛️ 정치 · 🏦 RP(환매조건부채권) 기사 제목 모음, 3시간마다 업데이트, 연도(2000년~)·달을 골라 지난 기사도 보기 (☰ 메뉴) |
+| **📢 공지** | 위쪽 📢 버튼: 새로 들어온 뉴스는 5시간 동안 공지에서 먼저 보여 주고(빨간 숫자), 5시간이 지나면 뉴스 탭에서 다른 기사들과 같이 보여요 |
 | **코딩 공부** | 🐍 파이썬 · ⚙️ C · 🟨 JS · 🌐 HTML · 🎨 CSS 강의 40개 + 바로 실행 + 도전 과제(맞으면 자동 완료), 📚 더 배우기(자바·SQL·알고리즘 등 링크). 진도·내 코드는 Supabase 에 저장 (☰ 메뉴) |
 
 - 고치기는 항상 ✏️ 연필 → 저장/취소 (할 일 체크박스만 바로 저장)
@@ -61,7 +62,8 @@
 | `docs/` | 앱 (GitHub Pages) |
 | `docs/config.js` | Supabase 주소·publishable 키 (공개돼도 되는 값) |
 | `supabase/schema.sql` | 데이터 테이블 + 행 단위 보안 |
-| `news.py` | 구글 뉴스 RSS → `docs/news.json` (`.github/workflows/news.yml`, 3시간마다) |
+| `news.py` | 구글 뉴스 RSS → `docs/news.json` + 연도별 보관함 `docs/news/<분야>/<연도>.json` (`.github/workflows/news.yml`, 매시간 깨워서 3시간 지났으면 모음) |
+| `news_archive.py` | 2000년~지난달 기사를 분야·달마다 조금씩 채움, 진행 상황 `docs/news/progress.json` (`.github/workflows/news-archive.yml`, 4시간마다 / Actions 에서 바로 실행) |
 | `docs/learn.json` | 코딩 공부 강의 내용 (`learn_gen.py` 로 만들어요: `python learn_gen.py docs/learn.json`) |
 | `alarm.py` | 계획표 계산·알림 예약 로직 |
 | `run_supabase.py` | 계정별로 `alarm.py` 실행 (Secrets: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`) |
