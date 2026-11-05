@@ -198,6 +198,12 @@ header{position:sticky;top:0;z-index:5;background:var(--bg);padding-top:env(safe
 .xrow .sl input{flex:1}
 .xrow .sl b{min-width:44px;text-align:right;font-variant-numeric:tabular-nums}
 .xrow .m{grid-column:1/3}
+.tbgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-top:6px}
+.tbgrid div{display:flex;justify-content:space-between;gap:6px;background:var(--input);border-radius:8px;padding:7px 10px;font-size:14px}
+.tbgrid span{color:var(--muted)}
+.tbrow{display:grid;grid-template-columns:1fr 1.3fr auto;gap:6px;margin-bottom:6px}
+.tbrow input{min-width:0;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:7px 8px}
+.tbrow .del{border:0;background:none;color:var(--danger);font-size:22px;cursor:pointer;padding:0 6px}
 .xrow .del{border:0;background:none;color:var(--danger);font-size:22px;cursor:pointer;padding:0 6px}
 .rform select{width:100%;border:1px solid var(--line);background:var(--input);border-radius:8px;padding:8px;font:inherit;color:inherit}
 #map{height:320px;border-radius:12px;overflow:hidden;margin-bottom:10px;z-index:0}
@@ -585,7 +591,7 @@ const viewTitle = () => {
   if (weekish()) { const s = weekStart(anchor), e = addDays(s, 6); return `주간 계획표 (${s.replace(/-/g, ".")} 일 ~ ${e.slice(5).replace("-", ".")} 토)`; }
   return `${+anchor.slice(0, 4)}년 ${+anchor.slice(5, 7)}월 계획표`;
 };
-const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!placeDraft
+const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft
   || (repDraft && buildReport(anchor, repDraft) !== buildReport(anchor, rep.data))
   || (editing && formatRow(days[editing.i].iso, clean(editing.draft)) !== formatRow(days[editing.i].iso, days[editing.i].day));
 const leaveOk = () => !editDirty() || confirm("수정 중인 내용이 저장되지 않았어요. 그래도 나갈까요?");
@@ -829,6 +835,7 @@ $("view").addEventListener("input", ev => {
   if (noteDraft && t.dataset.n) { noteDraft[t.dataset.n] = t.value; return; }
   if (t.id === "rsearch") { allQuery = t.value; return renderAllResults(); }
   if (examDraft && t.dataset.x) return examInput(t);
+  if (tbDraft && t.dataset.tb) return tbInput(t);
   if (placeDraft && t.dataset.q) { placeDraft[t.dataset.q] = t.value; return; }
   if (secEdit) {
     if (t.dataset.s === "text") secEdit.draft = t.value;
@@ -1341,7 +1348,56 @@ function renderAllResults() {
 
 /* ---------- 시험 범위·진도 (plans/exams.json) ---------- */
 const EXAM_PATH = "plans/exams.json";
-let examData = { exams: [] }, examDraft = null, examFilter = "all", examOpenPast = false, examCands = null;
+let examData = { exams: [] }, examDraft = null, examFilter = "all", examOpenPast = false, examCands = null, tbDraft = null;
+// 교과서 출판사 (exams.json 의 grade·textbooks). 아직 저장 안 했으면 1학년 기본값
+const TB_DEFAULT = { grade: "1학년", textbooks: [
+  { subject: "국어", publisher: "천재(홍)" }, { subject: "수학", publisher: "비상" }, { subject: "영어", publisher: "비상" },
+  { subject: "한국사", publisher: "지학사" }, { subject: "사회", publisher: "리베르스쿨" }, { subject: "과학", publisher: "미래엔" },
+  { subject: "한문", publisher: "장원스쿨" }] };
+const tbInfo = () => Array.isArray(examData.textbooks) ? { grade: examData.grade || "", textbooks: examData.textbooks } : TB_DEFAULT;
+const publisherOf = subj => { const g = subjectGroup(subj); return (tbInfo().textbooks.find(t => subjectGroup(t.subject) === g) || {}).publisher || ""; };
+function tbCard() {
+  const { grade, textbooks } = tbInfo();
+  return `<section class="day tbcard"><div class="dhead"><span class="date">📚 ${esc(grade ? grade + " " : "")}교과서 출판사</span><span class="sp"></span>
+    <button class="pencil" data-act="xtbedit" aria-label="출판사 수정">✏️</button></div>
+    ${textbooks.length ? `<div class="tbgrid">${textbooks.map(t => `<div><span>${esc(t.subject)}</span><b>${esc(t.publisher || "-")}</b></div>`).join("")}</div>`
+      : '<div class="empty">✏️을 눌러 과목별 출판사를 적어 보세요.</div>'}</section>`;
+}
+function tbForm(d) {
+  const subj = [...new Set([...Object.values((schedule?.school || {}).timetable || {}).flat(), ...SUBJECTS])];
+  return `<section class="day editing rform">
+    <div class="dhead"><span class="date">📚 교과서 출판사</span></div>
+    <datalist id="subjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
+    <label>학년</label><input data-tb="grade" value="${esc(d.grade)}" placeholder="예) 1학년">
+    <label>과목별 출판사</label>
+    ${d.textbooks.map((t, k) => `<div class="tbrow" data-k="${k}">
+      <input data-tb="subject" list="subjects" value="${esc(t.subject)}" placeholder="과목">
+      <input data-tb="publisher" value="${esc(t.publisher)}" placeholder="출판사 (예: 비상)">
+      <button class="del" data-act="xtbdel" aria-label="과목 삭제">×</button></div>`).join("")}
+    <button class="add" data-act="xtbadd" style="width:100%">+ 과목 추가</button>
+    <div class="actions" style="margin-top:12px">
+      <button class="btn ghost" data-act="xtbcancel" ${saving ? "disabled" : ""}>취소</button>
+      <button class="btn" data-act="xtbsave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : "저장"}</button>
+    </div></section>`;
+}
+function tbInput(t) {
+  const k = t.dataset.tb, row = t.closest(".tbrow");
+  if (row) tbDraft.textbooks[+row.dataset.k][k] = t.value; else tbDraft[k] = t.value;
+}
+async function saveTextbooks() {
+  const grade = (tbDraft.grade || "").trim();
+  const textbooks = tbDraft.textbooks.map(t => ({ subject: (t.subject || "").trim(), publisher: (t.publisher || "").trim() })).filter(t => t.subject || t.publisher);
+  saving = true; renderExams();
+  try {
+    await updateFile(EXAM_PATH, text => {
+      let data; try { data = text ? JSON.parse(text) : { exams: [] }; } catch (e) { data = { exams: [] }; }
+      data.exams ||= []; data.grade = grade; data.textbooks = textbooks;
+      return JSON.stringify(data, null, 2) + "\n";
+    }, "앱에서 교과서 출판사 수정");
+    examData = JSON.parse(files.get(EXAM_PATH).text); examData.exams ||= []; tbDraft = null; toast("저장됨 ✓");
+  } catch (e) { saving = false; renderExams(); showError(e, true); return; }
+  saving = false; renderExams();
+}
 async function loadExamData(force) {
   const f = await getFile(EXAM_PATH, force);
   try { examData = f ? JSON.parse(f.text) : { exams: [] }; } catch (e) { examData = { exams: [] }; }
@@ -1363,7 +1419,7 @@ function examCard(x) {
   const p = progressOf(x), [dd, ddc] = x.date ? ddayOf(x.date) : ["날짜 미정", "past"];
   return `<section class="day" data-id="${x.id}">
     <div class="dhead"><span class="xkind ${x.kind === "수행" ? "perf" : ""}">${x.kind === "수행" ? "수행평가" : "정기시험"}</span>
-      <span class="date">${esc(x.subject || "")}</span><span class="dday ${ddc}">${dd}</span><span class="sp"></span>
+      <span class="date">${esc(x.subject || "")}</span>${publisherOf(x.subject) ? `<span class="chip">${esc(publisherOf(x.subject))}</span>` : ""}<span class="dday ${ddc}">${dd}</span><span class="sp"></span>
       <button class="pencil" data-act="xedit" aria-label="수정">✏️</button></div>
     <div class="empty" style="margin-top:2px">${esc(x.name || "")}${x.date ? ` · ${x.date.slice(5).replace("-", "/")} (${WD[wday(x.date)]})` : ""}</div>
     <div class="xr"><div class="top"><span>전체 진도</span><span class="pct">${p}%</span></div><div class="bar ${barCls(p)}"><i style="width:${p}%"></i></div></div>
@@ -1397,6 +1453,7 @@ function examForm(d) {
 }
 function renderExams() {
   if (examDraft) { $("view").innerHTML = examForm(examDraft); return; }
+  if (tbDraft) { $("view").innerHTML = tbForm(tbDraft); return; }
   const t = todayKST();
   const list = examData.exams.filter(x => examFilter === "all" || x.kind === examFilter)
     .sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
@@ -1410,6 +1467,7 @@ function renderExams() {
       <button class="add" data-act="xscan" style="flex:1;background:var(--card)">📥 계획에서 시험 찾기</button></div>
     ${examCands ? candPanel() : ""}
     ${up.length ? up.map(examCard).join("") : '<div class="day"><div class="empty">다가오는 시험이 없어요. + 시험 추가로 과목별 범위를 적어 보세요. (예: 2차 정기시험 12/9~12/15)</div></div>'}
+    ${tbCard()}
     ${past.length ? `<button class="btn ghost" data-act="xpast" style="width:100%;margin:6px 0 10px">${examOpenPast ? "▲ 지난 시험 접기" : `▼ 지난 시험 ${past.length}개`}</button>${examOpenPast ? past.map(examCard).join("") : ""}` : ""}`;
 }
 function examInput(t) {
@@ -1493,6 +1551,11 @@ async function examClick(b) {
     } catch (e) { saving = false; renderExams(); showError(e, true); return; }
     saving = false; return renderExams();
   }
+  if (act === "xtbedit") { if (!leaveOk()) return; tbDraft = structuredClone(tbInfo()); tbDraft.textbooks.length || tbDraft.textbooks.push({ subject: "", publisher: "" }); renderExams(); return window.scrollTo({ top: 0 }); }
+  if (act === "xtbcancel") { tbDraft = null; return renderExams(); }
+  if (act === "xtbadd") { tbDraft.textbooks.push({ subject: "", publisher: "" }); renderExams(); return [...document.querySelectorAll('.tbrow [data-tb="subject"]')].pop()?.focus(); }
+  if (act === "xtbdel") { tbDraft.textbooks.splice(+b.closest(".tbrow").dataset.k, 1); return renderExams(); }
+  if (act === "xtbsave") return saveTextbooks();
   if (act === "xfilter") { examFilter = b.dataset.f; return renderExams(); }
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
   if (act === "xnew") { if (!leaveOk()) return; examDraft = { kind: "정기", subject: "", name: "", date: "", ranges: [{ text: "", progress: 0, memo: "" }], memo: "" }; }
