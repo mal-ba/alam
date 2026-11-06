@@ -1600,12 +1600,12 @@ function weakClick(b) {
 /* ---------- 뉴스 · 공지 ----------
    docs/news.json            : 최근 기사 (GitHub Actions 가 3시간마다 구글 뉴스에서 모음, 기사마다 처음 들어온 시각 added)
    docs/news/<분야>/<연도>.json : 2000년 ~ 지금 기사 보관함, docs/news/index.json : 분야·연도별 기사 수
-   새 기사는 들어온 지 5시간(notice_hours) 동안 📢 공지에서 먼저 보여 주고, 그 뒤엔 📰 뉴스 탭에 같이 보여요. */
+   새 기사는 들어온 지 3시간(notice_hours) 동안 📢 공지에서 먼저 보여 주고, 그 뒤엔 📰 뉴스 탭에 같이 보여요. */
 const NEWS_PAGE = 100;
 let newsData = null, newsIndex = null, newsCat = store("ncat") || "stock", newsQuery = "", newsYear = "", newsMonth = "", newsShow = NEWS_PAGE;
 const newsYearCache = {};
 const newsCats = () => (newsData && newsData.categories) || [];
-const noticeMs = () => ((newsData && newsData.notice_hours) || 5) * 36e5;
+const noticeMs = () => ((newsData && newsData.notice_hours) || 3) * 36e5;
 const isNotice = x => !!x.added && Date.now() - new Date(x.added) < noticeMs();
 async function fetchNews(force) {
   if (newsData && !force && Date.now() - fetchNews.at < 5 * 6e4) return newsData;
@@ -1647,7 +1647,7 @@ async function loadNotice(seq = loadSeq) {
   if (seq === loadSeq) renderNotice();
 }
 function renderNotice() {
-  const groups = noticeGroups(), up = newsData.updated, hrs = newsData.notice_hours || 5;
+  const groups = noticeGroups(), up = newsData.updated, hrs = newsData.notice_hours || 3;
   const next = up ? new Date(new Date(up).getTime() + 3 * 36e5) : null;
   const left = x => { const m = Math.max(1, Math.ceil((new Date(x.added).getTime() + noticeMs() - Date.now()) / 6e4)); return m >= 60 ? `${Math.floor(m / 60)}시간 ${m % 60}분` : `${m}분`; };
   $("view").innerHTML = `<section class="day"><div class="dhead"><span class="date">📢 안내</span><span class="sp"></span><span class="empty" style="margin:0">${up ? agoText(up) + " 업데이트" : ""}</span></div>
@@ -1694,7 +1694,7 @@ function renderNews() {
   const nn = cat.items.filter(isNotice).length;
   const mons = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
   $("view").innerHTML = `<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${catName(c)}</button>`).join("")}</div>
-    ${nn && !newsYear ? `<button class="nnote" data-act="ngonotice">📢 새 뉴스 ${nn}건은 지금 공지에서 먼저 보여요 → <span style="font-weight:400">(들어온 지 5시간 뒤 여기로 와요)</span></button>` : ""}
+    ${nn && !newsYear ? `<button class="nnote" data-act="ngonotice">📢 새 뉴스 ${nn}건은 지금 공지에서 먼저 보여요 → <span style="font-weight:400">(들어온 지 ${(newsData && newsData.notice_hours) || 3}시간 뒤 여기로 와요)</span></button>` : ""}
     <div class="npick"><select id="nyear" aria-label="기간">
       <option value="">🕒 최근 30일</option>${years.map(([y, n]) => `<option value="${y}"${y === newsYear ? " selected" : ""}>${y}년 (${n.toLocaleString()}개)</option>`).join("")}</select>
       ${newsYear ? `<select id="nmonth" aria-label="달"><option value="">전체 달</option>${mons.map(m => `<option value="${m}"${m === newsMonth ? " selected" : ""}>${+m}월</option>`).join("")}</select>` : ""}</div>

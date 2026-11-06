@@ -5,8 +5,8 @@ GitHub Actions(.github/workflows/news.yml)에서 3시간마다 실행돼요.
 기사 본문은 저장하지 않고 제목·언론사·시각·링크만 저장해요 (누르면 언론사 기사로 이동).
 
 - docs/news.json            : 최근 기사 (분야마다 최대 RECENT_MAX 개, 처음 모은 시각 `added` 포함)
-                              앱은 들어온 지 5시간이 안 된 기사를 📢 공지에서 먼저 보여 주고,
-                              5시간이 지나면 📰 뉴스 탭의 다른 기사들과 같이 보여 줘요.
+                              앱은 들어온 지 3시간이 안 된 기사를 📢 공지에서 먼저 보여 주고,
+                              3시간이 지나면 📰 뉴스 탭의 다른 기사들과 같이 보여 줘요.
 - docs/news/<분야>/<연도>.json : 연도별 기사 보관함 (2000년 ~ 지금, news_archive.py 가 예전 기사를 채워요)
 - docs/news/index.json      : 분야·연도별 기사 수 (앱의 연도 고르기용)
 """
@@ -241,7 +241,7 @@ def main():
         print(f"{key}: 새 기사 {new_here}개 / 최근 {len(items)}개")
     if not ok:
         sys.exit("뉴스를 하나도 못 받았어요")
-    write_json(OUT, {"updated": iso(now), "notice_hours": 5, "categories": cats}, indent=1)
+    write_json(OUT, {"updated": iso(now), "notice_hours": 3, "categories": cats}, indent=1)
     write_index()
     print(f"새 기사 모두 {fresh}개")
 
