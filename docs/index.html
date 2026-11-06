@@ -430,6 +430,16 @@ img,iframe,video,table{max-width:100%}
   /* 공지: 3개씩 */
   body[data-mode="notice"] #view{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+/* ---------- 🖼️ 배경 사진: 세로 화면(스마트폰·세로 태블릿)은 세로 사진, 가로 화면(노트북·PC·가로 태블릿)은 가로 사진 ----------
+   사진 위에 배경색을 반쯤 덮어서 글씨가 잘 읽히게 해요. 다크 모드에선 어둡게 덮여요. */
+:root{--photo-veil:color-mix(in srgb,var(--bg) 62%,transparent)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(var(--photo-veil),var(--photo-veil)),url("bg/study-tall.webp") center top/cover no-repeat}
+@media (orientation:landscape){body::before{background-image:linear-gradient(var(--photo-veil),var(--photo-veil)),url("bg/study-wide-sm.webp");background-position:center}}
+@media (orientation:landscape) and (min-width:1300px){body::before{background-image:linear-gradient(var(--photo-veil),var(--photo-veil)),url("bg/study-wide.webp")}}
+body{background:var(--bg)}
+header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.navrow .label,.hl-h{text-shadow:0 0 6px var(--bg),0 0 12px var(--bg)}
 </style>
 </head>
 <body>
