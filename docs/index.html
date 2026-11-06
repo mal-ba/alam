@@ -351,6 +351,85 @@ a{color:var(--accent)}
 .rbtns a.mini-btn{text-decoration:none}
 .err{color:var(--danger);font-size:13px;white-space:pre-wrap}
 .loading{text-align:center;color:var(--muted);padding:40px 0}
+/* ---------- 🗞️ 헤드라인 (뉴스 탭 맨 위) ---------- */
+.hline{margin-bottom:10px}
+.hl-h{display:flex;align-items:baseline;gap:8px;margin:2px 2px 8px}
+.hl-h .empty{margin:0}
+.hl-g{display:grid;grid-template-columns:1fr;gap:8px}
+.hl-c{display:flex;flex-direction:column;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
+  padding:11px 13px;color:var(--text);text-decoration:none;min-width:0}
+.hl-c b{font-weight:700;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hl-k{font-size:12px;font-weight:700;color:var(--accent)}
+.hl-m{font-size:12px;color:var(--muted);margin-top:auto}
+.hl-c.big{background:linear-gradient(135deg,var(--accent-weak),var(--card) 75%);border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.hl-c.big b{font-size:18px;font-weight:800;letter-spacing:-.3px}
+.hl-c:nth-child(n+6){display:none}                       /* 📱 스마트폰: 5개 */
+@media (hover:hover){.hl-c:hover{border-color:var(--accent)} .nlist a:hover b{color:var(--accent)}}
+
+/* ---------- 📐 반응형: 📱 스마트폰(기본) · 📲 태블릿(760px~) · 🖥️ PC(1100px~) ---------- */
+img,iframe,video,table{max-width:100%}
+@media (max-width:379px){                                  /* 작은 스마트폰 */
+  .wrap{padding:0 12px}
+  .top h1{font-size:18px}
+  .icon-btn{width:36px;height:36px;font-size:16px}
+  .tabs button{font-size:13.5px}
+  .nkinds{grid-template-columns:repeat(3,1fr)}
+  .cell{min-height:56px}
+}
+@media (min-width:760px){                                  /* 태블릿 */
+  .wrap{max-width:900px;padding:0 24px}
+  body{font-size:15.5px}
+  .top h1{font-size:22px}
+  .tabs button{font-size:15.5px;padding:9px 0}
+  .moremenu{right:24px}
+  .day,.panel{padding:14px 18px}
+  .nkinds{grid-template-columns:repeat(6,1fr)}
+  .hl-g{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hl-c.big{grid-column:span 2}
+  .hl-c.big b{font-size:20px}
+  .hl-c:nth-child(-n+7){display:flex}                     /* 7개 */
+  .cell{min-height:80px;padding:3px 4px}
+  .cell .n{font-size:13px}
+  .ci{font-size:11px}
+  .ygrid{grid-template-columns:repeat(4,1fr)}
+  .mh span{font-size:10px} .mg button,.mg span{font-size:11.5px;padding:3px 0}
+  /* 주간: 하루 카드 2개씩 */
+  body[data-mode="week"] #view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;align-items:start}
+  body[data-mode="week"] #view>.note,body[data-mode="week"] #view>.grit,body[data-mode="week"] #view>.loading,body[data-mode="week"] #view>.err{grid-column:1/-1}
+  /* 공지: 분야 카드 2개씩 */
+  body[data-mode="notice"] #view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;align-items:start}
+  body[data-mode="notice"] #view>:first-child,body[data-mode="notice"] #view>.loading{grid-column:1/-1}
+}
+@media (min-width:1100px){                                 /* PC */
+  .wrap{max-width:1240px;padding:0 32px}
+  /* 글이 많은 화면은 너무 넓으면 읽기 힘들어서 가운데 좁게 */
+  body:not([data-mode="week"]):not([data-mode="month"]):not([data-mode="year"]):not([data-mode="news"]):not([data-mode="notice"]):not([data-mode="map"]) main.wrap{max-width:960px}
+  /* 머리: 탭 옆에 메뉴 항목을 펼쳐서 바로 누르게 */
+  header .wrap{display:grid;grid-template-columns:minmax(380px,460px) 1fr;column-gap:16px;align-items:center}
+  header .top,header .navrow{grid-column:1/-1}
+  #moreBtn{display:none}
+  .moremenu,.moremenu[hidden]{display:flex;flex-wrap:wrap;gap:6px;position:static;background:none;box-shadow:none;padding:0;min-width:0}
+  .moremenu button{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:13.5px}
+  .moremenu button[aria-selected="true"]{background:var(--accent-weak);border-color:var(--accent)}
+  .nkinds{grid-template-columns:repeat(9,1fr)}
+  .hl-g{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hl-c:nth-child(-n+8){display:flex}                     /* 8개 */
+  .hl-c.big b{font-size:22px}
+  body[data-mode="news"] #nres .nlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+  body[data-mode="news"] #nres .nlist a:nth-child(2){border-top:0}
+  .cell{min-height:104px}
+  .ci{font-size:12px}
+  .ygrid{grid-template-columns:repeat(6,1fr)}
+  /* 주간: 3개씩 */
+  body[data-mode="week"] #view{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 14px}
+  /* 월간: 달력은 왼쪽 크게, 고른 날·메모는 오른쪽 */
+  body[data-mode="month"] #view{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:0 16px;align-items:start}
+  body[data-mode="month"] #view>.note,body[data-mode="month"] #view>.goal,body[data-mode="month"] #view>.loading,body[data-mode="month"] #view>.err{grid-column:1/-1}
+  body[data-mode="month"] #view>.cal{grid-column:1}
+  body[data-mode="month"] #view>.mside{grid-column:2}
+  /* 공지: 3개씩 */
+  body[data-mode="notice"] #view{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
