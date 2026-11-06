@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write             # 저장 뒤 '사이트 배포 다시 하기' 부르기
 
 concurrency:
   group: news                # news-archive.yml 과 같은 파일을 고치니 하나씩 차례로
@@ -28,6 +29,7 @@ jobs:
         env:
           NEWS_MIN_GAP_MIN: ${{ github.event_name == 'schedule' && '170' || '0' }}
       - name: 저장(커밋)
+        id: save
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -40,10 +42,15 @@ jobs:
               python -c "import news; news.write_index()"
               git add docs/news/index.json
               git diff --cached --quiet || git commit -q -m "뉴스 보관함 목록"
-              git push && exit 0
+              git push && { echo "pushed=1" >> "$GITHUB_OUTPUT"; exit 0; }
             else
               git rebase --abort 2>/dev/null || true
             fi
             sleep $((RANDOM % 10 + 5))
           done
           exit 1
+      - name: 사이트 배포 지켜보기 (실패하면 다시 하기)
+        if: steps.save.outputs.pushed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages-retry.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"

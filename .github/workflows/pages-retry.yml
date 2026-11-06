@@ -2,13 +2,12 @@ name: 사이트 배포 다시 하기
 
 # GitHub Pages 배포가 GitHub 쪽 문제로 가끔 시간 초과(실패)돼서
 # 새 뉴스가 저장돼도 사이트에 안 보이는 일이 있어요.
-# 배포가 실패하면 자동으로 다시 해요 (같은 배포는 최대 3번까지).
+# 최신 커밋의 배포가 끝날 때까지 지켜보다가, 실패하면 다시 해요 (같은 배포는 최대 3번).
+# GitHub 이 자동으로 만드는 배포(pages build and deployment)는 workflow_run 신호를 안 보내서,
+# 뉴스 모으기가 저장한 뒤 이 작업을 직접 불러요. 그 밖의 저장은 매시간 한 번 살펴봐요.
 on:
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types: [completed]
   schedule:
-    - cron: "37 * * * *"     # 위 신호를 놓쳤을 때를 위해 매시간 한 번 더 살펴봐요
+    - cron: "37 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -22,30 +21,36 @@ concurrency:
 jobs:
   retry:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 60
     steps:
-      - name: 실패한 배포가 있으면 다시 하기
+      - name: 배포 지켜보다가 실패하면 다시 하기
         env:
           GH_TOKEN: ${{ github.token }}
           R: ${{ github.repository }}
-          BRANCH: ${{ github.ref_name }}            # 예약·workflow_run 은 늘 기본 브랜치에서 돌아요
+          BRANCH: ${{ github.ref_name }}            # 예약 실행은 늘 기본 브랜치에서 돌아요
         run: |
-          set -euo pipefail
+          set -uo pipefail
           MAX=3
-          head=$(gh api "repos/$R/commits/$BRANCH" --jq .sha)
-          # 지금 브랜치 맨 위 커밋의 가장 최근 배포 기록
-          run=$(gh api "repos/$R/actions/runs?branch=$BRANCH&head_sha=$head&per_page=50" \
-            --jq '[.workflow_runs[] | select(.name == "pages build and deployment")] | first // empty')
-          if [ -z "$run" ]; then echo "최신 커밋의 배포 기록이 아직 없어요"; exit 0; fi
-          id=$(jq -r .id <<<"$run"); status=$(jq -r .status <<<"$run")
-          conclusion=$(jq -r .conclusion <<<"$run"); attempt=$(jq -r .run_attempt <<<"$run")
-          echo "배포 $id: $status / $conclusion (시도 $attempt번)"
-          if [ "$status" != "completed" ]; then echo "아직 배포 중이에요"; exit 0; fi
-          case "$conclusion" in
-            failure|timed_out) ;;
-            *) echo "다시 할 필요 없어요"; exit 0 ;;
-          esac
-          if [ "$attempt" -ge "$MAX" ]; then echo "::warning::배포가 $MAX번 실패했어요. Actions 탭에서 확인해 주세요."; exit 0; fi
-          echo "배포를 다시 해요"
-          gh api -X POST "repos/$R/actions/runs/$id/rerun-failed-jobs" \
-            || gh api -X POST "repos/$R/actions/runs/$id/rerun"
+          end=$(( $(date +%s) + 50 * 60 ))
+          while [ "$(date +%s)" -lt "$end" ]; do
+            # 늘 브랜치 맨 위 커밋을 봐요 (지켜보는 사이 새 커밋이 오면 그걸 따라가요)
+            head=$(gh api "repos/$R/commits/$BRANCH" --jq .sha) || { sleep 30; continue; }
+            run=$(gh api "repos/$R/actions/runs?branch=$BRANCH&head_sha=$head&per_page=50" \
+              --jq '[.workflow_runs[] | select(.name == "pages build and deployment")] | first // empty') || { sleep 30; continue; }
+            if [ -z "$run" ]; then echo "${head:0:7}: 배포가 아직 시작 안 됐어요"; sleep 30; continue; fi
+            id=$(jq -r .id <<<"$run"); status=$(jq -r .status <<<"$run")
+            conclusion=$(jq -r .conclusion <<<"$run"); attempt=$(jq -r .run_attempt <<<"$run")
+            echo "${head:0:7} 배포 $id: $status / $conclusion (시도 $attempt번)"
+            if [ "$status" != "completed" ]; then sleep 30; continue; fi
+            case "$conclusion" in
+              success)   echo "배포 끝 ✅"; exit 0 ;;
+              failure|timed_out) ;;
+              *)         sleep 30; continue ;;   # 취소됨: 보통 새 커밋 배포가 곧 시작돼요
+            esac
+            if [ "$attempt" -ge "$MAX" ]; then echo "::warning::배포가 $MAX번 실패했어요. Actions 탭에서 확인해 주세요."; exit 0; fi
+            echo "배포를 다시 해요 🔁"
+            gh api -X POST "repos/$R/actions/runs/$id/rerun-failed-jobs" \
+              || gh api -X POST "repos/$R/actions/runs/$id/rerun" || true
+            sleep 60
+          done
+          echo "50분 동안 지켜봤어요. 남은 건 다음 예약 실행이 이어서 봐요."
