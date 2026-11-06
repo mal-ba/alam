@@ -327,6 +327,7 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null; weakDraft = null;
+  document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
   const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
@@ -517,8 +518,8 @@ function render() {
   else {
     const m = +anchor.slice(5, 7);
     html += listCard("goal", `🎯 ${m}월의 목표`, "✏️을 눌러 이번 달 목표를 적어 보세요.")
-      + monthGrid() + dayCard(days.findIndex(d => d.iso === selDay))
-      + listCard("memo", "🗒️ MEMO", "✏️을 눌러 이번 달 메모를 적어 보세요.");
+      + monthGrid() + `<div class="mside">${dayCard(days.findIndex(d => d.iso === selDay))
+      + listCard("memo", "🗒️ MEMO", "✏️을 눌러 이번 달 메모를 적어 보세요.")}</div>`;   // PC 에선 달력 오른쪽에 같이 보여요
   }
   $("view").innerHTML = html;
 }
@@ -1637,6 +1638,17 @@ const NEWS_LOGOS = new Set(["nation", "samsung", "nvidia", "apple", "hynix", "lg
 const catName = c => NEWS_LOGOS.has(c.key)
   ? `<img class="nlogo" src="logos/${c.key}.png" alt="">${esc(String(c.name).replace(/^\S+\s+/, ""))}`
   : esc(c.name);
+// 🗞️ 헤드라인: 분야마다 가장 새 기사 하나씩, 새 것부터 (스마트폰 5개 · 태블릿 7개 · PC 8개 보여요)
+const itemTime = x => x.time || x.added || "";
+function headlineHtml() {
+  const picks = newsCats().filter(c => c.items.length)
+    .map(c => ({ c, x: c.items.reduce((a, b) => itemTime(b) > itemTime(a) ? b : a) }))
+    .sort((a, b) => itemTime(b.x).localeCompare(itemTime(a.x))).slice(0, 8);
+  if (!picks.length) return "";
+  return `<section class="hline"><div class="hl-h"><span class="date">🗞️ 헤드라인</span><span class="empty">분야별 가장 새 기사</span></div>
+    <div class="hl-g">${picks.map(({ c, x }, i) => `<a class="hl-c${i ? "" : " big"}" href="${esc(safeUrl(x.link))}" target="_blank" rel="noopener noreferrer">
+      <span class="hl-k">${catName(c)}</span><b>${esc(x.title)}</b><span class="hl-m">${esc(x.source || "")}${x.time ? " · " + agoText(x.time) : ""}</span></a>`).join("")}</div></section>`;
+}
 const newsLink = (x, meta) => `<a href="${esc(safeUrl(x.link))}" target="_blank" rel="noopener noreferrer"><b>${esc(x.title)}</b><span>${esc(x.source || "")}${meta ? " · " + meta : ""}</span></a>`;
 
 /* 📢 공지 */
@@ -1693,7 +1705,7 @@ function renderNews() {
   if (newsYear && !years.some(([y]) => y === newsYear)) newsYear = "";
   const nn = cat.items.filter(isNotice).length;
   const mons = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
-  $("view").innerHTML = `<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${catName(c)}</button>`).join("")}</div>
+  $("view").innerHTML = `${newsYear ? "" : headlineHtml()}<div class="kindbar nkinds">${cats.map(c => `<button data-act="ncat" data-k="${esc(c.key)}" class="${c.key === newsCat ? "on" : ""}">${catName(c)}</button>`).join("")}</div>
     ${nn && !newsYear ? `<button class="nnote" data-act="ngonotice">📢 새 뉴스 ${nn}건은 지금 공지에서 먼저 보여요 → <span style="font-weight:400">(들어온 지 ${(newsData && newsData.notice_hours) || 3}시간 뒤 여기로 와요)</span></button>` : ""}
     <div class="npick"><select id="nyear" aria-label="기간">
       <option value="">🕒 최근 30일</option>${years.map(([y, n]) => `<option value="${y}"${y === newsYear ? " selected" : ""}>${y}년 (${n.toLocaleString()}개)</option>`).join("")}</select>
