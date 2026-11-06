@@ -1,11 +1,39 @@
 {
- "updated": "2026-11-07T02:37+09:00",
+ "updated": "2026-11-07T03:17+09:00",
  "notice_hours": 3,
  "categories": [
   {
    "key": "stock",
    "name": "📈 주식",
    "items": [
+    {
+     "title": "유럽증시, 기술주 전날에 이어 약세 계속되며 일제히 하락… 친환경 에너지는 상승",
+     "source": "뉴스핌",
+     "time": "2026-11-07T03:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE95Z21MRjZSV3M3YVRQOElYVXQya3VMaDFGQUJrNnhDTk4xSHY1QnhHcTVybzdHQlQ4YlVwMC1zVnNRTTBac1Z4d2JwMlZfUGNsNXBRUXRyZGNpSV9s",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "BMO, 개발 리스크 증가 속 데이터센터 주식 주목",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-07T03:02+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE11TGs0Vk9MSmZCTUNDOS1aaEdkV2hhUFVSSHRmN0FpR25sYTNFRGM1bEJVNnIzcXMtMVh6QmVPTXQ1OVRUdXBNemRFSWpXaDJSUTR3OEhlcVVvQlk5SHh3VUtsMTdwa09CZUJVcHhuQlI",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Cyngn 주주, 이사 선임·주식병합안 승인",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-07T02:43+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9pWTkybXVTeHpnMUhPQnFaSzdWU3FNM2k4WmJuc2o2RlpYaC1YQ01nTUtSb3RhU0ViM2R1OEJNd21GS2tMZmdHaXN2b2FOaktzbWtyNjhBdXZ6YmpHcWdqcURrMlFBWFZnekhabVFCOA",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "FS Bancorp 최고대출책임자, 주식 23만6,368달러어치 매도",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-07T02:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5fRjBXS1Zlb1ZMcktfTmFtWFNaUVBockVkd1gta0pMZlBHSmFzR0dYQS02MHNBcFVfQTViUU1WVllneUJvcFlMVnFaRkdDbm1YOHlvWVgwcGZZMjNkdEJXekd0SVgyYVlFaWxLajRWNElRVXM1X05pSzlSdw",
+     "added": "2026-11-07T03:17+09:00"
+    },
     {
      "title": "뉴욕 증시, 기술주 반등·고용 지표 호조에 동반 상승세",
      "source": "YTN",
@@ -141,9 +169,9 @@
     },
     {
      "title": "증시 폭락에 트럼프 “멍청한 민주당 때문…이들에 투표한 스스로를 탓해야”",
-     "source": "매일경제 마켓",
+     "source": "매일경제",
      "time": "2026-11-06T22:27+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFA4MDVWaXQtVzFycXVncFM0NzJUMTZDRkI3cUxaMzc0SEtWNzFscnQwWkxTZVBuU0t5bHlwNmVkWFBHc2VEZ0dUSk03SnZoODlEanc",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1xTTNiTDlEdkdDeEE2NEo3eFVKcFo0WDRneTJTaWNhY0hCMTU3Y3daV2ltM3VKYXA5aGdGWHNROU1vTzc0MkMtdjhUWEJybjVYMFE",
      "added": "2026-11-07T00:17+09:00"
     },
     {
@@ -817,34 +845,6 @@
      "time": "2026-11-06T14:43+09:00",
      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1tVG9sQ2RyUTkzcVNCaTZGVUI4VG1UWGlOVUQ0aHZuc1F1dzh5by1pOEFEQnBmR3NoYU9LODRZX1o0UllGSzlfYWVxVzdZeUNwdUQ5NnVIMllWVmtxbXZTblZQZ2NhN3U0UXc",
      "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "폭락장이 저점매수 기회?…박용진, 코스피 1천만원 매수 \"우리 시장의 미래를 신뢰\"",
-     "source": "JTBC",
-     "time": "2026-11-06T14:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9ELS1ZSWpnSGdMNWRQWWl0Y3pmQnlLZzdlN3dLQkF0OU9IM0hGd3RRQlMybVBxQUJvUDk2U2hZSlI5c0VFbENmNUIzYW5YS2JPV1puSg",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "1,360원대로 급등한 달러-원…'DXY·증시·선물' 압력에 한 달 만에 최고(상보)",
-     "source": "연합인포맥스",
-     "time": "2026-11-06T14:36+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA2N2RkcHFENlVyS1pmUHRXNzZNcGlPeHJSRTFxMWtXQjFsOTM5OE9mbUV1R2Z1anhzYWlKUFRaT3Rja3Z3dGplWkhGUWhnZDA3OXl4WERjbndJMENoYTdVM1VsWTVPRkNYa2c4TmhDc20",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "AI 쇼크에 아시아 증시 급락…TSMC 한때 하한가",
-     "source": "연합뉴스",
-     "time": "2026-11-06T14:35+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5LeDQ1RkZKZGhiVUxZWlN5dndGZmNaeElpOXpoTW00SklqUjh5QTFwZEJUSnpmWjFqZmZ4dm53Y1A4SWFxRHU1aDBKRHlKbVlRSUJlUlhSMW5USmPSAWBBVV95cUxNRDdLUkFFTnRvelJ5eGFENnMtbUhtT3RublZ0REVsanI1ZGMwWi14QmNkbVFUVzY1aU1hcGVENHJuc2lOMXptcmtiS19pMWNnS0gzSkd2bGxkdHhFeVdxSmc",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "주가 급락에 서울·수도권 아파트 시장도 유탄…매수여력 급감",
-     "source": "KB Think",
-     "time": "2026-11-06T14:35+09:00",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5ua21reDhFbzdONDRTRGVMYmZZMGcxRE5YaVo2NUUxT2tKVXRnWGNlbXNPak1wVkgtT3EzVXRQWEtfZWF4NzZ4dkVqYXpwYkU1d0JDSUNMZDBDWUhEbTNwcTdpTXVGR3ktVWlXVE9pNkpBZw",
-     "added": "2026-11-06T15:17+09:00"
     }
    ]
   },
@@ -852,6 +852,13 @@
    "key": "economy",
    "name": "💰 경제",
    "items": [
+    {
+     "title": "유럽 곳곳서 데이터센터 반대 시위‥네덜란드 MS 공사장 난입도",
+     "source": "MBC 뉴스",
+     "time": "2026-11-07T02:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFA3ckxUblNLMTdzQTRuWTIwYURGUGloc2lZVEcweUZDcW5rZDJiTU90dFp5dTVjbzd1eDljNXVPUGJCcEgxM3hYdVkzbHVrY1RKbldYOFp4ckFRVWh2Y3cyanc5R29oa3R5N29zeGlTUS1MNW5x0gF0QVVfeXFMTTRzMXhQWGpxVmdZUU5EWWxsUEJMQTdjOVRwN2tReHg5bEkzbzFYdXpQU0ZKOGFER0ozQmlmazBBYmZmUlQwOVJoeVZ0Mlhud0FyblBjTUhnMFdVend5RktkdjZIMjdjTWk1X2tqb1FqM3RIVnI",
+     "added": "2026-11-07T03:17+09:00"
+    },
     {
      "title": "백악관 \"데이터센터, 지지하는 주지사 있는 곳으로 이전할 것\"",
      "source": "연합인포맥스",
@@ -886,6 +893,13 @@
      "time": "2026-11-06T22:28+09:00",
      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE04ZGdXdFY5LXJEVC1vNm9UMW9JcDU5VWpKZjVPRjJzbnprNFdHUHZlUWFYTk9JT2wzWEZxcXZ6bjlOQTZqd01PTFVYdk1vTzdSZlNnbGpnNzRUQ1FYYlBnOWMyQTRxWUZUZm9pTUExeG4",
      "added": "2026-11-07T00:17+09:00"
+    },
+    {
+     "title": "한국노바티스 플루빅토, 미국 프리갈리엥 최우수 의약품상 수상",
+     "source": "MEDI:GATE NEWS",
+     "time": "2026-11-06T22:25+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9ickpEWlFoVF9oMnpkc0dMS2tTb0JnREVJdU9WU3lZNjVERFhXTG1fYXFDclJ0cFRKSjd0aFBaeDlWcVVWS19LZ0pvMWJWWjNBbFBsellhVQ",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "반도체 ‘블루웨이브 쇼크’…대미 투자 불확실성도↑",
@@ -1056,6 +1070,13 @@
      "added": "2026-11-07T00:17+09:00"
     },
     {
+     "title": "[중국증시 마감] 美 기술주 투매 쇼크 전이…AI·반도체 테마주 무더기 급락",
+     "source": "뉴스핌",
+     "time": "2026-11-06T16:27+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBfOGV1Qkw1VndpaDZualpkUFAzVTJFdGFQM0Z5SUkzM19LWXNpdjJXaFpaNWVtRG5TNXk2d05QN0gtZDFsbEhwaHJpS3d1b004a3N0dllRZzktTHFM",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "[비즈톡톡] 일론 머스크, ‘6000억’ 정치 베팅 역풍에 텍사스 데이터센터 인허가 제동 가능성… 테라팹·AI 투자도 변수",
      "source": "Chosunbiz",
      "time": "2026-11-06T16:25+09:00",
@@ -1131,6 +1152,13 @@
      "time": "2026-11-06T15:37+09:00",
      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBuOEt2ZmxJV2ZuMHJqZmVwRXB4UkpPMFA3Q3FMR3pMRkEtTktlaGRHUmx4enVidk1lUWhyY2hzZ1JJUVNISmYxbHNKUFJoMUhMem13RkNJSUtkQkVYTFVBWGg4R3d1bTU5M1N0R3hjUlNpRE9x0gF0QVVfeXFMT1QtQXBMR2wwMElVN3NybUFSQm9EY1BfSlozeEFPTmlCbGIyaDYyQmR1WnBhdENTd1BidHBjUGIyTlhoWXQ5VVJRb0ZncjY2RkpGaTVMZU8yaUxDLWFJNVhISUdJaWZsbjktNmZfX2pERWZkMk0",
      "added": "2026-11-06T21:17+09:00"
+    },
+    {
+     "title": "산업장관, 중국 산둥서 K-소비재 수출 판로 찾아",
+     "source": "연합뉴스TV",
+     "time": "2026-11-06T15:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5ZVktEUnN3UVQxbU1ET0YyQVY5ME1TUUdxWkNDQ01LMWhQT21aWXdfRHF2cFpsZWNDN3p6VzJhTjA1MkdvUjhEMHF0cUplUUREVXhwR1NlbzhiX3dmY2lLU0RfWDhYbVU",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "[속보] 이 대통령, 신임 법무부 장관에 이용철 방사청장 지명",
@@ -1210,6 +1238,13 @@
      "added": "2026-11-06T15:17+09:00"
     },
     {
+     "title": "원가 하락에도 가격 유지하면 제재…공정위, 독과점 사업자 규율 정비",
+     "source": "전기신문",
+     "time": "2026-11-06T14:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9CdGZVbzJhVUx3U2xBZU55REYyQlZsUlJ5emUzdG12RERoSk9PTDVJQTN1S2NaQ1o1Z2hXU3JCNXk0US05aHM2SkNMejg1LUt1emZkY0k5T1pTazltY1dzbXNUWUVNYjVkRnFKa9IBcEFVX3lxTE9oS1ZBa1M5bG15VUhGdjl6ZnU3QzNJWDhIbDhfTjdiT3Z0alZZbExNMk82LVNqY1hiLTFGa19SQmlibHotVjRkdGk4NFJHekZTVVZaUHRfY2FqZ21uWWdURVp1ZDJNUkVrVnkya0hjWEU",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "기아, 전남광주서 PBV 생태계 구축…2029년까지 3조원 투자",
      "source": "지디넷코리아",
      "time": "2026-11-06T14:11+09:00",
@@ -1257,6 +1292,13 @@
      "time": "2026-11-06T13:41+09:00",
      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBUbVBvRUN6WlZQMTUxTHRKTzUtMFlCTVlPeVdoMlN3YmEyb1Z3WlBydVFVZ21SQ0NERlZFU20xc1J1Y0VCODEzZEYzLUxYOHcyX1VDNlV0RVJyZUJxdTc5RjJFMjVhbUdEdVRhUG0yTWVJUmFyVGc",
      "added": "2026-11-06T15:17+09:00"
+    },
+    {
+     "title": "반포현대 최대 2억·은마 4.6억 추산…재초환 부담에 재건축 시장 촉각",
+     "source": "뉴스1",
+     "time": "2026-11-06T13:40+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9jZGVqT2J5YjBtRGNQQ3NKQUFOdEZLeURmNzgzRkgzcGNHSFVMT3UxaXBSZlhyRzk3U1lqMDFQR1FBTHF1RWh3VWJYT2F5N1Fna1YxTTBPY1F5dTg",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "코스피 급락에 F4 회의…“신용융자 담보비율 140% 유지의무 석달 면제”",
@@ -1649,48 +1691,6 @@
      "time": "2026-11-06T08:45+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE85RGlFV3VydUprakhreU1SQmVzdHExcGF4VkoxckRNbGl4aW9UWVF6V1g3RmZIOXR3ZW1EQlJpWm05T0psamdMQ0NkMXgtUGlDRDIwR28tdE5EMlZKMUY5ekRvQzFkNkk",
      "added": "2026-11-06T11:00+09:00"
-    },
-    {
-     "title": "\"中 핵심 시장\" 아모레퍼시픽, CIIE 9년 연속 참가…6대 브랜드 총출동 By The Guru",
-     "source": "Investing.com 한국어",
-     "time": "2026-11-06T08:41+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9tQmNnbmc2THRPN3hpVWROYTViZ09iWWNfZ0pHa1hELTZVMHE4V2xPeGtSTHpIUEpxRFZoa2Y1NEZrM0FLVC1tSU1UM0ZwSWU3Y3hFaV85RjdGR0VQNHI4UVI1T2o5bDhSZEdTRHVUcGU",
-     "added": "2026-11-06T09:17+09:00"
-    },
-    {
-     "title": "“가구당 평균 2.2억”…서초구, 내주 반포현대 재초환 사전통지",
-     "source": "매일경제",
-     "time": "2026-11-06T08:41+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1sQWN4TVNxbnpqZkFtUGFmSnJKQzRsWDV2RXZ0WWRxdjhSTWRSOUl6dXhrVHJDQmM0dHA0NkVYaFE2RnZyMzg5SzRud0pSUDZfQlB1Wg",
-     "added": "2026-11-06T11:00+09:00"
-    },
-    {
-     "title": "[블루쓰나미 긴급진단] \"美 데이터센터 규제공포 과도…저점 후 반전모색\"",
-     "source": "연합인포맥스",
-     "time": "2026-11-06T08:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBvd2dlTGE3M2FUMC1rcDZjU0V0emFKSnpVRG5BSkx1bjVGelppTlVybFNfNFh6cFcyQms5UzZvSGxseHBiQ1ljbzVnbUJnQVprdW1HQ21BU3p4YlZHR3pZVHI3bENmalQ5MVVydGd2d00",
-     "added": "2026-11-06T21:17+09:00"
-    },
-    {
-     "title": "하룻밤에 1350조가 증발했다…주식투자자가 듣기 싫은 말 ‘AI 거품론’",
-     "source": "매일경제",
-     "time": "2026-11-06T08:33+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5uZEUxX2JyLXNNV2xhYlltZzhOMjlITGlHSUtLMktFNW5EdjdBV0RfV0RseGFCcmJCSmY2RFIzTVRzR2N3aWZXa1pvaXRzQQ",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "Anthropic, 시장 급락 후 1.5조 달러 IPO 밸류에이션에 제동",
-     "source": "Investing.com 한국어",
-     "time": "2026-11-06T08:29+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBTZkRJQlpZcTNhWVdlT3gwQjhiSXpwb1lFUUlBMU90eU1SVURVMUpzczBrMGx3T2VSS0hyZGRTbjdhLVQ0QVY3RjhjbkRJUS1CTkI4aXYtV2p1ZTM0LWZlMWNNamYwUWRsVlo5ODd1ajQ",
-     "added": "2026-11-06T21:17+09:00"
-    },
-    {
-     "title": "국제유가, 중동 공급 불안에 반등…WTI 2.72%↑ By EBN",
-     "source": "Investing.com 한국어",
-     "time": "2026-11-06T08:08+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBzd0RnanpSYXdvcWNBZnh1NWVGR05PcEhKNGU3LW51aVRIekxySVhOQTdBSi1mNXZ3UzBpT3pJemktVmUzaWh0eC10Q3htYkJJS3F5d0RTVWJ5ZHZHaEFqSlJISEFBTUgyUjZMcVB5Nkk",
-     "added": "2026-11-06T09:17+09:00"
     }
    ]
   },
@@ -1698,6 +1698,20 @@
    "key": "world",
    "name": "🌍 세계",
    "items": [
+    {
+     "title": "트럼프 \"SI(초지능)는 황금…유치 원하는 주들과 협력\"",
+     "source": "뉴스핌",
+     "time": "2026-11-07T02:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBiQUZNc0ZjQ2MtWGJFc3Iwd1ZpMmhrNTJOR01wc2wzWXNfWWtyZldmRmROTFdtRlZEdks2cUdDUDBUTDRTWERFSmlnNTJZTTFXZ1ZQSDdoOGYxdUc2",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "이란 \"호르무즈 해협서 유조선 2척 기뢰 충돌…미국 드론도 격추\"",
+     "source": "연합뉴스TV",
+     "time": "2026-11-07T01:44+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5YWkFIbkRRX1lEcXNWbmw5N2hOWFo3ZnpaRkNCVHpZZmtJaHJLdGJ4MHU1ODBvUmQ3ZnJBRFdheXNmLW5QeUhkVTNzaGp0TjVEcTdrbFBWQVRuSkpoSmkzSFBfdTlubnM",
+     "added": "2026-11-07T03:17+09:00"
+    },
     {
      "title": "항공기 폭탄 협박에 이어 이번에는 언론사에 협박 이메일… '유럽, 하이브리드 공격·심리전에 직면\"",
      "source": "뉴스핌",
@@ -1811,6 +1825,13 @@
      "added": "2026-11-06T18:17+09:00"
     },
     {
+     "title": "‘트럼프 개선문’ 최종승인 1시간 만에 법원서 제동",
+     "source": "경향신문",
+     "time": "2026-11-06T16:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5tdkdLUFRPTTFzYVB0clJkVmNTYkdxNFltRnpMUE51NHhJQXRzYlZBLW9HQjFXMEtyM3YwSDhuR3NWSWRLM1RUTktmdGlEWE5OZFdzeDV3TU5MUdIBX0FVX3lxTE1NRGxaa01TRDRiWTgycTNWN3NSdWxTUElVTm1kR2JMWlBhMm5JdTRPMXdsOVBGTkVNME1QYktGdGo4V0owRW1EQlV0UEdBeEJtMDBXTTR5Z3JsZ3RudzRr",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "트럼프 '워싱턴 개선문' 건설 최종 승인…법원 일단 제동",
      "source": "연합뉴스",
      "time": "2026-11-06T16:06+09:00",
@@ -1872,6 +1893,13 @@
      "time": "2026-11-06T11:30+09:00",
      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFB2OWtGVVQ2SVVCSDQxd2VOZ0lWemFJNmRFY254c2ljMFg1UDcwNXA5Sk1Hc2gyZ0dCOHhJdTNwaG9vbUtGVWZrcHJiZFZYVXBIUExVUC1Idk1aa2PSAWBBVV95cUxOR0ZfS0xublVxc252VG5PaXpXazRzZ1pSWjJKeHU3VEhReG1yMllkWkswd2VnOFk2TGQ2WjcyRDN2SEFBNWd5MmpISGx0MDJ4UUk2aWxBcnhfLWVXTGFHYUc",
      "added": "2026-11-06T18:17+09:00"
+    },
+    {
+     "title": "중간선거 패배에 폭스뉴스 탓하는 트럼프…CNN 반응은",
+     "source": "미디어오늘",
+     "time": "2026-11-06T11:27+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBidXh1LVQ2TmZkNjlWcExFTUhWbGNKSGY4a2FnWmhlb0hpbEZHbUd2Z1U3eUxNR2R1TnZWM1lDRlZvZjF0TVZWdDlRUl9xNWV2MVU3aW4wYVJLaFBUZkNsWERDVTlPRTdVVHg3SW05U2g",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "[포착] 후티 미사일, 쏘기 전 타격?…예멘군 “발사대 3기 파괴”",
@@ -1939,7 +1967,7 @@
     {
      "title": "北, 日 방위비 증액 추진에 “시대착오적… 국민에 과중한 생활고”",
      "source": "Chosunbiz",
-     "time": "2026-11-06T10:27+09:00",
+     "time": "2026-11-06T10:28+09:00",
      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPT3ZDY09qVkRwMTc0dHBXODZZekVBcTBYX1Z5bWNCNXlrOEFUVDBJaVlIM0ZTLXVaeXlTbk11REFZYzN6OVM0TzByNGRKY1MyNXdFLU5oc2pDRFo5ajYzZFZxTTkxY1RTaWRaTjl5Y1hFaGJnblZLdGZ3X3lsamgyaWNQOUhmUdIBmgFBVV95cUxPZDJKTXRaSDJJMENTRTFBUk5NLVpzcU1QM1dGVUdtWC1idUcwSmYzQ3VfYl9wZm91bzBJWlJCMkZvajNIbUtPU1RwSWxwZTc5UzdBMjNTR0xha1EzejE4eDI3UjlobVBWY1BKM05uTmZSV1VyOGNKd0hzQ0dVb3JZN0l2RE1aQi1DeUhvS1BMR0gzejNmZnBza2t3",
      "added": "2026-11-07T02:37+09:00"
     },
@@ -2509,34 +2537,6 @@
      "time": "2026-11-05T14:38+09:00",
      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5FYVRNdTFZSzRzZEFUMnVhWG9QZEZsN1JLWTdFMldJM3RyN210ZXpQemFyWFcxQWE2aExIdGpMendDdFRmSnJLOFhmcm53SWhOTUJYbGZQYmNoeGvSAWBBVV95cUxNNm82cm1SZVFKN25JRGJkaXczSmdWdC1DeHhqNEhQdjhDUUJPMlpYalZSR2hXYTZyYWxXU0plNXpmamZ1cmhmZzktNV9TY0d0NmhTVGxKbVlEemlQWHhndXE",
      "added": "2026-11-05T15:28+09:00"
-    },
-    {
-     "title": "[티조챗] 29살에 떠나 57살에 돌아왔다…'현대판 오디세이' 현실로",
-     "source": "TV조선뉴스",
-     "time": "2026-11-05T14:27+09:00",
-     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE80dU1LM0JIVGMxQkpCeE1CLWo4WEtmZTBoVmxjanc1WjhHb0FTYXZwbUV5WE9UeXRsZmFZNGJUUXBZMFdvbmlmcUl5TFQ1NEgyUjdoVDQ3VlZMWVF0YXZaeWpwRTR1UWstVDJ5OEk0MkVvVUdfcDlxTGthOWdWd1E",
-     "added": "2026-11-05T22:29+09:00"
-    },
-    {
-     "title": "확전·협상·현상유지 '트릴레마'…트럼프 이란전 출구전략 '안갯속'",
-     "source": "신아일보",
-     "time": "2026-11-05T14:04+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB4dGx5WDdVTDNQMDg0bFZzQTdTQ09KOUpuUE5LM2dpZk85NENOZVczd1p4QXNxU2daRlFRbmVCOGF5bDMxeUNwNzhnYm1xVmNrV0tkd01LNUtJTUNVRm1CT3JYdm5HeVRmcEE1eC00Q2w",
-     "added": "2026-11-05T22:05+09:00"
-    },
-    {
-     "title": "\"저 투표했어요\" 뒤덮은 스티커‥'ICE 폭주' 눌렀던 분노 '꾹'",
-     "source": "MBC 뉴스",
-     "time": "2026-11-05T13:57+09:00",
-     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9tRDJuTENDWFpFWDZJVnF0MV9CT3VZMHZKcTZhVkxlRUhRM2V1UDJxc0N1X2tzZVVfSFdnOXBGLU1jcm5PdnA1RU15ZDk0OXhRQXZMb29aQjZDR3NDSHU5RkEwQUFFcEVqZ0xpUnU1TTRmdUFH0gF0QVVfeXFMT3E3MGJoaUJRc1I5TzhNanIycHR4RkVfRktLbnFOOEU1QVotbEJwTE9RM1Zqa014a3ZmZzRJMnBoSDdRWnl2dS12TGtNWTl1RXB2ZnY1SWFuVlBSNklIQjVhY3FXZk1iYUR1UWNGZGJTVmNpYXA",
-     "added": "2026-11-05T14:56+09:00"
-    },
-    {
-     "title": "인도네시아 대통령 '도청' 파문...수도에 병력 2만 명 배치",
-     "source": "YTN",
-     "time": "2026-11-05T13:53+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1RbHZ4ZW4zX0lmNV9QalR1YXNyOXVfVGFJZjNHZUNRLS1nU3NxcTdUaHlGbG50QW9ESHRkRGpUWFlrM1ZwX2RfZ2dHWlJnZW5sbEhUU1BGWWtaRWtDWmc",
-     "added": "2026-11-05T14:56+09:00"
     }
    ]
   },
@@ -2545,6 +2545,20 @@
    "name": "🇰🇷 국내",
    "items": [
     {
+     "title": "李대통령 직무평가 긍정 41%-부정 50%",
+     "source": "동아일보",
+     "time": "2026-11-07T01:40+09:00",
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE55dGs0aEZBOGxnYl9RM05xMUExNENtVVd5bTY1cEFaSVNJTGo5S3JRSGk3ZDFxWDllanF2SHFCaE93WEVHaW9IbVczcmh6UWNLUUJ5Rm5Yc001UWEtTGNhUmtYeUthTXFlU29UclhSOURpd3NoTkZZ0gFmQVVfeXFMTW9jUlVuUjEzQ3VmSzN1YUFSb19LRWNWZnRDYVFKNTNIcTQ4Nmc5OEhlU2VsQUxvMlBmOEx5ZnlnZVc1SEQ5ZHlZYzJfaHd2dXJPVEFDSzFtSmpFWUJiNnBScHVlcmxB",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "‘조작기소 특검법’ 여당 주도로 국회 통과…국힘 표결 불참",
+     "source": "한겨레",
+     "time": "2026-11-06T23:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5EVkNLOE9zYzAySUZQZ1AxM3JPLUVOTHgzRlMzU2RJZkRnQWR3cWdDdGZWMWFQZmdXY1M5MHFsNThtaThXY0tIQ0pSdVdFbEtFTUVIalBRTms0bk1oQVdxMEdBYmJTZ1NSMHVzRUc4a0lSR3FS",
+     "added": "2026-11-07T00:17+09:00"
+    },
+    {
      "title": "[정책 바로보기] 미래대응기금, 정부가 '셀프 심의'? - 정책뉴스 | 뉴스",
      "source": "대한민국 정책브리핑",
      "time": "2026-11-06T22:12+09:00",
@@ -2552,18 +2566,18 @@
      "added": "2026-11-07T02:37+09:00"
     },
     {
-     "title": "‘조작기소 특검법’ 여당 주도로 국회 통과…국힘 표결 불참",
-     "source": "한겨레",
-     "time": "2026-11-06T21:46+09:00",
-     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5EVkNLOE9zYzAySUZQZ1AxM3JPLUVOTHgzRlMzU2RJZkRnQWR3cWdDdGZWMWFQZmdXY1M5MHFsNThtaThXY0tIQ0pSdVdFbEtFTUVIalBRTms0bk1oQVdxMEdBYmJTZ1NSMHVzRUc4a0lSR3FS",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
      "title": "이용철 법무장관 후보자, 과거 ‘삼성 떡값’ 공개…유동규 최고점 논란도",
      "source": "한겨레",
      "time": "2026-11-06T21:16+09:00",
      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE10ZlBjdFVFcTgwZW5PNnJzeERkY3hlMkJmdUdfcjA3RXFmckRidG5yeWoxc3Z6RlhhS04wRGtfMUo1N19EUXJPUFVqUHBla3FUQkRSZ0NkNTRtd255ZnMzcllZcEZLLXZWSFZSclI1S3FxZw",
      "added": "2026-11-07T02:37+09:00"
+    },
+    {
+     "title": "투표지 반출했는데도… 올림픽공원 강대강 대치",
+     "source": "조선일보",
+     "time": "2026-11-06T21:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPcG1DSmRFdE05SzRmUTBZUlI1MWRneDdON1RKa1lGVjRQZEFtVTBaU2tRT0JKdkRFR3hyNUZ0bXBGMG1Cd0xUTmJJUHlOTjEyejJSZ2VLLXNEMDRyR3hpRjN4Q3VhQjNlMndWX00xWWk5dEJacGRlSEdqMUpFakVMbXpjblRjYlRuRFFVWFFyUnQ",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "공소청, 강호동 농협중앙회장 구속영장 기각… \"혐의 소명 부족\"",
@@ -2664,6 +2678,13 @@
      "added": "2026-11-06T21:17+09:00"
     },
     {
+     "title": "신임 법무장관에 ‘친노·민변’ 이용철 지명…‘성남라인·대장동 의혹’ 청문회 달굴 듯",
+     "source": "경향신문",
+     "time": "2026-11-06T17:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE0yUjRVQWlwUGdNeTlzYUNmdDVzX1A4NUxkOWpzQlIxTEVGT3g2d21tMjgyMFZOSzhVUmJFbndkSW1oTFN2dnRLNEY4djlkcnYxVVYzUnVEQmZPd9IBX0FVX3lxTE1VZkJONmNVbi1iXy1CTzgzX19ydFRkT2tjN3NVbmRCT3hJQkxKaUJSR2Q2Q2t2QUZRejllTVZrUlFGYXFJazR2eEcxS0lrOG9EQTVrM3c1ZU14MkUtdXZz",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "발판 탑승 20대 환경미화원, 화물차에 치여 숨져…경찰 수사",
      "source": "조선일보",
      "time": "2026-11-06T16:52+09:00",
@@ -2676,6 +2697,13 @@
      "time": "2026-11-06T16:28+09:00",
      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5iT2t5a1VHZDJCQjgyZThDWVktbndFTEJnTzVzOTFsTUxpWHlfcGZ5YzdCTHVnbnU3Y2tMZDdicjEzWk9acDlBWFE4NWZod1lPcmR6cklrbXNEdVhMWEtWSHBR",
      "added": "2026-11-06T21:17+09:00"
+    },
+    {
+     "title": "\"운다, 울어! 살았다\"…급박했던 31주 신생아 '구급차 분만'[뉴스럽다]",
+     "source": "노컷뉴스",
+     "time": "2026-11-06T16:23+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBtSXE1UE5WSXNMZUdidjNpMmJBYVpTT1VhOHdkMDFjc1h0TzlGX3FNZXc0ZzNNUUlpeEJ6U0FOSkRVTUxHZ0lPZE51dWpGY3hDSVE",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "최전방 철책은 민간인에 뚫리고... 특전사 요원은 ‘모델 워킹’ 교육",
@@ -2706,6 +2734,13 @@
      "added": "2026-11-06T21:17+09:00"
     },
     {
+     "title": "쓰레기 수거차 발판 탑승 20대 노동자, 추돌 사고로 숨져",
+     "source": "MBC 뉴스",
+     "time": "2026-11-06T15:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1pWF9IOGFSc0lRQ1BqdkZlX2NqOHIxb0hPRmtLaWU0QTlGckxUMElsYS1HTnEzNHljeVZGY2k0VmFYemlERU9zTEQtQWh6SVJ1aS1MWktmOFB2YXlVV0IyLWMwaTAzc3VuYkwtSEVhM195VGpMRGZV0gF3QVVfeXFMTUExZTdTa3BWeGRPelpaZUhGQ1J1YS1MLUdoQzZfVldZX1U0czA3VDBsbkQxQ3hDdkJHd1ZTV01mNkdDYWxPc21Cc3dpU29IeURUMlVPYXZpR0tNQWlWNnhkNFlYdTFDYkJwWVFSaTBKV19NOWsyMHM",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "아직 남은 '올공' 시위대‥올림픽공원 자진철거 기한 1주 연장",
      "source": "MBC 뉴스",
      "time": "2026-11-06T15:45+09:00",
@@ -2725,6 +2760,13 @@
      "time": "2026-11-06T15:38+09:00",
      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5vQTFhWTZ1dTkwdUk0TlJyZmdBeTZzUk9oTU1lTUxtM1JjMjNVVlhhaDdUbkdRSWlGTmRrM0tXTk92dkhvVGNZbl9VbHU3dGRLX3p0bWFoRFpOaWVCN2psRA",
      "added": "2026-11-07T00:17+09:00"
+    },
+    {
+     "title": "국토부 \"추가 부동산 대책 유포 내용 사실 아냐‥수사의뢰 예정\"",
+     "source": "MBC 뉴스",
+     "time": "2026-11-06T15:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBuOEt2ZmxJV2ZuMHJqZmVwRXB4UkpPMFA3Q3FMR3pMRkEtTktlaGRHUmx4enVidk1lUWhyY2hzZ1JJUVNISmYxbHNKUFJoMUhMem13RkNJSUtkQkVYTFVBWGg4R3d1bTU5M1N0R3hjUlNpRE9x0gF0QVVfeXFMT1QtQXBMR2wwMElVN3NybUFSQm9EY1BfSlozeEFPTmlCbGIyaDYyQmR1WnBhdENTd1BidHBjUGIyTlhoWXQ5VVJRb0ZncjY2RkpGaTVMZU8yaUxDLWFJNVhISUdJaWZsbjktNmZfX2pERWZkMk0",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "[속보] 법무부 장관 후보자에 이용철 방위사업청장 지명",
@@ -2993,6 +3035,13 @@
      "added": "2026-11-06T18:17+09:00"
     },
     {
+     "title": "野, ’코스피 5천 붕괴’에 “국민 피눈물…미래대응기금 백지화해야“",
+     "source": "연합뉴스TV",
+     "time": "2026-11-06T11:06+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBpcXlxUTNBWUNNNm0yZ2ZjS0daV3ctdnV1NlJKRXl6WDEwdlJsQ0dpWnNxdk5qcnU2cGc1YTdiSVVMWHBZTEViNzc4a05qOURNQ3FRX2t3VXRkZ19ZWlZqYUpmbDJ4bGc",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "신현준 무보수 명예시장인데…배우자 회사는 서울시서 3.7억 챙겼다",
      "source": "매일신문",
      "time": "2026-11-06T11:03+09:00",
@@ -3026,6 +3075,13 @@
      "time": "2026-11-06T10:45+09:00",
      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5pODVrZF84UFY5cllDemhBbi1YMi1sdUY4U3ZxdXduSEdGQk5iY1RMLUk2UDM0RjFYWjBPWldzc1VMX1BwOVpsak5ubFplejU1VkhaM1NkOUt4Qzc2QUJ6THBuVnltSlNNX0NjcHpRMTlOd3o2a1FwMtIBeEFVX3lxTE1PdWhHV1NGTGhqVFlhUldrS05XWGxNOHp3Z0pHRThPVkJqNWNJVkxZV1pGcm5YVFlKLWJaMk00LXpmOVRuYk8zRHV6Vmxpa190dm83b2NZbzBOQ3VxeC0yNm4yaVg2U3BwdjBPUHV2dXF4ZlFycjhxRg",
      "added": "2026-11-06T18:17+09:00"
+    },
+    {
+     "title": "달리기 중 심정지로 쓰러진 현직 소방관…그의 생명은 아들이 지켰다",
+     "source": "노컷뉴스",
+     "time": "2026-11-06T10:40+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE51M0hESENtc3hYRFVXS0VEZjQ4Nmd4WTk5eWx3dlVQRkhOMFpLdGU3dE1aUm16VDFyN28xT1QtUHJ2RWswNFUwTkNONzczU3lmSGc",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "[한국갤럽]이 대통령 지지율 41%, 2%P 상승···민주당 36%·국민의힘 28%",
@@ -3327,62 +3383,6 @@
      "time": "2026-11-05T21:15+09:00",
      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9HamFNU05ZQkdDOFd5X3hPUWU3YTdxemhYeVpZYzlRS1ctU1VITzRrVEFWRzFITjVjUVREd1dvWVNUS0lsRzRCN0x4ZG5icXZKOGhTdHpUTHZjZ9IBX0FVX3lxTFAwU3ZNY0Vhclh3MjhzS3JwajU1aEhwQkxWLV9oQjFFd3EtY254bTZSR3BCU2NZcVdBbDhUVVZJcnFvTVVOaWwyanFrWmJpbVExZDEzZzJRenZOQTR6QUxJ",
      "added": "2026-11-06T06:17+09:00"
-    },
-    {
-     "title": "윤석열 “판결 마음에 안 든다고 사법부 수장 모욕”…여권 비판도",
-     "source": "한겨레",
-     "time": "2026-11-05T21:12+09:00",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1EbHhSQUo2cDRILWViem9tb29Ldl81M3RWRTRBVjJJMFV6TlMzdkF0R1kwUFpnTlJ0am1vQkxFYUFhdzFnTEZpdHlZcnRzdUJSMk1OUHZGYjd6RmRwSEZoYVMwZkk1ZVhBNHpQbmxVQnYyQQ",
-     "added": "2026-11-06T00:17+09:00"
-    },
-    {
-     "title": "`6조` 호남 반도체 예산 심의에 카페 대표, 의사가?…민간위원 면면 보니",
-     "source": "매일신문",
-     "time": "2026-11-05T21:00+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1ZOEhyRVpOaWpRWG5TY09RWGEzTzB3WVBrN1pLOUFMcUJZMmM0Y1p0ckcyOXo4NGlWUm5TQkRjalhNcGEyYzl4MnJmd1pPZGw4N2ZTb3dRTGRvZUJPOTdXcTdB",
-     "added": "2026-11-06T00:17+09:00"
-    },
-    {
-     "title": "李대통령 장남, ’황제 골프 의혹’ 제기 주진우 의원 명예훼손 고소",
-     "source": "연합뉴스TV",
-     "time": "2026-11-05T20:56+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1CT2xaaUI1WlYxRmZ5Sll3c0pFcW56SXlnc3AydjFYR0JzV0lLcGNhMXBac3ozdFlMRVFLYm96eWN0ZEI0MDIzZktyR1Y1U0lRdEtCa0NkS25aMXhzNUZBbkYzamlqMUE",
-     "added": "2026-11-06T03:17+09:00"
-    },
-    {
-     "title": "[속보] 윤석열 내란 우두머리 사건 2심, 내년 1월26일 선고",
-     "source": "한겨레",
-     "time": "2026-11-05T20:26+09:00",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5vV0NVUzNHU2ZZdnVNWmUza3Jyd1Z4ZFRrbTRfZlRmb2pVYnJUanBRXzllMUlWV1BqVEdUQy1BOVNUWjZES1Q0UDMwMFRQZENRSjhDT1dINUpIbmxnOHJuU2gyOHVrLWJpbGQtLVBWZnBUQQ",
-     "added": "2026-11-05T22:05+09:00"
-    },
-    {
-     "title": "윤석열, 노상원과 악수 “성경 읽으세요” 덕담…김용현은 ‘손 하트’",
-     "source": "한겨레",
-     "time": "2026-11-05T19:39+09:00",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE52ZWpnaVBma19uWEtuNnJlWEdqTlpyajZiYURDcUhxWkZPcDg4RFF5RzdTZjloNXFOQ1BiajE2ajc5YW1CMEl6Y1p3VFdkMlNSOFc5TzRiNTFYTFlGUVdiSUsxV19heDBmRHpaQlFuNmd1UQ",
-     "added": "2026-11-05T22:22+09:00"
-    },
-    {
-     "title": "“부캉이 떠난 자리에 ‘AI 상어로봇’ 어떤가요”…부산시의원 이색 제안",
-     "source": "매일경제",
-     "time": "2026-11-05T19:38+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBDZDhRQzl1enhCVXFJalZ1bTdHSE1HWC1oZVBjTzd2dF90X0pIbUlLankyZEFLczFrSW0xQTVQQW5xNFFhOWExXzBXYmxQckU1b2dITXhR",
-     "added": "2026-11-05T22:22+09:00"
-    },
-    {
-     "title": "전북 전화 여론조사 ‘허위 응답’…민주당 경선도 개입",
-     "source": "KBS 뉴스",
-     "time": "2026-11-05T19:11+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE4zMUxMWU5FbjN2UVY2N0NGSWo3bTRSazMwSEtTWWcyRURVRUJEWWhJY25KT20zWl9jRXBEU2xFZ3FPc1VyclpyTEtSenExUEt2eXNEck8tNDNnbnBIaW9pVmJkN19MUQ",
-     "added": "2026-11-05T22:05+09:00"
-    },
-    {
-     "title": "‘만취 운전’ 차량 식당 돌진…차 버리고 귀가해 ‘쿨쿨’",
-     "source": "KBS 뉴스",
-     "time": "2026-11-05T19:10+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFAzSDd4dW50MjA2cE11dXJ2QU9PaUNQVkExZ3U4Q3hxR0w5NzdGZGluUEdWbl9OZWZHUF9lTHEzSVN6WnM5TFlrTHlXVWFUelNkSnVsWEFXeXVSNDQ4V0lBRzRZOVc2QQ",
-     "added": "2026-11-05T22:05+09:00"
     }
    ]
   },
@@ -3391,11 +3391,102 @@
    "name": "🤝 외교",
    "items": [
     {
+     "title": "Caldera and Summit XC runners voted Athletes of the Week",
+     "source": "bendbulletin.com",
+     "time": "2026-11-07T03:15+09:00",
+     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQczJTU2Z6T3BNMXBzQkp4V1N2RjJUakJESUJ1RUpGVHBHbGdvN21NT2hFVUljdkRuZWNPOE5mNUpXZm5xTm9yZkhzd1ZBUnp2SUpmUHNaUTVDQXN3ZFB0cjA4RWEyLXhRRFlYOVlZMFgtWlNqT2V2UmczY0xzQndrT1dMNGRHN1pPVDNNa1hMWWtrOVNFd0NvZA",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Panda-monium arrives as two giant pandas debut at Zoo Atlanta",
+     "source": "USA Today",
+     "time": "2026-11-07T03:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPcDIyYldOT3J2T1NQcFJxY0d1dG5hX21oaDdyN3dwZ21keXZwVGhRbFlrbHBGMG83TkxnU1dVUlhVVV84bDhjaTYzM2hSZW9XM040VmNWZ0IzRzl1bGVONnRZb0N6MlhNOVBMOTFaWTN4c2twUDdzQTYxTXdTWXdsMXYxTkNWbk1PZUhVcHM4dkV3aS1mMlFZWUJXUjhTZ2VYdzhJUml5bVFjYWJBNmRNbGdOWTI",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "OpenAI to press ahead with data-center expansion despite midterm sweep, CFO tells CNBC",
+     "source": "Reuters",
+     "time": "2026-11-07T03:06+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNRFVIUW5SSGZmTGw2cnZmN0tEbE5zWGZVekdqazlncUFkSVo2Q3ZOMFlyS2xEbHY3NVhOalJzeFRCTWIxR2xydFdUaVQxZ3RMbk9yRzN1UEt6VnZHd0FycnVPTVhhWmx6QUhHeF92MVVqWFpQYWdaVEpia1c1Qk5qYXFpYTRWS3JMUkV6eXFUM1drV1RqdDJ3VkNKb3lELWhwbl9DU1Z5V0h3d3pHNmxIcWZQd3o3aV8yUU1OSkdmTF9KVENvRU5XQ0MyYV9UX0NsUEEyTA",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Putin exploits Takaichi's diplomatic opening with Japan Tobacco grab",
+     "source": "Nikkei Asia",
+     "time": "2026-11-07T03:04+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPMkdxUkJicEhTMGFpNXc0RGRCby10ZlpmTEs2ZkFPcnhPSkNmU3c3cDBQbmpvMG5MYTFSNmRBNF90MFZQdkRZTVZqRm1ZbVdUbzB2S3FTRXlWUU1vTW1sbHJDUzUzZGZ5ZkFxcGlDM2M3Wmlsc0MwUDFHWFRDWElaWkFqT08wOVZjLVZZYi05SHFZNXNRN1lRZXlZdHBpWjV2MjEtWmFLaXhFaTgzamJRVjJPVW5SQ294OE9lRTdmVWJBNDA",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Oil heads for steepest weekly decline since 2020 as Iran diplomacy hopes grow",
+     "source": "Oil & Gas 360",
+     "time": "2026-11-07T03:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQNHowdGdlTjJhU0N2MXh4UGN1UWtNOUlPUjl3cWRyZ0VRU3VEamNjMUNtVEx4WEliQkJjMFBSeVlnZmZmX0F3S0FSNzVhVDN0TlFPWFByeV93TXFRZ3RXaVR0WExiaDBtNmZRRGU0djNxd1g2b1FaS2VMVnNEM0VnZFd4U1FrU0t0ZF82SFYxYXNjZUVvNENkTkljX2hZT2NkNXRkRUdHQWhnYUk",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Gulf states step up China diplomacy as Trump’s lame-duck session nears",
+     "source": "Al-Monitor",
+     "time": "2026-11-07T02:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNNE5aTjlzbFdvYmh3T2FORVJCc0F2c2k0MVpwYWVYaE05RWRoNTRIMDR4V19nclktVUlkcXZHTnV3SDZ2TWdzdjdqdFpZNEg5NFFGSklHTmVVcXpkWWxreWZYZS1TZTFyWkIxbkxIUjMyWWVzNWNLZ0phZGxKU29IeUg0MV9XOGNXRWdKMFhlMVJJOFhtRDJ1SUZtbmZpbnE2dTVyeDBBcGg0TldzS05qMGZn",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "US military leaders hold counterterrorism summit to address emerging threats",
+     "source": "Anadolu Ajansı",
+     "time": "2026-11-07T02:47+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPMGFRNmtDTFVjNDVIdXVPbE16SjZjWjE1R3NNbGgxUlNTTDJ1Wm1kRGxqUU5xbGJWWWwtR1dpU1AtR2pWTmhuWTVFUEJKQkp4RkNWTFJRWldCNGg0WXVZTno1NW14ZnZITnRISk5aVnBlQ2xMcXlvMHNjV2hScmhIQ1I0SjVPUE9NaHNfZW5MQTd5ZmQ2NU1RUmpsYVMyRVZXeHpUX3Npb1BDYkZKdTVUc1IzRm1lV21keGc",
+     "added": "2026-11-07T02:37+09:00"
+    },
+    {
+     "title": "Braven Summit Highlights Pathways From College to Career",
+     "source": "Rutgers Newark",
+     "time": "2026-11-07T02:46+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNYWdVeEZKbkc3TkhRYmRwbEhoT29YTU9XYXFiTjJ2Qkc4a1lUN3NxYXhUQUo4dU9HTkY4Z0FIMmhNUkZiRFBYdGg0SXBoVTRmQXJwcDdQVWtEenBvcWlMbS14SVZEZFprc3dZZnE5Qmt6Uk8xUXB4amljdHR6YXNqOVR5TWRzRG9KcXNUVg",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Wynne, Cross County students earn awards at GenCon Summit",
+     "source": "Wynne Progress",
+     "time": "2026-11-07T02:39+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPRkJMVjFzTF9KUWpuRDQtSXE4M2h3U3ZMOHFKUVNwRTBqSVNBckpRb3ptWi0zVEZIMUVnZ1VVcnBuSG1fQTlNWk1OVHpWQnd3OGF5bHJwSVZZVmZOdlJmemxqMHR6TGQ3VkVOekcwWWhaT2N0NTNrZGxMX3ZrZUpqeGhaQkNBdVB4OWY1Z1MyYw",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "“The Jig Is Up”: Voters Resoundingly Reject Republicans Who Wanted to Run Elections",
+     "source": "boltsmag.org",
+     "time": "2026-11-07T02:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1wQkFyXzVSS1IySXhsVzBJc19zY081aURQVzJXanQxT0RvVDl2Y1k1Z0szaldMLUdTc3dyNUtTME1XeVFLRXJLakNWV3puZ0laVWhKSjNTc0ZvWnlMVVFVMUpxS0Q3Q0xERzVQV1VVamZ1YlVoRU9JbXRJcw",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Faith leaders resist despair as UN summit shows slow progress on conservation goals",
+     "source": "National Catholic Reporter",
+     "time": "2026-11-07T02:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOV3lTSHlPR0tpTG1YcFhQZFdoQ3EzYnVwMFV2bmxHVXhyUlVrcXMxaU0yN2NTclEyWV9waC01WjZyeWs0cjZYN2JfVGkyemxYajJkSDdIY0lTRDdqWC0zS3BLVEJNa0YxSFotZmdSNVF5bTJORXc4Sk8yYllpR3NlTlJFNThSU3Q2VHJ6d0wwSnRBdGdwSW1TX3lwdU1Mc3NjYjFSeG5EZ2hBUHpW",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Pashinyan Expects Armenia-Türkiye Diplomatic Ties Soon",
+     "source": "Caspian Post",
+     "time": "2026-11-07T02:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOM0FDU1REMWt6LXNLWW41NDJZM1JxMWdSY0tyZEloRlpKb3NlcXdrSi1ZWVVoMlduODNnWFlfSGFtZ0Q1d0V3ZHhSZzBZclBBVVJPRWtFd3JfWFlGdmJ4LWxDTnB5LWphQzJzQ0ZsNXNtOHEzLTkxM0RhRHV0LVRkN1VqYVp4MFByWFpKVXBBWQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "Wynne’s Grant Hoffpauir featured in Summit Community Care video",
      "source": "Wynne Progress",
      "time": "2026-11-07T02:29+09:00",
      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOV2pZOERLUFpib1dNeEwwNVlFX0RjUjRhWkJCNTZDVHlkMXc1bDJNNUhDYkM4ZTB5LUZoQ083SkQxcHNNbXI1X1llZXowZUtyOTFuSTk4RHdUX25WMDVUOUtiM09McUJacTNSTk04WlJqR0NJZzlVM1pUb21DOVBHVmtKTGRodE5zRW1BR1pLSDZTX1ctOUhF",
      "added": "2026-11-07T02:37+09:00"
+    },
+    {
+     "title": "Gaza Ceasefire, One More Deadly Day: 5 Killed, Including a Child",
+     "source": "Latin Times",
+     "time": "2026-11-07T02:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZ2NEbkFfZ1prN19Ldndjell1elJxeHppc0lxdi04dE9BNWZ2d3p0eWlhUVdVRzVyUTdzaTRad05lNmppTTk2TjhNRHRETHduNVVmN200MGtydUJ2U05GQ1I1RXhsclNqUE9wR2xqLUEzZWo0QXRxOFdoTXMwaFFXblJxdGJsVWMyTTlVeA",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "$1M bond set for man accused of killing girlfriend in Summit County",
@@ -3423,13 +3514,6 @@
      "source": "Florida Department of State (.gov)",
      "time": "2026-11-07T02:14+09:00",
      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOVWlKRU1qUldaQXA2MGhjSjFaVjJ0X0tvR3dqUU1VRHBuMmc2SWlmc3JiWG1MWFpNTzkwV3hCVkE2TURLSlRVRGFiZEF1Ulp2TU5pN1F1Ym9QSDM4ZXFFU2Z2eDZabjhtUEh0SHRVSElEZW84SVRJZm5reDYzVFZRMWROTXBRSGpnaHpJY3VGRF9zR0hwNl9TbVRxMlJNVFd5cFhXOEdVSmxYRVlsbURjYW5WODB1OF9BcW5hdFVqSGw4RXVrU29sQjJzV0tWMlVBaHlOVy01TVQ4b2M",
-     "added": "2026-11-07T02:37+09:00"
-    },
-    {
-     "title": "US military leaders hold counterterrorism summit to address emerging threats",
-     "source": "A News",
-     "time": "2026-11-07T02:06+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQU3lLR3hwa0tKdE43UHB5eFBnb2JQcnBab0RheWJyUkpISUYzbmtSWEtISlBxUHJpQ0ZuRmhhUzdIUGt5UnoxZUoxZjk4aGhUU0F0cFFaRUJLWUxnc0l2ZG93OVZBR1ZqcWM0cENIek1RTW9MZzlsa3dwZDZLeVI2eGxZMUg0ZUhVV3I5MEQ2ZTRnVDlRWGFjU1ptN05vdlZUREd0UVNmUFBxNHpVVGthRjl6Szh1WmVZclHSAb8BQVVfeXFMUFFZb2pIVUw1Umt5R0twWVBpb2RITlZLZ2RUa3FyakZZUzdiYlVtcEY4S3pKaVdOVElGY1huZWcwMXRlOW1teWxFOUhtSjYzRklURlBqMXA2MEI1aVBSWDBaVXRuUGJrVlRFSUtDRGNhUEVoZU9xbEJFU0ZJLTlTTmI2Wm42cU94MkNuSE5EazdzOGhBYUQyaTBQSlBEN2VFSFJKV1VKWWNJb2tRLWM4WkJQdUNnbmhCNjNWRHRDNGs",
      "added": "2026-11-07T02:37+09:00"
     },
     {
@@ -4145,90 +4229,6 @@
      "time": "2026-11-06T17:25+09:00",
      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOM1BxRWdicmowYWE4MEZkMWIyTjJpaHpXcWxtR0NDcW01c1NoS0xrb3Z0YjFjM1JnT2xXWG5FM1FDWG5sQlo3dVgyOUNvRDB2UVdtV0RvYjF2ZkR3eV92OXdCSl8wVGhOWUZITHkyQnN5U2lTdHpxX2g4SWVBenJRdDdRNWJaZWx6LUZ4bGVOUDBiYldUT2E1b29uZ016T0FRQUlFeFh3SQ",
      "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "Brazil’s Lula to join other world leaders at ASEAN summit",
-     "source": "Arab News",
-     "time": "2026-11-06T17:24+09:00",
-     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPbjdsakJ3RC0xTnk0VlNhS19IdUhrenZKR2pybW5qYXFWNF9pelNUd3Nzc1JuSlViSHluUHBWVDNJeGtaLUVHbGt6UVQxRHZnUmpnZlJWMTgwbVVUWDdReEpBNUktYkFCeW5JZVJqbTVHVlRRa3drVjhlX3Z4RUdnOFFaTGdodGVNRkFFY1Fhcmg5c1ZwWlBtWWY0SQ",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "Organic Grower Summit names 4 Grower of the Year Award finalists",
-     "source": "Farm Progress",
-     "time": "2026-11-06T17:12+09:00",
-     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOWnJzcHBzN09FVVV3VGdtRV91bUdoSjN5MU5hMldSUFVySTJ5b3AycXlDUHlnZVhURUstZWU3LTR2dHp0VEtwVm9ISUJ0XzEwYzd4U2NUQ1p0VHVpV1Jwd0xMZjNITm9ZY0lNcmxtSlBETWdRNXVQOE1rWGt6al82Mm5tbjJYMFFsS1JLRjdraUlkRnRBbHFPRWlZeUpqS3ZVSEVGUVhGWQ",
-     "added": "2026-11-06T21:17+09:00"
-    },
-    {
-     "title": "Women’s Success Summit with Susan Miley",
-     "source": "WBOY.com",
-     "time": "2026-11-06T17:07+09:00",
-     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOT3E3cDZIdUMyMExTSnJuOEZHMWhXc1Q5THFiU28zUXc1Sm1EeWFVVi1BUmozM2FhQnBQNUExV1IzaUt5cG9FSm1saGpuQllFNTRmTnY5NnNEYWJjeThTejF1S25Wem1RZlVtdktKSHZlWFFmcWlRaWhrWGhURko2Mg",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "인천시, G20 정상회의 유치 응원 릴스 공모전 개최",
-     "source": "뉴스타운",
-     "time": "2026-11-06T17:03+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE01dUNDb3dMTFlBemQ2a191S29qSVoxWUV6SEVJa0ZNbnhYM004OVR1bHVsUUZCM3NlTmJiaEFOb21RMU9CT2ZmbVpZWjYtSmNGckpKU0xIXzVsTUhJcWgzc1FVNE1VR3FQRTJ0aXZn",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "Coastal Caucus hosts economic summit",
-     "source": "Tillamook Headlight-Herald",
-     "time": "2026-11-06T17:00+09:00",
-     "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQQ1d1V2ZmTlFOa2tRR05Pdlh6RUY2T3lzdHhWSDgwYnJIc1pLbkowMVRDWWlCVmUyVlJEVkJ0VUNDdE44bmN1OXZHOUswRjZfbWVJR2k1Tm5lM2JCd1hNd2RtTG90LTA3T2hmSmZUUWU3SVRGc3A0LWk3T3ZzSWpDYzBtbzcwSmZDV2tUa2lPWEF1QkNLR0ItaXNObmJkTXRpeTRCamFGd0NRMjk4eUVLRC1xZC1YeW5ZbUJLRDJlaW54cDMwZnZlcmh2d1A",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "From finance summit to AI-driven stock rout: 5 figures investors are watching",
-     "source": "South China Morning Post",
-     "time": "2026-11-06T16:46+09:00",
-     "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOSm9IYmhkSjhPMVhIQkJVYzR4RWttMDBrUGR6TVAtV2dhU1hMaFRERk5sR0xHdVVyTXZYcVdBYkJYOHI3TXhUQVNlVDJiUElQeS10RmJOSUpQTWF4SGtMX2cyNXRqdUI1ZW9MVV94R3BCOHFSNHAzcWU3LTRPR25YWG9VandHNTd1OFA0U3ZtbmRDLXo4MnJpQlI2V3g0c2xDdGVKNzM2RHNyR005RVRiUzEybzBrZmw5WlVSOFU3WGZPVjFnWVRxLTBrdDVSN0hHRXc",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "인천시, ‘2028 G20 정상회의 유치 응원 릴스 콘테스트’ 개최…시민 참여 확대",
-     "source": "뉴스21 통신",
-     "time": "2026-11-06T16:46+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBiekRVVkgzXzAxWXViazloeVpqTXlKZzBnbW9pb2ZnalBkSkx1djgxeFlMUElrdUFNY3NneTU2dVNUTXJ3ZDJJZVAxUlVjVmtTNzA2SlJB",
-     "added": "2026-11-06T21:17+09:00"
-    },
-    {
-     "title": "전직 외교안보 수장들 美 중간선거 후 북미대화 가능성 낮아",
-     "source": "SBS Biz",
-     "time": "2026-11-06T16:41+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1wRmxHUFpJQzdaNXlJR0NDRFp3cHAxTEMyWU4zZ1NDbWg1cVhKY3lJNkZHT0xxeWxXYlFRUmdtLTlWMHQ1M1lWTmZIeUY3Zk5aMjRr0gFYQVVfeXFMUHpjRHFPS1NoSHlIekZVV2JnaHZrVHRQV25TLWI5eUNZVEF5WjFPZ3dCai1GYnF0Ql9yWUhlNWswY3BpTU5tTWlXUFg4M3RRZnhGbTFCS1hSaQ",
-     "added": "2026-11-06T21:17+09:00"
-    },
-    {
-     "title": "Turkey Outlines Plans for 'Paradigm Shift' in Energy Use Ahead of Climate Summit",
-     "source": "U.S. News & World Report",
-     "time": "2026-11-06T16:39+09:00",
-     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNUTBndDZCQ1pGSTZHYV91VW9jaWJDdlVsNFlfQ0ZFZmZESFlDWHNrd0xycFp1dlN5eDFiYWpxMEo0ZGFWd1dwdmJZZHUzbFFTOTNEaVdKay1iTEhHTTh0d2RHWFEzRFZPUmNFY3E3R1BpUW12dmlIUGM3NDhXWUtPZUxIOFNpNlZVNXFZS1lNN0FqZjMxd0o2RnRwMUJqdGVMWlVESnNIQk0tRzlJOV9tMW9CV0lZS1c5ZzN6V2tlbDhoWjlGLUJnOW5ua0lrcXd4",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "White House Outlines Broader European Security Plan Ahead Of Ukraine Peace Talks",
-     "source": "Radio Free Europe/Radio Liberty",
-     "time": "2026-11-06T16:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOVHkxVHdpNVBGbUMxeUxMSTdScUNJZmRCd1hrbjJoalZQeGhQM3A3UllodE1hR0ZLRy10RlpFOVh0LUJOY3hEUk94cnlLVW9TSFQwVFFORmw0MEJkMzZ2VUhCV0U5OXIxUW5YYXpIUGpFRURMVjhOM1RjZzRvQnhnd25hZHhtTU9XeFJwdWZjOUlsbFdIYjFsbnczNmw4U2RmMk43ampqdW5ZU3VXWkpWd1VvTVo4ZlhsM0HSAbwBQVVfeXFMTjFnZ2ZIYUFZelRDZGJJREtFVC04ekJKV3ZEcHlTZEE4UldNQmdxWFJadkx2S0pqWlRCb0JaUi1FY3FmT1EySXhmakdOc0tZS2RqZkdScV92c1djaUtJTTZYRi1VaEFDdFVTaUp6MTl5dWZBYTV5dHIzMXVYbDBSTVEwZHI4UVpSdy1oS21pNVhzQ1NjaVl2WUc5blFNSjluQ2VzNGpFVzJlY0NwVDRROEpkVzFDYUliTHZnc1A",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "Cracks emerge over Europe’s fragmented approach to Ukraine peace talks",
-     "source": "Euronews",
-     "time": "2026-11-06T16:33+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPd3hUamZsY3IxYk13NFM5S0QwdjE3dVpZcXFzMVBkNEJmMkZXdlJTOVE3NElVeGhwYXl3YmVXSDFUaGY5WXg1MXdPTk4ySm1OWFF0Q2RaVFY3alcxXzR6VjBLcEphdV9qYlRKTUNacGFIZmZnalVZenJzM3JGRXcwZnRzM1oxaHNjaTdsYWxuSUNtYUQyZi1MVVd5Z2dwbDM3TFRhejJoQVc",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "Memphis-area mayors talk collaboration at State of the Region Summit",
-     "source": "The Commercial Appeal",
-     "time": "2026-11-06T16:30+09:00",
-     "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxNSnVQamg0WjkxU01RZ1AzUXA4eG5KWDh5QzJRT3hDMm11VUlZSGNEU2EyM2xTcFZtZXBtbzFfM05TVjBjamQ0T19tSmk0MzlMMDM1V0dhVWRtMzRDTG5mbmJ2VnhaOENzVWl5OWYxZGp0dG9BNGhDWWFteTUwTFZBWEVYTzdIeW1zc200MENzeWtVSDlkekNDVG96LVRWNzAxUDRTam8zOE1zZTZlRWhtbTRMX3ZMT2NidjNqb0dFVFk1a2pOTF9oX29na3BsWmdXWmZsM0wwTTBlXzRxdlVnMG1VWEY0UVU",
-     "added": "2026-11-06T18:17+09:00"
     }
    ]
   },
@@ -4426,6 +4426,13 @@
      "added": "2026-11-07T00:17+09:00"
     },
     {
+     "title": "경기교육청, 국회서 교권보호 3법 개정 촉구",
+     "source": "환경일보",
+     "time": "2026-11-06T21:17+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBHTlZnY01UeV8zd2FrbEs4ckkwYUZhSldnazJZOTJDVVEyaDRuUE9KSExsejdrdk9IeHRNVHF5N05NeVM5dnZFeWtVNWpKdnFPLXZTMmJTLWZvRENwNkVvUXZ5eXhTdjdV",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "\"국민 곁에 94만 간무사\"…간무협, 국회 입법박람회 수놓아",
      "source": "병원신문",
      "time": "2026-11-06T21:13+09:00",
@@ -4445,6 +4452,13 @@
      "time": "2026-11-06T21:10+09:00",
      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5fMjkwMGVhZ3RIc3RNekNSRU4xbmNjQXlnWFN2SDZKTVo4ZHlUSHZfaWNsVGV2NlNZNEhNUDAxOGQ0ZWtRanhobUdWeXlwbkhxTVlOVTNXRjJkRE9zQ0RZVC1obGxzUnhLSGNRa3ZORGlIQQ",
      "added": "2026-11-07T00:17+09:00"
+    },
+    {
+     "title": "조작기소 특별검사 법률안 국회 통과...대장동, 위례신도시, 백현동, 쌍방울 대북 송금 등 수사 대상",
+     "source": "시사뉴스",
+     "time": "2026-11-06T20:49+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1senJWcUMxb19iZ2N6ejVQNEVVUU1lcEo5NGRuQk12TlkwVGN2RkdDX214dDlvTmZ0Z1VRY2RpdUNzOU1jZEVHbjNZSFZjdkRyY3dVdGM2UXJHZGdvWTlkYWxEOA",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "'조작기소 특검법' 국회 통과‥장외 나서는 국민의힘",
@@ -5061,20 +5075,6 @@
      "time": "2026-11-06T14:33+09:00",
      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUxwcE8xQ3dydlJzN1drTWQ2d1V0UEUwc2phVXZYdk9kUjhuZDBpbmhMRWhKUFBtRXdtS2lwaFJyaWthakRoRjUyNXpwcGlvU3ZMa3I0SEhpaS04eFVxbkdHcnBuMmQtc3UtZFE3T09Od25EVEV0UVRrNEIyQUMyMkMtZ1lETHoyN0E",
      "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "\"연봉 5000만원 이하 청년, 연 300만원 소득공제\"…국회서 신설 논의",
-     "source": "한국경제",
-     "time": "2026-11-06T14:30+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBPVElhc3N1cVRWaThVNFBKWDgtZk5rQnhPRXpFM0hINzdCSWUwVWo0LWEwT3M5eG5nN3lUOUJJSFJOV2xmMnU2Mm9GTHFBaFNndzFYQVhQUDd1dw",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "조용호 오산시장, 국회에 지역 현안 국비 324억 지원 요청",
-     "source": "비욘드포스트",
-     "time": "2026-11-06T14:30+09:00",
-     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBHOEtyLTk0THU2WEx1VGtNYzVlVThKT1FkdG15MEg0TmJ4VFNXRGlnazNKLTBEeElFcDRaUDBpV0xfOUlNbmJndmVfMUowcTJtdnNvWFhjOEVKdG9mUXNHQTVCTWQxMjFuem13cVlHaFJZMURxN3VVU2RwMTU",
-     "added": "2026-11-06T15:17+09:00"
     }
    ]
   },
@@ -5132,11 +5132,25 @@
      "added": "2026-11-07T02:37+09:00"
     },
     {
+     "title": "[KS3] 3차전 패배 KT 이강철 감독 \"소형준 초반 제구 난조 아쉬워\"...4차전 선발 로건",
+     "source": "뉴스핌",
+     "time": "2026-11-06T22:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBlNmFVZ2tMOWJoanQ2SW1hQW16S0t3cWFLUVVWSmUwODlTMGp1cldERE1FeTF6cGVEV3h5UWluSy16NFNSQVhXUk4tQldJY0U1WnlOOTBydFhrSnFq",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "우승 확률 88.9% 3차전 잡은 삼성라이온즈, 시리즈 역전…\"후라도 잘 던지고 구자욱 잘 쳤다\"",
      "source": "대구MBC",
      "time": "2026-11-06T21:47+09:00",
      "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFB1UXhnQ3dTTUIwT01jT3BKenVqZnBxTm5iY2tSYnFuaGxud24zMzNKbVNINy1sNmkwa09IVFNENFRFeWVxUXdyUEt1RVQ",
      "added": "2026-11-07T00:17+09:00"
+    },
+    {
+     "title": "[AI그래픽] KBO KS 3차전, 삼성 박승규 8회 솔로포…삼성 5-1 KT",
+     "source": "뉴스핌",
+     "time": "2026-11-06T21:22+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBaSHZWVWtqS2gtTVR6VG9GeDdBc05lb2J4ZXd0WVFCNExyMDFiSkdnSVI3XzBfNEFFSUNzM3FnYURDVWZqQzhZdUNjWTM5aXV1YXpqUG1oXzJzdw",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "구자욱 결정적 3루타·후라도 눈부신 역투…삼성, KT 꺾고 KS 2승 1패 리드",
@@ -5907,20 +5921,6 @@
      "time": "2026-11-05T10:39+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBqVnBLOFlSWWxEVlgxRy0xSE5NNGxSekRabGpJRFU5ZUFwYS1jQmRlUVZrak41eVRnckk5UEhJdEZ0UDR4d0kxS1AzeW4yaDNTd2dzUjRZRURadTNy",
      "added": "2026-11-06T11:00+09:00"
-    },
-    {
-     "title": "\"파울되길 바랬다\" \"10년 더 나이 든 느낌\" 삼성 원태인·배찬승, KT 안현민 타구에 마음 졸여 [MD수원 KS2]",
-     "source": "마이데일리",
-     "time": "2026-11-05T10:09+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE90Zk12Rk1FTzlteHpLM1VfVEpnZGNqZ0RZSWEtVmI2UkdSUC14XzVzX0ZOOFRBNmxRbDBDU05iQ1lFQVBvd1dKQnI5dWVEdDJjZE5JUkJ0QjBFeHVZSUdZS09SZjVuQQ",
-     "added": "2026-11-06T11:00+09:00"
-    },
-    {
-     "title": "[오피셜] '홀수해 우승 도전' LG 벌써 외국인투수 바꿨다, '이정후 동료' 트리스탄 벡과 총액 87.8만 달러 계약",
-     "source": "SPOTV NEWS",
-     "time": "2026-11-05T10:01+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBNZVozUy1FY3Y4RWIzbnBrVWcydENGRnVvMW12WHE0a0tXQWFOcFBKOTZzd0NvWE9rU21HZzFobVAzV0tNU1BMQzFtRk0tLUoyZXpzNnBrUFFSTmNlM3lTcWpybDQ3dTJTLWNmdDNjdW4",
-     "added": "2026-11-07T00:17+09:00"
     }
    ]
   },
@@ -6711,6 +6711,104 @@
    "name": "🤖 인공지능",
    "items": [
     {
+     "title": "OpenAI to press ahead with data-center expansion despite midterm sweep, CFO tells CNBC",
+     "source": "Reuters",
+     "time": "2026-11-07T03:06+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNRFVIUW5SSGZmTGw2cnZmN0tEbE5zWGZVekdqazlncUFkSVo2Q3ZOMFlyS2xEbHY3NVhOalJzeFRCTWIxR2xydFdUaVQxZ3RMbk9yRzN1UEt6VnZHd0FycnVPTVhhWmx6QUhHeF92MVVqWFpQYWdaVEpia1c1Qk5qYXFpYTRWS3JMUkV6eXFUM1drV1RqdDJ3VkNKb3lELWhwbl9DU1Z5V0h3d3pHNmxIcWZQd3o3aV8yUU1OSkdmTF9KVENvRU5XQ0MyYV9UX0NsUEEyTA",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Lawsuit Links ChatGPT to Murder: Is OpenAI Liable for User Violence?",
+     "source": "The Legal Examiner",
+     "time": "2026-11-07T03:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdFZ2SnJKLVltNWxSdmNGeUw5OXlKeXBScEViZG0wRGVwWlZyaW52aWNBX0ZKbmxDNUF6X2toWUJQNUtxc0NDS2tLVmk1ckJ6R3ZUdEVOa2p3TXpvbFIyQlo0UjdwTERwZkktaGhyaGd3SmFKTktCd1l1ckxoRWlJUE4xUzRNd3NOSkIwSjBweGNWWjNKTkxOei1VMEdfQjlrVUlRUm5SbkFuOGFhOURBYlRHMA",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "\"양자컴퓨터, 에너지는 덜 쓰고 AI모델을 더 정교하게 학습시킨다\"",
+     "source": "조선일보",
+     "time": "2026-11-07T03:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNZjdibnN5elFPWF9mMm44Q08yRkU5R2NUZXVka2dNRU9zZFRvbTgzdnpYQzJvVGNCY29iSjhnbHVPc01vckFUVEJiM3hTNy14VjFTOGdLS1pIS3M3bHF6ZEpuRks2Znh6Vk95djVjR1F1ME9hUTh2c2xpbGZ0aWZmRWcyYzQxZw",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "OpenAI says its new GPT-6 Cyber has already uncovered 'thousands' of exploits",
+     "source": "Mashable",
+     "time": "2026-11-07T02:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE12NHZsclk2RGhrejRNeThJR3ltR01KcEN4ZTJOM3RzeDVsS1daYVBmX2dBMXM3U3ZaYVZGblFZeEYwell0NkVXYm5zbVJTUHEzaGF1S0IwZw",
+     "added": "2026-11-07T00:17+09:00"
+    },
+    {
+     "title": "Anthropic IPO Buyers Eye $1.2T, Down From $1.5T [2026]",
+     "source": "https://tech-insider.org/",
+     "time": "2026-11-07T02:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxONWE0aXBFWmNMODlZQ2NreF9XbDNvWmZkMTFTN3FxSkNFbkJ2eVJ3R3BqTVZ1QWFkMDZMYVl6YjhCeWRGN2loLW56SlFPMTQxOHVKc2J2dVZfZmxoYUJrdEE1eURPS0JVREktT2U5Q0RtQ09uaWkyckYxTnc2YU5GbjU5YWZ0azJ0N0JmVHVxcXFlY0V0LXJiTmJsRVRHQQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Anthropic IPO Valuation Talks Fall to $1.2T After AI Stock Selloff",
+     "source": "CoinGape",
+     "time": "2026-11-07T02:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQYnZhT1JwT3h2UDB0Nl9BQkhDQWlUWXZGQmR5ZFFQa1hvSlVnU3lEc0ZOWU5zT0ttd0Q1aG0zMTNiSUVTd2doQVpPZFpYYUozbXZNNEtHanhSQ2d6cHEyRzhJaUN6R1NYa3ktSVM4cmE1bElneFItazBMaUtjd190V0E2NjkzLTkwc1hRQVNxdjg",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Oracle, 마이크로소프트의 AI 클라우드 계약 종료 소식에 4% 하락",
+     "source": "Investing.com 한국어",
+     "time": "2026-11-07T02:47+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBuWDUyMFVGREIyOEM0Zm13eExpMVI4MDI4X2dtNzkwR0JiTnpNb1VDNTdMQ21CWXlhUkpYMW5kNl9jbkRmMDZGMXNvdDZtNERac0ZDUnZyZVZIczd1QTFUWENiLTYwbWVNMFAwVmMtX3c",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "CNBC Exclusive: Transcript: OpenAI CFO Sarah Friar Speaks with CNBC’s Sara Eisen on “Squawk on the Street” Today",
+     "source": "CNBC",
+     "time": "2026-11-07T02:43+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNM0VZUGN2Tm9Yd3RGUllkNUNKRnNRWDA4YXYzbmhpTjZTTURtOTRwTHVLM0lzX043V0gtVkJVbHRFbmFSVUQwRzI0N2o1cHk1SFVybnU1SzA3QVpkWTZfYW5oblZWcHZLRW5zaG8tbnpxWWpIS0hfdFVxeVR3QlBaRDhjeHQ3Y3pKaGFibTY3MTdXNlA0anBTQjQ4cUhFd29PTm15b3pYVXRsTlVHdE90OExUdG95M1gxUENhSHo2UHhzUWFScGYtbDRIeWFDWHdTNVZxTGRmajNjSURO0gHiAUFVX3lxTE9yeWtVTmxkbmtrRWltS2txUUdmNHpiZ3pjNG1lT0hSdHBLRmkyMU9kd0x6VHU2NzdyZFJ1anh4N2VrMkdzejlTZjEybWFWeWJKSjFXdk51dkxPY3p5cDB4ZTZQS29pb3pXU0dNMC1GRjZHV0lkWlQ1WEIydnE3Y2E5bUZiaGktQzBTTXMxa19zdEFjRlhYNXI2QWhVMUh2aFdMeGhNcXJLY0VkaXJvOGMzRVl5VlcyZEI2Z0ZaR0x4bEdBd2Y3M0FlUFV3UEhkQ3d0SDZaLXp6Q1MxemE0aVhuWmc",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "OpenAI CFO says blue tsunami ‘didn’t dramatically change’ IPO plans",
+     "source": "Business Insider",
+     "time": "2026-11-07T02:41+09:00",
+     "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOM0VVVjV5aURBZVBYemhIUW1vVU1YVENfamJ0RnVxZjZpeDhSUFZDRm9sbncwc3BTeFQwTDNia1ZCQ0YtbGl5R1ZxUmQtZmdWMmZLOTNseF8ybnktN1VWQVlyS3hIMXlLLUw2WWJFcVZEMEZ1SUlUSU4tekFFOWRfRldicjk0ZmhJV0V1aHpaMW5QT3dx",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "OpenAI wants to win over data-center opponents by calling them ‘compute campuses’ and promising local benefits",
+     "source": "Fortune",
+     "time": "2026-11-07T02:39+09:00",
+     "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNcXdMUlBid3FOdmE1WmREMjJtRjc1NTBXLUxHUjBMMTBTRGJRcklBTEZkRHl4MXFSV1VOX3dQZEJRdXlISjc0cld5RXNFMjJXb1J0WEFVREhwT2VjN04yN2g3YzB2cUxmbHVfUFlwX1Q2bFE1S0pFbFJIeG55c2tBMmNPaEZxRThOZWVQVWNn",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "\"TSMC, 첨단 AI 메모리 반도체 생산 검토…엔비디아 요청\"",
+     "source": "연합인포맥스",
+     "time": "2026-11-07T02:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB4OUJiNUtuQU14ejFFbGI1MFMxTzZmWDNWZkJGT2Z6ZU5nQWEyT1dMVjJ2eTFEY0JnRGN3QXFOQVVTVUZ0SDlGaU1DdjhqSzNiVmxhRzFMRVJ3c3N5WV9OYmluVTRtVjNpcEhBNmVYVDQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "OpenAI $1.4T Data Center Spend Continues, CFO Says [2026]",
+     "source": "https://tech-insider.org/",
+     "time": "2026-11-07T02:37+09:00",
+     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPMDFrMXFFdmQwQktLbC02NHoxbWF0djE0OUpNX0dmNXRZYW91VE0yV3FaTXd3azlIcXBqUndYemtEdWRjRmFicjRzUGhJbmdZS3hHclJ6MlhZX2JkR2lHSmFITWJyalIxN2FvNWtQTlJ1VC1Qdll4SUlZVVc1MDVBMmotbWZKSDVDS2pwMVZsYjVhcjZsc0J3eDFZRGJWUQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Taxonomy of agentic primitives in Amazon Quick",
+     "source": "Amazon Web Services (AWS)",
+     "time": "2026-11-07T02:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPaThEYUFaYlMxWkpoSHlCTng5Z1JDQlRvdF9KblpWQ1VpSnVBV3YzckFnaDdORWNrX0c3VXI1eWM4NHBDME01M0NCcHJDU1RCZXhkeHpLVk1DWDlDMVR3RThvNXdVMW1KMy1NNGoyYXhZWW4zOURtZVRVOHFfcHg4VVBfRUVMcWs3WjF2SmJSdkVpWDlNX2hXMg",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "Anthropic IPO Odds Drop After AI Sell-Off",
+     "source": "Briefs Finance",
+     "time": "2026-11-07T02:34+09:00",
+     "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPdFBMeE8xQ25peVA3TjI2ZGJOT0g1Vi1faXRON2pyOXBveGR4TkZJY0lORFNGZG5IdnZRbFR3SkdPNjFja1lQTU5PTXo2cnVCUWtXUlZtQjlqQnBDTUN2bGNkT3BLSUpfYnlrZWJiZWhsbHZZenRuZHdNSXcycXU4Sk1xQVhPbFNkRVI4aXlrUldpZw",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "OpenAI Had ‘Rough’ First Half of Year Before Coding Takeoff, Brockman Says",
      "source": "WSJ",
      "time": "2026-11-07T02:32+09:00",
@@ -6737,6 +6835,13 @@
      "time": "2026-11-07T02:17+09:00",
      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxON3h4Ymw3cmR6MGs0YTVfYy1GNWh5dDBjQjEyVjJjWjR6amptclVCNHRJdVdZTGdvU3MzaHhzM2tVc2k0elhfNjFzRXZrYTZYdVBjYzdKSVQ5elhPRlA2NjhoWnZXdVkwUnZ4WnFiTVkzakxmNjJiZjhFb1AyVk9LSVgtZjV5WklnbWJkejJiVFYtR1dlLUJCWEY1UmQxZVlOQ2pDZWU5dFZFei12Mmg2MTlzdWIxSmdh",
      "added": "2026-11-07T02:37+09:00"
+    },
+    {
+     "title": "OpenAI Ireland Cash Hits €164m, Jobs Reach 450 [2026]",
+     "source": "tech-insider.org",
+     "time": "2026-11-07T02:12+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPVlJ1WHFFRFJNVWxSMy1UMC1xYWxzaTdBTENIU2k2enJnNWttU0w3T1YtRjhZYUsxUUJoQV9GdGpYQnJ0dnMtUV9YUHhMcm13MFhwSFpEYWZwMjFFRUNseXNFVEJxSk56bDM0SEpOSmxsYkdOQWtPdTRFT2pwOHBoRE5jUVhfWHJi",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "Investors consider lower Anthropic valuation or IPO delay — Jerusalem Post",
@@ -6769,9 +6874,16 @@
     {
      "title": "OpenAI executive Sarah Friar vows to keep building data centers",
      "source": "Quartz",
-     "time": "2026-11-07T01:57+09:00",
+     "time": "2026-11-07T01:58+09:00",
      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9qTUY2eU1FRFBpTW1TZElESFZBZTk1Q29QcUxRT2piXy1Ja2NyRmFDQmI4eGJBUHBQNGh4ZmVTQzVzWXNwVm4tX2xYS2lWektWcmtlWWRsXzRQVEY0Y202a00xTXRvOHUzZllKRTNlWUlVd0Zo",
      "added": "2026-11-07T02:37+09:00"
+    },
+    {
+     "title": "OpenAI to Continue Investing in AI Infrastructure Despite Election Results",
+     "source": "marketscreener.com",
+     "time": "2026-11-07T01:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQcjhncllGWk1RbWFSNVYyQ0l2V29nSE92aWpON2VCZGhhTjBONjVzQThrOUlNUU0zeU5vM05BS2ktQlp5TGJwVjE2SEY5RXIyT0RYTUVFdF92eTFjX1VEOVEtWEd0el9POGFZZkhIQWV5NmJjUExGaGY1NEJIU0EtZjFIb0lHU0xDcnJpZTVaaFVJOGpaUXFwWnJkRVR5Uk1nRWxKRkJCM0YteFJGdEg1R2wtWlBCLVA1YnVTdktreVNWQ0ZOMVE",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "Don’t mention the data center: OpenAI calls them ‘compute campuses’ instead",
@@ -6792,6 +6904,13 @@
      "source": "Yahoo Finance",
      "time": "2026-11-07T01:50+09:00",
      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOcjZ4RWJiRVZPeUdvemVDcHVpZHRTWUNkWnRXTzI3aERJZWl6NHVBaExrWUo5Sy14dExReUhjeWFzYnhnWHBvSzdOVmhpUV9aemlfaE4wYmxHeng5Ykl2Vm5YZVdkTUZYRlFqNXVRd0FxVGR3djNrenJPcU1qcG8tZWxDUzEwMi10Ti1EbUF4Y2VESlF4ZWFlbV9WNkVaWk8y",
+     "added": "2026-11-07T02:37+09:00"
+    },
+    {
+     "title": "Anthropic Adds Bank Account Linking To Claude For Personal Finance",
+     "source": "The Mac Observer",
+     "time": "2026-11-07T01:41+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNaGEwdjl4QTY5N183SWZ4eUJJMzhyUWtUS24yU2syVDBvUkZNUklsUE9pb1RpMnZGUWtxNEkyNEJySWRvQkc4YkhJaDZDRzlxZ2lxU1NpWG55b1FYbWtQZ2wyeXAwTDFHVG9PTDBxVktqdmdtbVI2OXBHa0lCTjZ0X1phWHpYaVVJTFVSOFVzY25BMzhRRjhORzlxMWhNczRlNlE",
      "added": "2026-11-07T02:37+09:00"
     },
     {
@@ -6835,13 +6954,6 @@
      "time": "2026-11-07T01:33+09:00",
      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOYm5KMnVsSTZSUzdtZVBDNXpQSlJjeXBPMEhZNUtxQklHWllwVlhTblRZRjZXbzN6c0tGVF9IQnZMeWU1X0FBUnVVVENCUGFVS1Y4WkpBdExrUGhidHdzempRa1Vna1BrLWM5OU1SUzVVVmVCRFI3cjdrNmVwOEc0T3pxb3pPNktEdEE",
      "added": "2026-11-07T02:37+09:00"
-    },
-    {
-     "title": "OpenAI says its new GPT-6 Cyber has already uncovered 'thousands' of exploits",
-     "source": "Mashable",
-     "time": "2026-11-07T01:32+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE12NHZsclk2RGhrejRNeThJR3ltR01KcEN4ZTJOM3RzeDVsS1daYVBmX2dBMXM3U3ZaYVZGblFZeEYwell0NkVXYm5zbVJTUHEzaGF1S0IwZw",
-     "added": "2026-11-07T00:17+09:00"
     },
     {
      "title": "Anthropic IPO faces valuation cut after $2.5 trillion rout",
@@ -6904,13 +7016,6 @@
      "source": "CNBC",
      "time": "2026-11-07T01:22+09:00",
      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE54bWpvVi13alRsTVY0VGFfT0dUS3JtMG4yYVZtNDhkN2lIUndZeFVvVEdwZExsNjNPeXR1aEVVZzNSZjlBS1lSdUdoeUg4RmpWc3VqcDREUzA0RGlxZ2kzaC1KYVNzX3pxTlBLSGJtUlA0LUVq0gF6QVVfeXFMUEZaU3cwQVBvMmNCQmROc3lERDZDVHNUNXZHYVlxREdrRlZHYWwtVVV3NW5USzNoaXJXdldxejRWSUI5RklJMVlwRlBXZlRjdGg0cnlhUld3ZzVycGdOZ1o0Uk1Ja3ROV3JwMGxsQzhGa2FUbzFYa1p4aXc",
-     "added": "2026-11-07T02:37+09:00"
-    },
-    {
-     "title": "Anthropic Adds Bank Account Linking To Claude For Personal Finance",
-     "source": "The Mac Observer",
-     "time": "2026-11-07T01:18+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNaGEwdjl4QTY5N183SWZ4eUJJMzhyUWtUS24yU2syVDBvUkZNUklsUE9pb1RpMnZGUWtxNEkyNEJySWRvQkc4YkhJaDZDRzlxZ2lxU1NpWG55b1FYbWtQZ2wyeXAwTDFHVG9PTDBxVktqdmdtbVI2OXBHa0lCTjZ0X1phWHpYaVVJTFVSOFVzY25BMzhRRjhORzlxMWhNczRlNlE",
      "added": "2026-11-07T02:37+09:00"
     },
     {
@@ -7444,111 +7549,6 @@
      "time": "2026-11-06T22:57+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE91dE1WazJnRXZrZUZ1RG9NSmtBdDZ4LXJLRzZPaFpxRE14bmI5YmlQWkxLcmNiWkhHVl9hWm85cDJLSGFrTkhwLXU1MlNrZDB5UXB2YVR2V1AxN2Y1",
      "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "Study Evaluates Artificial Intelligence Integration in Sustainable Apparel Design and Production",
-     "source": "Bioengineer.org",
-     "time": "2026-11-06T22:57+09:00",
-     "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxONEgxVjQtTjhZSl9lSmlnWkpYc1psMkFFY0hxOXFBOTBDaFZyUV9DUG51YnZGbjA4UDNQUW1GdVF5VVZaRHl0bkFsMW96MnFkUVJCVHVMUEFVc0hpRmFQSUIzTndfOW9CbHhvY0FWQzlWRjN4QzhjYjgwWk9RQkxLU1k5WU9pT1p5bmRsaDZIc3ZXeVdTbE5VM1d2OGxiSEQtcHhfMlptSHJteURPRmM2dEdfVDh6OWhmbk5YcW5R",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "OpenAI Releases GPT-6 Cyber to Vetted Defenders With a Critical Rating",
-     "source": "Technology Org",
-     "time": "2026-11-06T22:56+09:00",
-     "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOVUR2amxqTGhBMDlVMTQ2TXZlaU1HY1dFQ1FrczlQVjNrWmFsM0pXLVZRTl9tLTkyZm8wRGExTHgyaW9JWlZpYk94Z1VST040RXU3dkNIVlFVMWxsdUphYVBpWVZqTTloWEpMNEZOMEpzMlFHNEtTVFBtMjdyTUpMNVRha3NrSjloZVBFOHkteDNSaWk1ZWRlZGV3",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "OpenAI Says It Will Pay for Its Data Centers’ Power After the Election Backlash",
-     "source": "24/7 Wall St.",
-     "time": "2026-11-06T22:51+09:00",
-     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQcVFwSUs1WFhYUXJEZkFBc3FNeVQwSDRIaUF6QmVfVlZEaVczdl9RemFVOC1WVTItd1MxQTVVUmU5VkJvS2FPSmZleG5DQXgzQUhYSGJDS0pZVzV2NmFrb25jN2JyQmQ4S3RYRlZsZktsQVNlZWdTbF93Z3BEb3lhQUdXcEhnaEZRbnY0dF9wM29oWUd4TXcwVWQtX1VNUHhaa0VuQzVIMnB6Q2g3eDZfajdTWnhhYUxrNjFwWFVNQQ",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "US man sues OpenAI, alleges ChatGPT helped estranged wife plan his poisoning",
-     "source": "The Times of India",
-     "time": "2026-11-06T22:51+09:00",
-     "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQdjJjbkFleVdtZkdZVnZnei1EbS1oaHM2TmRCMU43RWl4WlRmaW9qQi1MRjExb29NeWgyX0xmSzhpOWxrRzNCdjRXcVRKZEVHU1o5QjdFVlZNejdQRXQ5VmN5NF90c2JzcEpqWDIwXy1aT0hBOUVRTmhMdnNtSnRVMU5FMkxNdXRyZW9NTGlZQmlpOUJ4Nl96WTBCQjFhSUhsdERzNllXTERPRHhlbWwtd0dFRHdhX3o2OU1KaTliRHZxSjJNR1BWNnVmYXU0dWpTUG95RmxpVVpHQm90Mjc00gHkAUFVX3lxTE9SQnFCQ1NHbWZ6Mmt3SVY1U1BPeE1Iemc0ZkdZSWMydE5HSzh2UW1QLVJvTWR5RFlJcEFnSnE2ajI3bnVpcGNxSl9Halh6d3lLZF84WG5rRmpKRTRsdmxxN2pwS2R0NXY0aUloSFkwQk1CV01wYVdRRXdSeEVqdVpLTGlsS3l4bzRQSUd6NDdNMHZmZ194dHA1Uk9NZFFjVnVzQjAtRjVrVi1iamo5eE1HeHlPVlFldWQyZFNqNFA4TUhxYS10VFlFZVMtYlE1VUIybWdob0l0S1ZIZXpyR1VlaXJOWQ",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "부산시설공단, 복합문화공간 새모서 '가을 놀이터'…AI 로봇·공예 체험",
-     "source": "국토일보",
-     "time": "2026-11-06T22:49+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE02YXdoek5xRkhCaXphcTVsUk9SWVJUeHJ6WmZkUVlXMEE2SlBOZDUxNnVJN2UyTXVkMXR3YV9YYUtUZFl6REprcGlCWUNyS1JlaF8xa1pKdU1GaEIyTnAtdFA0VQ",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "AI 에이전트 활용한‘2026 청도 바이브코딩 해커톤’ 성황리에 마무리",
-     "source": "시사뉴스",
-     "time": "2026-11-06T22:46+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5UdjhjckR0WUp0S2JpbFdram1KMjBTS3M2ODNsSXBmVHp0Zl9HUk9ib0FTazhJMFpmVzJzbFE2Vm10MEo1VHYtTWVleWlGOFBRaXNiY05wRVlUSG1oYW1JdGxHTQ",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "Investors Discuss $1.2T-$1.3T Anthropic IPO Value After Rout",
-     "source": "FourWeekMBA",
-     "time": "2026-11-06T22:46+09:00",
-     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQZTFibHdGSUY0bmc0VzhtUGkxU3BUaXBxcHRiZ3pwbVZnNW9nVXdpaXp3cjZISzN6NHIya0hSWG1neEFQUHpjMUJNU3pPajB6aHJWYXhlN2paa2s0aFdyNzFGZ2UwdnFuOW5Oc3JBM0hLOWpPeV9GczAza1F3T2RmcDREc3gtdnNXa2dPNFVmNA",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "METR finds Anthropic may have crossed its own AI acceleration warning threshold back in July",
-     "source": "The Decoder",
-     "time": "2026-11-06T22:45+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNR054VXVHMWZjd3dfNXRuRE1nOFFwNWZjcWxJdWllMzZOTDNjSFJKWVFwdjdJMGJza21McXo0TGhTTGhGYWFYcUY1Um5vZEVKd0pQSUZGNm04ekFGaUU0WHVGTVoxWExUY2dxczQ5YmZnN3dvOEg0Y2MxZXN5LWNERXlkZ1RBZzU4dVpNYnpRVmJjSDNUWVVkWmctOVdLU0laOGYxcGhZcjV5MktnWnhhRHpNcFZvLWI0",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "OpenAI buys tiny software developer to improve Codex",
-     "source": "CIO",
-     "time": "2026-11-06T22:44+09:00",
-     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPOEpjQnZVU0taWkRVLUpzT1c1dXkyQkVlUFp0RzdYc1dNQTc5VXpyVlF6SXlLdnQ1ek15R3BwR0c4OTF5aURRd2dBZUxTc0Qyd29jRlF4NTlVYV9waUZGMVIwWGFUOWlsanNCRFJKOUF5TWxTTDJabGctUmNlYU14Q1pRRHFDTkVZUGZublM2QzlFQnVuUFpUTTBWWQ",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "Artificial intelligence at UC, the modern-day flame of Prometheus",
-     "source": "The News Record",
-     "time": "2026-11-06T22:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNa2tjSEp0ZmdRLVA0U3FjZnRiQ2pDNGJfcXhkZEpxZ0djdGJwR0JadWJXRlRtWVA2amFOTWVVd0NhSEg2elhjVjF0eVdGQmtKbDVLa1FITEhpdVRBYnlKeVdvTGY5OGtwNUUwajc0U3RmSkFTZjRiYmk5VlpVSWc1Ni1UdXE0SHJnQmZaV21aY0pCNzBGNDBBMG1FeVhQWmEtOFBpRlp0NEFRNmxxdkV1ZEQ4c2RYLTBVZW9SS2ZkSjA1dFNBcVFKRkNiWnBRYmx1VkNLcXhXc3Rxa1BNTlJBZGVBM3U",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "Anthropic IPO valuation discussions fall to $1.3 trillion, Bloomberg reports",
-     "source": "Investing.com",
-     "time": "2026-11-06T22:36+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNY1U0c2lOeEgyeVIzZmROZjc3T1dsbGFyM1BXei1FX1ViOFhXZmxfWmZ5ak5ZUUpWdDdWRVBnV1BaMnBiSGNGcXhPRjBMY0xDWTBvbGh2Yktfcmo1OGRSMmFYUzJnQlhmODhpODJFY1pVQlYzTDJtNFdxSmR3ZmtzbERIQVZNR3VqQnVna0N3bFlqNExoT3NPbzRwNmtaZ09hTmJCYTRTYTBaUnhVRHZUMWczMzhUVkhEQ0pya2JkeDlQWlFGZ2dPV0xn",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "Big Investors Now Doubt Anthropic Can IPO at $1.5 Trillion After the AI Crash",
-     "source": "Yahoo Finance",
-     "time": "2026-11-06T22:35+09:00",
-     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPV09qOXJRa2RBTWdiQlBLU01ibFljSkU2NkVHZXAyU2lXTjgyc1Jwc0tYdlJBeWhGRlVza0JYWXBJZkpYSHNpejdZTHBUeDBwTHF1NjFjUG56SWxxdHJJN2ZjZDg4X2JrLTA3Sl9LRWFLZmRjY0U3elhONTkyWnJDNHI1Z0FYRzVTQUlESGM1aXVISXQzZm1fVGxJMVZJN1U",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "477건 쏟아진 AI 법안…전략위, '기본법' 중심 교통정리",
-     "source": "블로터",
-     "time": "2026-11-06T22:33+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1yRGlhNDhtN1RNdktJSTRDakpIcnJpY082bFpIbEVZdi1MT1ZBNXNRbjhkSHJ2UXFpb0R6VWZGN3VhSVYxSFdNNnBPZDFHV2NsTXAyVzhqQVZiaXR4M1Rock82OU1JazZt0gFsQVVfeXFMTVhIUFhLNDNJWTdOTDBKQS1HZjNvQkdIc0pYLTRhaHVlc1JLM2Z4ZEkxWk5tNU05NUthMHFKc0N5VGNaclI5aDVPXzdscUlMa01FZ3hmdWlnSXFhRFVsbE9sVlhGWVh1blBaSDh5",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "“제주를 AI 세계미래 수도로”…제주 미래지속발전 정책세미나, 5대 혁신전략 제시",
-     "source": "뉴스N제주",
-     "time": "2026-11-06T22:32+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1pUF9ISlhhT2VkMWI2N1QyTlRTZ01GaDhYcmhEV1lIMmEtVFNvMDRaQ0lCamFkcW5tbWhsdF9DSUJDOTBVTUx4R3d1VXc3V2ZaaTNtSzllZlhzdUdFZ2VVTjREX2NlSDhXbXFDaw",
-     "added": "2026-11-07T00:17+09:00"
-    },
-    {
-     "title": "닥터프레소, HL디앤아이한라와 AI 마음건강 솔루션 협력 업무협약",
-     "source": "MEDI:GATE NEWS",
-     "time": "2026-11-06T22:31+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1rWVNxRTVoRGdzcUpvRERSemUydDNMVzdQR2FrSG0xRHdUUmNVbFhNdFdZdEpIY3ZrWjN6M3laeHg4NHI1aWxnMDJwUm9Bczl6c3ZXejljMA",
-     "added": "2026-11-07T00:17+09:00"
     }
    ]
   },
@@ -7637,7 +7637,7 @@
      "title": "“8번 이상 납입하면 연 6%”…하나증권, 토스뱅크 전용 발행어음 출시",
      "source": "디지털데일리",
      "time": "2026-11-05T10:45+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9fR1ljSDVqWUJNWGFseFpvdVYzT25aRHpRU3o3QjR2UXF5bVBuX05iTG9TVDViY0tBSlJ1bWdtX202dFZ3QzlRSngxWmllMl9jVEl1bEpEMXBvQ0lJQWJsZ1NxOFc",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1nUHBuRDdJa054U3hUNnd4Y0VkdVR1MFRjMmhLdTJjemRQUEREblRhQkhOTW5EQVlkZGVFTWRwZE9sOERwckg3dWhPanc3LUVJaDNXZVBjZHNuY1ZJU00wUGFR",
      "added": "2026-11-05T14:56+09:00"
     },
     {
@@ -7737,6 +7737,20 @@
    "key": "samsung",
    "name": "🏢 삼성",
    "items": [
+    {
+     "title": "'우승 확률 88.9%' 라팍 돌아온 삼성, 3차전도 kt 잡아냈다",
+     "source": "대경일보",
+     "time": "2026-11-07T02:35+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE53VmpCeExScG1wWkJZWDZtS3NzWmFPc2dQNU5CZUhFemFVZ2JHT2EtZTQxOEF4MUQxbEw5bkdEZzZLdE80RWxfaWRyaHVfLTVKVFBobENOckJSajRTN2pEVElsQTNDTHZ2",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "'극과극' 소름돋는 대반전! '영점' 잃고 5볼넷 대난조 → 13타자 셧다운 '불꽃투'…온실 속 도련님 아니다 [대구리포트]",
+     "source": "조선일보",
+     "time": "2026-11-07T02:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOMmtjQmdiZElEYXZ1REZzYmNKY3RBMzFMS0dpTmplLURHcS1ZX2FaM3RQdDNMN1VLeWtzaXRyNEhJaTM2anpvY3hTUmxRMVVwdlJKOUxOaC0zRW5ndlhHSUswS0h5eDJCVFZhVXF1TUZPWWR0U3lhaWZ5TWlWQ3NtNlBEMA",
+     "added": "2026-11-07T03:17+09:00"
+    },
     {
      "title": "\"민호야, 우승해\" 가을 고비마다 나타나 분위기 바꾼 왕조의 영웅들, 우승기운 받은 삼성, 12년 만에 진짜 우승하나[KS]",
      "source": "조선일보",
@@ -7841,6 +7855,13 @@
      "time": "2026-11-06T23:50+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAxbVdnSC1qNy1oeXZIelFmX0dDX3ViV3hJZDlFc2xtMUhHcGY3bjR1NEZVRXBJcGM1Y01lWEY1dDlsTWdiNXIwd2k3SkN4ZlBSR3hseERnNzltcHpxeFRUQnBVbUd3YUU",
      "added": "2026-11-07T00:17+09:00"
+    },
+    {
+     "title": "1승2패 열세 → 흐름은 최악! 1위팀 감독의 깊어지는 한숨 \"왜 우리 투수는…\" [KS3 패장]",
+     "source": "조선일보",
+     "time": "2026-11-06T23:42+09:00",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQcXgzT05vOUxXQ1FlaVEtOHdseTl0djRlaE1HWkJtZHZ4TjZTTFhVal9jbXdXVEVlcjNJd2QyRndTd2ZZX3hEanFubnd4ZktEbnRQRkFLZTZQUlVnMlpINzhDNjd1S1VSTGdNRUVTTmRyaXVJWkxzTkJUOXgyVmlZRDdoSQ",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "7-7-7 삼성 후라도, 압도적 경이적 환상적! → \"MVP는 목표가 아니다\"[KS3 현장]",
@@ -8555,27 +8576,6 @@
      "time": "2026-11-06T16:40+09:00",
      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1QbmF6NmZZUURfRVhFSE5xRUdQVUlCb0RBaEhWa0RTRDJDWkN3MThRVjBFUnR5aVU0SVROcFdfLTFWS0p5b0l3ekxGaVpYbGwzYlVDQllGS1B0T1pZdy14d1dR",
      "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "삼성전자표 AI 안경 연내 출격…메타 아성 넘을까",
-     "source": "SR타임스",
-     "time": "2026-11-06T16:40+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFByeHQ5R0tpLUZUX1NIeDRucGJ6eDR1SXBGSDFjM09vVmhMTVZacXRWUEZsU2NRbDNkY3RqVi0zbUkzRWlkQzhmTzdyRzgzb0NKczRMa05sTGF3WVRIYVlURkswZHRNQWg00gFrQVVfeXFMTnZHMGRRM3prbW05ZlpFQXRKMG9sZ3FTQ2JlTWNYTzB1ZWU3ZGhYdjFvRWgybmZDVlB6Z1FiVVVXTUtLMElGSUZZS1o1c21zaWRaakwtNUE4VkJnMW4yOHRtdlZVSDZwbW5iV3M",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "박진만 삼성 감독 \"배찬승이 있어 원태인 선발로 돌린다\"",
-     "source": "연합뉴스",
-     "time": "2026-11-06T16:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9OSV9VTDN6VzRvdDVPcUhHRlk0Y19TQTV3a2N6T3lpQmR2ejVSNmE3dkttNThVSG5FTGh4TXhVaV8xaXRQYXQxMUY2SGEzSkhFQVM2LXZiLUtYdknSAWBBVV95cUxQRFNfQ0lDWXJnNVc4R3pnOXBNRFV5ZUdmS3hER3RHVUpocEpPQ09KTXIyU2MxOU1PeHM0QlE1anM3R3pKQXlMbG1SZFZ0enBhaWhrUU5GempraU5PV183MHE",
-     "added": "2026-11-06T18:17+09:00"
-    },
-    {
-     "title": "[KS3]투혼으로 안방 지킨다…삼성 주전 포수 강민호 “수비에서 최소 실점 하는게 내 역할”",
-     "source": "스포츠경향",
-     "time": "2026-11-06T16:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFB0TEk5aFRMY2E0SHFIQlRjaE5Od1Z5WWVSdnRTSUNqVEg0eHBKU0dVNXphV1dZNnRJMWJaZjJPb3otNmx3djlWbDdzX05yZ0NzRC0tNGFYVm5yQkhhcUHSAWNBVV95cUxOQzFJNUFiSmtBamFrZ29tOEV6bU9felA0TUNkdlM1YU4zM2NpWWo4MUp6THA3RzlWQlNzUzJ2cWtOZWdUNDNEMXVJUExhNkY1S2xuRThHbXRER0d4Z21Fc2RQQ1U",
-     "added": "2026-11-06T18:17+09:00"
     }
    ]
   },
@@ -8583,6 +8583,27 @@
    "key": "nvidia",
    "name": "🟩 엔비디아",
    "items": [
+    {
+     "title": "엔비디아 살까, 말까…앤트로픽 IPO 고비 넘겨야[박신영의 개장전 요것만]",
+     "source": "한국경제",
+     "time": "2026-11-07T03:03+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9kSlc2dmtnZ3NkVkpXblpqVFZwMnV3WThZRnhsMWk2RFRlRUhFaUVzejY0TUs0aFdBQmtnN252dnZzOTV2emNhQWtzMlViQXkyTlpSbWg3SXVmUQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "150억 어치 ‘엔비디아 칩’, 트럭째 사라졌다…美경찰 수사",
+     "source": "문화일보",
+     "time": "2026-11-07T02:41+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB2dTJBbF9WVFdxbzJ0MGJlN01aOVd6QkZMb0xIb05UeUlEc05XSENEQW96cTRsczRtZVd2TE8wLXRqUGswSndmVVIxR0Nnb2wz",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "\"TSMC, 첨단 AI 메모리 반도체 생산 검토…엔비디아 요청\"",
+     "source": "연합인포맥스",
+     "time": "2026-11-07T02:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB4OUJiNUtuQU14ejFFbGI1MFMxTzZmWDNWZkJGT2Z6ZU5nQWEyT1dMVjJ2eTFEY0JnRGN3QXFOQVVTVUZ0SDlGaU1DdjhqSzNiVmxhRzFMRVJ3c3N5WV9OYmluVTRtVjNpcEhBNmVYVDQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
     {
      "title": "\"TSMC, 엔비디아 요청에 첨단 메모리 진출 검토\"…삼성·SK하이닉스 경쟁 가능성",
      "source": "뉴스핌",
@@ -9401,27 +9422,6 @@
      "time": "2026-11-06T12:36+09:00",
      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5WeTlGdnYtS0p4cVZsaHBOR0xteHVOQkx1NHMxQ2lBYW56LWozWkhCeEU4eXYtamZUSkNoYVA1amMtRWUzQ1RtdllUd09Ic2tkVkN6TXVpVEl4Wk1TMDVtR0VkZlNFcVpZX1E",
      "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "美하원, 젠슨 황에 '中 간첩 의혹' 여성과 관계 해명 요청",
-     "source": "뉴시스",
-     "time": "2026-11-06T12:22+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBZYUdDX3hlTnhMQ21zY1h5Tmh3Yk5rNHRRNE5DTGd5aUYwMG1PS1A4LS11Mm1nNDhCeHZIeEF3UFROWlBWX2FnVXh4anoyNjJFNE1fNXQ5WTExM3Byek00MdIBeEFVX3lxTE5PcGZsV3RWT1JNV3ZNRTFVQk9JTnJRbm5pX1BqZTEyaHRHeGluOHIzOHZxS251RnA3aTF3MTdBcTBPMzJaWFlLMGNyNG9rODlFVDhtTXRoWFNGSk9aUER1VF8ySWxWalJhUFdJcTFpUk5iQUpIa0Q0NA",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "엔비디아 H200 칩 60만장, 홍콩서 대기",
-     "source": "SBS Biz",
-     "time": "2026-11-06T12:15+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5IZTgxc3BZVGI3ZkloWUoxSVJza1Juc0J2SWZ3NlZNQTdRUFBoLUV3RE8yclVyYkV1VzZ0MGFqeFpLeklYX3FRTHVuQWtnbjYxcnR30gFYQVVfeXFMTVdkTUdSSjR1T2xSTEFYVWRaOUg4OU1ocTZzaGszdlhrV21aYlBZWXpiSnRYRHduX3pyWjdXQjZXd29aaFhveENBZ2FPbUFGaURaSlhsZ09URg",
-     "added": "2026-11-06T15:17+09:00"
-    },
-    {
-     "title": "\"中당국 수입 승인보류에 엔비디아칩 60만장 홍콩서 대기\"",
-     "source": "연합뉴스",
-     "time": "2026-11-06T12:01+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE56LTRMeDR3OE5LRGF2RVRPQkVxQ3dYZDd6VW5XdkRLaDNrSWkwMDdEVnNwRmVJZzdoSWdDQUktbGlzYUZlNlRvZUh2Zm5TdHE0U3Z0NzJMQUNWVFdNcW1iWdIBYEFVX3lxTE56LTRMeDR3OE5LRGF2RVRPQkVxQ3dYZDd6VW5XdkRLaDNrSWkwMDdEVnNwRmVJZzdoSWdDQUktbGlzYUZlNlRvZUh2Zm5TdHE0U3Z0NzJMQUNWVFdNcW1iWQ",
-     "added": "2026-11-06T11:00+09:00"
     }
    ]
   },
@@ -11968,6 +11968,27 @@
    "name": "♾️ 메타",
    "items": [
     {
+     "title": "Design the Muse App, Just for You",
+     "source": "Meta 뉴스룸",
+     "time": "2026-11-07T03:00+09:00",
+     "link": "https://about.fb.com/news/2026/11/introducing-spaces-customize-muse-app/",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "“변호사 선임하라”…美 민주당, 애플·메타·머스크에 ‘의회 조사’ 예고",
+     "source": "조세일보",
+     "time": "2026-11-07T00:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFAxZnNRVHBHaFNUUXg1YjR0MlJCcFU3ZEJISlI1NUhuQlJud3pvWk8yU29kY2U1aEJKRzJGdjktVndGRF9CUHRfXzJtX1MtYlBoekVvTWJXVlZIQ3h2MElr",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
+     "title": "트럼프 행정부, 메타의 저커버그와 엔비디아의 황이 포함된 패널 회의 연기",
+     "source": "TradingView",
+     "time": "2026-11-06T23:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9MdE9ScWF6eW5WS19OcUhTVzM5bm1wRGNHSzgxTmxZZjFEQzhvWjhrOWhZMWhWamhNN20xRHhoX0xsYmc5Z1N0b3dQeUZSZGxuZmx2cFc4RTJKQzV6cmt1SWpVQ0FpOHpGdkxLZ3kyWXhpUTgzUVlodQ",
+     "added": "2026-11-07T03:17+09:00"
+    },
+    {
      "title": "메타(META) 무의결권 C주 배당…사실상 2대1 분할, 2027년 1월 19일",
      "source": "코인리더스",
      "time": "2026-11-06T19:01+09:00",
@@ -11987,6 +12008,13 @@
      "time": "2026-11-06T07:19+09:00",
      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1FMVJHcXU2RHZHc2NkT0hNcHBZbjliLWozcHhNTWpUNkM4MUFnU0gyYzJaZnRWWHJtZ0hHSElLbzZ2amJOTk5SV0ZjTFExYXVnY29RTFd0MkJndXh1eEZxaWxXZTM4ZGRZVjg1dGRDQnZTQlE",
      "added": "2026-11-06T09:17+09:00"
+    },
+    {
+     "title": "12화 공짜로 준 설계도 한 장이 AI 판을 흔들었다",
+     "source": "브런치",
+     "time": "2026-11-06T05:31+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9rUmxJM0doTlR4MmJ3Z3ZmR2dFU3RQbElISHVnaWIzRHU4ZTc5aG8yN3JmRlIyMXVoV1NPdjJUMzdGMTZEb2FINnRwZ2ozQQ",
+     "added": "2026-11-07T03:17+09:00"
     },
     {
      "title": "Give Your Muse a Voice",
