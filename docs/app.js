@@ -611,7 +611,7 @@ const allRows = (override = {}) => Object.fromEntries(days.map(x => [x.iso, over
 function alarmNote(s) {
   const t = todayKST(), hour = new Date(Date.now() + 9 * 3600e3).getUTCHours();
   if (s < t) return "저장됨 ✓";
-  if (s === t || (s === addDays(t, 1) && hour >= 22)) return "저장됨 ✓ 이 날 알람은 이미 예약돼서 앱에만 반영돼요";
+  if (s === t || (s === addDays(t, 1) && hour >= 22)) return "저장됨 ✓ 할 일 알림엔 반영돼요 · 시간 알람은 이미 예약돼서 앱에만 반영돼요";
   return "저장됨 ✓ 전날 밤 10시에 알람이 예약될 때 반영돼요";
 }
 async function saveDay(i, day, quick) {

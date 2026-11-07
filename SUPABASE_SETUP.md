@@ -45,6 +45,18 @@ GitHub Secrets: 저장소 **Settings → Secrets and variables → Actions → N
 `settings.json`에 ntfy 토픽이 있는 **계정마다** 그 계정의 일정으로만 알람을 예약해요.
 공개 로그에는 이메일이나 일정 내용 없이 "계정 1: 알림 8개 예약"처럼 개수만 남아요.
 
+### 📋 '오늘 해야 할 일' 알림을 정시에 보내기 (한 번만)
+GitHub Actions 예약 실행은 몇 시간씩 늦게 돌 때가 많아요. 그래서 할 일 알림이 **예약할 때의 할 일**로만 만들어져서,
+그 뒤에 적은 할 일은 알림에 안 들어갔어요. 이걸 Supabase 가 직접 정시에 보내게 바꿀 수 있어요.
+
+1. Supabase **SQL Editor → New query** 에 [`supabase/todo_reminders.sql`](supabase/todo_reminders.sql) 내용을 붙여넣고 **Run**
+   (pg_cron·pg_net 확장을 켜요. "extension ... must be enabled" 같은 오류가 나면 **Database → Extensions** 에서 `pg_cron`, `pg_net` 을 켜고 다시 Run)
+2. 끝! 1분마다 확인해서 `schedule.json` 의 `todo_reminders` 시각(07:30·08:00·21:00 등)이 되면 **그 순간의 할 일 목록**으로 보내요.
+   GitHub Actions 는 이걸 알아채고 할 일 알림만 따로 예약하지 않아요 (나머지 일정 알람·요약은 그대로).
+
+- 알림 시각에서 20분 안에 못 보내면 그 알림은 건너뛰어요. 같은 알림은 한 번만 가요.
+- 끄려면 SQL Editor 에서 `select cron.unschedule('alam-todo-reminders');` → 다음 실행부터 GitHub Actions 가 다시 예약해요.
+
 ## 학교·학년별 교과서 출판사 공유 (한 번만)
 같은 학교 같은 학년 친구가 등록한 출판사를 새로 로그인한 사람에게 "이거 맞아요?" 하고 보여 주려면 공유 표가 필요해요.
 Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schema.sql) 전체를 다시 붙여넣고 **Run** 하세요. (여러 번 실행해도 괜찮아요)
