@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""2000년부터 지난달까지의 예전 뉴스를 분야·반달마다 구글 뉴스에서 찾아 연도별 보관함에 채워요.
+"""2000년부터 지난달까지의 예전 뉴스를 분야·며칠마다 구글 뉴스에서 찾아 연도별 보관함에 채워요.
 
 GitHub Actions(.github/workflows/news-archive.yml)에서 분야마다 따로(동시에) 실행돼요.
-구글 뉴스 검색은 한 번에 최대 100개쯤만 주기 때문에 기간을 반달씩 잘게 나눠서 검색해요.
+구글 뉴스 검색은 한 번에 몇십 개만 주기 때문에 (예전 기간일수록 더 적게) 한 달을 SPLIT 조각(기본 8, 약 4일씩)으로
+잘게 나눠서 검색해요. 반달(2조각)씩 검색했을 땐 한 해에 300개쯤밖에 안 모였어요.
 어디까지 받았는지 docs/news/progress/<분야>.json 에 적어 두고, 다 채운 기간은 다시 안 받아요.
 
   python news_archive.py                 # 모든 분야 이어서 받기
@@ -21,10 +22,12 @@ PROGRESS_DIR = news.ARCHIVE / "progress"
 MAX_REQUESTS = int(os.environ.get("MAX_REQUESTS", "1000") or 1000)
 MAX_MINUTES = float(os.environ.get("MAX_MINUTES", "300") or 300)
 SLEEP = float(os.environ.get("SLEEP", "1.0") or 1.0)
+SPLIT = max(1, min(16, int(os.environ.get("SPLIT", "8") or 8)))   # 한 달을 몇 조각으로 나눠 검색할지
 
 
 def periods(only_year=None):
-    """받을 기간 (반달) 목록: 최근 → 예전 순서. 이번 달은 news.py 가 채우니 빼요."""
+    """받을 기간 목록 (한 달을 SPLIT 조각으로): 최근 → 예전 순서. 이번 달은 news.py 가 채우니 빼요.
+    기간 이름은 "2008-05/8-3" (8조각 중 3번째) 처럼 조각 수가 들어가서, SPLIT 을 바꾸면 새로 받아요."""
     today = date.today()
     y, m = today.year, today.month
     out = []
@@ -37,15 +40,17 @@ def periods(only_year=None):
         if only_year is not None and y != only_year:
             continue
         ny, nm = (y + 1, 1) if m == 12 else (y, m + 1)
-        mid = f"{y}-{m:02d}-16"
-        out.append((f"{y}-{m:02d}b", mid, f"{ny}-{nm:02d}-01"))
-        out.append((f"{y}-{m:02d}a", f"{y}-{m:02d}-01", mid))
+        last = (date(ny, nm, 1) - date(y, m, 1)).days
+        starts = [1 + i * last // SPLIT for i in range(SPLIT)]
+        bounds = [f"{y}-{m:02d}-{d:02d}" for d in starts] + [f"{ny}-{nm:02d}-01"]
+        for i in reversed(range(SPLIT)):
+            out.append((f"{y}-{m:02d}/{SPLIT}-{i + 1}", bounds[i], bounds[i + 1]))
     return out
 
 
 def run_category(key, q, only_year, deadline, budget):
     path = PROGRESS_DIR / f"{key}.json"
-    done = set(news.read_json(path, {}).get("done", []))
+    done = {p for p in news.read_json(path, {}).get("done", []) if "/" in p}   # 예전 반달 이름("2008-05a")은 버리고 새로 받기
     todo = [p for p in periods(only_year) if p[0] not in done]
     print(f"[{key}] 남은 기간 {len(todo)}개")
     reqs, fails, total = 0, 0, 0
@@ -70,7 +75,7 @@ def run_category(key, q, only_year, deadline, budget):
         total += n
         done.add(pid)
         year_new[pid[:4]] = year_new.get(pid[:4], 0) + n
-        if pid.endswith("01a"):   # 한 해를 다 받으면 한 줄
+        if pid.startswith(pid[:4] + "-01/") and pid.endswith("-1"):   # 한 해를 다 받으면 한 줄
             print(f"[{key}] {pid[:4]}년: 새 기사 {year_new[pid[:4]]}개")
         if reqs % 40 == 0:   # 중간에 멈춰도 받은 데까지는 남게
             save(path, done, todo)
