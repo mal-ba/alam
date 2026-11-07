@@ -90,6 +90,13 @@ def run_user(uid, topic, extra_args):
 
 def main():
     extra = [a for a in sys.argv[1:] if a in ("--force",)]
+    # supabase/todo_reminders.sql 을 실행했으면 '오늘 해야 할 일' 알림은 Supabase 가 그 시각에 바로 보내요 → 여기선 예약 안 함
+    try:
+        by_db = rest("POST", "rpc/todo_reminders_on", {}) is True
+    except Exception:
+        by_db = False
+    os.environ["ALAM_TODO_BY_DB"] = "1" if by_db else ""
+    print("할 일 알림: " + ("Supabase 가 정시에 보냄" if by_db else "여기서 미리 예약"))
     rows = rest("GET", "docs?path=eq.settings.json&select=user_id,content")
     n = 0
     for i, row in enumerate(rows, 1):

@@ -636,7 +636,9 @@ def main():
         print(f"  예약 {when:%H:%M}  {msg}")
         notify.send(title, msg, at=when)
 
-    for when, title, msg in todo_reminders(planner, today, tz):
+    # Supabase(supabase/todo_reminders.sql)가 정시에 그 순간의 할 일로 보내면 여기선 예약 안 함 (두 번 안 오게)
+    by_db = os.environ.get("ALAM_TODO_BY_DB") == "1"
+    for when, title, msg in [] if by_db else todo_reminders(planner, today, tz):
         if not args.date and when <= now + timedelta(seconds=30):
             print(f"  건너뜀(이미 지남) {when:%H:%M} 할 일 알림")
             continue
