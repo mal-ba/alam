@@ -35,6 +35,7 @@ jobs:
           CAT: ${{ matrix.cat }}
           YEAR: ${{ github.event.inputs.year }}
           MAX_MINUTES: "100"
+          MAX_REQUESTS: "4000"   # 시간(100분)이 먼저 끝나면 거기까지
       - name: 저장(커밋)
         if: always()
         run: |

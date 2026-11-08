@@ -64,18 +64,22 @@ const SB = CFG.supabaseUrl && CFG.supabaseAnonKey && window.supabase
   ? window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey, { auth: { persistSession: true, detectSessionInUrl: true, flowType: "pkce" } })
   : null;
 if (SB && token) { store("token", null); token = null; }   // 🔒 Supabase 를 쓰면 예전 GitHub 토큰은 필요 없어요 → 기기에 남기지 않기
-let sbUser = null, sbAll = false;   // sbAll: 내 문서를 한 번에 다 받아 둠 (캐시가 곧 전부)
+let sbUser = null, sbAll = false, sbLoadedAt = 0;   // sbAll: 내 문서를 한 번에 다 받아 둠 (캐시가 곧 전부)
 function sbErr(error) {
   const e = new Error(error.message || String(error));
   e.status = /JWT|auth|401/i.test(error.message || "") ? 401 : error.code === "42501" ? 403 : (error.status || 0);
   return e;
 }
 async function sbLoadAll() {
-  files.clear();
   const { data, error } = await SB.from("docs").select("path,content,updated_at").limit(10000);
   if (error) throw sbErr(error);
+  files.clear();   // 다 받은 다음에 바꿔요 (받는 동안 캐시가 비어 보이지 않게)
   for (const r of data) files.set(r.path, { text: r.content, sha: r.updated_at });
-  sbAll = true;
+  sbAll = true; sbLoadedAt = Date.now();
+}
+// 앱을 오래 켜 두면 다른 기기·알림 작업이 바꾼 내용을 못 봐요 → 1분 넘게 지났으면 다시 받아요
+async function sbRefresh(maxAge = 60e3) {
+  if (SB && sbUser && sbAll && Date.now() - sbLoadedAt > maxAge) await sbLoadAll();
 }
 async function getFile(path, force) {
   if (!force && files.has(path)) return files.get(path);
@@ -95,14 +99,24 @@ async function getFile(path, force) {
 // fn(현재내용|null) -> 새 내용. 충돌(다른 곳에서 먼저 저장)이면 최신본으로 한 번 더 시도
 async function updateFile(path, fn, message) {
   if (SB) {
-    const cur = await getFile(path);
-    const text = fn(cur ? cur.text : null);
-    if (cur && text === cur.text) return;
-    const { data, error } = await SB.from("docs")
-      .upsert({ user_id: sbUser.id, path, content: text, updated_at: new Date().toISOString() }, { onConflict: "user_id,path" })
-      .select("updated_at").single();
-    if (error) throw sbErr(error);
-    files.set(path, { text, sha: data.updated_at }); return;
+    // 🔒 항상 서버의 최신본 위에 고쳐요. 앱에 남아 있던 예전 내용으로 저장하면
+    //    다른 기기에서 고친 날짜(예: 월간에서 고친 계획)가 예전 내용으로 덮여 버려요.
+    //    받은 뒤 저장 전에 다른 곳에서 또 바뀌었으면(updated_at 다름) 한 번 더 받아서 다시 해요.
+    for (let attempt = 0; ; attempt++) {
+      const cur = await getFile(path, true);
+      const text = fn(cur ? cur.text : null);
+      if (cur && text === cur.text) return;
+      const now = new Date().toISOString();
+      let q;
+      if (cur) q = SB.from("docs").update({ content: text, updated_at: now }).eq("path", path).eq("updated_at", cur.sha).select("updated_at");
+      else q = SB.from("docs").insert({ user_id: sbUser.id, path, content: text, updated_at: now }).select("updated_at");
+      const { data, error } = await q;
+      const lost = cur ? !error && !(data || []).length : error && error.code === "23505";   // 그 사이 다른 곳에서 바꿈 / 먼저 만듦
+      if (lost && attempt < 2) continue;
+      if (error) throw sbErr(error);
+      if (lost) throw Object.assign(new Error("다른 곳에서 동시에 고치고 있어요. 잠시 뒤 다시 저장해 주세요."), { status: 409 });
+      files.set(path, { text, sha: data[0].updated_at }); return;
+    }
   }
   for (let attempt = 0; attempt < 2; attempt++) {
     const cur = await getFile(path, attempt > 0);
@@ -323,9 +337,14 @@ function showsToday() {
   if (mode === "year") return anchor.slice(0, 4) === t.slice(0, 4);
   return anchor === t;   // 오늘, 보고서
 }
-let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오기가 새 화면을 덮지 않게
+let loadSeq = 0;
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && SB && sbUser && sbAll && Date.now() - sbLoadedAt > 60e3 && !saving && !editDirty()) load();
+});   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오기가 새 화면을 덮지 않게
 async function load() {
   const seq = ++loadSeq;
+  try { await sbRefresh(); } catch (e) { /* 못 받으면 가진 것으로 */ }
+  if (seq !== loadSeq) return;
   editing = null; repDraft = null; secEdit = null; weakDraft = null;
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
   const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak";
