@@ -47,6 +47,9 @@ CATEGORIES = [
     ("nation", "🇰🇷 국내", f"{BASE}/headlines/section/topic/NATION?{TAIL}", "사회 OR 사건 OR 교육 OR 날씨"),
     ("diplomacy", "🤝 외교", search_url("외교 OR 정상회담 OR 유엔 OR 안보리 OR 외교장관 OR 외무장관 OR 국무장관 OR 휴전 협상 OR 평화회담 OR 한미동맹 OR \"한미 정상\" OR 대북 OR 북미 OR G7 OR G20 OR NATO when:2d"),
      "외교 OR 정상회담 OR 유엔 OR 안보리 OR 외무장관 OR 국무장관 OR 평화회담 OR 한미동맹 OR 대북"),
+    ("worldpol", "🗳️ 세계 정치", search_url('"미국 대선" OR 백악관 OR 트럼프 OR "미 의회" OR 총선 OR 총리 OR 연립정부 OR 탄핵 '
+                                           'OR 시진핑 OR 푸틴 OR 젤렌스키 OR 유럽연합 OR "일본 정부" OR "해외 정치" when:2d'),
+     '"미국 대선" OR 백악관 OR 총선 OR 총리 OR 시진핑 OR 푸틴 OR 유럽연합 OR "일본 총리"'),
     ("politics", "🏛️ 정치", search_url("정치 OR 국회 OR 대통령실 when:2d"), "정치 OR 국회 OR 대통령 OR 청와대"),
     ("sports", "⚽ 체육", f"{BASE}/headlines/section/topic/SPORTS?{TAIL}", "스포츠 OR 축구 OR 야구 OR 올림픽 OR 농구 OR 배구"),
     ("health", "🩺 의학", f"{BASE}/headlines/section/topic/HEALTH?{TAIL}", "의학 OR 의료 OR 건강 OR 질병 OR 신약 OR 병원"),
@@ -69,6 +72,9 @@ EXTRA_FEEDS = {
                     'OR "foreign minister" OR "secretary of state" OR "peace talks" OR ceasefire when:2d', TAIL_EN), "Google News"),
         ("https://news.un.org/feed/subscribe/en/news/all/rss.xml", "UN News"),
     ],
+    # 세계 정치: 해외 언론 정치 기사도 같이 (영어 제목)
+    "worldpol": [(search_url('election OR parliament OR "prime minister" OR president OR "White House" OR Congress '
+                             'OR Kremlin OR Beijing OR "European Union" OR coalition OR impeachment when:2d', TAIL_EN), "Google News")],
     # 인공지능: 해외 언론 소식도 같이 (영어 제목)
     "ai": [(search_url('"artificial intelligence" OR OpenAI OR Anthropic OR "Google DeepMind" OR LLM when:2d', TAIL_EN), "Google News")],
     "samsung": [("https://news.samsung.com/kr/feed", "삼성전자 뉴스룸")],
