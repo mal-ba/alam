@@ -65,7 +65,7 @@
 |---|---|
 | `docs/` | 앱 (GitHub Pages) |
 | `docs/index.html` | 화면(HTML·CSS) + 🔒 보안 정책(CSP) |
-| `docs/app.js` | 앱 코드 (예전엔 index.html 안에 있었어요. CSP 때문에 따로 뺐어요) |
+| `docs/app.js` | 앱 코드 (예전엔 index.html 안에 있었어요. CSP 때문에 따로 뺐어요). 고치면 `index.html` 의 `app.js?v=` 값을 바꿔요 (`sha1sum docs/app.js` 앞 10자리) — 안 바꾸면 브라우저에 남은 예전 app.js 가 새 화면과 섞여요 |
 | `docs/boot.js` | 앱보다 먼저: 다른 사이트의 틀(iframe) 안에서 열리면 숨김 + `config.js` 새로 받기 |
 | `docs/sandbox.html` | 코딩 공부 HTML·CSS 실행 칸 (앱 로그인 정보에 못 닿는 격리된 틀) |
 | `docs/config.js` | Supabase 주소·publishable 키 (공개돼도 되는 값) |
