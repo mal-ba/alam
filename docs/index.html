@@ -455,6 +455,66 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 body{background:var(--bg)}
 header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 .navrow .label,.hl-h{text-shadow:0 0 6px var(--bg),0 0 12px var(--bg)}
+/* 📝 모의고사 */
+.mkinds{display:grid;grid-template-columns:repeat(4,1fr)}
+.mkinds button{font-size:13px;padding:8px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.3px}
+.muted{color:var(--muted)}
+.mstat{font-size:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mbar{flex:1;min-width:80px;height:8px;background:var(--input);border-radius:99px;overflow:hidden;display:inline-block}
+.mbar i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.vtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.vtop .lvtag{margin-top:0}
+.vcard{text-align:center}.vcard .vtop{justify-content:space-between;text-align:left}
+.vword{font-size:30px;font-weight:800;margin:18px 0 6px;word-break:break-word;letter-spacing:.2px}
+.vmean{font-size:18px;font-weight:600;color:var(--accent)}
+.vopts{display:grid;gap:8px;margin-top:12px;text-align:left}
+.vopt{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:10px 12px;font:inherit;cursor:pointer;text-align:left}
+.vopt:disabled{cursor:default;opacity:.75}
+.vopt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--card));opacity:1;font-weight:700}
+.vopt.wrong{border-color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,var(--card));opacity:1}
+.vres{margin-top:10px;font-weight:700}.vres.ok{color:var(--ok)}.vres.no{color:var(--danger)}
+.vwrong{color:var(--danger);font-size:12px;font-weight:700}
+.minput{width:100%;border:1px solid var(--line);background:var(--input);color:var(--text);border-radius:8px;padding:9px 10px;font:inherit;box-sizing:border-box}
+.minput.sm{width:80px;margin:0 8px 6px 4px}
+.vlist{list-style:none;margin:10px 0 0;padding:0}
+.vlist li{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line);font-size:14px}
+.vlist li b{min-width:30%;word-break:break-word}.vlist li span{flex:1;color:var(--muted)}
+.vlist li.ok b{color:var(--ok)}
+.vchk{flex:none;width:24px;height:24px;border-radius:6px;border:1.5px solid var(--line);background:var(--card);color:#fff;cursor:pointer;font-weight:800;padding:0}
+.vlist li.ok .vchk{background:var(--ok);border-color:var(--ok)}
+.mlist{list-style:none;margin:0;padding:0}
+.mlist button{width:100%;display:flex;align-items:center;gap:10px;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;color:var(--text);padding:11px 2px;font:inherit;cursor:pointer}
+.mtag{flex:none;font-size:11px;font-weight:800;border-radius:6px;padding:3px 7px;background:var(--input);color:var(--muted)}
+.mtag.kice{background:#ede9fe;color:#6d28d9}.mtag.csat{background:#fee2e2;color:#b91c1c}
+.mdone{margin-left:auto;flex:none;color:var(--ok);font-weight:800;font-size:13px}
+.mnote{background:var(--accent-weak);border-radius:10px;padding:10px 12px;font-size:13px;margin:10px 0}
+.mkh{font-size:14px;margin:12px 0 8px;color:var(--muted)}.day>.mkh:first-child{margin-top:0}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
+.msubj{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:10px;font:inherit;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:4px;text-align:left}
+.msubj small{color:var(--muted);font-size:11px}.msubj.done{border-color:var(--ok)}.msubj.done small{color:var(--ok);font-weight:800}
+.mtimer{display:flex;align-items:center;gap:8px;margin-top:6px}
+#mclock{font:700 22px/1 ui-monospace,Menlo,Consolas,monospace;min-width:84px}#mclock.over{color:var(--danger)}
+.msheet{columns:260px;column-gap:22px}.mrow{break-inside:avoid}
+.mrow{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.mrow.msep{border-top:2px solid var(--accent)}
+.mrow.no{background:color-mix(in srgb,var(--danger) 8%,transparent)}
+.mn{width:26px;text-align:right;font-weight:800;font-size:13px;color:var(--muted);flex:none}
+.mcells{display:flex;gap:5px}
+.mb{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--muted);font:700 13px/1 inherit;cursor:pointer;padding:0}
+.mb.on{background:var(--text);border-color:var(--text);color:var(--card)}
+.mb:disabled{cursor:default}
+.mshort{width:120px;border:1.5px solid var(--line);background:var(--input);color:var(--text);border-radius:8px;padding:6px 8px;font:inherit}
+.mok,.mno{font-size:13px;margin-left:auto}.mno small{color:var(--danger);font-weight:800}
+.mscore{text-align:center}.mbig{font-size:36px;font-weight:800;color:var(--accent)}.mbig small{font-size:18px;color:var(--muted)}
+.mkeyline{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.mkeyline span{display:inline-flex;flex-direction:column;align-items:center;min-width:26px;padding:2px 3px;border-radius:6px;background:var(--input);font-weight:700;font-size:13px}
+.mkeyline small{font-size:9px;color:var(--muted);font-weight:600}
+.mstats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.mstats div{background:var(--input);border-radius:10px;padding:10px;text-align:center}.mstats b{display:block;font-size:22px}.mstats small{color:var(--muted);font-size:12px}
+.mavg{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px}.mavg>span:first-child{min-width:72px}
+.pq .pqn{font-weight:700;line-height:1.5}
+.ppass{background:var(--input);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:14px;line-height:1.6}
+.pexp{margin-top:6px;font-size:13.5px;line-height:1.55;color:var(--muted)}
+@media (min-width:700px){.mstats{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
@@ -475,6 +535,7 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
   <div id="moreMenu" class="moremenu" hidden>
     <button data-mode="exam">📝 시험 범위·진도</button>
     <button data-mode="weak">🩹 과목별 부족한 점</button>
+    <button data-mode="mock">📝 모의고사 · 영어 단어</button>
     <button data-mode="books">📚 교과서 출판사</button>
     <button data-mode="year">📆 연간 계획</button>
     <button data-mode="map">🗺️ 지도·길찾기</button>

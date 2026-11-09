@@ -232,7 +232,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak", "mock"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -328,11 +328,11 @@ async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null; weakDraft = null;
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점" }[mode];
+  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점", mock: "📝 모의고사" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   $("noticeBtn").setAttribute("aria-pressed", mode === "notice");
@@ -346,6 +346,7 @@ async function load() {
   if (mode === "learn") return loadLearn(seq);
   if (mode === "web") return loadWeb(seq);
   if (mode === "weak") return loadWeak(seq);
+  if (mode === "mock") return loadMock(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -499,7 +500,7 @@ function renderYear() {
       cells.push(`<button class="${c}" data-act="ygo" data-date="${s}" title="${esc(schoolOff(s) || examOf(s) || (school().notes || {})[s] || "")}">${+s.slice(8)}</button>`);
     }
     return `<div class="mini"><div class="mt">${m === 1 || (y === Y - 1 && m === 12) ? `${y}.${m}` : m}</div>
-      <div class="mh">${"SMTWTFS".split("").map((x, k) => `<span class="${k === 0 ? "sun" : k === 6 ? "sat" : ""}">${x}</span>`).join("")}</div>
+      <div class="mkh">${"SMTWTFS".split("").map((x, k) => `<span class="${k === 0 ? "sun" : k === 6 ? "sat" : ""}">${x}</span>`).join("")}</div>
       <div class="mg">${cells.join("")}</div></div>`;
   };
   $("view").innerHTML = `<section class="day year"><div class="ybig">${Y}</div><div class="ygrid">${months.map(mini).join("")}</div>
@@ -562,6 +563,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("L")) return learnClick(b);
   if (act.startsWith("w")) return webClick(b);
   if (act.startsWith("K")) return weakClick(b);
+  if (act.startsWith("M")) return mockClick(b);
   if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); newsShow = NEWS_PAGE; return renderNews(); }
   if (act === "nmore") { newsShow += NEWS_PAGE; return newsList(); }
   if (act === "ngonotice") { if (!leaveOk()) return; mode = "notice"; store("mode", mode); return load(); }
@@ -2566,6 +2568,352 @@ async function showAccount(err) {
   };
 }
 $("openSettings").onclick = () => showSettings();
+
+/* ---------- 📝 모의고사 (목록·단어·연습 문제: docs/mock.json, 내 기록: Supabase mock.json) ----------
+   기출 시험지·정답 PDF 는 저작권이 출제 기관에 있어서 앱에 넣지 않고 EBSi·검색 링크로 열어요.
+   앱에서는 OMR 답안지에 표시하고, 정답표를 한 번 넣어 두면 채점해요. */
+const MOCK_PATH = "mock.json";
+let mockData = null, mockMe = null, mockTab = store("mtab") || "word";
+let mockG = +store("mg") || 3, mockY = +store("my") || 0, mockExam = null, mockSubj = null, mockKeyEdit = false, mockSetEdit = false, mockGraded = false;
+let vMode = store("vmode") || "card", vLv = store("vlv") || "all", vCur = null, vShow = false, vQuiz = null, vRev = store("vrev") === "1", vQuery = "", vShowN = 60, vScore = [0, 0];
+let pSubj = store("psubj") || "국어", pPick = {}, mockTimer = null, mockSaveT = null;
+const mockBlank = () => ({ v: {}, keys: {}, sheets: {}, conf: {}, results: [], prac: {} });
+
+async function loadMock(seq = loadSeq) {
+  $("label").innerHTML = `모의고사<span class="sub">📖 영어 단어 · 📝 기출 OMR 채점 · ✏️ 연습 문제</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try {
+    const [r, f] = await Promise.all([mockData ? null : fetch("mock.json?v=" + Date.now(), { cache: "no-store" }), SB ? getFile(MOCK_PATH) : null]);
+    if (r) mockData = await r.json();
+    let p = null; try { p = JSON.parse(SB ? (f ? f.text : "null") : store("mock")); } catch (e) {}
+    mockMe = { ...mockBlank(), ...(p || {}) };
+    if (!mockY) mockY = +mockData.until.slice(0, 4);
+    if (seq === loadSeq) renderMock();
+  } catch (e) { if (seq === loadSeq) showError(e); }
+}
+function saveMock(now) {   // 단어 카드처럼 자주 바뀌는 건 모아서 저장
+  clearTimeout(mockSaveT);
+  const go = async () => {
+    const text = JSON.stringify(mockMe);
+    try { if (SB) await updateFile(MOCK_PATH, () => text, "모의고사 기록"); else store("mock", text); }
+    catch (e) { toast("기록을 저장하지 못했어요"); }
+  };
+  if (now) return go();
+  mockSaveT = setTimeout(go, 1500);
+}
+window.addEventListener("pagehide", () => { if (mockSaveT) { clearTimeout(mockSaveT); if (mockMe) { const text = JSON.stringify(mockMe); if (SB) updateFile(MOCK_PATH, () => text, "모의고사 기록").catch(() => {}); else store("mock", text); } } });
+
+function renderMock() {
+  if (mode !== "mock" || !mockData) return;
+  if (mockTimer && !(mockTab === "exam" && mockSubj)) stopMockTimer(true);
+  const tabs = [["word", "📖 영어 단어"], ["exam", "📝 기출"], ["prac", "✏️ 연습"], ["rec", "📊 내 기록"]];
+  const bar = `<div class="kindbar mkinds">${tabs.map(([k, n]) => `<button data-act="Mtab" data-k="${k}" class="${mockTab === k ? "on" : ""}">${n}</button>`).join("")}</div>`;
+  const body = mockTab === "exam" ? mockExamView() : mockTab === "prac" ? mockPracView() : mockTab === "rec" ? mockRecView() : mockWordView();
+  $("view").innerHTML = bar + body;
+  if (mockTab === "exam" && mockSubj) tickMock();
+}
+
+/* ----- 📖 영어 단어 ----- */
+const vSt = w => mockMe.v[w] || {};
+function vPool() {
+  const W = mockData.words;
+  if (vLv === "wrong") return W.filter(x => (vSt(x[0]).w || 0) > 0 && !vSt(x[0]).k);
+  return vLv === "all" ? W : W.filter(x => x[2] === +vLv);
+}
+function vNext() {   // 아직 못 외운 단어 우선, 틀린 단어는 더 자주
+  const pool = vPool(); if (!pool.length) { vCur = null; return; }
+  const left = pool.filter(x => !vSt(x[0]).k), src = left.length ? left : pool;
+  let pick;
+  for (let t = 0; t < 3; t++) { pick = src[Math.floor(Math.random() * src.length)]; if (pick[0] !== vCur?.[0] && (vSt(pick[0]).w || Math.random() < .6)) break; }
+  vCur = pick; vShow = false;
+}
+function vMakeQuiz() {
+  vNext(); if (!vCur) { vQuiz = null; return; }
+  const same = mockData.words.filter(x => x[0] !== vCur[0] && x[2] === vCur[2]), opts = [vCur];
+  while (opts.length < 4 && same.length) opts.push(same.splice(Math.floor(Math.random() * same.length), 1)[0]);
+  opts.sort(() => Math.random() - .5);
+  vQuiz = { w: vCur, opts, pick: null };
+}
+const speakBtn = w => "speechSynthesis" in window ? `<button class="mini-btn" data-act="Mspeak" data-w="${esc(w)}" aria-label="발음 듣기">🔊</button>` : "";
+function mockWordView() {
+  const W = mockData.words, known = W.filter(x => vSt(x[0]).k).length, wrongN = W.filter(x => (vSt(x[0]).w || 0) > 0 && !vSt(x[0]).k).length;
+  const lvs = [["all", "전체", W], ...mockData.levels.map(l => [String(l.lv), `${l.icon} ${l.name}`, W.filter(x => x[2] === l.lv)])];
+  const lvbar = `<div class="lvbar">${lvs.map(([k, n, xs]) => { const a = xs.filter(x => vSt(x[0]).k).length;
+    return `<button data-act="Mvlv" data-k="${k}" class="${vLv === k ? "on" : ""} ${a === xs.length ? "clear" : ""}">${n}<small>${a === xs.length ? "✓" : `${a}/${xs.length}`}</small></button>`; }).join("")}
+    <button data-act="Mvlv" data-k="wrong" class="${vLv === "wrong" ? "on" : ""}">❌ 틀린 단어<small>${wrongN}</small></button></div>`;
+  const modes = `<div class="filters" style="margin-top:6px">${[["card", "🃏 카드"], ["quiz", "❓ 4지선다"], ["list", "📋 단어장"]].map(([k, n]) => `<button data-act="Mvmode" data-k="${k}" class="${vMode === k ? "on" : ""}">${n}</button>`).join("")}</div>`;
+  const head = `<section class="day"><div class="mstat"><b>${known}</b> / ${W.length} 단어 외움 <span class="mbar"><i style="width:${(known / W.length * 100).toFixed(1)}%"></i></span></div>${lvbar}${modes}</section>`;
+  const pool = vPool();
+  if (!pool.length) return head + `<section class="day"><div class="empty">${vLv === "wrong" ? "틀린 단어가 없어요 👏 카드나 4지선다에서 ❌ 를 누른 단어가 여기 모여요." : "단어가 없어요."}</div></section>`;
+  if (vMode === "list") {
+    const qq = vQuery.trim().toLowerCase(), xs = pool.filter(x => !qq || x[0].toLowerCase().includes(qq) || x[1].includes(qq));
+    return head + `<section class="day"><input id="vsearch" class="minput" placeholder="🔎 단어·뜻 찾기" value="${esc(vQuery)}" autocomplete="off">
+      <ul class="vlist">${xs.slice(0, vShowN).map(x => { const s = vSt(x[0]);
+        return `<li class="${s.k ? "ok" : ""}"><button class="vchk" data-act="Mvknow" data-w="${esc(x[0])}" aria-label="외움 표시">${s.k ? "✓" : ""}</button><b>${esc(x[0])}</b><span>${esc(x[1])}</span>${s.w ? `<small class="vwrong">❌${s.w}</small>` : ""}</li>`; }).join("")}</ul>
+      ${xs.length > vShowN ? `<button class="btn ghost" data-act="Mvmore" style="width:100%;margin-top:8px">▼ ${xs.length - vShowN}개 더 보기</button>` : ""}
+      ${!xs.length ? `<div class="empty">찾는 단어가 없어요.</div>` : ""}</section>`;
+  }
+  if (!vCur || !pool.some(x => x[0] === vCur[0])) { if (vMode === "quiz") vMakeQuiz(); else vNext(); }
+  if (vMode === "quiz") {
+    if (!vQuiz || !pool.some(x => x[0] === vQuiz.w[0])) vMakeQuiz();
+    const z = vQuiz, ans = z.w, done = z.pick != null;
+    const btn = (o, i) => { const ok = o[0] === ans[0], cls = !done ? "" : ok ? "right" : i === z.pick ? "wrong" : "";
+      return `<button class="vopt ${cls}" data-act="Mvpick" data-i="${i}" ${done ? "disabled" : ""}>${i + 1}. ${esc(vRev ? o[0] : o[1])}</button>`; };
+    return head + `<section class="day vcard"><div class="vtop"><span class="lvtag lv${ans[2]}">${esc(mockData.levels[ans[2] - 1].name)}</span>
+        <span class="muted">맞힘 ${vScore[0]} / ${vScore[1]}</span><button class="mini-btn" data-act="Mvrev">${vRev ? "뜻 → 단어" : "단어 → 뜻"} ⇄</button></div>
+      <div class="vword">${esc(vRev ? ans[1] : ans[0])} ${vRev ? "" : speakBtn(ans[0])}</div>
+      <div class="vopts">${z.opts.map(btn).join("")}</div>
+      ${done ? `<div class="vres ${z.opts[z.pick][0] === ans[0] ? "ok" : "no"}">${z.opts[z.pick][0] === ans[0] ? "⭕ 정답!" : `❌ 정답: <b>${esc(ans[0])}</b> ${esc(ans[1])}`}</div>
+        <button class="btn" data-act="Mvnextq" style="width:100%;margin-top:10px">다음 문제 →</button>` : ""}</section>`;
+  }
+  const x = vCur, s = vSt(x[0]);
+  return head + `<section class="day vcard"><div class="vtop"><span class="lvtag lv${x[2]}">${esc(mockData.levels[x[2] - 1].name)}</span>${s.k ? `<span class="muted">✓ 외운 단어</span>` : s.w ? `<span class="vwrong">❌ ${s.w}번 틀림</span>` : ""}</div>
+    <div class="vword">${esc(x[0])} ${speakBtn(x[0])}</div>
+    ${vShow ? `<div class="vmean">${esc(x[1])}</div>
+      <div class="rbtns" style="justify-content:center;gap:10px;margin-top:12px"><button class="btn ghost danger" data-act="Mvno">❌ 몰라요</button><button class="btn" data-act="Mvyes">⭕ 알아요</button></div>`
+      : `<button class="btn ghost" data-act="Mvshow" style="width:100%;margin-top:12px">뜻 보기</button>`}
+    <div style="text-align:center;margin-top:8px"><button class="mini-btn" data-act="Mvskip">건너뛰기 →</button></div></section>`;
+}
+function vMark(w, ok) {
+  const s = { ...vSt(w) };
+  if (ok) s.k = 1; else { s.w = (s.w || 0) + 1; delete s.k; }
+  mockMe.v[w] = s; saveMock();
+}
+
+/* ----- 📝 기출 모의고사 ----- */
+const examById = id => mockData.exams.find(e => e.id === id);
+function examSubjects(e) {
+  const base = ["국어", "수학", "영어", "한국사"];
+  if (e.g === 1 && e.y >= 2018) return { main: [...base, "통합사회", "통합과학"], soc: [], sci: [] };
+  return { main: base, soc: mockData.soc, sci: mockData.sci };
+}
+const parseNums = s => { const out = new Set(); String(s || "").split(/[,\s]+/).forEach(p => { const m = p.match(/^(\d+)(?:-(\d+))?$/); if (m) for (let i = +m[1]; i <= +(m[2] || m[1]) && i - m[1] < 100; i++) out.add(i); }); return [...out].sort((a, b) => a - b); };
+function sheetConf(e, s) {   // 문항 수·시간·단답형 번호 (내가 바꾼 값이 먼저)
+  const d = mockData.subjects[s] || { n: 20, min: 30 }, k = `${e.id}|${s}`;
+  let n = d.n, min = d.min, short = "";
+  if (s === "국어") { n = e.y <= 2003 ? 60 : e.y <= 2012 ? 50 : 45; min = e.y <= 2012 ? 90 : 80; }
+  if (s === "영어") { n = e.y <= 2012 ? 50 : 45; }
+  if (s === "수학") short = e.g === 3 && e.y >= 2021 ? "16-22,29,30" : "22-30";
+  return { n, min, short, ...(mockMe.conf[k] || {}) };
+}
+const sheetKey = () => `${mockExam}|${mockSubj}`;
+const ebsiUrl = "https://www.ebsi.co.kr/ebs/xip/xipc/previousPaperList.ebs";
+const gSearch = q => "https://www.google.com/search?q=" + encodeURIComponent(q);
+function parseKey(txt, n) {   // "3 1 4 2 …" / "31425…" / 단답형 섞이면 띄어쓰기·쉼표로
+  const t = String(txt || "").trim(); if (!t) return [];
+  const parts = /[\s,]/.test(t) ? t.split(/[\s,]+/) : t.split("");
+  return parts.filter(Boolean).slice(0, n).map(x => x.replace(/[^\d]/g, ""));
+}
+function mockExamView() {
+  if (mockExam && mockSubj) return mockSheetView();
+  if (mockExam) {
+    const e = examById(mockExam); if (!e) { mockExam = null; return mockExamView(); }
+    const ss = examSubjects(e), res = s => mockMe.results.filter(r => r.id === e.id && r.s === s);
+    const sb = s => { const r = res(s).at(-1), has = (mockMe.sheets[`${e.id}|${s}`] || []).some(Boolean);
+      return `<button data-act="Msubj" data-s="${esc(s)}" class="msubj ${r ? "done" : ""}"><span>${esc(mockData.subjects[s]?.icon || "📘")} ${esc(s)}</span>${r ? `<small>${r.c}/${r.n}</small>` : has ? `<small>푸는 중</small>` : ""}</button>`; };
+    return `<section class="day"><button class="mini-btn" data-act="Mback">‹ 시험 목록</button>
+      <h3 style="margin:10px 0 2px">${esc(e.name)}</h3><div class="muted" style="font-size:13px">${e.y}년 ${e.m}월 · ${e.org === "교육청" ? "시도교육청 전국연합학력평가" : e.org === "평가원" ? "한국교육과정평가원 모의평가" : "대학수학능력시험"}</div>
+      <div class="mnote">① 시험지·정답표 PDF 를 열고 → ② 과목을 골라 OMR 답안지에 풀고 → ③ 정답표를 넣으면 채점돼요.</div>
+      <div class="rbtns" style="flex-wrap:wrap;gap:6px"><a class="mini-btn go" href="${ebsiUrl}" target="_blank" rel="noopener noreferrer">📄 EBSi 기출문제</a>
+        <a class="mini-btn" href="${esc(gSearch(e.name + " 문제지 pdf"))}" target="_blank" rel="noopener noreferrer">🔎 문제지 찾기</a>
+        <a class="mini-btn" href="${esc(gSearch(e.name + " 정답표"))}" target="_blank" rel="noopener noreferrer">🔎 정답표 찾기</a></div></section>
+      <section class="day"><h3 class="mkh">과목</h3><div class="mgrid">${ss.main.map(sb).join("")}</div>
+      ${ss.soc.length ? `<h3 class="mkh">사회탐구</h3><div class="mgrid">${ss.soc.map(sb).join("")}</div><h3 class="mkh">과학탐구</h3><div class="mgrid">${ss.sci.map(sb).join("")}</div>` : ""}</section>`;
+  }
+  const years = [...new Set(mockData.exams.filter(e => e.g === mockG).map(e => e.y))];
+  if (!years.includes(mockY)) mockY = years[0];
+  const xs = mockData.exams.filter(e => e.g === mockG && e.y === mockY).sort((a, b) => a.m - b.m || (a.org === "수능") - (b.org === "수능"));
+  const done = id => new Set(mockMe.results.filter(r => r.id === id).map(r => r.s)).size;
+  const all = mockData.exams.filter(e => e.g === mockG);
+  return `<section class="day"><div class="filters">${[1, 2, 3].map(g => `<button data-act="Mg" data-k="${g}" class="${mockG === g ? "on" : ""}">고${g}</button>`).join("")}</div>
+      <div class="npick"><select id="myear" aria-label="연도">${years.map(y => `<option value="${y}"${y === mockY ? " selected" : ""}>${y}년 ${mockG === 3 ? `(${y + 1}학년도)` : ""}</option>`).join("")}</select></div>
+      <div class="muted" style="font-size:12px;margin-top:6px">고${mockG} 시험 ${all.length}개 · ${all.at(-1).y}년 ~ ${mockData.until.replace("-", "년 ")}월${mockG === 3 ? " · 수능은 1993년(1994학년도)부터" : ""}</div></section>
+    <section class="day"><ul class="mlist">${xs.map(e => `<li><button data-act="Mexam" data-id="${e.id}">
+      <span class="mtag ${e.org === "수능" ? "csat" : e.org === "평가원" ? "kice" : ""}">${e.org === "교육청" ? "학평" : e.org === "평가원" ? "모평" : "수능"}</span>
+      <span><b>${e.m}월</b> ${esc(e.name)}</span>${done(e.id) ? `<small class="mdone">✓ ${done(e.id)}과목</small>` : ""}</button></li>`).join("")}</ul>
+      <div class="empty" style="font-size:12px">해마다 정해진 일정으로 만든 목록이라, 그해 사정으로 날짜가 바뀌었거나 치르지 않은 시험이 있을 수 있어요.</div></section>`;
+}
+function mockSheetView() {
+  const e = examById(mockExam), s = mockSubj, k = sheetKey(), cf = sheetConf(e, s), short = new Set(parseNums(cf.short));
+  const ans = mockMe.sheets[k] || [], key = mockMe.keys[k] || "", kk = parseKey(key, cf.n), sd = mockData.subjects[s] || {};
+  const graded = mockGraded && kk.length >= cf.n;
+  const ok = i => kk[i] && ans[i] && +ans[i] === +kk[i];
+  let rows = "";
+  for (let i = 0; i < cf.n; i++) {
+    const n = i + 1, mark = graded ? (ok(i) ? `<span class="mok">⭕</span>` : `<span class="mno">❌ <small>${esc(kk[i] || "?")}</small></span>`) : "";
+    const cells = short.has(n)
+      ? `<input class="mshort" inputmode="numeric" data-mq="${i}" value="${esc(ans[i] || "")}" placeholder="답" maxlength="4" ${graded ? "disabled" : ""}>`
+      : [1, 2, 3, 4, 5].map(c => `<button class="mb ${+ans[i] === c ? "on" : ""}" data-act="Mmark" data-i="${i}" data-c="${c}" ${graded ? "disabled" : ""}>${c}</button>`).join("");
+    rows += `<div class="mrow ${graded ? (ok(i) ? "ok" : "no") : ""}${sd.listen && n === sd.listen + 1 ? " msep" : ""}"><span class="mn">${n}</span><span class="mcells">${cells}</span>${mark}</div>`;
+  }
+  const filled = ans.slice(0, cf.n).filter(Boolean).length, c = graded ? [...Array(cf.n).keys()].filter(ok).length : 0;
+  const tm = mockTimer && mockTimer.k === k;
+  return `<section class="day"><div class="vtop"><button class="mini-btn" data-act="Mback">‹ 과목</button><span class="muted" style="font-size:12px">${esc(e.name)}</span></div>
+    <h3 style="margin:8px 0 4px">${esc(sd.icon || "📘")} ${esc(s)} <small class="muted">${cf.n}문항 · ${cf.min}분${short.size ? ` · 단답형 ${esc(cf.short)}` : ""}${sd.listen ? ` · 1~${sd.listen}번 듣기` : ""}</small></h3>
+    <div class="mtimer"><span id="mclock">${fmtClock(cf.min * 60 - mockElapsed(k))}</span>
+      <button class="mini-btn ${tm ? "" : "go"}" data-act="Mtimer">${tm ? "⏸ 멈춤" : mockElapsed(k) ? "▶ 이어서" : "▶ 시작"}</button>
+      ${mockElapsed(k) ? `<button class="mini-btn" data-act="Mtreset">↺</button>` : ""}<span class="muted" style="margin-left:auto;font-size:13px">표시 ${filled}/${cf.n}</span></div>
+    <div class="rbtns" style="flex-wrap:wrap;gap:6px;margin-top:8px"><a class="mini-btn" href="${ebsiUrl}" target="_blank" rel="noopener noreferrer">📄 EBSi</a>
+      <a class="mini-btn" href="${esc(gSearch(`${e.name} ${s} 문제지 pdf`))}" target="_blank" rel="noopener noreferrer">🔎 ${esc(s)} 문제지</a>
+      <a class="mini-btn" href="${esc(gSearch(`${e.name} ${s} 정답`))}" target="_blank" rel="noopener noreferrer">🔎 ${esc(s)} 정답</a>
+      <button class="mini-btn" data-act="Mset">⚙️ 문항 설정</button></div>
+    ${mockSetEdit ? `<div class="mnote"><label>문항 수 <input id="mcn" class="minput sm" inputmode="numeric" value="${cf.n}"></label>
+      <label>시간(분) <input id="mcmin" class="minput sm" inputmode="numeric" value="${cf.min}"></label>
+      <label>단답형 번호 <input id="mcshort" class="minput" value="${esc(cf.short)}" placeholder="예) 16-22,29,30 (없으면 비우기)"></label>
+      <div class="rbtns"><button class="mini-btn go" data-act="Msetok">저장</button><button class="mini-btn" data-act="Mset">닫기</button></div></div>` : ""}
+    </section>
+    ${graded ? `<section class="day mscore"><div class="mbig">${c} <small>/ ${cf.n}</small></div><div class="muted">${Math.round(c / cf.n * 100)}% 맞힘 · 틀린 문제: ${[...Array(cf.n).keys()].filter(i => !ok(i)).map(i => i + 1).join(", ") || "없음 🎉"}</div>
+      <div class="rbtns" style="justify-content:center;margin-top:8px"><button class="mini-btn" data-act="Mregrade">✏️ 답안 고치기</button><button class="mini-btn" data-act="Mclear">🧹 처음부터 다시 풀기</button></div></section>` : ""}
+    <section class="day"><div class="msheet">${rows}</div></section>
+    <section class="day"><h3 class="mkh">정답표 ${kk.length ? `<small class="muted">${kk.length}/${cf.n}</small>` : ""}</h3>
+      ${mockKeyEdit || !key ? `<textarea id="mkey" class="minput" rows="3" placeholder="정답을 1번부터 차례로: 예) 3 1 4 2 5 … 또는 31425…\n단답형이 있으면 띄어쓰기로 구분: 예) 2 4 1 … 15 128">${esc(key)}</textarea>
+        <div class="rbtns"><button class="mini-btn go" data-act="Mkeyok">정답 저장</button>${key ? `<button class="mini-btn" data-act="Mkey">취소</button>` : ""}</div>
+        <div class="empty" style="font-size:12px">정답표는 내 계정에만 저장돼요. 시험지 PDF 끝이나 정답표 파일에서 보고 넣어 주세요.</div>`
+      : `<div class="mkeyline">${kk.map((x, i) => `<span><small>${i + 1}</small>${esc(x)}</span>`).join("")}</div><div class="rbtns"><button class="mini-btn" data-act="Mkey">✏️ 정답 고치기</button></div>`}
+      ${!graded ? `<button class="btn" data-act="Mgrade" style="width:100%;margin-top:10px" ${kk.length < cf.n ? "disabled" : ""}>✅ 채점하기${kk.length < cf.n ? " (정답표를 먼저 넣어 주세요)" : ""}</button>` : ""}</section>`;
+}
+/* 타이머: 시작 시각만 기억하고 화면은 1초마다 글자만 바꿔요 */
+const fmtClock = sec => (sec < 0 ? "−" : "") + `${Math.floor(Math.abs(sec) / 60)}:${String(Math.floor(Math.abs(sec) % 60)).padStart(2, "0")}`;
+const mockElapsed = k => ((mockMe.sheets[k + "#t"] || 0) + (mockTimer && mockTimer.k === k ? (Date.now() - mockTimer.t0) / 1000 : 0));
+function tickMock() {
+  clearInterval(tickMock.h);
+  if (!mockTimer) return;
+  tickMock.h = setInterval(() => {
+    const el = document.getElementById("mclock"); if (!el || mode !== "mock" || !mockTimer) return clearInterval(tickMock.h);
+    const e = examById(mockExam), left = sheetConf(e, mockSubj).min * 60 - mockElapsed(mockTimer.k);
+    el.textContent = fmtClock(left); el.classList.toggle("over", left < 0);
+    if (left <= 0 && left > -1.2) toast("⏰ 시험 시간이 끝났어요!", 4000);
+  }, 1000);
+}
+function stopMockTimer(save) {
+  if (!mockTimer) return;
+  mockMe.sheets[mockTimer.k + "#t"] = Math.round(mockElapsed(mockTimer.k)); mockTimer = null; clearInterval(tickMock.h);
+  if (save) saveMock();
+}
+
+/* ----- ✏️ 연습 문제 ----- */
+function mockPracView() {
+  const P = mockData.practice, subs = Object.keys(P);
+  if (!subs.includes(pSubj)) pSubj = subs[0];
+  const pid = i => `${pSubj}-${i}`, xs = P[pSubj];
+  const stat = s => { const v = P[s].map((_, i) => mockMe.prac[`${s}-${i}`]); return [v.filter(x => x === 1).length, P[s].length]; };
+  return `<section class="day"><div class="filters">${subs.map(s => { const [a, b] = stat(s); return `<button data-act="Mpsubj" data-k="${esc(s)}" class="${pSubj === s ? "on" : ""}">${esc(s)} ${a}/${b}</button>`; }).join("")}</div>
+      <div class="empty" style="font-size:12px;margin:0">모의고사 유형으로 직접 만든 연습 문제예요. 진짜 기출은 📝 기출 모의고사 탭에서 OMR 로 풀어요. 영어 단어 시험은 📖 → ❓ 4지선다.</div>
+      ${Object.keys(mockMe.prac).some(k => k.startsWith(pSubj + "-")) ? `<button class="mini-btn" data-act="Mpreset" style="margin-top:8px">↺ ${esc(pSubj)} 다시 풀기</button>` : ""}</section>
+    ${xs.map((x, i) => { const r = mockMe.prac[pid(i)], picked = pPick[pid(i)], done = r != null;
+      return `<section class="day pq"><div class="pqn">${i + 1}. ${esc(x.q)}</div>${x.p ? `<div class="ppass">${esc(x.p)}</div>` : ""}
+        <div class="vopts">${x.c.map((c, j) => `<button class="vopt ${done ? (j + 1 === x.a ? "right" : j + 1 === picked ? "wrong" : "") : ""}" data-act="Mpq" data-i="${i}" data-c="${j + 1}" ${done ? "disabled" : ""}>${"①②③④⑤"[j]} ${esc(c)}</button>`).join("")}</div>
+        ${done ? `<div class="vres ${r === 1 ? "ok" : "no"}">${r === 1 ? "⭕ 정답!" : `❌ 정답은 ${"①②③④⑤"[x.a - 1]}`}</div><div class="pexp">💡 ${esc(x.e)}</div>` : ""}</section>`; }).join("")}`;
+}
+
+/* ----- 📊 내 기록 ----- */
+function mockRecView() {
+  const R = mockMe.results.slice().reverse(), W = mockData.words;
+  const known = W.filter(x => vSt(x[0]).k).length, wrong = W.filter(x => (vSt(x[0]).w || 0) > 0 && !vSt(x[0]).k).length;
+  const P = mockData.practice, pv = Object.entries(mockMe.prac), pok = pv.filter(([, v]) => v === 1).length;
+  const bySubj = {}; for (const r of mockMe.results) (bySubj[r.s] ||= []).push(r.c / r.n);
+  return `<section class="day"><div class="mstats">
+      <div><b>${known}</b><small>외운 단어 / ${W.length}</small></div><div><b>${wrong}</b><small>틀린 단어</small></div>
+      <div><b>${mockMe.results.length}</b><small>채점한 시험</small></div><div><b>${pok}/${pv.length}</b><small>연습 문제 정답</small></div></div>
+      ${Object.keys(bySubj).length ? `<h3 class="mkh">과목별 평균</h3>${Object.entries(bySubj).map(([s, xs]) => { const a = xs.reduce((p, x) => p + x, 0) / xs.length;
+        return `<div class="mavg"><span>${esc(s)}</span><span class="mbar"><i style="width:${(a * 100).toFixed(0)}%"></i></span><b>${Math.round(a * 100)}%</b><small class="muted">${xs.length}회</small></div>`; }).join("")}` : ""}</section>
+    <section class="day"><h3 class="mkh">채점 기록</h3>${R.length ? `<ul class="mlist">${R.map(r => { const e = examById(r.id);
+      return `<li><button data-act="Mopen" data-id="${esc(r.id)}" data-s="${esc(r.s)}"><span class="mtag">${esc(r.date.slice(5).replace("-", "/"))}</span>
+        <span>${esc(e ? e.name : r.id)} · <b>${esc(r.s)}</b><br><small class="muted">틀린 문제: ${esc(r.wrong.join(", ") || "없음")}${r.sec >= 60 ? ` · ${Math.round(r.sec / 60)}분 걸림` : ""}</small></span>
+        <b class="mdone">${r.c}/${r.n}</b></button></li>`; }).join("")}</ul>` : `<div class="empty">아직 채점한 시험이 없어요. 📝 기출 모의고사에서 OMR 로 풀고 채점해 보세요.</div>`}</section>`;
+}
+
+function mockClick(b) {
+  const act = b.dataset.act;
+  if (act === "Mtab") { mockTab = b.dataset.k; store("mtab", mockTab); window.scrollTo({ top: 0 }); return renderMock(); }
+  if (act === "Mspeak") { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(b.dataset.w); u.lang = "en-US"; u.rate = .9; speechSynthesis.speak(u); } catch (e) {} return; }
+  // 단어
+  if (act === "Mvlv") { vLv = b.dataset.k; store("vlv", vLv); vCur = null; vQuiz = null; vShowN = 60; return renderMock(); }
+  if (act === "Mvmode") { vMode = b.dataset.k; store("vmode", vMode); vCur = null; vQuiz = null; return renderMock(); }
+  if (act === "Mvshow") { vShow = true; return renderMock(); }
+  if (act === "Mvyes" || act === "Mvno") { vMark(vCur[0], act === "Mvyes"); vNext(); return renderMock(); }
+  if (act === "Mvskip") { vNext(); return renderMock(); }
+  if (act === "Mvrev") { vRev = !vRev; store("vrev", vRev ? "1" : "0"); return renderMock(); }
+  if (act === "Mvpick") {
+    const z = vQuiz; if (!z || z.pick != null) return;
+    z.pick = +b.dataset.i; const ok = z.opts[z.pick][0] === z.w[0];
+    vScore = [vScore[0] + ok, vScore[1] + 1];
+    if (!ok) vMark(z.w[0], false); else if (vSt(z.w[0]).w) { /* 틀렸던 단어를 맞히면 외운 걸로 */ vMark(z.w[0], true); }
+    return renderMock();
+  }
+  if (act === "Mvnextq") { vMakeQuiz(); return renderMock(); }
+  if (act === "Mvknow") { const w = b.dataset.w, s = { ...vSt(w) }; if (s.k) delete s.k; else s.k = 1; mockMe.v[w] = s; saveMock(); return renderMock(); }
+  if (act === "Mvmore") { vShowN += 100; return renderMock(); }
+  // 기출
+  if (act === "Mg") { mockG = +b.dataset.k; store("mg", mockG); return renderMock(); }
+  if (act === "Mexam") { mockExam = b.dataset.id; mockSubj = null; window.scrollTo({ top: 0 }); return renderMock(); }
+  if (act === "Mopen") { mockTab = "exam"; store("mtab", "exam"); mockExam = b.dataset.id; mockSubj = b.dataset.s; mockGraded = true; mockKeyEdit = mockSetEdit = false; window.scrollTo({ top: 0 }); return renderMock(); }
+  if (act === "Msubj") {
+    mockSubj = b.dataset.s; mockKeyEdit = mockSetEdit = false;
+    mockGraded = mockMe.results.some(r => r.id === mockExam && r.s === mockSubj) && !(mockMe.sheets[sheetKey() + "#edit"]);
+    window.scrollTo({ top: 0 }); return renderMock();
+  }
+  if (act === "Mback") { if (mockSubj) { stopMockTimer(true); mockSubj = null; } else mockExam = null; window.scrollTo({ top: 0 }); return renderMock(); }
+  if (act === "Mmark") {
+    const k = sheetKey(), a = (mockMe.sheets[k] ||= []), i = +b.dataset.i, c = +b.dataset.c;
+    a[i] = +a[i] === c ? "" : String(c);
+    b.parentNode.querySelectorAll(".mb").forEach(x => x.classList.toggle("on", +x.dataset.c === +a[i]));   // 다시 그리지 않아서 스크롤이 안 튀어요
+    saveMock(); return;
+  }
+  if (act === "Mtimer") {
+    const k = sheetKey();
+    if (mockTimer && mockTimer.k === k) stopMockTimer(true); else { stopMockTimer(); mockTimer = { k, t0: Date.now() }; }
+    return renderMock();
+  }
+  if (act === "Mtreset") { if (!confirm("타이머를 처음으로 돌릴까요?")) return; const k = sheetKey(); if (mockTimer?.k === k) mockTimer = null; delete mockMe.sheets[k + "#t"]; saveMock(); return renderMock(); }
+  if (act === "Mset") { mockSetEdit = !mockSetEdit; return renderMock(); }
+  if (act === "Msetok") {
+    const n = Math.max(1, Math.min(100, parseInt($("mcn").value) || 0)), min = Math.max(1, Math.min(300, parseInt($("mcmin").value) || 0));
+    mockMe.conf[sheetKey()] = { n, min, short: $("mcshort").value.trim() }; mockSetEdit = false; saveMock(); return renderMock();
+  }
+  if (act === "Mkey") { mockKeyEdit = !mockKeyEdit; return renderMock(); }
+  if (act === "Mkeyok") {
+    const v = $("mkey").value.trim(), cf = sheetConf(examById(mockExam), mockSubj), n = parseKey(v, 999).length;
+    if (n && n !== cf.n) toast(`정답 ${n}개를 넣었어요 (이 과목은 ${cf.n}문항). 문항 수가 다르면 ⚙️ 문항 설정에서 바꿔 주세요`, 4000);
+    if (v) mockMe.keys[sheetKey()] = v; else delete mockMe.keys[sheetKey()];
+    mockKeyEdit = false; saveMock(); return renderMock();
+  }
+  if (act === "Mgrade") {
+    const e = examById(mockExam), cf = sheetConf(e, mockSubj), k = sheetKey(), kk = parseKey(mockMe.keys[k], cf.n), a = mockMe.sheets[k] || [];
+    const blank = [...Array(cf.n).keys()].filter(i => !a[i]).length;
+    if (blank && !confirm(`아직 표시하지 않은 문제가 ${blank}개 있어요. 그래도 채점할까요?`)) return;
+    stopMockTimer();
+    const wrong = [...Array(cf.n).keys()].filter(i => !(a[i] && +a[i] === +kk[i])).map(i => i + 1);
+    mockMe.results = mockMe.results.filter(r => !(r.id === e.id && r.s === mockSubj && r.date === todayKST()));
+    mockMe.results.push({ id: e.id, s: mockSubj, date: todayKST(), c: cf.n - wrong.length, n: cf.n, wrong, sec: mockMe.sheets[k + "#t"] || 0 });
+    delete mockMe.sheets[k + "#edit"]; mockGraded = true; saveMock(true); toast(`채점 완료: ${cf.n - wrong.length}/${cf.n}`);
+    window.scrollTo({ top: 0, behavior: "smooth" }); return renderMock();
+  }
+  if (act === "Mregrade") { mockGraded = false; mockMe.sheets[sheetKey() + "#edit"] = 1; return renderMock(); }
+  if (act === "Mclear") {
+    if (!confirm("표시한 답과 타이머를 지우고 처음부터 다시 풀까요? (채점 기록은 남아요)")) return;
+    const k = sheetKey(); delete mockMe.sheets[k]; delete mockMe.sheets[k + "#t"]; mockMe.sheets[k + "#edit"] = 1; if (mockTimer?.k === k) mockTimer = null;
+    mockGraded = false; saveMock(); return renderMock();
+  }
+  // 연습 문제
+  if (act === "Mpsubj") { pSubj = b.dataset.k; store("psubj", pSubj); return renderMock(); }
+  if (act === "Mpq") {
+    const i = +b.dataset.i, c = +b.dataset.c, x = mockData.practice[pSubj][i], id = `${pSubj}-${i}`;
+    pPick[id] = c; mockMe.prac[id] = c === x.a ? 1 : 0; saveMock();
+    const y = window.scrollY; renderMock(); window.scrollTo({ top: y }); return;
+  }
+  if (act === "Mpreset") { for (const k of Object.keys(mockMe.prac)) if (k.startsWith(pSubj + "-")) delete mockMe.prac[k]; pPick = {}; saveMock(); return renderMock(); }
+}
+$("view").addEventListener("input", ev => {
+  if (mode !== "mock") return;
+  const t = ev.target;
+  if (t.id === "vsearch") { vQuery = t.value; vShowN = 60; const pos = t.selectionStart; renderMock(); const n = $("vsearch"); n.focus(); n.setSelectionRange(pos, pos); return; }
+  if (t.dataset.mq != null) { const a = (mockMe.sheets[sheetKey()] ||= []); a[+t.dataset.mq] = t.value.replace(/[^\d]/g, "").slice(0, 4); saveMock(); }
+});
+$("view").addEventListener("change", ev => {
+  if (mode !== "mock") return;
+  if (ev.target.id === "myear") { mockY = +ev.target.value; store("my", mockY); renderMock(); }
+});
 
 async function start() {
   if (SB) {
