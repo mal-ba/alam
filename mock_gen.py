@@ -57,7 +57,7 @@ SUBJ = {
 LEVELS = [{"lv": 1, "name": "고1 기본", "icon": "🌱"}, {"lv": 2, "name": "고2 필수", "icon": "🌿"}, {"lv": 3, "name": "고3·수능", "icon": "🔥"}]
 WORDS, seen = [], set()
 for lv, src in ((1, W1), (2, W2), (3, W3)):
-    for line in src.strip().splitlines():
+    for line in filter(str.strip, src.splitlines()):
         w, k = (s.strip() for s in line.split("|", 1))
         if w.lower() in seen: print("중복 단어:", w, file=sys.stderr); continue
         seen.add(w.lower()); WORDS.append([w, k, lv])
