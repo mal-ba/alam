@@ -1870,10 +1870,10 @@ function webClick(b) {
 
 /* ---------- 코딩 공부 (강의: docs/learn.json, 내 진도·코드: Supabase learn.json) ---------- */
 const LEARN_PATH = "learn.json";
-let learnData = null, learnLang = store("llang") || "py", learnOpen = null, learnShow = {}, learnOut = null, learnRunning = false;
+let learnData = null, learnLang = store("llang") || "py", learnLv = +store("llv") || 0, learnOpen = null, learnShow = {}, learnOut = null, learnRunning = false;
 let learnProg = { done: {}, code: {}, stdin: {} };
 async function loadLearn(seq = loadSeq) {
-  $("label").innerHTML = `코딩 공부<span class="sub">파이썬 · C · 자바스크립트 · HTML · CSS</span>`;
+  $("label").innerHTML = `코딩 공부<span class="sub">기초부터 전설까지 10단계 · 파이썬 · C · JS · HTML · CSS</span>`;
   $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
   try {
     const [r, f] = await Promise.all([fetch("learn.json?v=" + Date.now(), { cache: "no-store" }), SB ? getFile(LEARN_PATH) : null]);
@@ -1891,8 +1891,12 @@ async function saveLearn() {
 const lid = (k, i) => `${k}-${i + 1}`;
 const curLang = () => learnData.langs.find(l => l.key === learnLang);
 function mdLite(src) {
-  const inl = t => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+  const inl = t => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/\u0001/g, "|");
+  const pres = [];   // ``` 코드 블록은 먼저 빼 두었다가 그대로 넣어요
+  src = src.replace(/```[^\n]*\n([\s\S]*?)\n?```/g, (_, c) => `\n\n\u0002${pres.push(c) - 1}\u0002\n\n`).replace(/\\\|/g, "\u0001");
   return src.split(/\n\s*\n/).map(blk => {
+    const pm = blk.trim().match(/^\u0002(\d+)\u0002$/);
+    if (pm) return `<pre class="lpre">${esc(pres[+pm[1]])}</pre>`;
     const ls = blk.split("\n").map(l => l.trim()).filter(Boolean);
     if (ls.every(l => l.startsWith("- "))) return `<ul>${ls.map(l => `<li>${inl(l.slice(2))}</li>`).join("")}</ul>`;
     if (ls.every(l => l.startsWith("|"))) return `<table>${ls.filter(l => !/^\|[\s|:-]+\|$/.test(l)).map((l, i) =>
@@ -1910,18 +1914,35 @@ function renderLearn() {
     return;
   }
   const L = curLang() || d.langs[0]; learnLang = L.key;
+  const LV = d.levels || [], lvOf = x => x.lv || 1, lvInfo = n => LV[n - 1] || { name: n + "단계", icon: "⭐", desc: "" };
   const nDone = L.lessons.filter((_, i) => learnProg.done[lid(L.key, i)]).length;
   if (learnOpen == null) {
+    const has = [...new Set(L.lessons.map(lvOf))].sort((a, b) => a - b);
+    if (learnLv && !has.includes(learnLv)) learnLv = 0;
+    const stat = n => { const ix = L.lessons.map((x, i) => i).filter(i => lvOf(L.lessons[i]) === n); return [ix.filter(i => learnProg.done[lid(L.key, i)]).length, ix.length]; };
+    const lvbar = has.length > 1 ? `<div class="lvbar"><button data-act="Llv" data-k="0" class="${learnLv ? "" : "on"}">전체</button>${has.map(n => {
+      const [a, b] = stat(n), v = lvInfo(n);
+      return `<button data-act="Llv" data-k="${n}" class="${learnLv === n ? "on" : ""} ${a === b ? "clear" : ""}" title="${esc(v.desc)}">${v.icon} ${esc(v.name)}<small>${a === b ? "✓" : `${a}/${b}`}</small></button>`;
+    }).join("")}</div>` : "";
+    const next = L.lessons.findIndex((_, i) => !learnProg.done[lid(L.key, i)]);
+    const groups = has.filter(n => !learnLv || n === learnLv).map(n => {
+      const v = lvInfo(n), [a, b] = stat(n);
+      const items = L.lessons.map((x, i) => lvOf(x) !== n ? "" : `<button data-act="Lopen" data-i="${i}"><span class="n ${learnProg.done[lid(L.key, i)] ? "ok" : ""}">${learnProg.done[lid(L.key, i)] ? "✓" : i + 1}</span><span>${esc(x.t)}</span>${i === next ? `<span class="lnext">다음</span>` : ""}</button>`).join("");
+      return `<div class="lvhead lv${n}"><b>${v.icon} ${n}단계 · ${esc(v.name)}</b><span>${esc(v.desc)}</span><span class="sp"></span><span>${a}/${b}</span></div><div class="llist">${items}</div>`;
+    }).join("");
+    const top = has[has.length - 1] || 1;
     $("view").innerHTML = bar + `<section class="day"><div class="dhead"><span class="date">${esc(L.name)}</span><span class="sp"></span><span class="empty" style="margin:0">${nDone}/${L.lessons.length} 완료</span></div>
       <div class="lbody">${mdLite(L.intro)}</div><div class="lbar"><i style="width:${Math.round(nDone / L.lessons.length * 100)}%"></i></div>
-      <div class="llist">${L.lessons.map((x, i) => `<button data-act="Lopen" data-i="${i}"><span class="n ${learnProg.done[lid(L.key, i)] ? "ok" : ""}">${learnProg.done[lid(L.key, i)] ? "✓" : i + 1}</span><span>${esc(x.t)}</span></button>`).join("")}</div></section>`;
+      ${lvbar}${top < LV.length && !learnLv ? `<div class="empty" style="margin:4px 0 0;font-size:12px">${esc(L.name)} 는 ${top}단계(${esc(lvInfo(top).name)})까지 있어요. ${LV.slice(top).map(v => v.icon + " " + v.name).join(" · ")} 은 파이썬 · C · JS 에서 도전!</div>` : ""}
+      ${groups}</section>`;
     return;
   }
   const i = learnOpen, x = L.lessons[i], id = lid(L.key, i), html = L.run === "html";
   const code = learnProg.code[id] ?? x.code, stdin = learnProg.stdin[id] ?? (x.stdin || "");
   $("view").innerHTML = bar + `<section class="day">
     <div class="dhead"><button class="mini-btn" data-act="Lback">← 목록</button><span class="sp"></span><span class="empty" style="margin:0">${esc(L.name)} ${i + 1}/${L.lessons.length}</span></div>
-    <h3 style="margin:8px 0 4px">${learnProg.done[id] ? "✅ " : ""}${esc(x.t)}</h3>
+    <div class="lvtag lv${x.lv || 1}">${esc((learnData.levels || [])[(x.lv || 1) - 1]?.icon || "")} ${x.lv || 1}단계 · ${esc((learnData.levels || [])[(x.lv || 1) - 1]?.name || "")}</div>
+    <h3 style="margin:4px 0 4px">${learnProg.done[id] ? "✅ " : ""}${esc(x.t)}</h3>
     <div class="lbody">${mdLite(x.b)}</div>
     <label style="margin-top:10px">✏️ 코드 <span class="hint">— 마음대로 고쳐 보세요</span></label>
     <textarea class="lcode" id="lcode" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off">${esc(code)}</textarea>
@@ -1958,6 +1979,7 @@ async function learnClick(b) {
   const act = b.dataset.act, L = curLang();
   const go = i => { learnOpen = i; learnShow = {}; learnOut = null; renderLearn(); window.scrollTo({ top: 0 }); };
   if (act === "Llang") { learnLang = b.dataset.k; store("llang", learnLang); learnOpen = null; learnOut = null; return renderLearn(); }
+  if (act === "Llv") { learnLv = +b.dataset.k; store("llv", String(learnLv)); return renderLearn(); }
   if (act === "Lopen" || act === "Lgo") return go(+b.dataset.i);
   if (act === "Lback") { learnOpen = null; saveLearn(); return renderLearn(); }
   const i = learnOpen, x = L.lessons[i], id = lid(L.key, i);
@@ -1994,9 +2016,21 @@ function jsWorkerMain() {
     : typeof v === "function" ? "[Function]" : String(v);
   const out = [];
   console.log = console.info = console.warn = console.error = (...a) => out.push(a.map(x => fmt(x, 0)).join(" "));
-  onmessage = e => {
-    try { (0, eval)(e.data); postMessage({ out: out.join("\n") }); }
-    catch (err) { postMessage({ out: out.join("\n"), err: (err && err.name ? err.name + ": " + err.message : String(err)) }); }
+  // setTimeout·Promise·async 도 끝날 때까지 기다렸다가 결과를 보내요 (전체 5초 제한은 runJS 에서)
+  const timers = new Set(), st = setTimeout, ct = clearTimeout;
+  let fail = null;
+  const msg = err => err && err.name ? err.name + ": " + err.message : String(err);
+  self.setTimeout = (f, ms, ...a) => { const id = st(() => { timers.delete(id); try { if (typeof f === "function") f(...a); } catch (err) { fail = fail || err; } }, ms); timers.add(id); return id; };
+  self.clearTimeout = id => { timers.delete(id); ct(id); };
+  self.onunhandledrejection = ev => { fail = fail || ev.reason; ev.preventDefault(); };
+  const tick = () => new Promise(ok => st(ok, 0));
+  onmessage = async e => {
+    try { const r = (0, eval)(e.data); if (r && typeof r.then === "function") await r; }
+    catch (err) { fail = fail || err; }
+    await tick();
+    while (!fail && timers.size) await new Promise(ok => st(ok, 15));
+    await tick();
+    postMessage(fail ? { out: out.join("\n"), err: msg(fail) } : { out: out.join("\n") });
   };
 }
 const workerOf = fn => new Worker(URL.createObjectURL(new Blob([`(${fn.toString()})()`], { type: "text/javascript" })));

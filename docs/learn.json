@@ -1,4 +1,66 @@
 {
+ "levels": [
+  {
+   "lv": 1,
+   "name": "기초",
+   "icon": "🌱",
+   "desc": "맨 처음 — 출력·변수"
+  },
+  {
+   "lv": 2,
+   "name": "초급",
+   "icon": "🌿",
+   "desc": "기본 문법 익히기"
+  },
+  {
+   "lv": 3,
+   "name": "중급",
+   "icon": "🍀",
+   "desc": "기본기 응용"
+  },
+  {
+   "lv": 4,
+   "name": "상급",
+   "icon": "🌳",
+   "desc": "구조 만들기 (클래스·재귀)"
+  },
+  {
+   "lv": 5,
+   "name": "고급",
+   "icon": "🔥",
+   "desc": "효율적으로 (정렬·탐색·메모리)"
+  },
+  {
+   "lv": 6,
+   "name": "심화",
+   "icon": "💎",
+   "desc": "자료구조·DP 입문"
+  },
+  {
+   "lv": 7,
+   "name": "최상위",
+   "icon": "👑",
+   "desc": "그래프·백트래킹·애니메이션"
+  },
+  {
+   "lv": 8,
+   "name": "전문가",
+   "icon": "🧠",
+   "desc": "고급 기법·함수형·컴포넌트"
+  },
+  {
+   "lv": 9,
+   "name": "마스터",
+   "icon": "🏆",
+   "desc": "고급 자료구조·설계 패턴"
+  },
+  {
+   "lv": 10,
+   "name": "전설",
+   "icon": "🐉",
+   "desc": "대회·컴파일러 수준"
+  }
+ ],
  "langs": [
   {
    "key": "py",
@@ -12,7 +74,8 @@
      "code": "print(\"안녕하세요!\")\nprint(\"저는\", \"파이썬을\", \"배워요\")\nprint(3 + 4)\n",
      "task": "자기 이름과 나이를 `print` 로 한 줄에 출력해 보세요. 예) `지훈 17`",
      "hint": "`print(\"이름\", 나이)` 처럼 쉼표로 이어요.",
-     "ans": "print(\"지훈\", 17)\n"
+     "ans": "print(\"지훈\", 17)\n",
+     "lv": 1
     },
     {
      "t": "변수와 자료형",
@@ -21,7 +84,8 @@
      "task": "`a = 7`, `b = 3` 을 만들고 `7 + 3 = 10` 처럼 덧셈 식과 결과를 f-문자열로 출력해 보세요.",
      "hint": "`print(f\"{a} + {b} = {a + b}\")`",
      "ans": "a = 7\nb = 3\nprint(f\"{a} + {b} = {a + b}\")\n",
-     "expect": "7 + 3 = 10"
+     "expect": "7 + 3 = 10",
+     "lv": 1
     },
     {
      "t": "input으로 입력 받기",
@@ -32,7 +96,8 @@
      "ans": "a = int(input())\nb = int(input())\nprint(a * b)\n",
      "expect": "42",
      "stdin": "서연\n16",
-     "astdin": "6\n7"
+     "astdin": "6\n7",
+     "lv": 1
     },
     {
      "t": "연산자",
@@ -41,7 +106,8 @@
      "task": "초 `3725` 를 `1시간 2분 5초` 형태로 바꿔 출력해 보세요.",
      "hint": "시간은 `s // 3600`, 분은 `s % 3600 // 60`, 초는 `s % 60`",
      "ans": "s = 3725\nprint(f\"{s // 3600}시간 {s % 3600 // 60}분 {s % 60}초\")\n",
-     "expect": "1시간 2분 5초"
+     "expect": "1시간 2분 5초",
+     "lv": 1
     },
     {
      "t": "if 조건문",
@@ -52,7 +118,8 @@
      "ans": "n = int(input())\nif n % 2 == 0:\n    print(\"짝수\")\nelse:\n    print(\"홀수\")\n",
      "expect": "짝수",
      "stdin": "85",
-     "astdin": "8"
+     "astdin": "8",
+     "lv": 2
     },
     {
      "t": "for 반복문",
@@ -61,7 +128,8 @@
      "task": "1부터 100까지의 합을 구해 출력해 보세요.",
      "hint": "`total = 0` 을 만들고 `for` 안에서 `total += i`",
      "ans": "total = 0\nfor i in range(1, 101):\n    total += i\nprint(total)\n",
-     "expect": "5050"
+     "expect": "5050",
+     "lv": 2
     },
     {
      "t": "while 반복문",
@@ -70,7 +138,8 @@
      "task": "구구단 7단을 `7 x 1 = 7` 부터 `7 x 9 = 63` 까지 출력해 보세요. (for 든 while 이든 좋아요)",
      "hint": "`for i in range(1, 10): print(f\"7 x {i} = {7 * i}\")`",
      "ans": "for i in range(1, 10):\n    print(f\"7 x {i} = {7 * i}\")\n",
-     "expect": "7 x 9 = 63"
+     "expect": "7 x 9 = 63",
+     "lv": 2
     },
     {
      "t": "리스트",
@@ -79,7 +148,8 @@
      "task": "`[3, 8, 1, 9, 4]` 에서 가장 큰 수와 가장 작은 수의 차이를 출력해 보세요.",
      "hint": "`max(a) - min(a)`",
      "ans": "a = [3, 8, 1, 9, 4]\nprint(max(a) - min(a))\n",
-     "expect": "8"
+     "expect": "8",
+     "lv": 2
     },
     {
      "t": "딕셔너리",
@@ -88,7 +158,8 @@
      "task": "문자열 `\"banana\"` 의 글자별 개수를 딕셔너리로 세어 출력해 보세요. 결과: `{'b': 1, 'a': 3, 'n': 2}`",
      "hint": "`cnt[ch] = cnt.get(ch, 0) + 1`",
      "ans": "cnt = {}\nfor ch in \"banana\":\n    cnt[ch] = cnt.get(ch, 0) + 1\nprint(cnt)\n",
-     "expect": "{'b': 1, 'a': 3, 'n': 2}"
+     "expect": "{'b': 1, 'a': 3, 'n': 2}",
+     "lv": 2
     },
     {
      "t": "함수",
@@ -97,7 +168,8 @@
      "task": "정수 n 을 받아 n 이 소수(1과 자기 자신으로만 나누어지는 수)면 `True` 를 돌려주는 `is_prime(n)` 을 만들고, 1~30 사이 소수를 출력해 보세요.",
      "hint": "2부터 n-1 까지 나눠서 나머지가 0인 수가 있으면 소수가 아니에요.",
      "ans": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\n\nprint([n for n in range(1, 31) if is_prime(n)])\n",
-     "expect": "23, 29]"
+     "expect": "23, 29]",
+     "lv": 2
     },
     {
      "t": "문자열 다루기",
@@ -106,7 +178,173 @@
      "task": "입력받은 문장의 단어 개수를 출력해 보세요. (입력값 `오늘 날씨가 정말 좋다` → `4`)",
      "hint": "`len(input().split())`",
      "ans": "print(len(input().split()))\n",
-     "stdin": "오늘 날씨가 정말 좋다"
+     "stdin": "오늘 날씨가 정말 좋다",
+     "lv": 2
+    },
+    {
+     "t": "리스트 컴프리헨션",
+     "b": "`[식 for 변수 in 범위 if 조건]` 한 줄로 리스트를 만들어요. 반복문 + `append` 를 짧게 쓴 거예요.\n\n- `[x * x for x in nums]` 모두 제곱\n- `[x for x in nums if x % 2 == 0]` 짝수만\n- `{x: x * x for x in range(1, 4)}` 딕셔너리도 돼요",
+     "code": "nums = [3, 8, 1, 6, 5]\nprint([x * x for x in nums])\nprint([x for x in nums if x % 2 == 0])\nprint({x: x * x for x in range(1, 4)})\nprint([[r * c for c in range(1, 4)] for r in range(1, 4)])\n",
+     "task": "1부터 20까지 중 3의 배수의 합을 컴프리헨션과 `sum` 으로 한 줄에 구해 보세요. 결과 `63`",
+     "hint": "`sum([x for x in range(1, 21) if x % 3 == 0])`",
+     "ans": "print(sum([x for x in range(1, 21) if x % 3 == 0]))\n",
+     "expect": "63",
+     "lv": 3
+    },
+    {
+     "t": "예외 처리 try · except",
+     "b": "프로그램이 오류로 멈추지 않게 **예외(Exception)** 를 잡을 수 있어요.\n\n- `try:` 오류가 날 수 있는 코드\n- `except 오류종류:` 그 오류가 나면 실행\n- `finally:` 오류가 나든 안 나든 마지막에 실행\n- `raise ValueError(\"메시지\")` 로 직접 오류를 일으킬 수도 있어요",
+     "code": "for s in [\"12\", \"abc\", \"0\"]:\n    try:\n        n = int(s)\n        print(100 // n)\n    except ValueError:\n        print(s, \"는 숫자가 아니에요\")\n    except ZeroDivisionError:\n        print(\"0으로 나눌 수 없어요\")\n    finally:\n        print(\"--\")\n",
+     "task": "입력값 두 줄(정수 a, b)을 받아 `a // b` 를 출력하되, b 가 0 이면 `나눌 수 없음` 을 출력해 보세요. `if` 말고 `try` 로! (입력값 `7`, `0`)",
+     "hint": "`try: print(a // b)` / `except ZeroDivisionError: print(\"나눌 수 없음\")`",
+     "ans": "a = int(input())\nb = int(input())\ntry:\n    print(a // b)\nexcept ZeroDivisionError:\n    print(\"나눌 수 없음\")\n",
+     "expect": "나눌 수 없음",
+     "stdin": "17\n5",
+     "astdin": "7\n0",
+     "lv": 3
+    },
+    {
+     "t": "클래스와 객체",
+     "b": "**클래스**는 데이터(속성)와 기능(메서드)을 묶은 설계도, **객체**는 그 설계도로 만든 물건이에요.\n\n- `__init__(self, ...)` : 객체를 만들 때 실행 (생성자)\n- `self.이름` : 그 객체의 속성\n- `__str__` : `print(객체)` 했을 때 보여 줄 글자\n- `class 자식(부모):` 로 **상속**하면 부모의 기능을 물려받아요",
+     "code": "class Student:\n    def __init__(self, name, score):\n        self.name = name\n        self.score = score\n\n    def grade(self):\n        return \"A\" if self.score >= 90 else \"B\" if self.score >= 80 else \"C\"\n\n    def __str__(self):\n        return f\"{self.name}({self.score}점, {self.grade()})\"\n\nclass Leader(Student):\n    def __str__(self):\n        return \"⭐반장 \" + super().__str__()\n\nprint(Student(\"하윤\", 92))\nprint(Leader(\"도윤\", 81))\n",
+     "task": "가로 `w`, 세로 `h` 를 받는 `Rect` 클래스에 `area()`(넓이)와 `perimeter()`(둘레) 메서드를 만들고, `Rect(3, 5)` 로 `넓이 15 둘레 16` 을 출력해 보세요.",
+     "hint": "둘레는 `2 * (self.w + self.h)`",
+     "ans": "class Rect:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n    def area(self):\n        return self.w * self.h\n    def perimeter(self):\n        return 2 * (self.w + self.h)\n\nr = Rect(3, 5)\nprint(f\"넓이 {r.area()} 둘레 {r.perimeter()}\")\n",
+     "expect": "넓이 15 둘레 16",
+     "lv": 4
+    },
+    {
+     "t": "재귀 함수",
+     "b": "함수가 **자기 자신을 다시 부르는 것**을 재귀라고 해요. 꼭 두 가지가 있어야 해요.\n\n- **멈추는 조건** (기저 사례): 더 이상 부르지 않고 바로 답을 돌려줌\n- **더 작은 문제로 부르기**: `n` → `n - 1` 처럼 점점 작아져야 함\n\n멈추는 조건이 없으면 끝없이 불러서 `RecursionError` 가 나요. 하노이의 탑은 재귀로 풀면 아주 짧아져요.",
+     "code": "def fact(n):\n    if n <= 1:\n        return 1\n    return n * fact(n - 1)\n\ndef hanoi(n, a, b, c):   # n개 원판을 a → c 로 (b 를 거쳐서)\n    if n == 0:\n        return\n    hanoi(n - 1, a, c, b)\n    print(f\"{n}번 원판: {a} → {c}\")\n    hanoi(n - 1, b, a, c)\n\nprint(fact(5))\nhanoi(3, \"A\", \"B\", \"C\")\n",
+     "task": "피보나치 수 `fib(n)` (fib(1) = fib(2) = 1) 을 재귀로 만들고 `fib(20)` 을 출력해 보세요. 결과 `6765`",
+     "hint": "`if n <= 2: return 1` 그리고 `return fib(n - 1) + fib(n - 2)`",
+     "ans": "def fib(n):\n    if n <= 2:\n        return 1\n    return fib(n - 1) + fib(n - 2)\n\nprint(fib(20))\n",
+     "expect": "6765",
+     "lv": 4
+    },
+    {
+     "t": "정렬 key 와 lambda",
+     "b": "`sorted(목록, key=함수)` 는 각 원소에 함수를 적용한 값을 기준으로 정렬해요. `lambda 인자: 식` 은 이름 없는 짧은 함수예요.\n\n- `key=lambda s: s[1]` 두 번째 값 기준\n- `reverse=True` 큰 것부터\n- `key=lambda s: (-s[1], s[0])` 점수 높은 순, 같으면 이름 순 (**튜플은 앞에서부터 비교**)",
+     "code": "students = [(\"민준\", 85), (\"서연\", 92), (\"지호\", 85), (\"하은\", 78)]\nprint(sorted(students, key=lambda s: s[1], reverse=True))\nprint(sorted(students, key=lambda s: (-s[1], s[0])))\nwords = [\"banana\", \"kiwi\", \"apple\", \"fig\"]\nprint(sorted(words, key=len))\nprint(max(students, key=lambda s: s[1]))\n",
+     "task": "`[\"pear\", \"fig\", \"apple\", \"kiwi\", \"date\"]` 를 **길이 짧은 순**, 길이가 같으면 **사전 순**으로 정렬해 띄어쓰기로 이어 출력해 보세요. 결과 `fig date kiwi pear apple`",
+     "hint": "`key=lambda w: (len(w), w)` 그리고 `\" \".join(...)`",
+     "ans": "words = [\"pear\", \"fig\", \"apple\", \"kiwi\", \"date\"]\nprint(\" \".join(sorted(words, key=lambda w: (len(w), w))))\n",
+     "expect": "fig date kiwi pear apple",
+     "lv": 5
+    },
+    {
+     "t": "이진 탐색",
+     "b": "**정렬된** 목록에서 가운데 값과 비교해 절반씩 버리며 찾는 방법이에요. 100만 개도 20번이면 찾아요. (시간 복잡도 `O(log n)`)\n\n- 찾는 값이 가운데보다 크면 오른쪽 절반, 작으면 왼쪽 절반\n- 파이썬에는 `bisect` 모듈이 있어요: `bisect_left(목록, x)` 는 x 를 넣을 자리\n\n이진 탐색은 \"조건을 만족하는 가장 큰 x\" 같은 **답 자체를 찾는 문제**(매개 변수 탐색)에도 써요.",
+     "code": "def bsearch(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return mid\n        if arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n\narr = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]\nprint(bsearch(arr, 23), bsearch(arr, 7))\n\nimport bisect\nprint(bisect.bisect_left(arr, 20))\n",
+     "task": "입력받은 정수 n 에 대해 `x * x <= n` 인 가장 큰 정수 x 를 **이진 탐색**으로 구해 보세요. (`**0.5` 금지!) 입력값 `99999999` → `9999`",
+     "hint": "`lo, hi = 0, n` 으로 시작해 `mid * mid <= n` 이면 답 후보로 두고 `lo = mid + 1`",
+     "ans": "n = int(input())\nlo, hi, ans = 0, n, 0\nwhile lo <= hi:\n    mid = (lo + hi) // 2\n    if mid * mid <= n:\n        ans = mid\n        lo = mid + 1\n    else:\n        hi = mid - 1\nprint(ans)\n",
+     "expect": "9999",
+     "stdin": "50",
+     "astdin": "99999999",
+     "lv": 5
+    },
+    {
+     "t": "큐와 너비 우선 탐색 (BFS)",
+     "b": "**BFS** 는 가까운 곳부터 차례로 퍼져 나가며 탐색해요. 그래서 **최단 거리(가장 적은 횟수)** 를 구할 때 써요.\n\n- 큐(`collections.deque`)에 시작점을 넣고\n- 하나 꺼내서(`popleft`) 갈 수 있는 곳 중 **아직 안 간 곳**을 큐에 넣기\n- 큐가 빌 때까지 반복\n\n리스트의 `pop(0)` 은 느리니까 꼭 `deque` 를 써요.",
+     "code": "from collections import deque\n\nmaze = [\"S.#...\",\n        \".##.#.\",\n        \"....#E\"]\nR, C = len(maze), len(maze[0])\ndist = [[-1] * C for _ in range(R)]\nq = deque([(0, 0)])\ndist[0][0] = 0\nwhile q:\n    r, c = q.popleft()\n    for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n        nr, nc = r + dr, c + dc\n        if 0 <= nr < R and 0 <= nc < C and maze[nr][nc] != \"#\" and dist[nr][nc] == -1:\n            dist[nr][nc] = dist[r][c] + 1\n            q.append((nr, nc))\nprint(\"E 까지 최단 거리:\", dist[2][5])\nfor row in dist:\n    print(\" \".join(f\"{d:2}\" for d in row))\n",
+     "task": "숫자 `1` 에서 시작해 한 번에 **+1** 또는 **×2** 만 할 수 있을 때, `100` 을 만드는 가장 적은 횟수를 BFS 로 구해 보세요. 결과 `8`",
+     "hint": "큐에 `(숫자, 횟수)` 를 넣고, 꺼낸 숫자가 100 이면 횟수를 출력. 100 을 넘는 숫자는 버려요.",
+     "ans": "from collections import deque\n\nq = deque([(1, 0)])\nseen = {1}\nwhile q:\n    x, d = q.popleft()\n    if x == 100:\n        print(d)\n        break\n    for y in (x + 1, x * 2):\n        if y <= 100 and y not in seen:\n            seen.add(y)\n            q.append((y, d + 1))\n",
+     "expect": "8",
+     "lv": 6
+    },
+    {
+     "t": "동적 계획법 (DP) 기초",
+     "b": "**동적 계획법**은 큰 문제를 작은 문제로 나누고, 작은 문제의 답을 **표에 저장해 두고 다시 쓰는** 방법이에요. 같은 계산을 두 번 하지 않아서 빨라요.\n\n1. `dp[i]` 가 무슨 뜻인지 정하기 (예: i 칸까지 오르는 방법 수)\n2. 점화식 세우기 (예: `dp[i] = dp[i-1] + dp[i-2]`)\n3. 처음 값 채우고 작은 것부터 계산\n\n동전 문제처럼 **욕심(그리디)으로 큰 동전부터 쓰면 틀리는** 문제도 DP 로는 정확히 풀려요.",
+     "code": "# 계단: 한 번에 1칸 또는 2칸 → 10칸 오르는 방법 수\nn = 10\ndp = [0] * (n + 1)\ndp[0] = dp[1] = 1\nfor i in range(2, n + 1):\n    dp[i] = dp[i - 1] + dp[i - 2]\nprint(\"계단:\", dp[n])\n\n# 동전 1, 5, 7원으로 24원 만들기 (가장 적은 개수)\ncoins, m = [1, 5, 7], 24\nINF = float(\"inf\")\nbest = [0] + [INF] * m\nfor x in range(1, m + 1):\n    for c in coins:\n        if c <= x:\n            best[x] = min(best[x], best[x - c] + 1)\nprint(\"동전:\", best[m], \"개  (욕심내면 7+7+7+1+1+1 = 6개)\")\n",
+     "task": "수열 `[10, 20, 10, 30, 20, 50]` 의 **가장 긴 증가하는 부분 수열(LIS)** 길이를 DP 로 구해 보세요. (10, 20, 30, 50) 결과 `4`",
+     "hint": "`dp[i]` = i 번째로 끝나는 LIS 길이. 앞의 `j < i` 중 `a[j] < a[i]` 이면 `dp[i] = max(dp[i], dp[j] + 1)`",
+     "ans": "a = [10, 20, 10, 30, 20, 50]\ndp = [1] * len(a)\nfor i in range(len(a)):\n    for j in range(i):\n        if a[j] < a[i]:\n            dp[i] = max(dp[i], dp[j] + 1)\nprint(max(dp))\n",
+     "expect": "4",
+     "lv": 6
+    },
+    {
+     "t": "다익스트라 최단 경로",
+     "b": "간선마다 **비용(거리)** 이 다를 때 한 점에서 모든 점까지의 최단 거리를 구하는 알고리즘이에요. (비용이 음수면 안 돼요)\n\n- 지금까지 가장 가까운 점부터 확정 → **우선순위 큐(`heapq`)** 로 꺼내요\n- 그 점을 거쳐 가는 게 더 짧으면 거리를 줄이고(**완화**) 큐에 넣기\n- 이미 더 짧은 거리가 확정된 점이 나오면 건너뛰기\n\n시간 복잡도는 `O(E log V)`. 내비게이션 길찾기의 기본이에요.",
+     "code": "import heapq\n\ngraph = {\n    \"집\": [(\"학교\", 7), (\"도서관\", 2)],\n    \"도서관\": [(\"학교\", 3), (\"학원\", 8)],\n    \"학교\": [(\"학원\", 2)],\n    \"학원\": [],\n}\n\ndef dijkstra(start):\n    dist = {v: float(\"inf\") for v in graph}\n    dist[start] = 0\n    pq = [(0, start)]\n    while pq:\n        d, v = heapq.heappop(pq)\n        if d > dist[v]:\n            continue\n        for w, cost in graph[v]:\n            if d + cost < dist[w]:\n                dist[w] = d + cost\n                heapq.heappush(pq, (dist[w], w))\n    return dist\n\nprint(dijkstra(\"집\"))\n",
+     "task": "입력 첫 줄에 정점 수 N, 간선 수 M, 다음 M 줄에 `출발 도착 비용` 이 있어요. 1번에서 N번까지의 최단 거리를 출력해 보세요. (한쪽 방향 간선) 입력값:\n`4 5` / `1 2 4` / `1 3 1` / `3 2 2` / `2 4 1` / `3 4 5` → `4`",
+     "hint": "`graph = [[] for _ in range(N + 1)]` 에 `graph[a].append((b, c))` 로 넣고 위 코드처럼",
+     "ans": "import heapq\n\nN, M = map(int, input().split())\ngraph = [[] for _ in range(N + 1)]\nfor _ in range(M):\n    a, b, c = map(int, input().split())\n    graph[a].append((b, c))\ndist = [float(\"inf\")] * (N + 1)\ndist[1] = 0\npq = [(0, 1)]\nwhile pq:\n    d, v = heapq.heappop(pq)\n    if d > dist[v]:\n        continue\n    for w, c in graph[v]:\n        if d + c < dist[w]:\n            dist[w] = d + c\n            heapq.heappush(pq, (dist[w], w))\nprint(dist[N])\n",
+     "expect": "4",
+     "astdin": "4 5\n1 2 4\n1 3 1\n3 2 2\n2 4 1\n3 4 5",
+     "lv": 7
+    },
+    {
+     "t": "백트래킹 (N-Queen)",
+     "b": "**백트래킹**은 가능한 선택을 하나씩 해 보다가, **조건에 어긋나면 바로 되돌아가서**(가지치기) 다른 선택을 해 보는 방법이에요.\n\nN-Queen: N×N 체스판에 퀸 N개를 서로 공격하지 못하게 놓는 방법의 수.\n\n- 한 줄(행)에 퀸 하나씩, 위에서부터 놓기\n- 같은 열 `col`, 같은 대각선 `r + c`, `r - c` 에 이미 퀸이 있으면 건너뛰기\n- 놓았다가 → 다음 줄로 → 돌아오면 **치우기** (`remove`)",
+     "code": "def solve(n):\n    cols, d1, d2 = set(), set(), set()\n    board, out = [], []\n    def place(r):\n        if r == n:\n            out.append(board[:])\n            return\n        for c in range(n):\n            if c in cols or r + c in d1 or r - c in d2:\n                continue\n            cols.add(c); d1.add(r + c); d2.add(r - c); board.append(c)\n            place(r + 1)\n            cols.remove(c); d1.remove(r + c); d2.remove(r - c); board.pop()\n    place(0)\n    return out\n\nsols = solve(4)\nprint(\"4-Queen 방법 수:\", len(sols))\nfor c in sols[0]:\n    print(\" \".join(\"Q\" if i == c else \".\" for i in range(4)))\n",
+     "task": "8×8 체스판에서 퀸 8개를 놓는 방법의 수를 구해 보세요. 결과 `92`",
+     "hint": "위 코드의 `solve(8)` 길이를 출력하면 돼요. 방법만 세려면 `board` 를 저장하지 않고 개수만 더해도 돼요.",
+     "ans": "def count(n):\n    cols, d1, d2 = set(), set(), set()\n    def place(r):\n        if r == n:\n            return 1\n        total = 0\n        for c in range(n):\n            if c in cols or r + c in d1 or r - c in d2:\n                continue\n            cols.add(c); d1.add(r + c); d2.add(r - c)\n            total += place(r + 1)\n            cols.remove(c); d1.remove(r + c); d2.remove(r - c)\n        return total\n    return place(0)\n\nprint(count(8))\n",
+     "expect": "92",
+     "lv": 7
+    },
+    {
+     "t": "제너레이터와 데코레이터",
+     "b": "**제너레이터**: `return` 대신 `yield` 를 쓰면 값을 **하나씩, 필요할 때만** 만들어요. 끝없는 수열도 메모리 걱정 없이 다룰 수 있어요.\n\n**데코레이터**: 함수를 받아서 기능을 덧붙인 새 함수를 돌려주는 함수. `@이름` 을 함수 위에 붙여요.\n\n- `functools.lru_cache` 는 결과를 기억해 주는 내장 데코레이터예요 (재귀 DP 가 순식간에!)\n- `itertools.islice(제너레이터, n)` 처음 n 개만 꺼내기",
+     "code": "from functools import lru_cache\nfrom itertools import islice\n\ndef logged(func):\n    def wrapper(*args):\n        result = func(*args)\n        print(f\"{func.__name__}{args} → {result}\")\n        return result\n    return wrapper\n\n@logged\ndef add(a, b):\n    return a + b\n\ndef countdown(n):\n    while n > 0:\n        yield n\n        n -= 1\n\n@lru_cache(maxsize=None)\ndef fib(n):\n    return n if n < 2 else fib(n - 1) + fib(n - 2)\n\nadd(2, 3)\nprint(list(countdown(5)))\nsquares = (x * x for x in range(10**12))   # 1조 개도 괜찮아요\nprint(list(islice(squares, 5)))\nprint(fib(200))\n",
+     "task": "끝없이 피보나치 수(1, 1, 2, 3, 5, …)를 `yield` 하는 제너레이터 `fibs()` 를 만들고, 처음 10개의 합을 출력해 보세요. 결과 `143`",
+     "hint": "`a, b = 1, 1` / `while True: yield a; a, b = b, a + b` 그리고 `sum(islice(fibs(), 10))`",
+     "ans": "from itertools import islice\n\ndef fibs():\n    a, b = 1, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\nprint(sum(islice(fibs(), 10)))\n",
+     "expect": "143",
+     "lv": 8
+    },
+    {
+     "t": "비트마스크와 외판원 문제",
+     "b": "정수의 **비트(0/1)** 하나하나를 \"골랐다/안 골랐다\" 로 쓰면, 집합을 숫자 하나로 표현할 수 있어요.\n\n- `1 << i` : i 번째만 켜진 수\n- `mask & (1 << i)` : i 번째가 들어 있나?\n- `mask | (1 << i)` : i 번째 넣기\n- `range(1 << n)` : n 개로 만드는 **모든 부분 집합**\n\n**외판원 문제(TSP)**: 모든 도시를 한 번씩 들르고 돌아오는 최소 비용. `dp[mask][i]` = mask 도시들을 들르고 지금 i 에 있을 때 최소 비용. `O(2ⁿ · n²)`",
+     "code": "W = [[0, 10, 15, 20],\n     [5, 0, 9, 10],\n     [6, 13, 0, 12],\n     [8, 8, 9, 0]]\nn = len(W)\nINF = float(\"inf\")\ndp = [[INF] * n for _ in range(1 << n)]\ndp[1][0] = 0                      # 0번 도시에서 출발\nfor mask in range(1 << n):\n    for i in range(n):\n        if dp[mask][i] == INF:\n            continue\n        for j in range(n):\n            if mask & (1 << j):\n                continue\n            nm = mask | (1 << j)\n            dp[nm][j] = min(dp[nm][j], dp[mask][i] + W[i][j])\nfull = (1 << n) - 1\nprint(\"최소 비용:\", min(dp[full][i] + W[i][0] for i in range(1, n)))\n",
+     "task": "`[3, 5, 6, 7, 9]` 의 부분 집합 중 **합이 정확히 15** 인 것이 몇 개인지 비트마스크로 세어 보세요. (6+9, 3+5+7) 결과 `2`",
+     "hint": "`for mask in range(1 << 5):` 안에서 `mask & (1 << i)` 인 원소만 더해서 15 인지 확인",
+     "ans": "a = [3, 5, 6, 7, 9]\ncnt = 0\nfor mask in range(1 << len(a)):\n    s = sum(a[i] for i in range(len(a)) if mask & (1 << i))\n    if s == 15:\n        cnt += 1\nprint(cnt)\n",
+     "expect": "2",
+     "lv": 8
+    },
+    {
+     "t": "세그먼트 트리",
+     "b": "배열의 값이 자꾸 바뀌는데 **구간 합**을 계속 물어본다면? 매번 더하면 `O(n)`, 세그먼트 트리는 바꾸기·묻기 모두 `O(log n)` 이에요.\n\n- 트리의 잎(맨 아래)에 원래 값, 위로 갈수록 **두 자식의 합**\n- 길이 `2n` 배열 하나로: 잎은 `t[n] ~ t[2n-1]`, 노드 `i` 의 자식은 `2i`, `2i+1`\n- 값 바꾸기: 잎을 바꾸고 부모로 올라가며 다시 계산\n- 구간 `[l, r)` 묻기: 양 끝에서 올라오며 필요한 노드만 더하기",
+     "code": "class SegTree:\n    def __init__(self, a):\n        self.n = len(a)\n        self.t = [0] * (2 * self.n)\n        self.t[self.n:] = a\n        for i in range(self.n - 1, 0, -1):\n            self.t[i] = self.t[2 * i] + self.t[2 * i + 1]\n    def update(self, i, v):          # a[i] = v\n        i += self.n\n        self.t[i] = v\n        while i > 1:\n            i //= 2\n            self.t[i] = self.t[2 * i] + self.t[2 * i + 1]\n    def query(self, l, r):           # a[l] + … + a[r-1]\n        s = 0\n        l += self.n; r += self.n\n        while l < r:\n            if l & 1: s += self.t[l]; l += 1\n            if r & 1: r -= 1; s += self.t[r]\n            l //= 2; r //= 2\n        return s\n\nst = SegTree([5, 8, 6, 3, 2, 7, 2, 6])\nprint(st.query(1, 5))   # 8+6+3+2\nst.update(3, 10)\nprint(st.query(1, 5))   # 8+6+10+2\n",
+     "task": "위 코드를 **구간 최솟값** 트리로 바꿔 보세요. `[5, 8, 6, 3, 2, 7, 2, 6]` 에서 `a[2] ~ a[5]` 의 최솟값 → `a[4] = 9` 로 바꾼 뒤 다시 `a[2] ~ a[5]` 의 최솟값. 두 값을 띄어 출력 → `2 3`",
+     "hint": "`+` 를 `min` 으로, `s = 0` 을 `s = float(\"inf\")` 로. 구간은 `query(2, 6)`",
+     "ans": "class MinTree:\n    def __init__(self, a):\n        self.n = len(a)\n        self.t = [float(\"inf\")] * (2 * self.n)\n        self.t[self.n:] = a\n        for i in range(self.n - 1, 0, -1):\n            self.t[i] = min(self.t[2 * i], self.t[2 * i + 1])\n    def update(self, i, v):\n        i += self.n\n        self.t[i] = v\n        while i > 1:\n            i //= 2\n            self.t[i] = min(self.t[2 * i], self.t[2 * i + 1])\n    def query(self, l, r):\n        s = float(\"inf\")\n        l += self.n; r += self.n\n        while l < r:\n            if l & 1: s = min(s, self.t[l]); l += 1\n            if r & 1: r -= 1; s = min(s, self.t[r])\n            l //= 2; r //= 2\n        return s\n\nmt = MinTree([5, 8, 6, 3, 2, 7, 2, 6])\nx = mt.query(2, 6)\nmt.update(4, 9)\nprint(x, mt.query(2, 6))\n",
+     "expect": "2 3",
+     "lv": 9
+    },
+    {
+     "t": "KMP 문자열 검색",
+     "b": "긴 글(길이 N)에서 단어(길이 M)를 찾을 때, 한 칸씩 밀며 비교하면 `O(N·M)`. **KMP** 는 `O(N + M)` 이에요.\n\n핵심은 **실패 함수 `pi[i]`**: 단어의 `0..i` 부분에서 **앞부분 = 뒷부분** 이 되는 가장 긴 길이. 비교가 틀리면 처음으로 돌아가지 않고 `pi` 만큼만 되돌아가요.\n\n예) `ABABC` → `pi = [0, 0, 1, 2, 0]`",
+     "code": "def make_pi(p):\n    pi = [0] * len(p)\n    j = 0\n    for i in range(1, len(p)):\n        while j > 0 and p[i] != p[j]:\n            j = pi[j - 1]\n        if p[i] == p[j]:\n            j += 1\n            pi[i] = j\n    return pi\n\ndef kmp(text, p):\n    pi, j, found = make_pi(p), 0, []\n    for i, ch in enumerate(text):\n        while j > 0 and ch != p[j]:\n            j = pi[j - 1]\n        if ch == p[j]:\n            if j == len(p) - 1:\n                found.append(i - j)\n                j = pi[j]\n            else:\n                j += 1\n    return found\n\nprint(make_pi(\"ABABC\"))\nprint(kmp(\"ABABDABABCABABC\", \"ABABC\"))\n",
+     "task": "실패 함수로 문자열의 **가장 짧은 반복 단위 길이**를 구해 보세요. 길이 n 인 문자열이 반복으로 이루어졌다면 `n - pi[-1]` 이에요. `\"abcabcabcabc\"` → `3`, 그리고 `\"abababab\"` → `2`. 두 값을 띄어 `3 2` 로 출력",
+     "hint": "`n % (n - pi[-1]) == 0` 이면 반복 단위 길이는 `n - pi[-1]`, 아니면 `n`",
+     "ans": "def make_pi(p):\n    pi = [0] * len(p)\n    j = 0\n    for i in range(1, len(p)):\n        while j > 0 and p[i] != p[j]:\n            j = pi[j - 1]\n        if p[i] == p[j]:\n            j += 1\n            pi[i] = j\n    return pi\n\ndef period(s):\n    n = len(s)\n    k = n - make_pi(s)[-1]\n    return k if n % k == 0 else n\n\nprint(period(\"abcabcabcabc\"), period(\"abababab\"))\n",
+     "expect": "3 2",
+     "lv": 9
+    },
+    {
+     "t": "유니온 파인드와 최소 신장 트리",
+     "b": "**유니온 파인드**: 원소들이 어느 그룹에 속하는지 빠르게 합치고(`union`) 찾는(`find`) 자료구조예요.\n\n- `parent[x]` 를 따라 올라가면 그룹 대표\n- **경로 압축**: 찾는 김에 대표에 바로 연결 → 거의 `O(1)`\n\n**크루스칼 알고리즘**: 모든 정점을 가장 싸게 잇는 **최소 신장 트리(MST)**.\n간선을 비용 순으로 정렬 → 두 끝이 **다른 그룹**이면 연결(사이클이 안 생기게).",
+     "code": "def find(x):\n    if parent[x] != x:\n        parent[x] = find(parent[x])   # 경로 압축\n    return parent[x]\n\ndef union(a, b):\n    a, b = find(a), find(b)\n    if a == b:\n        return False\n    parent[b] = a\n    return True\n\nn = 6\nedges = [(1, 2, 3), (1, 3, 1), (2, 3, 7), (2, 4, 5), (3, 4, 2),\n         (4, 5, 7), (3, 5, 8), (5, 6, 4), (4, 6, 6)]\nparent = list(range(n + 1))\ntotal, used = 0, []\nfor a, b, w in sorted(edges, key=lambda e: e[2]):\n    if union(a, b):\n        total += w\n        used.append((a, b, w))\nprint(\"MST 비용:\", total)\nprint(used)\n",
+     "task": "정점 1~10 이 있고 친구 관계 `(1,2) (2,3) (4,5) (6,7) (7,8) (8,6) (9,9)` 가 있어요. 친구의 친구도 같은 무리일 때 **무리가 몇 개**인지 유니온 파인드로 세어 보세요. (아무와도 친구가 아니면 혼자 한 무리) 결과 `5`",
+     "hint": "모두 `union` 한 다음 `len({find(i) for i in range(1, 11)})`",
+     "ans": "parent = list(range(11))\n\ndef find(x):\n    if parent[x] != x:\n        parent[x] = find(parent[x])\n    return parent[x]\n\nfor a, b in [(1, 2), (2, 3), (4, 5), (6, 7), (7, 8), (8, 6), (9, 9)]:\n    parent[find(b)] = find(a)\nprint(len({find(i) for i in range(1, 11)}))\n",
+     "expect": "5",
+     "lv": 10
+    },
+    {
+     "t": "볼록 껍질 (기하 알고리즘)",
+     "b": "평면 위 점들을 고무줄로 감쌌을 때 생기는 다각형이 **볼록 껍질(Convex Hull)** 이에요.\n\n**CCW (외적)**: 세 점 A→B→C 가 왼쪽으로 꺾이면 양수, 오른쪽이면 음수, 일직선이면 0.\n`(B-A) × (C-A) = (bx-ax)(cy-ay) - (by-ay)(cx-ax)`\n\n**모노톤 체인**: 점을 x 순으로 정렬 → 아래 껍질, 위 껍질을 스택으로 만들며 **오른쪽으로 꺾이면 빼기**. `O(n log n)`",
+     "code": "def ccw(a, b, c):\n    return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])\n\ndef hull(pts):\n    pts = sorted(set(pts))\n    def half(seq):\n        st = []\n        for p in seq:\n            while len(st) >= 2 and ccw(st[-2], st[-1], p) <= 0:\n                st.pop()\n            st.append(p)\n        return st[:-1]\n    return half(pts) + half(pts[::-1])\n\npts = [(0, 0), (2, 1), (4, 0), (3, 2), (4, 4), (1, 3), (0, 4), (2, 2)]\nprint(hull(pts))\n",
+     "task": "위 점들의 볼록 껍질 **넓이**를 신발끈 공식으로 구해 출력해 보세요. 넓이 = |Σ (xᵢ·yᵢ₊₁ − xᵢ₊₁·yᵢ)| / 2. 결과 `16.0`",
+     "hint": "`h = hull(pts)` 에서 `for i in range(len(h)): j = (i + 1) % len(h)` 로 더하고 `abs(s) / 2`",
+     "ans": "def ccw(a, b, c):\n    return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])\n\ndef hull(pts):\n    pts = sorted(set(pts))\n    def half(seq):\n        st = []\n        for p in seq:\n            while len(st) >= 2 and ccw(st[-2], st[-1], p) <= 0:\n                st.pop()\n            st.append(p)\n        return st[:-1]\n    return half(pts) + half(pts[::-1])\n\npts = [(0, 0), (2, 1), (4, 0), (3, 2), (4, 4), (1, 3), (0, 4), (2, 2)]\nh = hull(pts)\ns = 0\nfor i in range(len(h)):\n    j = (i + 1) % len(h)\n    s += h[i][0] * h[j][1] - h[j][0] * h[i][1]\nprint(abs(s) / 2)\n",
+     "expect": "16.0",
+     "lv": 10
     }
    ]
   },
@@ -123,7 +361,8 @@
      "task": "세 줄에 걸쳐 `*`, `**`, `***` 을 출력해 보세요.",
      "hint": "`printf(\"*\\n**\\n***\\n\");`",
      "ans": "#include <stdio.h>\n\nint main(void) {\n    printf(\"*\\n**\\n***\\n\");\n    return 0;\n}\n",
-     "expect": "***"
+     "expect": "***",
+     "lv": 1
     },
     {
      "t": "변수와 printf 형식",
@@ -132,7 +371,8 @@
      "task": "반지름이 `5` 인 원의 넓이를 소수 둘째 자리까지 출력해 보세요. (π = 3.14159)",
      "hint": "`double r = 5; printf(\"%.2f\\n\", 3.14159 * r * r);`",
      "ans": "#include <stdio.h>\n\nint main(void) {\n    double r = 5;\n    printf(\"%.2f\\n\", 3.14159 * r * r);\n    return 0;\n}\n",
-     "expect": "78.54"
+     "expect": "78.54",
+     "lv": 1
     },
     {
      "t": "scanf로 입력 받기",
@@ -143,7 +383,8 @@
      "ans": "#include <stdio.h>\n\nint main(void) {\n    int a, b;\n    scanf(\"%d %d\", &a, &b);\n    printf(\"몫 %d 나머지 %d\\n\", a / b, a % b);\n    return 0;\n}\n",
      "expect": "몫 3 나머지 2",
      "stdin": "12 30",
-     "astdin": "17 5"
+     "astdin": "17 5",
+     "lv": 1
     },
     {
      "t": "if 조건문",
@@ -154,7 +395,8 @@
      "ans": "#include <stdio.h>\n\nint main(void) {\n    int a, b, c;\n    scanf(\"%d %d %d\", &a, &b, &c);\n    int max = a;\n    if (b > max) max = b;\n    if (c > max) max = c;\n    printf(\"%d\\n\", max);\n    return 0;\n}\n",
      "expect": "9",
      "stdin": "2024",
-     "astdin": "4 9 2"
+     "astdin": "4 9 2",
+     "lv": 2
     },
     {
      "t": "for · while 반복문",
@@ -163,7 +405,8 @@
      "task": "1부터 10까지 곱한 값(10!)을 출력해 보세요. 결과 `3628800`",
      "hint": "`long long f = 1; for (int i = 1; i <= 10; i++) f *= i;` 출력은 `%lld`",
      "ans": "#include <stdio.h>\n\nint main(void) {\n    long long f = 1;\n    for (int i = 1; i <= 10; i++) f *= i;\n    printf(\"%lld\\n\", f);\n    return 0;\n}\n",
-     "expect": "3628800"
+     "expect": "3628800",
+     "lv": 2
     },
     {
      "t": "배열",
@@ -172,7 +415,8 @@
      "task": "배열 `{5, 3, 8, 1, 9}` 를 거꾸로 `9 1 8 3 5` 로 출력해 보세요.",
      "hint": "`for (int i = 4; i >= 0; i--)`",
      "ans": "#include <stdio.h>\n\nint main(void) {\n    int a[5] = {5, 3, 8, 1, 9};\n    for (int i = 4; i >= 0; i--) printf(\"%d \", a[i]);\n    printf(\"\\n\");\n    return 0;\n}\n",
-     "expect": "9 1 8 3 5"
+     "expect": "9 1 8 3 5",
+     "lv": 2
     },
     {
      "t": "함수",
@@ -181,7 +425,8 @@
      "task": "두 정수의 최대공약수를 구하는 `int gcd(int a, int b)` 를 만들고 `gcd(48, 18)` 을 출력해 보세요. 결과 `6`",
      "hint": "유클리드 호제법: `b` 가 0 이면 `a`, 아니면 `gcd(b, a % b)`",
      "ans": "#include <stdio.h>\n\nint gcd(int a, int b) {\n    return b == 0 ? a : gcd(b, a % b);\n}\n\nint main(void) {\n    printf(\"%d\\n\", gcd(48, 18));\n    return 0;\n}\n",
-     "expect": "6"
+     "expect": "6",
+     "lv": 2
     },
     {
      "t": "포인터 기초",
@@ -190,7 +435,180 @@
      "task": "정수의 주소를 받아 그 값을 2배로 만드는 `void twice(int *p)` 를 만들고, `n = 21` 에 써서 `42` 를 출력해 보세요.",
      "hint": "`*p = *p * 2;` 그리고 `twice(&n);`",
      "ans": "#include <stdio.h>\n\nvoid twice(int *p) {\n    *p = *p * 2;\n}\n\nint main(void) {\n    int n = 21;\n    twice(&n);\n    printf(\"%d\\n\", n);\n    return 0;\n}\n",
-     "expect": "42"
+     "expect": "42",
+     "lv": 2
+    },
+    {
+     "t": "문자열 (char 배열)",
+     "b": "C 의 문자열은 **글자(char) 배열**이고, 끝에 보이지 않는 `'\\0'`(널 문자)이 붙어 있어요.\n\n- `char s[50];` 50칸짜리 (글자는 49개까지 + `'\\0'`)\n- `scanf(\"%49s\", s);` 띄어쓰기 전까지 한 단어 입력 (배열 이름 앞엔 `&` 없음)\n- `#include <string.h>` 의 `strlen`(길이), `strcmp`(비교), `strcpy`(복사)\n- 글자는 사실 숫자(아스키 코드): `'a'` 는 97, `'A'` 는 65 → 32 를 빼면 대문자",
+     "code": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[50];\n    scanf(\"%49s\", s);\n    printf(\"길이 %d\\n\", (int)strlen(s));\n    for (int i = 0; s[i] != '\\0'; i++)\n        if (s[i] >= 'a' && s[i] <= 'z') s[i] -= 32;\n    printf(\"%s\\n\", s);\n    printf(\"%d\\n\", strcmp(\"apple\", \"banana\") < 0);\n    return 0;\n}\n",
+     "task": "입력받은 단어를 거꾸로 뒤집어 출력해 보세요. (입력값 `coding` → `gnidoc`)",
+     "hint": "`int n = strlen(s);` 다음 `for (int i = n - 1; i >= 0; i--) printf(\"%c\", s[i]);`",
+     "ans": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[50];\n    scanf(\"%49s\", s);\n    int n = strlen(s);\n    for (int i = n - 1; i >= 0; i--) printf(\"%c\", s[i]);\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "expect": "gnidoc",
+     "stdin": "hello",
+     "astdin": "coding",
+     "lv": 3
+    },
+    {
+     "t": "2차원 배열",
+     "b": "`int a[3][4];` 는 3줄 × 4칸짜리 표예요. `a[줄][칸]` 으로 쓰고, 보통 **이중 for 문**으로 다뤄요.\n\n- `int a[2][3] = {{1, 2, 3}, {4, 5, 6}};`\n- 바깥 for: 줄(`i`), 안쪽 for: 칸(`j`)\n- 게임 맵, 행렬, 바둑판, 엑셀 같은 표 데이터에 써요",
+     "code": "#include <stdio.h>\n\nint main(void) {\n    int a[3][3];\n    for (int i = 0; i < 3; i++)\n        for (int j = 0; j < 3; j++)\n            a[i][j] = (i + 1) * (j + 1);\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 3; j++) printf(\"%3d\", a[i][j]);\n        printf(\"\\n\");\n    }\n    return 0;\n}\n",
+     "task": "3×3 행렬 9개 숫자를 입력받아 **두 대각선의 합**을 `15 15` 처럼 출력해 보세요. (입력값 `1 2 3` / `4 5 6` / `7 8 9`)",
+     "hint": "왼쪽 위→오른쪽 아래는 `a[i][i]`, 오른쪽 위→왼쪽 아래는 `a[i][2 - i]`",
+     "ans": "#include <stdio.h>\n\nint main(void) {\n    int a[3][3], d1 = 0, d2 = 0;\n    for (int i = 0; i < 3; i++)\n        for (int j = 0; j < 3; j++) scanf(\"%d\", &a[i][j]);\n    for (int i = 0; i < 3; i++) {\n        d1 += a[i][i];\n        d2 += a[i][2 - i];\n    }\n    printf(\"%d %d\\n\", d1, d2);\n    return 0;\n}\n",
+     "expect": "15 15",
+     "astdin": "1 2 3\n4 5 6\n7 8 9",
+     "lv": 3
+    },
+    {
+     "t": "구조체 struct",
+     "b": "**구조체**는 서로 다른 자료형을 하나로 묶은 나만의 자료형이에요.\n\n```\nstruct Student { char name[20]; int score; };\n```\n\n- `struct Student s = {\"민서\", 90};`\n- `s.score` 처럼 **점(.)** 으로 꺼내요\n- 포인터라면 `p->score` (화살표)\n- `typedef` 를 쓰면 `struct` 를 매번 안 써도 돼요",
+     "code": "#include <stdio.h>\n\ntypedef struct {\n    char name[20];\n    int score;\n} Student;\n\nint main(void) {\n    Student cls[4] = {{\"민서\", 90}, {\"준호\", 75}, {\"예린\", 98}, {\"태양\", 84}};\n    int best = 0;\n    for (int i = 1; i < 4; i++)\n        if (cls[i].score > cls[best].score) best = i;\n    printf(\"1등: %s (%d점)\\n\", cls[best].name, cls[best].score);\n\n    Student *p = &cls[1];\n    p->score += 10;\n    printf(\"%s 는 이제 %d점\\n\", p->name, cls[1].score);\n    return 0;\n}\n",
+     "task": "`x`, `y` 를 담는 `Point` 구조체를 만들고, 두 점 `(1, 2)`, `(4, 6)` 사이의 **맨해튼 거리** |x1−x2| + |y1−y2| 를 출력해 보세요. 결과 `7`",
+     "hint": "`int dist(Point a, Point b)` 함수 안에서 `abs` 대신 `a.x > b.x ? a.x - b.x : b.x - a.x` 처럼 계산해도 돼요.",
+     "ans": "#include <stdio.h>\n\ntypedef struct { int x, y; } Point;\n\nint absv(int v) { return v < 0 ? -v : v; }\n\nint dist(Point a, Point b) {\n    return absv(a.x - b.x) + absv(a.y - b.y);\n}\n\nint main(void) {\n    Point a = {1, 2}, b = {4, 6};\n    printf(\"%d\\n\", dist(a, b));\n    return 0;\n}\n",
+     "expect": "7",
+     "lv": 4
+    },
+    {
+     "t": "재귀 함수",
+     "b": "C 에서도 함수가 자기 자신을 부를 수 있어요. **멈추는 조건**을 먼저 쓰는 습관을 들여요.\n\n**분할 정복 거듭제곱**: `aⁿ = (a^(n/2))²` 를 쓰면 곱셈을 n 번이 아니라 log n 번만 해요.\n\n- n 이 짝수: `half * half`\n- n 이 홀수: `half * half * a`",
+     "code": "#include <stdio.h>\n\nint hanoi(int n) {           // 원판 n개를 옮기는 횟수\n    if (n == 0) return 0;\n    return 2 * hanoi(n - 1) + 1;\n}\n\nint sumDigits(int n) {       // 각 자리 숫자의 합\n    if (n < 10) return n;\n    return n % 10 + sumDigits(n / 10);\n}\n\nint main(void) {\n    printf(\"하노이 10개: %d번\\n\", hanoi(10));\n    printf(\"98765 의 자릿수 합: %d\\n\", sumDigits(98765));\n    return 0;\n}\n",
+     "task": "분할 정복으로 `long long power(long long a, int n)` 을 만들고 `power(2, 40)` 을 출력해 보세요. 결과 `1099511627776`",
+     "hint": "`if (n == 0) return 1; long long h = power(a, n / 2);` 그리고 n 이 홀수면 `h * h * a`",
+     "ans": "#include <stdio.h>\n\nlong long power(long long a, int n) {\n    if (n == 0) return 1;\n    long long h = power(a, n / 2);\n    return n % 2 ? h * h * a : h * h;\n}\n\nint main(void) {\n    printf(\"%lld\\n\", power(2, 40));\n    return 0;\n}\n",
+     "expect": "1099511627776",
+     "lv": 4
+    },
+    {
+     "t": "동적 메모리 malloc",
+     "b": "배열 크기를 **실행 중에** 정하고 싶을 때 `malloc` 으로 메모리를 빌려요. (`#include <stdlib.h>`)\n\n- `int *a = malloc(n * sizeof(int));` int n 개 크기\n- 다 쓰면 꼭 `free(a);` 로 돌려줘요 (안 하면 **메모리 누수**)\n- 빌리지 못하면 `NULL` 을 돌려주니 확인하는 습관!\n- `realloc` 으로 크기를 늘릴 수도 있어요",
+     "code": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;\n    scanf(\"%d\", &n);\n    int *a = malloc(n * sizeof(int));\n    if (a == NULL) return 1;\n    long long sum = 0;\n    for (int i = 0; i < n; i++) {\n        scanf(\"%d\", &a[i]);\n        sum += a[i];\n    }\n    printf(\"%d개, 합 %lld\\n\", n, sum);\n    free(a);\n    return 0;\n}\n",
+     "task": "첫 줄에 개수 n, 다음 줄에 n 개 정수를 입력받아 `malloc` 한 배열에 저장하고 **거꾸로** 출력해 보세요. (입력값 `4` / `10 20 30 40` → `40 30 20 10`)",
+     "hint": "입력은 위 코드처럼, 출력은 `for (int i = n - 1; i >= 0; i--)`. 마지막에 `free(a);`",
+     "ans": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;\n    scanf(\"%d\", &n);\n    int *a = malloc(n * sizeof(int));\n    if (a == NULL) return 1;\n    for (int i = 0; i < n; i++) scanf(\"%d\", &a[i]);\n    for (int i = n - 1; i >= 0; i--) printf(\"%d \", a[i]);\n    printf(\"\\n\");\n    free(a);\n    return 0;\n}\n",
+     "expect": "40 30 20 10",
+     "stdin": "5\n3 1 4 1 5",
+     "astdin": "4\n10 20 30 40",
+     "lv": 5
+    },
+    {
+     "t": "qsort 로 정렬하기",
+     "b": "`stdlib.h` 의 `qsort(배열, 개수, 원소크기, 비교함수)` 는 빠른 정렬(퀵 정렬)을 해 줘요.\n\n**비교 함수**는 두 원소의 주소(`const void *`)를 받아서\n\n- 앞이 먼저 와야 하면 **음수**\n- 같으면 **0**\n- 뒤가 먼저 와야 하면 **양수**\n\n를 돌려줘요. 비교 함수만 바꾸면 내림차순, 구조체 정렬도 돼요.",
+     "code": "#include <stdio.h>\n#include <stdlib.h>\n\nint asc(const void *a, const void *b) {\n    int x = *(const int *)a, y = *(const int *)b;\n    return (x > y) - (x < y);\n}\n\nint main(void) {\n    int a[] = {42, 7, 19, 3, 88, 25};\n    int n = sizeof(a) / sizeof(a[0]);\n    qsort(a, n, sizeof(int), asc);\n    for (int i = 0; i < n; i++) printf(\"%d \", a[i]);\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "task": "비교 함수를 바꿔서 `{5, 2, 9, 1, 7}` 을 **내림차순**으로 정렬해 출력해 보세요. 결과 `9 7 5 2 1`",
+     "hint": "`return (x < y) - (x > y);` 처럼 반대로",
+     "ans": "#include <stdio.h>\n#include <stdlib.h>\n\nint desc(const void *a, const void *b) {\n    int x = *(const int *)a, y = *(const int *)b;\n    return (x < y) - (x > y);\n}\n\nint main(void) {\n    int a[] = {5, 2, 9, 1, 7};\n    qsort(a, 5, sizeof(int), desc);\n    for (int i = 0; i < 5; i++) printf(\"%d \", a[i]);\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "expect": "9 7 5 2 1",
+     "lv": 5
+    },
+    {
+     "t": "연결 리스트",
+     "b": "**연결 리스트**는 각 칸(노드)이 **값 + 다음 노드의 주소**를 가지고 줄줄이 이어진 자료구조예요.\n\n- 배열과 달리 중간에 넣고 빼기가 빨라요 (주소만 바꾸면 됨)\n- 대신 i 번째를 찾으려면 처음부터 따라가야 해요\n- 노드는 `malloc` 으로 만들고, 다 쓰면 하나씩 `free`",
+     "code": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Node {\n    int val;\n    struct Node *next;\n} Node;\n\nNode *push(Node *head, int v) {     // 맨 앞에 넣기\n    Node *n = malloc(sizeof(Node));\n    n->val = v;\n    n->next = head;\n    return n;\n}\n\nint main(void) {\n    Node *head = NULL;\n    for (int i = 1; i <= 5; i++) head = push(head, i * 10);\n    for (Node *p = head; p != NULL; p = p->next) printf(\"%d -> \", p->val);\n    printf(\"NULL\\n\");\n    while (head) { Node *t = head->next; free(head); head = t; }\n    return 0;\n}\n",
+     "task": "1부터 10까지 `push` 한 리스트에서 **모든 노드 값의 합**을 구하는 `int sum(Node *head)` 를 만들어 출력해 보세요. 결과 `55`",
+     "hint": "`int s = 0; for (Node *p = head; p; p = p->next) s += p->val; return s;`",
+     "ans": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Node {\n    int val;\n    struct Node *next;\n} Node;\n\nNode *push(Node *head, int v) {\n    Node *n = malloc(sizeof(Node));\n    n->val = v;\n    n->next = head;\n    return n;\n}\n\nint sum(Node *head) {\n    int s = 0;\n    for (Node *p = head; p; p = p->next) s += p->val;\n    return s;\n}\n\nint main(void) {\n    Node *head = NULL;\n    for (int i = 1; i <= 10; i++) head = push(head, i);\n    printf(\"%d\\n\", sum(head));\n    while (head) { Node *t = head->next; free(head); head = t; }\n    return 0;\n}\n",
+     "expect": "55",
+     "lv": 6
+    },
+    {
+     "t": "스택 (괄호 검사)",
+     "b": "**스택**은 마지막에 넣은 것을 가장 먼저 꺼내는(**LIFO**) 자료구조예요. 배열과 `top` 변수 하나로 만들 수 있어요.\n\n- `push`: `st[top++] = x;`\n- `pop`: `st[--top]`\n- 괄호 짝 맞추기, 되돌리기(Ctrl+Z), 함수 호출, 계산기에 써요\n\n**괄호 검사**: 여는 괄호는 넣고, 닫는 괄호가 나오면 꺼내서 짝이 맞는지 확인!",
+     "code": "#include <stdio.h>\n\nint check(const char *s) {\n    char st[100];\n    int top = 0;\n    for (int i = 0; s[i]; i++) {\n        char c = s[i];\n        if (c == '(' || c == '[' || c == '{') st[top++] = c;\n        else if (c == ')' || c == ']' || c == '}') {\n            if (top == 0) return 0;\n            char o = st[--top];\n            if ((c == ')' && o != '(') || (c == ']' && o != '[') || (c == '}' && o != '{')) return 0;\n        }\n    }\n    return top == 0;\n}\n\nint main(void) {\n    const char *tests[] = {\"(a[b]{c})\", \"([)]\", \"((()\", \"{[()()]}\"};\n    for (int i = 0; i < 4; i++)\n        printf(\"%-10s %s\\n\", tests[i], check(tests[i]) ? \"OK\" : \"틀림\");\n    return 0;\n}\n",
+     "task": "**후위 표기식** `\"34+2*\"` (= (3+4)×2) 을 스택으로 계산해 출력해 보세요. 숫자면 push, 연산자면 두 개 꺼내 계산 후 push. 결과 `14`",
+     "hint": "`if (c >= '0' && c <= '9') st[top++] = c - '0';` 연산자면 `int b = st[--top], a = st[--top];`",
+     "ans": "#include <stdio.h>\n\nint main(void) {\n    const char *s = \"34+2*\";\n    int st[100], top = 0;\n    for (int i = 0; s[i]; i++) {\n        char c = s[i];\n        if (c >= '0' && c <= '9') { st[top++] = c - '0'; continue; }\n        int b = st[--top], a = st[--top];\n        if (c == '+') st[top++] = a + b;\n        else if (c == '-') st[top++] = a - b;\n        else if (c == '*') st[top++] = a * b;\n        else if (c == '/') st[top++] = a / b;\n    }\n    printf(\"%d\\n\", st[0]);\n    return 0;\n}\n",
+     "expect": "14",
+     "lv": 6
+    },
+    {
+     "t": "큐로 미로 최단 거리 (BFS)",
+     "b": "**BFS(너비 우선 탐색)** 는 큐를 써서 가까운 칸부터 퍼져 나가요. 그래서 처음 도착했을 때가 곧 **최단 거리**예요.\n\nC 에는 큐가 없으니 배열 + `head`, `tail` 두 변수로 만들어요.\n\n- 넣기: `qr[tail] = r; qc[tail] = c; tail++;`\n- 꺼내기: `r = qr[head]; c = qc[head]; head++;`\n- `head == tail` 이면 큐가 빈 것",
+     "code": "#include <stdio.h>\n\nint main(void) {\n    const char *maze[] = {\"S.#...\",\n                          \".##.#.\",\n                          \"....#E\"};\n    int R = 3, C = 6, dist[3][6];\n    for (int i = 0; i < R; i++) for (int j = 0; j < C; j++) dist[i][j] = -1;\n    int qr[18], qc[18], head = 0, tail = 0;\n    int dr[] = {1, -1, 0, 0}, dc[] = {0, 0, 1, -1};\n    qr[tail] = 0; qc[tail] = 0; tail++; dist[0][0] = 0;\n    while (head < tail) {\n        int r = qr[head], c = qc[head]; head++;\n        for (int k = 0; k < 4; k++) {\n            int nr = r + dr[k], nc = c + dc[k];\n            if (nr < 0 || nr >= R || nc < 0 || nc >= C) continue;\n            if (maze[nr][nc] == '#' || dist[nr][nc] != -1) continue;\n            dist[nr][nc] = dist[r][c] + 1;\n            qr[tail] = nr; qc[tail] = nc; tail++;\n        }\n    }\n    printf(\"E 까지 %d칸\\n\", dist[2][5]);\n    return 0;\n}\n",
+     "task": "첫 줄에 N M, 다음 N 줄에 `1`(길)과 `0`(벽)으로 된 미로가 있어요. (1,1) 에서 (N,M) 까지 지나는 **칸 수**(시작·끝 포함)를 구해 보세요. 입력값:\n`4 6` / `101111` / `101010` / `101011` / `111011` → `15`",
+     "hint": "`char g[101][102];` 에 `scanf(\"%s\", g[i]);` 로 한 줄씩. 시작 칸의 dist 를 1 로 두고 BFS",
+     "ans": "#include <stdio.h>\n\nchar g[101][102];\nint dist[101][101], qr[10001], qc[10001];\n\nint main(void) {\n    int N, M;\n    scanf(\"%d %d\", &N, &M);\n    for (int i = 0; i < N; i++) scanf(\"%101s\", g[i]);\n    int dr[] = {1, -1, 0, 0}, dc[] = {0, 0, 1, -1}, head = 0, tail = 0;\n    qr[tail] = 0; qc[tail] = 0; tail++; dist[0][0] = 1;\n    while (head < tail) {\n        int r = qr[head], c = qc[head]; head++;\n        for (int k = 0; k < 4; k++) {\n            int nr = r + dr[k], nc = c + dc[k];\n            if (nr < 0 || nr >= N || nc < 0 || nc >= M) continue;\n            if (g[nr][nc] != '1' || dist[nr][nc]) continue;\n            dist[nr][nc] = dist[r][c] + 1;\n            qr[tail] = nr; qc[tail] = nc; tail++;\n        }\n    }\n    printf(\"%d\\n\", dist[N - 1][M - 1]);\n    return 0;\n}\n",
+     "expect": "15",
+     "astdin": "4 6\n101111\n101010\n101011\n111011",
+     "lv": 7
+    },
+    {
+     "t": "동적 계획법 (LCS · 배낭)",
+     "b": "**LCS(최장 공통 부분 수열)**: 두 문자열에서 순서를 지키며 공통으로 뽑을 수 있는 가장 긴 길이.\n\n`dp[i][j]` = 앞 문자열 i 글자, 뒤 문자열 j 글자까지 봤을 때 LCS 길이\n\n- 글자가 같으면 `dp[i-1][j-1] + 1`\n- 다르면 `max(dp[i-1][j], dp[i][j-1])`\n\nDP 표를 채우는 순서(작은 것 → 큰 것)가 중요해요.",
+     "code": "#include <stdio.h>\n#include <string.h>\n\nint dp[101][101];\n\nint main(void) {\n    const char *a = \"ACAYKP\", *b = \"CAPCAK\";\n    int n = strlen(a), m = strlen(b);\n    for (int i = 1; i <= n; i++)\n        for (int j = 1; j <= m; j++) {\n            if (a[i - 1] == b[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;\n            else dp[i][j] = dp[i - 1][j] > dp[i][j - 1] ? dp[i - 1][j] : dp[i][j - 1];\n        }\n    printf(\"LCS 길이: %d\\n\", dp[n][m]);   // ACAK\n    return 0;\n}\n",
+     "task": "**0/1 배낭 문제**: 무게 한도 K 인 가방에 물건(무게, 가치)을 골라 넣어 가치 합을 최대로. 첫 줄 N K, 다음 N 줄 `무게 가치`. 입력값:\n`4 7` / `6 13` / `4 8` / `3 6` / `5 12` → `14`",
+     "hint": "`dp[w]` = 무게 w 이하일 때 최대 가치. 물건마다 `for (w = K; w >= 무게; w--) dp[w] = max(dp[w], dp[w - 무게] + 가치);` (**거꾸로** 돌아야 한 번씩만 써요)",
+     "ans": "#include <stdio.h>\n\nint dp[100001];\n\nint main(void) {\n    int N, K;\n    scanf(\"%d %d\", &N, &K);\n    for (int i = 0; i < N; i++) {\n        int w, v;\n        scanf(\"%d %d\", &w, &v);\n        for (int j = K; j >= w; j--)\n            if (dp[j - w] + v > dp[j]) dp[j] = dp[j - w] + v;\n    }\n    printf(\"%d\\n\", dp[K]);\n    return 0;\n}\n",
+     "expect": "14",
+     "astdin": "4 7\n6 13\n4 8\n3 6\n5 12",
+     "lv": 7
+    },
+    {
+     "t": "비트 연산",
+     "b": "정수를 **2진수 비트** 단위로 다루는 연산이에요. 아주 빠르고, 하드웨어·암호·게임·알고리즘에서 많이 써요.\n\n| 연산 | 뜻 | 예 (6=110, 3=011) |\n|---|---|---|\n| `&` | 둘 다 1 | `6 & 3` = 2 |\n| `\\|` | 하나라도 1 | `6 \\| 3` = 7 |\n| `^` | 서로 다르면 1 | `6 ^ 3` = 5 |\n| `<<` `>>` | 왼쪽·오른쪽으로 밀기 | `1 << 4` = 16 |\n\n- `n & (n - 1)` 은 가장 낮은 1 비트를 지워요 → 0 이면 **2의 거듭제곱**",
+     "code": "#include <stdio.h>\n\nint popcount(unsigned x) {          // 1 인 비트 개수\n    int c = 0;\n    while (x) { x &= x - 1; c++; }\n    return c;\n}\n\nint main(void) {\n    printf(\"%d %d %d\\n\", 6 & 3, 6 | 3, 6 ^ 3);\n    printf(\"1 << 10 = %d, 1000 >> 3 = %d\\n\", 1 << 10, 1000 >> 3);\n    printf(\"255 의 1 비트 수: %d\\n\", popcount(255));\n    for (int n = 60; n <= 64; n++)\n        printf(\"%d 는 2의 거듭제곱? %s\\n\", n, (n & (n - 1)) == 0 ? \"예\" : \"아니오\");\n    return 0;\n}\n",
+     "task": "입력받은 정수를 **2진수**로 출력해 보세요. 비트 연산 `>>` 와 `&` 를 써서! (입력값 `13` → `1101`)",
+     "hint": "가장 높은 비트부터: `for (int i = 30; i >= 0; i--)` 에서 `(n >> i) & 1` 을 보고, 처음 1 이 나오기 전의 0 은 건너뛰기",
+     "ans": "#include <stdio.h>\n\nint main(void) {\n    int n, started = 0;\n    scanf(\"%d\", &n);\n    for (int i = 30; i >= 0; i--) {\n        int b = (n >> i) & 1;\n        if (b) started = 1;\n        if (started) printf(\"%d\", b);\n    }\n    if (!started) printf(\"0\");\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "expect": "1101",
+     "stdin": "42",
+     "astdin": "13",
+     "lv": 8
+    },
+    {
+     "t": "함수 포인터",
+     "b": "함수도 메모리에 주소가 있어서, **함수를 가리키는 포인터**를 만들 수 있어요.\n\n- `int (*op)(int, int) = add;` → `op(2, 3)` 은 `add(2, 3)`\n- 함수를 다른 함수에 **인자로 넘길 수** 있어요 (`qsort` 의 비교 함수가 바로 이거!)\n- 함수 포인터 배열로 메뉴·계산기·상태 기계를 깔끔하게 만들어요",
+     "code": "#include <stdio.h>\n\nint add(int a, int b) { return a + b; }\nint sub(int a, int b) { return a - b; }\nint mul(int a, int b) { return a * b; }\n\nint main(void) {\n    int (*ops[])(int, int) = {add, sub, mul};\n    const char *name = \"+-*\";\n    for (int i = 0; i < 3; i++)\n        printf(\"12 %c 4 = %d\\n\", name[i], ops[i](12, 4));\n    return 0;\n}\n",
+     "task": "배열의 모든 원소에 함수를 적용하는 `void map(int *a, int n, int (*f)(int))` 를 만들고, `{1, 2, 3, 4, 5}` 에 제곱 함수를 적용해 출력해 보세요. 결과 `1 4 9 16 25`",
+     "hint": "`for (int i = 0; i < n; i++) a[i] = f(a[i]);` 그리고 `int square(int x) { return x * x; }`",
+     "ans": "#include <stdio.h>\n\nint square(int x) { return x * x; }\n\nvoid map(int *a, int n, int (*f)(int)) {\n    for (int i = 0; i < n; i++) a[i] = f(a[i]);\n}\n\nint main(void) {\n    int a[] = {1, 2, 3, 4, 5};\n    map(a, 5, square);\n    for (int i = 0; i < 5; i++) printf(\"%d \", a[i]);\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "expect": "1 4 9 16 25",
+     "lv": 8
+    },
+    {
+     "t": "해시 테이블 직접 만들기",
+     "b": "**해시 테이블**은 키(예: 단어)를 **해시 함수**로 숫자로 바꿔 그 칸에 저장해요. 찾기·넣기가 평균 `O(1)`!\n\n- 해시 함수: 글자들로 큰 수를 만들고 `% 칸수`\n- 두 키가 같은 칸에 오면(**충돌**) 그 칸에 연결 리스트로 이어 붙이기 (**체이닝**)\n- 파이썬의 `dict`, 자바스크립트의 `Map` 이 이렇게 동작해요",
+     "code": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define SIZE 101\ntypedef struct Entry { char key[32]; int count; struct Entry *next; } Entry;\nEntry *table[SIZE];\n\nunsigned hash(const char *s) {\n    unsigned h = 5381;\n    while (*s) h = h * 33 + (unsigned char)*s++;\n    return h % SIZE;\n}\n\nvoid add(const char *key) {\n    unsigned h = hash(key);\n    for (Entry *e = table[h]; e; e = e->next)\n        if (strcmp(e->key, key) == 0) { e->count++; return; }\n    Entry *e = malloc(sizeof(Entry));\n    strcpy(e->key, key); e->count = 1;\n    e->next = table[h]; table[h] = e;\n}\n\nint get(const char *key) {\n    for (Entry *e = table[hash(key)]; e; e = e->next)\n        if (strcmp(e->key, key) == 0) return e->count;\n    return 0;\n}\n\nint main(void) {\n    const char *words[] = {\"cat\", \"dog\", \"cat\", \"bird\", \"dog\", \"cat\"};\n    for (int i = 0; i < 6; i++) add(words[i]);\n    printf(\"cat %d, dog %d, fish %d\\n\", get(\"cat\"), get(\"dog\"), get(\"fish\"));\n    return 0;\n}\n",
+     "task": "입력값의 단어들(띄어쓰기로 구분)을 해시 테이블로 세어, **가장 많이 나온 단어와 횟수**를 출력해 보세요. (입력값 `apple banana apple cherry banana apple` → `apple 3`)",
+     "hint": "`char w[32]; while (scanf(\"%31s\", w) == 1) add(w);` 그다음 `table` 의 모든 칸과 리스트를 돌며 최댓값 찾기",
+     "ans": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define SIZE 101\ntypedef struct Entry { char key[32]; int count; struct Entry *next; } Entry;\nEntry *table[SIZE];\n\nunsigned hash(const char *s) {\n    unsigned h = 5381;\n    while (*s) h = h * 33 + (unsigned char)*s++;\n    return h % SIZE;\n}\n\nvoid add(const char *key) {\n    unsigned h = hash(key);\n    for (Entry *e = table[h]; e; e = e->next)\n        if (strcmp(e->key, key) == 0) { e->count++; return; }\n    Entry *e = malloc(sizeof(Entry));\n    strcpy(e->key, key); e->count = 1;\n    e->next = table[h]; table[h] = e;\n}\n\nint main(void) {\n    char w[32];\n    while (scanf(\"%31s\", w) == 1) add(w);\n    Entry *best = NULL;\n    for (int i = 0; i < SIZE; i++)\n        for (Entry *e = table[i]; e; e = e->next)\n            if (!best || e->count > best->count) best = e;\n    if (best) printf(\"%s %d\\n\", best->key, best->count);\n    return 0;\n}\n",
+     "expect": "apple 3",
+     "astdin": "apple banana apple cherry banana apple",
+     "lv": 9
+    },
+    {
+     "t": "힙 (우선순위 큐)",
+     "b": "**힙**은 가장 작은(또는 큰) 값을 `O(log n)` 에 넣고 꺼내는 **완전 이진 트리**예요. 배열 하나로 만들어요.\n\n- 노드 `i` 의 부모 `(i - 1) / 2`, 자식 `2i + 1`, `2i + 2`\n- **넣기**: 맨 끝에 넣고 부모보다 작으면 위로 바꾸기 (올리기)\n- **꺼내기**: 맨 위를 꺼내고, 맨 끝을 맨 위로 옮긴 뒤 자식 중 작은 쪽과 바꾸며 내리기\n\n다익스트라, 작업 스케줄링, 힙 정렬에 써요.",
+     "code": "#include <stdio.h>\n\nint heap[1000], sz = 0;\n\nvoid swap(int *a, int *b) { int t = *a; *a = *b; *b = t; }\n\nvoid push(int x) {\n    int i = sz++;\n    heap[i] = x;\n    while (i > 0 && heap[(i - 1) / 2] > heap[i]) {\n        swap(&heap[(i - 1) / 2], &heap[i]);\n        i = (i - 1) / 2;\n    }\n}\n\nint pop(void) {\n    int top = heap[0];\n    heap[0] = heap[--sz];\n    int i = 0;\n    while (1) {\n        int l = 2 * i + 1, r = l + 1, m = i;\n        if (l < sz && heap[l] < heap[m]) m = l;\n        if (r < sz && heap[r] < heap[m]) m = r;\n        if (m == i) break;\n        swap(&heap[i], &heap[m]);\n        i = m;\n    }\n    return top;\n}\n\nint main(void) {\n    int a[] = {5, 3, 17, 10, 84, 19, 6, 22, 9};\n    for (int i = 0; i < 9; i++) push(a[i]);\n    while (sz) printf(\"%d \", pop());\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "task": "부등호만 바꿔서 **최대 힙**으로 만들고, 입력받은 수들을 **큰 것부터** 출력해 보세요. (입력값 `8` / `5 3 17 10 84 19 6 22` → `84 22 19 17 10 6 5 3`)",
+     "hint": "`push` 와 `pop` 의 `>` `<` 비교를 반대로 바꾸면 돼요.",
+     "ans": "#include <stdio.h>\n\nint heap[1000], sz = 0;\n\nvoid swap(int *a, int *b) { int t = *a; *a = *b; *b = t; }\n\nvoid push(int x) {\n    int i = sz++;\n    heap[i] = x;\n    while (i > 0 && heap[(i - 1) / 2] < heap[i]) {\n        swap(&heap[(i - 1) / 2], &heap[i]);\n        i = (i - 1) / 2;\n    }\n}\n\nint pop(void) {\n    int top = heap[0];\n    heap[0] = heap[--sz];\n    int i = 0;\n    while (1) {\n        int l = 2 * i + 1, r = l + 1, m = i;\n        if (l < sz && heap[l] > heap[m]) m = l;\n        if (r < sz && heap[r] > heap[m]) m = r;\n        if (m == i) break;\n        swap(&heap[i], &heap[m]);\n        i = m;\n    }\n    return top;\n}\n\nint main(void) {\n    int n, x;\n    scanf(\"%d\", &n);\n    for (int i = 0; i < n; i++) { scanf(\"%d\", &x); push(x); }\n    while (sz) printf(\"%d \", pop());\n    printf(\"\\n\");\n    return 0;\n}\n",
+     "expect": "84 22 19 17 10 6 5 3",
+     "astdin": "8\n5 3 17 10 84 19 6 22",
+     "lv": 9
+    },
+    {
+     "t": "다익스트라 최단 경로",
+     "b": "간선마다 비용이 있는 그래프에서 **시작점 → 모든 정점**의 최단 거리를 구해요.\n\n정점이 적을 때(수백 개)는 힙 없이 `O(V²)` 로도 충분해요.\n\n1. 아직 확정 안 된 정점 중 **거리가 가장 짧은 정점** u 를 고르고 확정\n2. u 와 이어진 정점 v 에 대해 `dist[u] + w < dist[v]` 면 줄이기\n3. V 번 반복\n\n정점이 많으면 앞에서 만든 **힙**을 써서 `O(E log V)` 로 바꿔요.",
+     "code": "#include <stdio.h>\n\n#define INF 1000000000\nint w[6][6], dist[6], done[6];\n\nint main(void) {\n    int V = 5;\n    for (int i = 1; i <= V; i++) for (int j = 1; j <= V; j++) w[i][j] = INF;\n    w[1][2] = 4; w[1][3] = 1; w[3][2] = 2; w[2][4] = 1; w[3][4] = 5; w[4][5] = 3;\n    for (int i = 1; i <= V; i++) dist[i] = INF;\n    dist[1] = 0;\n    for (int k = 0; k < V; k++) {\n        int u = -1;\n        for (int i = 1; i <= V; i++)\n            if (!done[i] && (u == -1 || dist[i] < dist[u])) u = i;\n        if (dist[u] == INF) break;\n        done[u] = 1;\n        for (int v = 1; v <= V; v++)\n            if (w[u][v] < INF && dist[u] + w[u][v] < dist[v]) dist[v] = dist[u] + w[u][v];\n    }\n    for (int i = 1; i <= V; i++) printf(\"1 → %d : %d\\n\", i, dist[i]);\n    return 0;\n}\n",
+     "task": "입력 첫 줄 `V E`, 다음 E 줄 `u v w` (u → v 비용 w). 1번에서 각 정점까지 최단 거리를 한 줄에 띄어 출력하고, 갈 수 없으면 `INF`. 입력값:\n`5 6` / `1 2 2` / `1 3 3` / `2 3 4` / `2 4 5` / `3 4 6` / `5 1 1` → `0 2 3 7 INF`",
+     "hint": "같은 u v 가 여러 번 나오면 작은 값만 `if (c < w[u][v]) w[u][v] = c;` 출력은 `dist[i] == INF ? printf(\"INF \") : printf(\"%d \", dist[i])`",
+     "ans": "#include <stdio.h>\n\n#define INF 1000000000\nint w[101][101], dist[101], done[101];\n\nint main(void) {\n    int V, E;\n    scanf(\"%d %d\", &V, &E);\n    for (int i = 1; i <= V; i++) for (int j = 1; j <= V; j++) w[i][j] = INF;\n    for (int i = 0; i < E; i++) {\n        int u, v, c;\n        scanf(\"%d %d %d\", &u, &v, &c);\n        if (c < w[u][v]) w[u][v] = c;\n    }\n    for (int i = 1; i <= V; i++) dist[i] = INF;\n    dist[1] = 0;\n    for (int k = 0; k < V; k++) {\n        int u = -1;\n        for (int i = 1; i <= V; i++)\n            if (!done[i] && (u == -1 || dist[i] < dist[u])) u = i;\n        if (dist[u] == INF) break;\n        done[u] = 1;\n        for (int v = 1; v <= V; v++)\n            if (w[u][v] < INF && dist[u] + w[u][v] < dist[v]) dist[v] = dist[u] + w[u][v];\n    }\n    for (int i = 1; i <= V; i++) {\n        if (dist[i] == INF) printf(\"INF\");\n        else printf(\"%d\", dist[i]);\n        printf(i < V ? \" \" : \"\\n\");\n    }\n    return 0;\n}\n",
+     "expect": "0 2 3 7 INF",
+     "astdin": "5 6\n1 2 2\n1 3 3\n2 3 4\n2 4 5\n3 4 6\n5 1 1",
+     "lv": 10
+    },
+    {
+     "t": "행렬 거듭제곱 · 빠른 거듭제곱",
+     "b": "피보나치 수 F(n) 을 n = 10¹⁸ 처럼 엄청 큰 n 에 대해 구하려면? 반복문으로는 우주가 끝나도 못 해요.\n\n```\n| F(n+1)  F(n)  |   | 1 1 |ⁿ\n| F(n)    F(n-1)| = | 1 0 |\n```\n\n행렬을 **제곱하며 거듭제곱**하면 곱셈 `log n` 번 (60번쯤) 이면 끝나요. 수가 커지니 `% 1000000007` 로 나머지만 남겨요.\n\n- `(a * b) % m = ((a % m) * (b % m)) % m`\n- 지수 `n` 을 2진수로 보고 1 인 비트에서만 결과에 곱하기",
+     "code": "#include <stdio.h>\n\ntypedef long long ll;\nconst ll MOD = 1000000007;\n\nvoid mul(ll a[2][2], ll b[2][2]) {\n    ll c[2][2] = {{0, 0}, {0, 0}};\n    for (int i = 0; i < 2; i++)\n        for (int j = 0; j < 2; j++)\n            for (int k = 0; k < 2; k++)\n                c[i][j] = (c[i][j] + a[i][k] * b[k][j]) % MOD;\n    for (int i = 0; i < 2; i++) for (int j = 0; j < 2; j++) a[i][j] = c[i][j];\n}\n\nll fib(ll n) {\n    ll r[2][2] = {{1, 0}, {0, 1}}, m[2][2] = {{1, 1}, {1, 0}};\n    while (n > 0) {\n        if (n & 1) mul(r, m);\n        mul(m, m);\n        n >>= 1;\n    }\n    return r[0][1];\n}\n\nint main(void) {\n    printf(\"F(10) = %lld\\n\", fib(10));\n    printf(\"F(10^18) mod 1e9+7 = %lld\\n\", fib(1000000000000000000LL));\n    return 0;\n}\n",
+     "task": "같은 방법(지수를 2진수로)으로 **2¹⁰⁰⁰⁰⁰⁰⁰⁰⁰ mod 1000000007** 을 구하는 `ll power(ll a, ll n)` 을 만들어 출력해 보세요. 결과 `140625001`",
+     "hint": "`ll r = 1; a %= MOD; while (n) { if (n & 1) r = r * a % MOD; a = a * a % MOD; n >>= 1; }`",
+     "ans": "#include <stdio.h>\n\ntypedef long long ll;\nconst ll MOD = 1000000007;\n\nll power(ll a, ll n) {\n    ll r = 1;\n    a %= MOD;\n    while (n > 0) {\n        if (n & 1) r = r * a % MOD;\n        a = a * a % MOD;\n        n >>= 1;\n    }\n    return r;\n}\n\nint main(void) {\n    printf(\"%lld\\n\", power(2, 1000000000));\n    return 0;\n}\n",
+     "expect": "140625001",
+     "lv": 10
     }
    ]
   },
@@ -206,7 +624,8 @@
      "code": "console.log(\"안녕, 자바스크립트!\");\nconsole.log(10 + 5, \"개\");\n",
      "task": "`console.log` 로 `JS 재밌다` 를 3번 출력해 보세요.",
      "hint": "같은 줄을 세 번 쓰거나, 다음 강의의 반복문을 미리 써 봐도 돼요.",
-     "ans": "console.log(\"JS 재밌다\");\nconsole.log(\"JS 재밌다\");\nconsole.log(\"JS 재밌다\");\n"
+     "ans": "console.log(\"JS 재밌다\");\nconsole.log(\"JS 재밌다\");\nconsole.log(\"JS 재밌다\");\n",
+     "lv": 1
     },
     {
      "t": "변수 let · const",
@@ -215,7 +634,8 @@
      "task": "`const price = 1200`, `let count = 3` 을 만들고 `총 3600원` 을 출력해 보세요.",
      "hint": "`console.log(`총 ${price * count}원`)`",
      "ans": "const price = 1200;\nlet count = 3;\nconsole.log(`총 ${price * count}원`);\n",
-     "expect": "총 3600원"
+     "expect": "총 3600원",
+     "lv": 1
     },
     {
      "t": "조건문 if",
@@ -224,7 +644,8 @@
      "task": "`const n = 15` 가 3과 5의 공배수면 `FizzBuzz`, 3의 배수면 `Fizz`, 5의 배수면 `Buzz`, 아니면 숫자를 출력해 보세요.",
      "hint": "15의 배수인지 먼저 검사해야 해요: `n % 15 === 0`",
      "ans": "const n = 15;\nif (n % 15 === 0) console.log(\"FizzBuzz\");\nelse if (n % 3 === 0) console.log(\"Fizz\");\nelse if (n % 5 === 0) console.log(\"Buzz\");\nelse console.log(n);\n",
-     "expect": "FizzBuzz"
+     "expect": "FizzBuzz",
+     "lv": 1
     },
     {
      "t": "반복문",
@@ -233,7 +654,8 @@
      "task": "1부터 20까지 중 짝수만 한 줄에 하나씩 출력해 보세요.",
      "hint": "`for (let i = 2; i <= 20; i += 2)`",
      "ans": "for (let i = 2; i <= 20; i += 2) console.log(i);\n",
-     "expect": "20"
+     "expect": "20",
+     "lv": 2
     },
     {
      "t": "배열",
@@ -242,7 +664,8 @@
      "task": "`[\"kim\", \"lee\", \"park\"]` 를 모두 대문자로 바꾼 배열을 출력해 보세요. 결과 `[ 'KIM', 'LEE', 'PARK' ]`",
      "hint": "`.map(s => s.toUpperCase())`",
      "ans": "console.log([\"kim\", \"lee\", \"park\"].map(s => s.toUpperCase()));\n",
-     "expect": "'KIM'"
+     "expect": "'KIM'",
+     "lv": 2
     },
     {
      "t": "함수",
@@ -251,7 +674,8 @@
      "task": "섭씨를 화씨로 바꾸는 화살표 함수 `toF` 를 만들고 `toF(36.5)` 를 출력해 보세요. (화씨 = 섭씨 × 9 / 5 + 32)",
      "hint": "`const toF = c => c * 9 / 5 + 32;`",
      "ans": "const toF = c => c * 9 / 5 + 32;\nconsole.log(toF(36.5));\n",
-     "expect": "97.7"
+     "expect": "97.7",
+     "lv": 2
     },
     {
      "t": "객체",
@@ -260,12 +684,174 @@
      "task": "학생 배열 `[{name:\"A\", score:70}, {name:\"B\", score:95}, {name:\"C\", score:88}]` 에서 점수가 80점 이상인 학생 이름만 출력해 보세요.",
      "hint": "`.filter(s => s.score >= 80).map(s => s.name)`",
      "ans": "const list = [{ name: \"A\", score: 70 }, { name: \"B\", score: 95 }, { name: \"C\", score: 88 }];\nconsole.log(list.filter(s => s.score >= 80).map(s => s.name));\n",
-     "expect": "'B', 'C'"
+     "expect": "'B', 'C'",
+     "lv": 2
     },
     {
      "t": "웹 페이지 움직이기 (DOM)",
      "b": "자바스크립트의 진짜 힘은 **웹 페이지를 바꾸는 것**이에요. 이건 HTML 과 같이 써야 해서, 🌐 HTML 의 마지막 강의 \"버튼에 자바스크립트 연결\" 에서 직접 해 봐요.\n\n- `document.querySelector(\"#id\")` 요소 찾기\n- `요소.textContent = \"글자\"` 글자 바꾸기\n- `요소.addEventListener(\"click\", 함수)` 눌렀을 때 실행",
-     "code": "// 여기(자바스크립트 실행기)에는 웹 페이지가 없어서 document 를 못 써요.\n// 🌐 HTML → '버튼에 자바스크립트 연결' 강의에서 해 봐요!\nconsole.log(\"HTML 탭으로 가 보세요 →\");\n"
+     "code": "// 여기(자바스크립트 실행기)에는 웹 페이지가 없어서 document 를 못 써요.\n// 🌐 HTML → '버튼에 자바스크립트 연결' 강의에서 해 봐요!\nconsole.log(\"HTML 탭으로 가 보세요 →\");\n",
+     "lv": 2
+    },
+    {
+     "t": "map · filter · reduce",
+     "b": "배열을 반복문 없이 다루는 3대 메서드예요. 원래 배열은 바꾸지 않고 **새 배열(값)** 을 돌려줘요.\n\n- `arr.map(x => 식)` : 모든 원소를 바꾼 새 배열\n- `arr.filter(x => 조건)` : 조건이 참인 것만\n- `arr.reduce((누적, x) => 새누적, 처음값)` : 하나의 값으로 모으기\n- 이어 쓰기(체이닝)도 돼요: `arr.filter(...).map(...)`",
+     "code": "const scores = [72, 95, 88, 60, 100];\nconsole.log(scores.map(s => s + 5));\nconsole.log(scores.filter(s => s >= 80));\nconst total = scores.reduce((sum, s) => sum + s, 0);\nconsole.log(\"합계\", total, \"평균\", total / scores.length);\nconsole.log(scores.some(s => s === 100), scores.every(s => s >= 60));\n",
+     "task": "`[\"hi\", \"code\", \"is\", \"great\", \"fun\"]` 에서 **길이 4 이상**인 단어만 골라 **대문자**로 바꾸고 `-` 로 이어 출력해 보세요. 결과 `CODE-GREAT`",
+     "hint": "`.filter(w => w.length >= 4).map(w => w.toUpperCase()).join(\"-\")`",
+     "ans": "const words = [\"hi\", \"code\", \"is\", \"great\", \"fun\"];\nconsole.log(words.filter(w => w.length >= 4).map(w => w.toUpperCase()).join(\"-\"));\n",
+     "expect": "CODE-GREAT",
+     "lv": 3
+    },
+    {
+     "t": "구조 분해 · 스프레드",
+     "b": "- **구조 분해**: `const [a, b] = [1, 2];` / `const { name, age } = user;`\n- 기본값: `const { lv = 1 } = obj;`\n- **스프레드** `...` : 배열·객체를 펼쳐요. `[...a, ...b]` 합치기, `{ ...obj, age: 18 }` 복사하며 바꾸기\n- **나머지** `...rest` : 남은 것을 모으기\n- 값 바꾸기: `[x, y] = [y, x];`",
+     "code": "const user = { name: \"지우\", age: 17, city: \"부산\" };\nconst { name, ...rest } = user;\nconsole.log(name, rest);\n\nconst [first, , third = \"없음\"] = [\"A\", \"B\"];\nconsole.log(first, third);\n\nlet x = 1, y = 2;\n[x, y] = [y, x];\nconsole.log(x, y);\n\nconst older = { ...user, age: user.age + 1 };\nconsole.log(older.age, user.age);\nconsole.log(Math.max(...[3, 9, 4]));\n",
+     "task": "두 배열 `[3, 1, 2]` 와 `[2, 5, 3]` 을 스프레드로 합치고 **중복을 없앤 뒤** 오름차순 정렬해 `,` 로 이어 출력해 보세요. 결과 `1,2,3,5`",
+     "hint": "`[...new Set([...a, ...b])]` 로 중복 제거, `.sort((p, q) => p - q)`",
+     "ans": "const a = [3, 1, 2], b = [2, 5, 3];\nconsole.log([...new Set([...a, ...b])].sort((p, q) => p - q).join(\",\"));\n",
+     "expect": "1,2,3,5",
+     "lv": 3
+    },
+    {
+     "t": "클래스와 상속",
+     "b": "`class` 로 객체의 설계도를 만들어요.\n\n- `constructor(...)` : 만들 때 실행\n- `this.이름` : 그 객체의 속성\n- `#비밀` : 클래스 밖에서 못 보는 **private** 필드\n- `get 이름()` : 속성처럼 읽는 함수\n- `class 자식 extends 부모` + `super(...)` 로 상속",
+     "code": "class Account {\n  #balance = 0;\n  constructor(owner) { this.owner = owner; }\n  deposit(n) { this.#balance += n; return this; }\n  withdraw(n) {\n    if (n > this.#balance) throw new Error(\"잔액 부족\");\n    this.#balance -= n;\n    return this;\n  }\n  get balance() { return this.#balance; }\n}\n\nclass Savings extends Account {\n  addInterest(rate) { return this.deposit(Math.floor(this.balance * rate)); }\n}\n\nconst acc = new Savings(\"서윤\");\nacc.deposit(10000).withdraw(3000).addInterest(0.1);\nconsole.log(acc.owner, acc.balance);\ntry { acc.withdraw(999999); } catch (e) { console.log(\"오류:\", e.message); }\n",
+     "task": "`name` 을 받는 `Animal` 클래스(메서드 `speak()` 는 `\"...\"` 반환)를 만들고, 이를 상속한 `Dog` 의 `speak()` 가 `이름: 멍멍` 을 돌려주게 해 보세요. `new Dog(\"바둑이\").speak()` 출력 → `바둑이: 멍멍`",
+     "hint": "`class Dog extends Animal { speak() { return `${this.name}: 멍멍`; } }`",
+     "ans": "class Animal {\n  constructor(name) { this.name = name; }\n  speak() { return \"...\"; }\n}\nclass Dog extends Animal {\n  speak() { return `${this.name}: 멍멍`; }\n}\nconsole.log(new Dog(\"바둑이\").speak());\n",
+     "expect": "바둑이: 멍멍",
+     "lv": 4
+    },
+    {
+     "t": "클로저",
+     "b": "**클로저**: 함수가 만들어질 때의 **바깥 변수를 기억**하는 것. 함수가 끝난 뒤에도 그 변수는 살아 있어요.\n\n- 바깥에서 직접 못 건드리는 **비밀 변수**를 만들 수 있어요\n- 설정값을 기억하는 함수 공장(`makeAdder(10)`)을 만들 수 있어요\n- `let` 은 반복마다 새 변수라서 클로저와 잘 맞아요",
+     "code": "function makeCounter() {\n  let count = 0;               // 바깥에서 못 건드려요\n  return {\n    inc: () => ++count,\n    reset: () => { count = 0; },\n  };\n}\nconst c1 = makeCounter(), c2 = makeCounter();\nc1.inc(); c1.inc(); c2.inc();\nconsole.log(c1.inc(), c2.inc());\n\nconst fns = [];\nfor (let i = 0; i < 3; i++) fns.push(() => i * 10);\nconsole.log(fns.map(f => f()));\n",
+     "task": "숫자 n 을 기억해서 받은 수에 n 을 더해 주는 함수를 만드는 `makeAdder(n)` 을 만들고, `makeAdder(10)(5)` 를 출력해 보세요. 결과 `15`",
+     "hint": "`const makeAdder = n => x => x + n;`",
+     "ans": "const makeAdder = n => x => x + n;\nconsole.log(makeAdder(10)(5));\n",
+     "expect": "15",
+     "lv": 4
+    },
+    {
+     "t": "Map 과 Set",
+     "b": "- **Set**: 중복 없는 값 모음. `add`, `has`, `delete`, `size`\n- **Map**: 키 → 값. 객체와 달리 **아무 값이나 키**가 될 수 있고 넣은 순서를 지켜요. `set`, `get`, `has`, `size`\n- `for (const [k, v] of map)` 로 돌기\n- `[...map]`, `[...set]` 으로 배열로 바꾸기",
+     "code": "const words = [\"apple\", \"avocado\", \"banana\", \"blueberry\", \"cherry\", \"apple\"];\nconst uniq = new Set(words);\nconsole.log(uniq.size, uniq.has(\"cherry\"));\n\nconst byLetter = new Map();\nfor (const w of uniq) {\n  const k = w[0];\n  if (!byLetter.has(k)) byLetter.set(k, []);\n  byLetter.get(k).push(w);\n}\nfor (const [k, list] of byLetter) console.log(k, list.join(\", \"));\n",
+     "task": "`[\"사과\", \"배\", \"사과\", \"귤\", \"배\", \"사과\"]` 에서 **가장 많이 나온 과일과 개수**를 Map 으로 세어 `사과 3` 처럼 출력해 보세요.",
+     "hint": "`cnt.set(f, (cnt.get(f) || 0) + 1)` 로 세고, `[...cnt].sort((a, b) => b[1] - a[1])[0]`",
+     "ans": "const fruits = [\"사과\", \"배\", \"사과\", \"귤\", \"배\", \"사과\"];\nconst cnt = new Map();\nfor (const f of fruits) cnt.set(f, (cnt.get(f) || 0) + 1);\nconst [top, n] = [...cnt].sort((a, b) => b[1] - a[1])[0];\nconsole.log(top, n);\n",
+     "expect": "사과 3",
+     "lv": 5
+    },
+    {
+     "t": "JSON 다루기",
+     "b": "**JSON** 은 데이터를 글자로 주고받는 표준 형식이에요. 서버 API, 설정 파일, 이 앱의 저장 데이터도 JSON 이에요!\n\n- `JSON.stringify(값)` : 객체 → 글자\n- `JSON.stringify(값, null, 2)` : 보기 좋게 들여쓰기\n- `JSON.parse(글자)` : 글자 → 객체 (형식이 틀리면 오류 → `try`)\n- JSON 의 키는 **반드시 큰따옴표** `\"...\"`",
+     "code": "const data = { name: \"알람앱\", ver: 2, tags: [\"계획\", \"알림\"], dark: true };\nconst text = JSON.stringify(data);\nconsole.log(text);\nconst back = JSON.parse(text);\nconsole.log(back.tags[1], typeof back.ver);\nconsole.log(JSON.stringify({ a: 1, b: [1, 2] }, null, 2));\ntry { JSON.parse(\"{name: 1}\"); } catch (e) { console.log(\"형식 오류!\"); }\n",
+     "task": "JSON 글자 `'[{\"name\":\"가온\",\"score\":80},{\"name\":\"나래\",\"score\":95},{\"name\":\"다온\",\"score\":71}]'` 를 parse 해서 **평균 점수**를 출력해 보세요. 결과 `82`",
+     "hint": "`JSON.parse(text).reduce((s, x) => s + x.score, 0) / 3`",
+     "ans": "const text = '[{\"name\":\"가온\",\"score\":80},{\"name\":\"나래\",\"score\":95},{\"name\":\"다온\",\"score\":71}]';\nconst list = JSON.parse(text);\nconsole.log(list.reduce((s, x) => s + x.score, 0) / list.length);\n",
+     "expect": "82",
+     "lv": 5
+    },
+    {
+     "t": "Promise 와 async · await",
+     "b": "시간이 걸리는 일(서버 요청, 타이머)은 **기다리는 동안 다른 일을 하도록** 비동기로 처리해요.\n\n- `Promise` : \"나중에 값을 줄게\" 라는 약속. 성공(`resolve`) 또는 실패(`reject`)\n- `async function` 안에서 `await 약속` 을 쓰면 끝날 때까지 기다렸다가 값을 받아요\n- `Promise.all([...])` : 여러 개를 **동시에** 기다리기\n- 실패는 `try { await ... } catch (e) { }` 로 잡아요",
+     "code": "const wait = (ms, v) => new Promise(ok => setTimeout(() => ok(v), ms));\n\nasync function main() {\n  console.log(\"시작\");\n  const a = await wait(300, \"첫 번째 (0.3초)\");\n  console.log(a);\n  const t = Date.now();\n  const [b, c] = await Promise.all([wait(300, \"둘\"), wait(300, \"셋\")]);\n  console.log(b, c, \"— 같이 기다려서\", Math.round((Date.now() - t) / 100) / 10, \"초쯤\");\n  try {\n    await Promise.reject(new Error(\"실패!\"));\n  } catch (e) {\n    console.log(\"잡았다:\", e.message);\n  }\n}\nmain();\n",
+     "task": "`wait(ms, v)` 를 써서 `[1, 2, 3, 4]` 의 각 수를 **0.1초씩 기다렸다가** 하나씩 더하는 `async` 함수를 만들고, 다 더한 뒤 `합 10` 을 출력해 보세요.",
+     "hint": "`for (const n of nums) total += await wait(100, n);`",
+     "ans": "const wait = (ms, v) => new Promise(ok => setTimeout(() => ok(v), ms));\nasync function sumLater(nums) {\n  let total = 0;\n  for (const n of nums) total += await wait(100, n);\n  return total;\n}\nsumLater([1, 2, 3, 4]).then(s => console.log(\"합\", s));\n",
+     "expect": "합 10",
+     "lv": 6
+    },
+    {
+     "t": "메모이제이션",
+     "b": "**메모이제이션**: 함수가 계산한 결과를 **기억해 두고**, 같은 입력이 오면 다시 계산하지 않고 바로 돌려줘요.\n\n그냥 재귀 피보나치 `fib(50)` 은 같은 계산을 수십억 번 반복해서 끝나지 않지만, 기억해 두면 50번이면 끝나요.\n\n- `Map` 이나 객체에 `입력 → 결과` 를 저장\n- 어떤 함수든 감싸서 기억하게 만드는 `memo(fn)` 도 만들 수 있어요 (클로저 활용!)",
+     "code": "const memo = fn => {\n  const cache = new Map();\n  return function self(n) {\n    if (cache.has(n)) return cache.get(n);\n    const r = fn(self, n);\n    cache.set(n, r);\n    return r;\n  };\n};\n\nlet calls = 0;\nconst fib = memo((f, n) => { calls++; return n < 2 ? n : f(n - 1) + f(n - 2); });\nconsole.log(fib(70), \"계산 횟수:\", calls);\n",
+     "task": "m × n 격자의 왼쪽 위에서 오른쪽 아래까지 **오른쪽·아래로만** 가는 경로 수 `paths(m, n)` 을 메모이제이션으로 만들고 `paths(16, 16)` 을 출력해 보세요. (`paths(1, n) = paths(m, 1) = 1`) 결과 `155117520`",
+     "hint": "키는 `m + \",\" + n` 처럼 글자로 (예: `\"3,4\"`). `paths(m, n) = paths(m - 1, n) + paths(m, n - 1)`",
+     "ans": "const cache = new Map();\nfunction paths(m, n) {\n  if (m === 1 || n === 1) return 1;\n  const k = `${m},${n}`;\n  if (!cache.has(k)) cache.set(k, paths(m - 1, n) + paths(m, n - 1));\n  return cache.get(k);\n}\nconsole.log(paths(16, 16));\n",
+     "expect": "155117520",
+     "lv": 6
+    },
+    {
+     "t": "이터레이터와 제너레이터",
+     "b": "`for...of` 가 돌 수 있는 것을 **이터러블**이라고 해요. 배열, 문자열, Map, Set 이 그래요.\n\n- `function*` + `yield` = **제너레이터**: 값을 하나씩, 필요할 때만 만들어요\n- 객체에 `[Symbol.iterator]` 메서드를 만들면 내 객체도 `for...of` 와 `...` 가 돼요\n- 끝없는 수열도 앞에서 필요한 만큼만 꺼낼 수 있어요",
+     "code": "function* range(start, end, step = 1) {\n  for (let i = start; i < end; i += step) yield i;\n}\nconsole.log([...range(0, 10, 3)]);\n\nclass Countdown {\n  constructor(n) { this.n = n; }\n  *[Symbol.iterator]() { for (let i = this.n; i > 0; i--) yield i; }\n}\nfor (const x of new Countdown(3)) console.log(x);\n\nfunction* naturals() { let n = 1; while (true) yield n++; }\nconst it = naturals();\nconsole.log(it.next().value, it.next().value, it.next().value);\n",
+     "task": "끝없이 피보나치 수(1, 1, 2, 3, …)를 `yield` 하는 `function* fib()` 를 만들고, **처음 10개**를 띄어쓰기로 이어 출력해 보세요. 결과 `1 1 2 3 5 8 13 21 34 55`",
+     "hint": "`let [a, b] = [1, 1]; while (true) { yield a; [a, b] = [b, a + b]; }` 꺼낼 땐 `it.next().value` 를 10번",
+     "ans": "function* fib() {\n  let [a, b] = [1, 1];\n  while (true) { yield a; [a, b] = [b, a + b]; }\n}\nconst out = [], it = fib();\nfor (let i = 0; i < 10; i++) out.push(it.next().value);\nconsole.log(out.join(\" \"));\n",
+     "expect": "1 1 2 3 5 8 13 21 34 55",
+     "lv": 7
+    },
+    {
+     "t": "이벤트 루프 (실행 순서)",
+     "b": "자바스크립트는 **한 번에 한 가지 일**만 해요. 그래서 기다리는 일은 줄을 세워 두는데, 줄이 두 개예요.\n\n1. 지금 실행 중인 코드(동기 코드)를 **끝까지**\n2. **마이크로태스크** 줄: `Promise.then`, `await` 다음 부분 → 전부 비울 때까지\n3. **매크로태스크** 줄: `setTimeout` 같은 타이머 → 하나 실행하고 다시 2번으로\n\n그래서 `setTimeout(f, 0)` 은 \"0초 뒤\" 가 아니라 \"**지금 일과 약속들이 다 끝난 뒤**\" 예요.",
+     "code": "console.log(\"1. 동기\");\nsetTimeout(() => console.log(\"5. setTimeout\"), 0);\nPromise.resolve().then(() => console.log(\"3. then\"));\n(async () => {\n  console.log(\"2. async 함수 안 (동기 부분)\");\n  await null;\n  console.log(\"4. await 다음\");\n})();\nconsole.log(\"2-2. 동기 끝\");\n",
+     "task": "아래 빈칸 ①②③ 에 `setTimeout(() => out.push(?), 0)` / `Promise.resolve().then(() => out.push(?))` / `out.push(?)` 중 알맞은 걸 넣어서, 마지막에 `1 2 3 4` 가 출력되게 해 보세요.\n\n`const out = [];` → ① 4 넣기 → ② 2 넣기 → `out.push(1);` → ③ 3 넣기 → `setTimeout(() => console.log(out.join(\" \")), 10);`",
+     "hint": "4는 가장 늦게(setTimeout), 2와 3은 then 이에요. 먼저 등록한 then 이 먼저 실행돼요.",
+     "ans": "const out = [];\nsetTimeout(() => out.push(4), 0);\nPromise.resolve().then(() => out.push(2));\nout.push(1);\nPromise.resolve().then(() => out.push(3));\nsetTimeout(() => console.log(out.join(\" \")), 10);\n",
+     "expect": "1 2 3 4",
+     "lv": 7
+    },
+    {
+     "t": "커링과 함수 합성",
+     "b": "**함수형 프로그래밍**에서는 작은 함수를 레고처럼 조립해요.\n\n- **고차 함수**: 함수를 받거나 돌려주는 함수\n- **합성** `compose(f, g)(x) = f(g(x))`, **파이프** `pipe(f, g)(x) = g(f(x))` (왼쪽→오른쪽 순서)\n- **커링**: `f(a, b, c)` 를 `f(a)(b)(c)` 로. 인자를 조금씩 채워 새 함수를 만들 수 있어요",
+     "code": "const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x);\nconst curry = fn => function c(...args) {\n  return args.length >= fn.length ? fn(...args) : (...more) => c(...args, ...more);\n};\n\nconst add = curry((a, b, c) => a + b + c);\nconsole.log(add(1)(2)(3), add(1, 2)(3), add(1)(2, 3));\n\nconst slug = pipe(\n  s => s.trim(),\n  s => s.toLowerCase(),\n  s => s.replace(/\\s+/g, \"-\"),\n);\nconsole.log(slug(\"  Hello Coding World  \"));\n",
+     "task": "위의 `pipe` 를 써서 `x => x + 1`, `x => x * 2`, `x => x - 3` 을 차례로 적용하는 함수를 만들고 `5` 를 넣은 결과를 출력해 보세요. 결과 `9`",
+     "hint": "`pipe(x => x + 1, x => x * 2, x => x - 3)(5)` → (5+1)×2−3",
+     "ans": "const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x);\nconsole.log(pipe(x => x + 1, x => x * 2, x => x - 3)(5));\n",
+     "expect": "9",
+     "lv": 8
+    },
+    {
+     "t": "정규 표현식",
+     "b": "**정규 표현식**은 글자의 **패턴**을 찾는 작은 언어예요. `/패턴/플래그`\n\n| 기호 | 뜻 |\n|---|---|\n| `\\d` | 숫자 한 개 |\n| `\\w` | 글자·숫자·_ |\n| `+` `*` `?` | 1번 이상 · 0번 이상 · 있거나 없거나 |\n| `{3}` | 정확히 3번 |\n| `[가-힣]` | 한글 한 글자 |\n| `( )` | 묶기 · 꺼내기 |\n\n플래그 `g` 는 모두 찾기. `str.match`, `str.replace`, `regex.test` 와 함께 써요.",
+     "code": "const text = \"연락처: 010-1234-5678, 이메일 coder@alam.kr / 02-987-6543\";\nconsole.log(text.match(/\\d{2,3}-\\d{3,4}-\\d{4}/g));\nconsole.log(/^[\\w.]+@[\\w.]+\\.\\w+$/.test(\"coder@alam.kr\"));\nconsole.log(text.replace(/(\\d{3})-(\\d{4})-(\\d{4})/, \"$1-****-$3\"));\nconst m = \"2026-11-09\".match(/(\\d+)-(\\d+)-(\\d+)/);\nconsole.log(`${m[1]}년 ${+m[2]}월 ${+m[3]}일`);\n",
+     "task": "문장 `\"사과 3개, 배 12개, 귤 25개\"` 에서 **숫자만** 정규 표현식으로 모두 찾아 합을 출력해 보세요. 결과 `40`",
+     "hint": "`s.match(/\\d+/g)` 는 `[\"3\", \"12\", \"25\"]` → `.map(Number).reduce(...)`",
+     "ans": "const s = \"사과 3개, 배 12개, 귤 25개\";\nconsole.log(s.match(/\\d+/g).map(Number).reduce((a, b) => a + b, 0));\n",
+     "expect": "40",
+     "lv": 8
+    },
+    {
+     "t": "이벤트 이미터 (옵저버 패턴)",
+     "b": "**옵저버 패턴**: \"이 일이 생기면 알려 줘\" 하고 함수를 등록해 두면, 일이 생길 때 등록한 함수들을 모두 불러 줘요. 버튼 클릭(`addEventListener`), 채팅 알림, Node.js 가 모두 이 방식이에요.\n\n- `on(이름, 함수)` : 등록\n- `off(이름, 함수)` : 해제\n- `emit(이름, ...값)` : 그 이름에 등록된 함수를 모두 실행",
+     "code": "class Emitter {\n  #map = new Map();\n  on(ev, fn) {\n    if (!this.#map.has(ev)) this.#map.set(ev, new Set());\n    this.#map.get(ev).add(fn);\n    return () => this.off(ev, fn);       // 해제 함수를 돌려줘요\n  }\n  off(ev, fn) { this.#map.get(ev)?.delete(fn); }\n  emit(ev, ...args) { for (const fn of [...(this.#map.get(ev) || [])]) fn(...args); }\n}\n\nconst chat = new Emitter();\nconst stop = chat.on(\"msg\", (who, text) => console.log(`[알림] ${who}: ${text}`));\nchat.on(\"msg\", who => console.log(`${who} 님이 메시지를 보냈어요`));\nchat.emit(\"msg\", \"민지\", \"안녕!\");\nstop();\nchat.emit(\"msg\", \"준서\", \"다들 뭐 해?\");\n",
+     "task": "위 `Emitter` 에 **한 번만 실행되고 자동으로 해제되는** `once(ev, fn)` 을 추가해 보세요. `once` 로 등록한 함수가 횟수를 세게 하고, `emit` 을 3번 한 뒤 `호출 1번` 을 출력",
+     "hint": "`once(ev, fn) { const w = (...a) => { this.off(ev, w); fn(...a); }; this.on(ev, w); }`",
+     "ans": "class Emitter {\n  #map = new Map();\n  on(ev, fn) {\n    if (!this.#map.has(ev)) this.#map.set(ev, new Set());\n    this.#map.get(ev).add(fn);\n    return () => this.off(ev, fn);\n  }\n  off(ev, fn) { this.#map.get(ev)?.delete(fn); }\n  emit(ev, ...args) { for (const fn of [...(this.#map.get(ev) || [])]) fn(...args); }\n  once(ev, fn) {\n    const w = (...a) => { this.off(ev, w); fn(...a); };\n    this.on(ev, w);\n  }\n}\nconst e = new Emitter();\nlet n = 0;\ne.once(\"hi\", () => n++);\ne.emit(\"hi\"); e.emit(\"hi\"); e.emit(\"hi\");\nconsole.log(`호출 ${n}번`);\n",
+     "expect": "호출 1번",
+     "lv": 9
+    },
+    {
+     "t": "LRU 캐시 만들기",
+     "b": "**LRU(Least Recently Used) 캐시**: 정해진 개수만 기억하고, 꽉 차면 **가장 오래 안 쓴 것**부터 버려요. 브라우저 캐시, 데이터베이스, CPU 가 이렇게 해요.\n\n`Map` 은 **넣은 순서**를 기억하니까 이걸로 쉽게 만들 수 있어요.\n\n- `get` 할 때: 지우고 다시 넣어서 **맨 뒤(최근)** 로 보내기\n- `put` 할 때 꽉 찼으면: `map.keys().next().value` (**맨 앞 = 가장 오래된 것**) 지우기\n- 둘 다 `O(1)`",
+     "code": "class LRU {\n  constructor(cap) { this.cap = cap; this.m = new Map(); }\n  get(k) {\n    if (!this.m.has(k)) return -1;\n    const v = this.m.get(k);\n    this.m.delete(k); this.m.set(k, v);\n    return v;\n  }\n  put(k, v) {\n    this.m.delete(k);\n    this.m.set(k, v);\n    if (this.m.size > this.cap) this.m.delete(this.m.keys().next().value);\n  }\n}\n\nconst c = new LRU(3);\nc.put(\"a\", 1); c.put(\"b\", 2); c.put(\"c\", 3);\nc.get(\"a\");          // a 를 최근으로\nc.put(\"d\", 4);       // 가장 오래 안 쓴 b 가 빠져요\nconsole.log([...c.m.keys()]);\n",
+     "task": "용량 2 인 `LRU` 에 `put(1, 1)`, `put(2, 2)`, `get(1)`, `put(3, 3)` 을 한 뒤 `get(2)`, `get(1)`, `get(3)` 을 띄어 출력해 보세요. 결과 `-1 1 3`",
+     "hint": "`put(3, 3)` 때 가장 오래 안 쓴 건 2 예요 (1 은 방금 get 했으니까).",
+     "ans": "class LRU {\n  constructor(cap) { this.cap = cap; this.m = new Map(); }\n  get(k) {\n    if (!this.m.has(k)) return -1;\n    const v = this.m.get(k);\n    this.m.delete(k); this.m.set(k, v);\n    return v;\n  }\n  put(k, v) {\n    this.m.delete(k);\n    this.m.set(k, v);\n    if (this.m.size > this.cap) this.m.delete(this.m.keys().next().value);\n  }\n}\nconst c = new LRU(2);\nc.put(1, 1); c.put(2, 2); c.get(1); c.put(3, 3);\nconsole.log(c.get(2), c.get(1), c.get(3));\n",
+     "expect": "-1 1 3",
+     "lv": 9
+    },
+    {
+     "t": "수식 계산기 만들기 (파서)",
+     "b": "`\"2 + 3 * (4 - 1)\"` 같은 글자를 계산하려면 **컴파일러의 앞부분**을 직접 만들어야 해요.\n\n1. **토크나이저**: 글자를 `2`, `+`, `3`, `*`, `(` … 같은 **토큰**으로 자르기\n2. **재귀 하강 파서**: 문법 규칙마다 함수 하나\n   - `expr` = term (`+`|`-` term)*  — 덧셈·뺄셈\n   - `term` = factor (`*`|`/` factor)*  — 곱셈·나눗셈이 먼저 묶여요\n   - `factor` = 숫자 | `-`factor | `(` expr `)`\n\n규칙이 아래로 갈수록 **우선순위가 높아요**. `eval` 없이 계산!",
+     "code": "function calc(src) {\n  const toks = src.match(/\\d+(\\.\\d+)?|[-+*/()]/g) || [];\n  let i = 0;\n  const peek = () => toks[i], next = () => toks[i++];\n  function expr() {\n    let v = term();\n    while (peek() === \"+\" || peek() === \"-\") v = next() === \"+\" ? v + term() : v - term();\n    return v;\n  }\n  function term() {\n    let v = factor();\n    while (peek() === \"*\" || peek() === \"/\") v = next() === \"*\" ? v * factor() : v / factor();\n    return v;\n  }\n  function factor() {\n    const t = next();\n    if (t === \"-\") return -factor();\n    if (t === \"(\") { const v = expr(); if (next() !== \")\") throw new Error(\"괄호 짝이 안 맞아요\"); return v; }\n    if (t === undefined || isNaN(t)) throw new Error(\"예상 못한 \" + t);\n    return Number(t);\n  }\n  const v = expr();\n  if (i < toks.length) throw new Error(\"남은 토큰: \" + toks.slice(i).join(\"\"));\n  return v;\n}\n\nfor (const s of [\"2 + 3 * (4 - 1)\", \"-(5 - 8) * 2\", \"10 / 4\", \"(1 + 2\"]) {\n  try { console.log(s, \"=\", calc(s)); } catch (e) { console.log(s, \"→ 오류:\", e.message); }\n}\n",
+     "task": "계산기에 **거듭제곱 `^`** 을 추가해 보세요. 곱셈보다 먼저 계산하고, **오른쪽부터** 묶여요(`2 ^ 3 ^ 2` = 2⁹). `calc(\"2 ^ 3 ^ 2\")` 와 `calc(\"2 * 3 ^ 2\")` 를 띄어 출력 → `512 18`",
+     "hint": "`factor` 와 숫자 사이에 `power` 단계를 만들어요: `power = unary (^ power)?` — 자기 자신을 부르면 오른쪽 결합이 돼요. 토큰 정규식에 `^` 도 추가!",
+     "ans": "function calc(src) {\n  const toks = src.match(/\\d+(\\.\\d+)?|[-+*/()^]/g) || [];\n  let i = 0;\n  const peek = () => toks[i], next = () => toks[i++];\n  function expr() {\n    let v = term();\n    while (peek() === \"+\" || peek() === \"-\") v = next() === \"+\" ? v + term() : v - term();\n    return v;\n  }\n  function term() {\n    let v = power();\n    while (peek() === \"*\" || peek() === \"/\") v = next() === \"*\" ? v * power() : v / power();\n    return v;\n  }\n  function power() {\n    const b = factor();\n    if (peek() === \"^\") { next(); return b ** power(); }\n    return b;\n  }\n  function factor() {\n    const t = next();\n    if (t === \"-\") return -factor();\n    if (t === \"(\") { const v = expr(); next(); return v; }\n    return Number(t);\n  }\n  return expr();\n}\nconsole.log(calc(\"2 ^ 3 ^ 2\"), calc(\"2 * 3 ^ 2\"));\n",
+     "expect": "512 18",
+     "lv": 10
+    },
+    {
+     "t": "위상 정렬 (순서 정하기)",
+     "b": "\"수학Ⅰ 을 들어야 수학Ⅱ 를 들을 수 있다\" 처럼 **먼저 해야 하는 관계**가 있을 때, 모든 관계를 지키는 순서를 찾는 게 **위상 정렬**이에요. (빌드 도구, 패키지 설치 순서, 엑셀 수식 계산)\n\n**칸 알고리즘**:\n1. 각 일의 **진입 차수**(먼저 해야 하는 일의 수)를 세기\n2. 진입 차수가 0 인 일을 큐에 넣기\n3. 하나 꺼내 결과에 넣고, 그 뒤의 일들의 진입 차수를 1씩 줄이기 → 0 이 되면 큐에\n4. 결과 개수가 전체보다 적으면 **순환**(서로가 서로를 기다림)이 있는 거예요",
+     "code": "function topo(nodes, edges) {\n  const indeg = new Map(nodes.map(n => [n, 0])), next = new Map(nodes.map(n => [n, []]));\n  for (const [a, b] of edges) { next.get(a).push(b); indeg.set(b, indeg.get(b) + 1); }\n  const q = nodes.filter(n => indeg.get(n) === 0), order = [];\n  while (q.length) {\n    const n = q.shift();\n    order.push(n);\n    for (const m of next.get(n)) {\n      indeg.set(m, indeg.get(m) - 1);\n      if (indeg.get(m) === 0) q.push(m);\n    }\n  }\n  return order.length === nodes.length ? order : null;\n}\n\nconst subjects = [\"수학Ⅰ\", \"수학Ⅱ\", \"미적분\", \"확률과 통계\", \"인공지능 수학\"];\nconst needs = [[\"수학Ⅰ\", \"수학Ⅱ\"], [\"수학Ⅱ\", \"미적분\"], [\"수학Ⅰ\", \"확률과 통계\"],\n               [\"확률과 통계\", \"인공지능 수학\"], [\"미적분\", \"인공지능 수학\"]];\nconsole.log(topo(subjects, needs).join(\" → \"));\n",
+     "task": "`A → B`, `B → C`, `C → A`, `C → D` 관계에서 위상 정렬을 해 보고, 순환이 있으면 `순환 있음`, 없으면 순서를 출력해 보세요. 결과 `순환 있음`",
+     "hint": "위 `topo` 를 그대로 쓰고 결과가 `null` 이면 `\"순환 있음\"`",
+     "ans": "function topo(nodes, edges) {\n  const indeg = new Map(nodes.map(n => [n, 0])), next = new Map(nodes.map(n => [n, []]));\n  for (const [a, b] of edges) { next.get(a).push(b); indeg.set(b, indeg.get(b) + 1); }\n  const q = nodes.filter(n => indeg.get(n) === 0), order = [];\n  while (q.length) {\n    const n = q.shift();\n    order.push(n);\n    for (const m of next.get(n)) {\n      indeg.set(m, indeg.get(m) - 1);\n      if (indeg.get(m) === 0) q.push(m);\n    }\n  }\n  return order.length === nodes.length ? order : null;\n}\nconst r = topo([\"A\", \"B\", \"C\", \"D\"], [[\"A\", \"B\"], [\"B\", \"C\"], [\"C\", \"A\"], [\"C\", \"D\"]]);\nconsole.log(r ? r.join(\" → \") : \"순환 있음\");\n",
+     "expect": "순환 있음",
+     "lv": 10
     }
    ]
   },
@@ -279,44 +865,93 @@
      "t": "HTML 기본 구조",
      "b": "HTML 은 `<태그>내용</태그>` 로 이루어져요. 페이지 전체는 이런 모양이에요.\n\n- `<head>` : 제목 등 보이지 않는 정보\n- `<body>` : 화면에 보이는 내용",
      "code": "<!DOCTYPE html>\n<html lang=\"ko\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>내 첫 페이지</title>\n</head>\n<body>\n  <h1>안녕하세요!</h1>\n  <p>제 첫 웹 페이지예요.</p>\n</body>\n</html>\n",
-     "task": "`<body>` 안에 자기소개 문단 `<p>` 를 하나 더 넣어 보세요."
+     "task": "`<body>` 안에 자기소개 문단 `<p>` 를 하나 더 넣어 보세요.",
+     "lv": 1
     },
     {
      "t": "제목 · 문단 · 강조",
      "b": "- `<h1>` ~ `<h6>` : 제목 (숫자가 작을수록 큼)\n- `<p>` : 문단, `<br>` : 줄 바꿈\n- `<strong>` 굵게(중요), `<em>` 기울임(강조)\n- `<hr>` : 가로줄",
      "code": "<h1>큰 제목</h1>\n<h2>중간 제목</h2>\n<p>이건 <strong>중요한</strong> 문단이고,<br>이건 <em>강조</em>한 단어예요.</p>\n<hr>\n<h3>작은 제목</h3>\n",
-     "task": "좋아하는 과목을 `<h2>` 제목으로, 그 이유를 `<p>` 로 적고 핵심 단어를 `<strong>` 으로 굵게 해 보세요."
+     "task": "좋아하는 과목을 `<h2>` 제목으로, 그 이유를 `<p>` 로 적고 핵심 단어를 `<strong>` 으로 굵게 해 보세요.",
+     "lv": 1
     },
     {
      "t": "링크와 이미지",
      "b": "- 링크: `<a href=\"주소\">글자</a>` (새 탭은 `target=\"_blank\"`)\n- 이미지: `<img src=\"주소\" alt=\"설명\" width=\"100\">` (닫는 태그 없음)\n\n`alt` 는 이미지가 안 보일 때나 화면 낭독기가 읽는 설명이라 꼭 써 주세요.",
      "code": "<p><a href=\"https://developer.mozilla.org/ko/\" target=\"_blank\">MDN 웹 문서 열기</a></p>\n<img src=\"icon-192.png\" alt=\"내 계획표 아이콘\" width=\"96\">\n",
-     "task": "자주 가는 사이트 링크 두 개를 만들어 보세요."
+     "task": "자주 가는 사이트 링크 두 개를 만들어 보세요.",
+     "lv": 1
     },
     {
      "t": "목록",
      "b": "- `<ul>` 순서 없는 목록 (점)\n- `<ol>` 순서 있는 목록 (번호)\n- 항목은 `<li>`",
      "code": "<h3>오늘 할 일</h3>\n<ul>\n  <li>수학 숙제</li>\n  <li>영어 단어</li>\n</ul>\n<h3>라면 끓이는 순서</h3>\n<ol>\n  <li>물 550ml 끓이기</li>\n  <li>면과 스프 넣기</li>\n  <li>4분 30초 기다리기</li>\n</ol>\n",
-     "task": "좋아하는 음식 TOP 3 를 `<ol>` 로 만들어 보세요."
+     "task": "좋아하는 음식 TOP 3 를 `<ol>` 로 만들어 보세요.",
+     "lv": 1
     },
     {
      "t": "표",
      "b": "- `<table>` 표, `<tr>` 한 줄, `<th>` 제목 칸, `<td>` 내용 칸\n- `border=\"1\"` 을 주면 칸 테두리가 보여요 (보통은 CSS 로 꾸며요)",
      "code": "<table border=\"1\">\n  <tr><th>교시</th><th>월</th><th>화</th></tr>\n  <tr><td>1</td><td>국어</td><td>수학</td></tr>\n  <tr><td>2</td><td>영어</td><td>과학</td></tr>\n</table>\n",
-     "task": "3교시 줄을 하나 더 추가하고, 수요일 칸(열)도 추가해 보세요."
+     "task": "3교시 줄을 하나 더 추가하고, 수요일 칸(열)도 추가해 보세요.",
+     "lv": 2
     },
     {
      "t": "입력 폼",
      "b": "사용자에게 입력을 받는 요소예요.\n\n- `<input type=\"text\">` 글자, `type=\"number\"` 숫자, `type=\"checkbox\"` 체크\n- `<select><option>` 고르기\n- `<button>` 버튼\n- `<label>` 은 입력칸 이름표",
      "code": "<label>이름 <input type=\"text\" placeholder=\"홍길동\"></label><br><br>\n<label>학년\n  <select><option>1학년</option><option>2학년</option><option>3학년</option></select>\n</label><br><br>\n<label><input type=\"checkbox\"> 코딩부 가입</label><br><br>\n<button>제출</button>\n",
-     "task": "`type=\"date\"` 로 생일 입력칸을 추가해 보세요."
+     "task": "`type=\"date\"` 로 생일 입력칸을 추가해 보세요.",
+     "lv": 2
     },
     {
      "t": "버튼에 자바스크립트 연결",
      "b": "`<script>` 안에 자바스크립트를 쓰면 페이지를 움직일 수 있어요.\n\n- `document.querySelector(\"#아이디\")` 로 요소를 찾고\n- `addEventListener(\"click\", ...)` 로 눌렀을 때 할 일을 정해요",
      "code": "<h2 id=\"count\">0</h2>\n<button id=\"plus\">+1</button>\n<button id=\"reset\">초기화</button>\n<script>\n  let n = 0;\n  const out = document.querySelector(\"#count\");\n  document.querySelector(\"#plus\").addEventListener(\"click\", () => {\n    n++;\n    out.textContent = n;\n  });\n  document.querySelector(\"#reset\").addEventListener(\"click\", () => {\n    n = 0;\n    out.textContent = n;\n  });\n</script>\n",
      "task": "`-1` 버튼을 추가해서 숫자를 줄일 수 있게 해 보세요.",
-     "hint": "버튼 `<button id=\"minus\">-1</button>` 을 만들고 `n--` 하는 클릭 이벤트를 추가해요."
+     "hint": "버튼 `<button id=\"minus\">-1</button>` 을 만들고 `n--` 하는 클릭 이벤트를 추가해요.",
+     "lv": 2
+    },
+    {
+     "t": "시맨틱 태그",
+     "b": "`<div>` 만 쓰지 말고 **뜻이 있는 태그**를 쓰면 검색 엔진·화면 낭독기(시각 장애인용)가 페이지 구조를 이해해요.\n\n- `<header>` 머리말, `<nav>` 메뉴, `<main>` 본문 (한 번만)\n- `<article>` 따로 떼어도 뜻이 통하는 글, `<section>` 주제별 묶음\n- `<aside>` 곁들이는 내용, `<footer>` 꼬리말\n- `<time datetime=\"2026-11-09\">` 날짜, `<figure>` + `<figcaption>` 그림과 설명",
+     "code": "<header>\n  <h1>📒 나의 공부 블로그</h1>\n  <nav><a href=\"#\">홈</a> · <a href=\"#\">코딩</a> · <a href=\"#\">수학</a></nav>\n</header>\n<main>\n  <article>\n    <h2>재귀 함수 정복기</h2>\n    <p><time datetime=\"2026-11-09\">2026년 11월 9일</time></p>\n    <p>오늘은 하노이의 탑을 재귀로 풀었다.</p>\n  </article>\n  <aside>💡 다음 목표: 동적 계획법</aside>\n</main>\n<footer>© 2026 나</footer>\n",
+     "task": "`<article>` 를 하나 더 만들어 오늘 배운 다른 내용을 적고, `<figure>` 와 `<figcaption>` 으로 이모지 그림과 설명을 넣어 보세요.",
+     "lv": 3
+    },
+    {
+     "t": "폼 검증",
+     "b": "자바스크립트 없이도 HTML 만으로 입력을 검사할 수 있어요.\n\n- `required` 꼭 입력, `minlength=\"4\"` 최소 글자 수\n- `type=\"email\"`, `type=\"number\" min=\"1\" max=\"100\"`\n- `pattern=\"[0-9]{3}-[0-9]{4}-[0-9]{4}\"` 정규 표현식 패턴\n- CSS `:invalid` / `:valid` 로 틀린 칸을 빨갛게\n- 제출(`submit`)할 때 `event.preventDefault()` 로 페이지 이동을 막고 직접 처리",
+     "code": "<style>\n  input { display: block; margin: 6px 0 12px; padding: 8px; border: 2px solid #ccc; border-radius: 8px; }\n  input:invalid:not(:placeholder-shown) { border-color: #ef4444; }\n  input:valid:not(:placeholder-shown) { border-color: #10b981; }\n</style>\n<form id=\"f\">\n  아이디 (4글자 이상)<input name=\"id\" required minlength=\"4\" placeholder=\"coder\">\n  이메일<input name=\"mail\" type=\"email\" required placeholder=\"me@example.com\">\n  전화번호<input name=\"tel\" pattern=\"010-[0-9]{4}-[0-9]{4}\" placeholder=\"010-1234-5678\">\n  <button>가입하기</button>\n</form>\n<p id=\"msg\"></p>\n<script>\n  document.getElementById(\"f\").onsubmit = e => {\n    e.preventDefault();\n    const d = new FormData(e.target);\n    document.getElementById(\"msg\").textContent = `환영해요, ${d.get(\"id\")} 님!`;\n  };\n</script>\n",
+     "task": "나이 칸(`type=\"number\"`, 14 ~ 19 만 허용)을 추가하고, 환영 문구에 나이도 같이 보여 주세요.",
+     "lv": 4
+    },
+    {
+     "t": "canvas 에 그리기",
+     "b": "`<canvas>` 는 자바스크립트로 그림을 그리는 도화지예요. 게임·차트·그림판을 만들 때 써요.\n\n- `const ctx = canvas.getContext(\"2d\");`\n- `ctx.fillStyle = \"색\"; ctx.fillRect(x, y, 가로, 세로);` 채운 사각형\n- `ctx.beginPath(); ctx.arc(x, y, 반지름, 0, Math.PI * 2); ctx.fill();` 원\n- `ctx.moveTo` → `ctx.lineTo` → `ctx.stroke()` 선\n- 좌표 (0, 0) 은 **왼쪽 위**, y 는 아래로 커져요",
+     "code": "<canvas id=\"c\" width=\"300\" height=\"200\" style=\"border:1px solid #ddd\"></canvas>\n<script>\n  const ctx = document.getElementById(\"c\").getContext(\"2d\");\n  ctx.fillStyle = \"#bae6fd\"; ctx.fillRect(0, 0, 300, 140);      // 하늘\n  ctx.fillStyle = \"#86efac\"; ctx.fillRect(0, 140, 300, 60);     // 땅\n  ctx.fillStyle = \"#facc15\";\n  ctx.beginPath(); ctx.arc(250, 40, 22, 0, Math.PI * 2); ctx.fill();  // 해\n  ctx.fillStyle = \"#f87171\"; ctx.fillRect(60, 90, 80, 50);      // 집\n  ctx.fillStyle = \"#7c2d12\";\n  ctx.beginPath(); ctx.moveTo(50, 90); ctx.lineTo(100, 50); ctx.lineTo(150, 90); ctx.fill();  // 지붕\n  ctx.font = \"16px sans-serif\"; ctx.fillStyle = \"#111\";\n  ctx.fillText(\"우리 집\", 70, 175);\n</script>\n",
+     "task": "반복문으로 해 옆에 구름(흰 원 3개를 겹쳐서)을 그리고, 집 옆에 나무(갈색 사각형 + 초록 원)를 그려 보세요.",
+     "lv": 5
+    },
+    {
+     "t": "SVG 벡터 그래픽",
+     "b": "**SVG** 는 도형을 **좌표와 수식**으로 그리는 그림이에요. 아무리 크게 키워도 깨지지 않아요. (이 앱 아이콘도 SVG!)\n\n- `<svg viewBox=\"0 0 가로 세로\">` 그림의 좌표계\n- `<rect>` `<circle>` `<line>` `<polygon points=\"...\">` `<path d=\"...\">`\n- `fill` 채우기 색, `stroke` 테두리 색, `stroke-width` 두께\n- HTML 태그라서 CSS·자바스크립트로 꾸미고 움직일 수 있어요",
+     "code": "<svg viewBox=\"0 0 220 160\" width=\"320\" style=\"background:#f8fafc;border-radius:12px\">\n  <polyline points=\"20,130 60,90 100,105 140,50 180,70 200,30\"\n            fill=\"none\" stroke=\"#6366f1\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <g fill=\"#6366f1\">\n    <circle cx=\"20\" cy=\"130\" r=\"5\"/><circle cx=\"60\" cy=\"90\" r=\"5\"/><circle cx=\"100\" cy=\"105\" r=\"5\"/>\n    <circle cx=\"140\" cy=\"50\" r=\"5\"/><circle cx=\"180\" cy=\"70\" r=\"5\"/><circle cx=\"200\" cy=\"30\" r=\"5\"/>\n  </g>\n  <line x1=\"10\" y1=\"145\" x2=\"210\" y2=\"145\" stroke=\"#94a3b8\"/>\n  <text x=\"110\" y=\"158\" font-size=\"10\" text-anchor=\"middle\" fill=\"#64748b\">내 코딩 공부 시간</text>\n</svg>\n<script>\n  document.querySelectorAll(\"circle\").forEach(c => c.onclick = () => alert(`높이 ${150 - c.getAttribute(\"cy\")}`));\n</script>\n",
+     "task": "막대그래프로 바꿔 보세요: `<rect>` 6개로 요일별 공부 시간을 그리고, 막대 위에 `<text>` 로 숫자를 써 보세요.",
+     "lv": 6
+    },
+    {
+     "t": "canvas 애니메이션 (게임 루프)",
+     "b": "게임은 1초에 60번 **지우기 → 움직이기 → 그리기**를 반복해요. 이걸 **게임 루프**라고 해요.\n\n- `requestAnimationFrame(loop)` : 화면이 새로 그려질 때마다 `loop` 실행 (보통 초당 60번)\n- 위치 `x += vx` 로 움직이고, 벽에 닿으면 `vx = -vx` 로 튕기기\n- 키보드 `keydown` / 터치 `pointerdown` 으로 조작",
+     "code": "<canvas id=\"c\" width=\"320\" height=\"220\" style=\"background:#0f172a;border-radius:10px;touch-action:none\"></canvas>\n<p>화면을 누르면 공이 하나씩 늘어나요</p>\n<script>\n  const cv = document.getElementById(\"c\"), ctx = cv.getContext(\"2d\");\n  const balls = [];\n  const add = (x, y) => balls.push({ x, y, vx: Math.random() * 6 - 3, vy: -4, r: 8 + Math.random() * 10,\n                                     color: `hsl(${Math.random() * 360} 80% 60%)` });\n  add(160, 60);\n  cv.onpointerdown = e => { const b = cv.getBoundingClientRect(); add(e.clientX - b.left, e.clientY - b.top); };\n  function loop() {\n    ctx.clearRect(0, 0, cv.width, cv.height);\n    for (const b of balls) {\n      b.vy += 0.25;                    // 중력\n      b.x += b.vx; b.y += b.vy;\n      if (b.x < b.r || b.x > cv.width - b.r) b.vx *= -1;\n      if (b.y > cv.height - b.r) { b.y = cv.height - b.r; b.vy *= -0.85; }\n      ctx.fillStyle = b.color;\n      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();\n    }\n    requestAnimationFrame(loop);\n  }\n  loop();\n</script>\n",
+     "task": "화면 아래쪽에 좌우 화살표 키(또는 화면 왼쪽·오른쪽 누르기)로 움직이는 막대(패들)를 만들고, 공이 패들에 닿으면 위로 튕기게 해 보세요. (벽돌 깨기의 시작!)",
+     "lv": 7
+    },
+    {
+     "t": "웹 컴포넌트 (나만의 태그)",
+     "b": "**웹 컴포넌트**로 `<my-counter>` 처럼 **나만의 HTML 태그**를 만들 수 있어요. React·Vue 같은 프레임워크의 아이디어를 브라우저가 직접 지원하는 거예요.\n\n- `class MyTag extends HTMLElement { ... }`\n- `customElements.define(\"my-tag\", MyTag);` (이름에 `-` 가 꼭 있어야 해요)\n- `this.attachShadow({ mode: \"open\" })` : **섀도 DOM** — 안의 CSS 가 바깥과 섞이지 않아요\n- `connectedCallback()` : 페이지에 붙을 때 실행, `observedAttributes` + `attributeChangedCallback` : 속성이 바뀔 때",
+     "code": "<my-counter label=\"물 마시기 🥛\" step=\"1\"></my-counter>\n<my-counter label=\"팔굽혀펴기 💪\" step=\"5\"></my-counter>\n<p style=\"color:red\">바깥 CSS 는 컴포넌트 안에 영향을 못 줘요</p>\n<script>\n  class MyCounter extends HTMLElement {\n    #n = 0;\n    connectedCallback() {\n      this.attachShadow({ mode: \"open\" }).innerHTML = `\n        <style>\n          .box { display:inline-flex; gap:8px; align-items:center; padding:8px 12px; margin:4px;\n                 border-radius:12px; background:#eef2ff; font-family:sans-serif; }\n          button { border:0; border-radius:8px; padding:4px 10px; background:#6366f1; color:#fff; font-size:16px; }\n        </style>\n        <div class=\"box\"><span>${this.getAttribute(\"label\")}</span><b>0</b><button>+</button></div>`;\n      const step = +this.getAttribute(\"step\") || 1;\n      this.shadowRoot.querySelector(\"button\").onclick = () => {\n        this.#n += step;\n        this.shadowRoot.querySelector(\"b\").textContent = this.#n;\n      };\n    }\n  }\n  customElements.define(\"my-counter\", MyCounter);\n</script>\n",
+     "task": "`max` 속성을 추가해서, 숫자가 max 에 닿으면 버튼이 꺼지고(`disabled`) 🎉 가 보이게 해 보세요. 그리고 `−` 버튼도 만들어 보세요.",
+     "lv": 8
     }
    ]
   },
@@ -330,37 +965,85 @@
      "t": "선택자와 색",
      "b": "`선택자 { 속성: 값; }` 모양이에요.\n\n- `p { }` 태그 전체, `.이름 { }` class, `#이름 { }` id\n- `color` 글자색, `background` 배경색\n- 색은 `red`, `#ff6600`, `rgb(0, 128, 255)` 처럼 써요",
      "code": "<style>\n  body { background: #f4f6fb; }\n  h1 { color: #4f46e5; }\n  .warn { color: white; background: crimson; }\n  #me { color: green; }\n</style>\n<h1>CSS 시작</h1>\n<p class=\"warn\">경고 문구</p>\n<p id=\"me\">초록 글자</p>\n",
-     "task": "`.note` 클래스를 만들어 노란 배경 문단을 하나 꾸며 보세요."
+     "task": "`.note` 클래스를 만들어 노란 배경 문단을 하나 꾸며 보세요.",
+     "lv": 1
     },
     {
      "t": "박스 모델",
      "b": "모든 요소는 상자예요. 안쪽부터\n\n`내용` → `padding`(안쪽 여백) → `border`(테두리) → `margin`(바깥 여백)\n\n`border-radius` 로 모서리를 둥글게 할 수 있어요.",
      "code": "<style>\n  .box {\n    width: 200px;\n    padding: 16px;\n    border: 3px solid #4f46e5;\n    border-radius: 12px;\n    margin: 20px;\n    background: #eef;\n  }\n</style>\n<div class=\"box\">padding 16px, margin 20px</div>\n<div class=\"box\">두 번째 상자</div>\n",
-     "task": "상자를 완전히 동그랗게 만들어 보세요. (가로·세로를 같게 하고 `border-radius: 50%`)"
+     "task": "상자를 완전히 동그랗게 만들어 보세요. (가로·세로를 같게 하고 `border-radius: 50%`)",
+     "lv": 1
     },
     {
      "t": "글꼴과 텍스트",
      "b": "- `font-size` 크기, `font-weight` 굵기 (`700` 이 굵게)\n- `text-align` 정렬 (`center`), `line-height` 줄 간격\n- `text-decoration` 밑줄, `letter-spacing` 자간",
      "code": "<style>\n  h2 { font-size: 32px; text-align: center; letter-spacing: 4px; }\n  p { font-size: 18px; line-height: 1.8; }\n  a { text-decoration: none; font-weight: 700; color: tomato; }\n</style>\n<h2>TITLE</h2>\n<p>줄 간격이 넓은 문단이에요.<br>읽기 편하죠? <a href=\"#\">밑줄 없는 링크</a></p>\n",
-     "task": "문단을 가운데 정렬하고 글자를 이탤릭(`font-style: italic`)으로 바꿔 보세요."
+     "task": "문단을 가운데 정렬하고 글자를 이탤릭(`font-style: italic`)으로 바꿔 보세요.",
+     "lv": 1
     },
     {
      "t": "flex로 배치하기",
      "b": "`display: flex` 를 주면 안의 요소들이 가로로 나란히 서요.\n\n- `justify-content` : 가로 정렬 (`center`, `space-between`)\n- `align-items` : 세로 정렬\n- `gap` : 사이 간격\n- `flex-wrap: wrap` : 넘치면 다음 줄로",
      "code": "<style>\n  .row { display: flex; gap: 10px; justify-content: center; }\n  .card { width: 80px; height: 80px; background: #4f46e5; color: white;\n          display: flex; align-items: center; justify-content: center; border-radius: 10px; }\n</style>\n<div class=\"row\">\n  <div class=\"card\">1</div><div class=\"card\">2</div><div class=\"card\">3</div>\n</div>\n",
-     "task": "`justify-content` 를 `space-between` 으로 바꾸고, 카드를 2개 더 늘려 보세요."
+     "task": "`justify-content` 를 `space-between` 으로 바꾸고, 카드를 2개 더 늘려 보세요.",
+     "lv": 2
     },
     {
      "t": "hover와 transition",
      "b": "- `:hover` : 마우스를 올렸을 때(휴대폰은 눌렀을 때) 모양\n- `transition` : 바뀔 때 부드럽게\n- `transform: scale(1.1)` 크게, `rotate(10deg)` 돌리기",
      "code": "<style>\n  .btn { padding: 12px 20px; border: 0; border-radius: 10px; background: #10b981;\n         color: white; font-size: 16px; transition: transform .2s, background .2s; }\n  .btn:hover { transform: scale(1.1); background: #059669; }\n</style>\n<button class=\"btn\">눌러 보세요</button>\n",
-     "task": "마우스를 올리면 버튼이 살짝 돌아가게(`rotate(-5deg)`) 바꿔 보세요."
+     "task": "마우스를 올리면 버튼이 살짝 돌아가게(`rotate(-5deg)`) 바꿔 보세요.",
+     "lv": 2
     },
     {
      "t": "반응형 (미디어 쿼리)",
      "b": "화면 크기에 따라 다른 모양을 보여 줄 수 있어요.\n\n`@media (max-width: 500px) { ... }` 안의 CSS 는 화면 폭이 500px 이하일 때만 적용돼요.",
      "code": "<style>\n  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }\n  .grid div { background: #fbbf24; padding: 20px; text-align: center; border-radius: 8px; }\n  @media (max-width: 500px) {\n    .grid { grid-template-columns: 1fr; }\n  }\n</style>\n<div class=\"grid\"><div>A</div><div>B</div><div>C</div></div>\n<p>휴대폰(폭 500px 이하)에서는 한 줄에 하나씩 보여요.</p>\n",
-     "task": "폭이 500px 이하일 때 글자색도 빨간색이 되게 해 보세요."
+     "task": "폭이 500px 이하일 때 글자색도 빨간색이 되게 해 보세요.",
+     "lv": 2
+    },
+    {
+     "t": "grid 레이아웃",
+     "b": "**grid** 는 가로·세로 **표처럼** 배치해요. flex 가 한 줄이라면 grid 는 두 방향이에요.\n\n- `display: grid;`\n- `grid-template-columns: 200px 1fr 1fr;` 칸 너비 (`fr` = 남은 공간 나누기)\n- `repeat(auto-fill, minmax(100px, 1fr))` : 화면 크기에 맞춰 **칸 수가 저절로**\n- `grid-template-areas` 로 이름을 붙여 배치하면 한눈에 보여요\n- `gap` 칸 사이 간격",
+     "code": "<style>\n  .page { display: grid; gap: 8px; height: 260px;\n          grid-template-columns: 90px 1fr;\n          grid-template-rows: 50px 1fr 40px;\n          grid-template-areas: \"head head\" \"side main\" \"foot foot\"; }\n  .page > * { border-radius: 8px; padding: 8px; color: white; font-weight: bold; }\n  header { grid-area: head; background: #6366f1; }\n  aside  { grid-area: side; background: #f59e0b; }\n  main   { grid-area: main; background: #10b981; }\n  footer { grid-area: foot; background: #64748b; }\n  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 6px; margin-top: 10px; }\n  .cards div { background: #e0e7ff; padding: 14px 0; text-align: center; border-radius: 8px; }\n</style>\n<div class=\"page\"><header>머리</header><aside>메뉴</aside><main>본문</main><footer>꼬리</footer></div>\n<div class=\"cards\"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div></div>\n",
+     "task": "`grid-template-areas` 만 바꿔서 메뉴(aside)를 **오른쪽**으로 옮기고, 꼬리(footer)가 본문 아래에만 오게 해 보세요.",
+     "lv": 3
+    },
+    {
+     "t": "position 과 z-index",
+     "b": "- `static` : 기본 (그냥 순서대로)\n- `relative` : 원래 자리 기준으로 살짝 옮기기, 그리고 **absolute 의 기준**이 돼요\n- `absolute` : 가장 가까운 `relative` 부모 기준으로 원하는 위치에 (`top` `right` `bottom` `left`)\n- `fixed` : 화면 기준 고정 (스크롤해도 그 자리)\n- `sticky` : 스크롤하다 그 위치에 닿으면 붙어 있기\n- `z-index` : 겹칠 때 **큰 숫자가 위**",
+     "code": "<style>\n  .card { position: relative; width: 220px; height: 120px; background: #e0f2fe; border-radius: 14px; margin: 20px; }\n  .badge { position: absolute; top: -10px; right: -10px; background: #ef4444; color: white;\n           width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: bold; }\n  .a, .b { position: absolute; width: 70px; height: 70px; border-radius: 10px; opacity: .9; }\n  .a { left: 20px; top: 30px; background: #6366f1; z-index: 2; }\n  .b { left: 60px; top: 45px; background: #f59e0b; z-index: 1; }\n  .bar { position: sticky; top: 0; background: #111827; color: white; padding: 6px; }\n</style>\n<div class=\"bar\">sticky 메뉴 (아래로 스크롤해 보세요)</div>\n<div class=\"card\"><span class=\"badge\">3</span><div class=\"a\"></div><div class=\"b\"></div></div>\n<p style=\"height:400px\">스크롤용 빈 공간…</p>\n",
+     "task": "`z-index` 를 바꿔 주황 상자가 위로 오게 하고, 카드 **가운데**에 absolute 로 `NEW` 글자를 놓아 보세요. (`top: 50%; left: 50%; transform: translate(-50%, -50%)`)",
+     "lv": 4
+    },
+    {
+     "t": "CSS 변수와 다크 모드",
+     "b": "**CSS 변수**(사용자 정의 속성)로 색·크기를 한곳에서 관리해요.\n\n- 만들기: `:root { --main: #6366f1; }`\n- 쓰기: `color: var(--main);` / 없을 때 기본값 `var(--gap, 8px)`\n- 클래스 하나로 변수만 바꾸면 **테마 전체**가 바뀌어요\n- `@media (prefers-color-scheme: dark)` : 휴대폰이 다크 모드일 때 (이 앱도 이렇게 해요!)",
+     "code": "<style>\n  :root { --bg: #ffffff; --text: #111827; --card: #f1f5f9; --main: #6366f1; }\n  .dark { --bg: #0f172a; --text: #e5e7eb; --card: #1e293b; --main: #a5b4fc; }\n  body { background: var(--bg); color: var(--text); font-family: sans-serif; transition: background .3s, color .3s; }\n  .card { background: var(--card); border-left: 6px solid var(--main); padding: 12px; border-radius: 10px; margin: 10px 0; }\n  button { background: var(--main); color: var(--bg); border: 0; padding: 8px 14px; border-radius: 8px; }\n</style>\n<button onclick=\"document.body.classList.toggle('dark')\">🌙 테마 바꾸기</button>\n<div class=\"card\">변수만 바꿨는데 모든 색이 바뀌어요.</div>\n<div class=\"card\">테마 색: <b style=\"color:var(--main)\">var(--main)</b></div>\n",
+     "task": "`--radius` 변수를 만들어 카드와 버튼의 둥근 정도를 한 번에 바꿀 수 있게 하고, 🌸 '벚꽃 테마' 클래스도 하나 더 만들어 보세요.",
+     "lv": 5
+    },
+    {
+     "t": "@keyframes 애니메이션",
+     "b": "`transition` 은 A → B 한 번이지만, **`@keyframes`** 는 여러 단계를 **반복**할 수 있어요.\n\n```\n@keyframes 이름 { 0% { ... } 50% { ... } 100% { ... } }\n.box { animation: 이름 1s ease-in-out infinite alternate; }\n```\n\n- `infinite` 무한 반복, `alternate` 갔다가 되돌아오기\n- `animation-delay` 시작 지연 → 여러 개를 엇갈리게\n- `transform` 과 `opacity` 를 움직이면 부드럽고 빨라요",
+     "code": "<style>\n  .row { display: flex; gap: 10px; padding: 30px; }\n  .dot { width: 18px; height: 18px; border-radius: 50%; background: #6366f1;\n         animation: jump .6s ease-in-out infinite alternate; }\n  .dot:nth-child(2) { animation-delay: .2s; background: #10b981; }\n  .dot:nth-child(3) { animation-delay: .4s; background: #f59e0b; }\n  @keyframes jump { from { transform: translateY(0); } to { transform: translateY(-24px); } }\n\n  .heart { font-size: 48px; display: inline-block; animation: beat 1s infinite; }\n  @keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } }\n</style>\n<div class=\"row\"><div class=\"dot\"></div><div class=\"dot\"></div><div class=\"dot\"></div></div>\n<span class=\"heart\">❤️</span> 로딩 중…\n",
+     "task": "⭐ 이 한 바퀴 빙글 도는(`rotate(360deg)`) 동시에 색이 무지개처럼 바뀌는(`filter: hue-rotate(...)`) 애니메이션을 만들어 보세요.",
+     "lv": 6
+    },
+    {
+     "t": "3D 변환 (카드 뒤집기)",
+     "b": "CSS 만으로 3D 효과를 낼 수 있어요.\n\n- 부모에 `perspective: 800px;` : 원근감 (작을수록 강하게)\n- `transform: rotateY(180deg)` : 세로축으로 뒤집기\n- `transform-style: preserve-3d;` : 자식도 3D 공간에\n- `backface-visibility: hidden;` : 뒤집힌 뒷면은 안 보이게\n→ 앞면·뒷면 두 장을 겹쳐 놓고 뒷면을 미리 180° 돌려 두면 **뒤집히는 카드**!",
+     "code": "<style>\n  .scene { perspective: 800px; width: 180px; height: 240px; margin: 20px; }\n  .card { width: 100%; height: 100%; position: relative; transition: transform .7s; transform-style: preserve-3d; cursor: pointer; }\n  .scene.on .card { transform: rotateY(180deg); }\n  .face { position: absolute; inset: 0; border-radius: 16px; display: grid; place-items: center;\n          font: bold 22px sans-serif; color: white; backface-visibility: hidden; }\n  .front { background: linear-gradient(135deg, #6366f1, #a855f7); }\n  .back  { background: linear-gradient(135deg, #10b981, #06b6d4); transform: rotateY(180deg); }\n</style>\n<div class=\"scene\" onclick=\"this.classList.toggle('on')\">\n  <div class=\"card\"><div class=\"face front\">❓ 문제<br>2¹⁰ = ?</div><div class=\"face back\">💡 1024</div></div>\n</div>\n<p>카드를 눌러 보세요</p>\n",
+     "task": "암기 카드 3장을 만들고, 마우스를 올리면(`:hover`) 카드가 살짝 기울어지게(`rotateX(10deg)`) 해 보세요.",
+     "lv": 7
+    },
+    {
+     "t": "clamp() 와 컨테이너 쿼리",
+     "b": "요즘 CSS 는 **화면 크기에 따라 저절로 맞춰지는** 기능이 많아요.\n\n- `clamp(최소, 원하는값, 최대)` : `font-size: clamp(16px, 4vw, 32px);` 화면에 따라 자라지만 범위 안에서만\n- `min()`, `max()` 도 있어요\n- **컨테이너 쿼리**: 화면이 아니라 **부모 상자의 크기**에 따라 바뀌기\n  - 부모: `container-type: inline-size;`\n  - 자식: `@container (min-width: 300px) { ... }`\n\n같은 카드 부품이 좁은 사이드바에서도, 넓은 본문에서도 알맞게 보여요.",
+     "code": "<style>\n  h1 { font-size: clamp(18px, 6vw, 40px); margin: 6px 0; }\n  .wrap { container-type: inline-size; border: 2px dashed #94a3b8; padding: 8px; margin: 8px 0; resize: horizontal; overflow: auto; }\n  .card { display: flex; flex-direction: column; gap: 6px; background: #f1f5f9; border-radius: 12px; padding: 10px; }\n  .card .pic { background: #a5b4fc; border-radius: 8px; height: 60px; }\n  @container (min-width: 320px) {\n    .card { flex-direction: row; align-items: center; }\n    .card .pic { width: 90px; flex: none; }\n  }\n</style>\n<h1>화면에 맞춰 크는 제목</h1>\n<div class=\"wrap\" style=\"width:200px\"><div class=\"card\"><div class=\"pic\"></div><div>좁은 상자: 세로로</div></div></div>\n<div class=\"wrap\"><div class=\"card\"><div class=\"pic\"></div><div>넓은 상자: 가로로 (오른쪽 아래 모서리를 끌어 크기를 바꿔 보세요)</div></div></div>\n",
+     "task": "컨테이너가 500px 이상이면 그림 크기를 키우고 글자도 `clamp()` 로 커지게 해 보세요.",
+     "lv": 8
     }
    ]
   }
