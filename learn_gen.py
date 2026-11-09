@@ -2986,6 +2986,1220 @@ ls("clamp() 와 컨테이너 쿼리", r"""
 """, task="컨테이너가 500px 이상이면 그림 크기를 키우고 글자도 `clamp()` 로 커지게 해 보세요."),
 )
 
+
+# ================= 🎮 게임 만들기 (프로젝트 강의) =================
+lang("game", "🎮 게임 만들기", "html", "HTML · CSS · 자바스크립트로 **진짜 게임**을 하나씩 완성해요. 앞 강의의 기술을 다음 게임에서 다시 쓰면서 점점 커져요. ▶ 실행한 뒤 **게임 화면을 한 번 눌러야** 키보드가 먹어요. 휴대폰은 화면 아래 버튼으로 조작해요.", [])
+more("game", 1,
+ls("캐릭터 움직이기", r"""
+모든 게임의 시작: **화면에 그리고, 입력을 받아, 움직이기**.
+
+- `<canvas>` 에 `ctx.fillRect` / `ctx.fillText` 로 그리기 (이모지도 글자라서 바로 그려져요!)
+- `keydown` 이벤트로 방향키 받기, `e.key` 는 `"ArrowLeft"` 같은 이름
+- 위치가 바뀌면 **전부 지우고 다시 그리기** (`clearRect`)
+- 화면 밖으로 못 나가게 `Math.max`, `Math.min` 으로 막기
+""", r"""
+<canvas id="c" width="300" height="200" style="background:#dcfce7;border-radius:10px;display:block"></canvas>
+<div style="margin-top:6px">
+  <button onclick="move(-20, 0)">◀</button><button onclick="move(0, -20)">▲</button>
+  <button onclick="move(0, 20)">▼</button><button onclick="move(20, 0)">▶</button>
+</div>
+<script>
+  const ctx = document.getElementById("c").getContext("2d");
+  let x = 140, y = 90;
+  function draw() {
+    ctx.clearRect(0, 0, 300, 200);
+    ctx.font = "32px sans-serif";
+    ctx.fillText("🐱", x, y + 30);
+    ctx.font = "13px sans-serif";
+    ctx.fillText(`x: ${x}, y: ${y}`, 8, 18);
+  }
+  function move(dx, dy) {
+    x = Math.max(0, Math.min(260, x + dx));
+    y = Math.max(0, Math.min(160, y + dy));
+    draw();
+  }
+  addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") move(-20, 0);
+    if (e.key === "ArrowRight") move(20, 0);
+    if (e.key === "ArrowUp") move(0, -20);
+    if (e.key === "ArrowDown") move(0, 20);
+  });
+  draw();
+</script>
+""", task="화면 어딘가에 🐟 를 그려 두고, 고양이가 생선 위치에 닿으면 `냠냠!` 글자가 나오고 생선이 다른 곳으로 옮겨지게 해 보세요. (`Math.abs(x - fx) < 30 && Math.abs(y - fy) < 30`)"),
+)
+more("game", 2,
+ls("떨어지는 별 받기 (게임 루프 · 점수)", r"""
+캐릭터가 버튼을 누를 때만 움직이면 게임이 아니죠. 게임은 **1초에 60번** 저절로 돌아가요.
+
+**게임 루프** = 입력 확인 → 상태 바꾸기(update) → 그리기(draw) → 다시 반복
+
+- `requestAnimationFrame(loop)` : 다음 화면 때 `loop` 다시 실행
+- 누르고 있는 키는 `keys` 객체에 기억 (`keydown` 에 true, `keyup` 에 false) → 부드럽게 움직여요
+- 물체마다 `{ x, y, 속도 }` 객체를 만들어 배열에 넣고 한꺼번에 움직이기
+""", r"""
+<canvas id="c" width="300" height="240" style="background:#0f172a;border-radius:10px;display:block;touch-action:none"></canvas>
+<div><button id="L" style="width:48%;padding:10px">◀</button> <button id="R" style="width:48%;padding:10px">▶</button></div>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  const keys = {};
+  addEventListener("keydown", e => keys[e.key] = true);
+  addEventListener("keyup", e => keys[e.key] = false);
+  for (const [id, k] of [["L", "ArrowLeft"], ["R", "ArrowRight"]]) {
+    const b = document.getElementById(id);
+    b.onpointerdown = () => keys[k] = true;
+    b.onpointerup = b.onpointerleave = () => keys[k] = false;
+  }
+
+  const player = { x: 135, w: 34 };
+  let stars = [], score = 0, frame = 0;
+
+  function update() {
+    if (keys.ArrowLeft) player.x -= 5;
+    if (keys.ArrowRight) player.x += 5;
+    player.x = Math.max(0, Math.min(cv.width - player.w, player.x));
+    if (++frame % 40 === 0) stars.push({ x: Math.random() * 280, y: -20, v: 2 + Math.random() * 2 });
+    for (const s of stars) {
+      s.y += s.v;
+      if (s.y > 200 && s.y < 230 && s.x > player.x - 15 && s.x < player.x + player.w) { s.hit = true; score++; }
+    }
+    stars = stars.filter(s => !s.hit && s.y < 260);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.font = "22px sans-serif";
+    for (const s of stars) ctx.fillText("⭐", s.x, s.y);
+    ctx.font = "30px sans-serif";
+    ctx.fillText("🧺", player.x, 232);
+    ctx.fillStyle = "#fff"; ctx.font = "15px sans-serif";
+    ctx.fillText("점수 " + score, 10, 20);
+  }
+  function loop() { update(); draw(); requestAnimationFrame(loop); }
+  loop();
+</script>
+""", task="별 말고 가끔 💣 도 떨어지게 하고, 폭탄을 받으면 점수가 3점 깎이게 해 보세요. 점수가 올라갈수록 별이 더 빨리 떨어지게도 해 보세요."),
+ls("짝 맞추기 카드 게임 (DOM 게임)", r"""
+canvas 없이 **HTML 요소(버튼)** 로도 게임을 만들 수 있어요. 카드 뒤집기, 퀴즈, 지뢰 찾기 같은 게임이 이 방식이에요.
+
+- 카드 배열을 만들고 **섞기** (피셔–예이츠 셔플: 뒤에서부터 무작위 자리와 바꾸기)
+- 카드를 누르면 `열린 카드` 배열에 넣고, 2장이 되면 같은지 비교
+- 다르면 `setTimeout` 으로 잠깐 보여 준 뒤 다시 덮기
+- **게임 상태**(열린 카드, 맞춘 카드, 시도 횟수)를 변수로 관리하는 게 핵심!
+""", r"""
+<style>
+  #board { display: grid; grid-template-columns: repeat(4, 60px); gap: 8px; }
+  .card { width: 60px; height: 60px; font-size: 30px; border: 0; border-radius: 10px; background: #6366f1; cursor: pointer; }
+  .card.open, .card.done { background: #e0e7ff; }
+  .card.done { opacity: .5; }
+</style>
+<p id="info">시도 0번</p>
+<div id="board"></div>
+<script>
+  const emojis = ["🍎", "🍌", "🍇", "🍓", "🍒", "🥝", "🍑", "🍍"];
+  let cards = [...emojis, ...emojis];
+  for (let i = cards.length - 1; i > 0; i--) {          // 섞기
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  let opened = [], tries = 0, matched = 0, busy = false;
+  const board = document.getElementById("board");
+  cards.forEach((emo, i) => {
+    const b = document.createElement("button");
+    b.className = "card";
+    b.onclick = () => {
+      if (busy || b.classList.contains("open") || b.classList.contains("done")) return;
+      b.classList.add("open"); b.textContent = emo;
+      opened.push(b);
+      if (opened.length < 2) return;
+      tries++;
+      const [a, c] = opened;
+      if (a.textContent === c.textContent) {
+        a.classList.add("done"); c.classList.add("done"); matched += 2; opened = [];
+      } else {
+        busy = true;
+        setTimeout(() => { for (const x of opened) { x.classList.remove("open"); x.textContent = ""; } opened = []; busy = false; }, 700);
+      }
+      document.getElementById("info").textContent = matched === cards.length ? `🎉 ${tries}번 만에 성공!` : `시도 ${tries}번`;
+    };
+    board.appendChild(b);
+  });
+</script>
+""", task="게임 시간을 재는 타이머(⏱ 0.0초)를 위에 보여 주고, 다 맞추면 멈추게 해 보세요. `다시 하기` 버튼도 만들어 보세요."),
+)
+more("game", 3,
+ls("운석 피하기 (충돌 판정)", r"""
+게임에서 가장 많이 쓰는 계산: **두 물체가 부딪쳤나?**
+
+- **원과 원**: 중심 사이 거리 < 반지름의 합 → `Math.hypot(dx, dy) < r1 + r2`
+- **사각형과 사각형 (AABB)**: `a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y`
+
+이번 게임은 **게임 오버 → 다시 시작** 흐름이 있어요. 상태를 처음으로 되돌리는 `reset()` 함수를 따로 만들어 두면 편해요.
+""", r"""
+<canvas id="c" width="300" height="260" style="background:#020617;border-radius:10px;display:block;touch-action:none"></canvas>
+<p style="margin:4px 0">화면을 누른 채 좌우로 끌거나 ◀ ▶ 키</p>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  const keys = {};
+  addEventListener("keydown", e => { keys[e.key] = true; if (over && e.key === " ") reset(); });
+  addEventListener("keyup", e => keys[e.key] = false);
+  cv.onpointermove = e => { if (e.buttons || e.pointerType === "touch") ship.x = e.offsetX * cv.width / cv.clientWidth; };
+  cv.onpointerdown = () => { if (over) reset(); };
+
+  let ship, rocks, time, over;
+  function reset() { ship = { x: 150, y: 230, r: 12 }; rocks = []; time = 0; over = false; }
+
+  function update() {
+    if (over) return;
+    time++;
+    if (keys.ArrowLeft) ship.x -= 5;
+    if (keys.ArrowRight) ship.x += 5;
+    ship.x = Math.max(ship.r, Math.min(cv.width - ship.r, ship.x));
+    if (Math.random() < 0.03 + time / 20000) rocks.push({ x: Math.random() * 300, y: -20, r: 8 + Math.random() * 14, v: 2 + Math.random() * 2 + time / 1500 });
+    for (const k of rocks) {
+      k.y += k.v;
+      if (Math.hypot(k.x - ship.x, k.y - ship.y) < k.r + ship.r) over = true;   // 원끼리 충돌
+    }
+    rocks = rocks.filter(k => k.y < 300);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, 300, 260);
+    ctx.fillStyle = "#94a3b8";
+    for (const k of rocks) { ctx.beginPath(); ctx.arc(k.x, k.y, k.r, 0, Math.PI * 2); ctx.fill(); }
+    ctx.font = "26px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("🚀", ship.x, ship.y + 10);
+    ctx.fillStyle = "#fff"; ctx.font = "14px sans-serif"; ctx.textAlign = "left";
+    ctx.fillText(`버틴 시간 ${(time / 60).toFixed(1)}초`, 8, 18);
+    if (over) {
+      ctx.textAlign = "center"; ctx.font = "bold 26px sans-serif";
+      ctx.fillText("💥 GAME OVER", 150, 120);
+      ctx.font = "14px sans-serif"; ctx.fillText("누르거나 스페이스: 다시 시작", 150, 150);
+    }
+  }
+  function loop() { update(); draw(); requestAnimationFrame(loop); }
+  reset(); loop();
+</script>
+""", task="**최고 기록**을 기억해서 게임 오버 화면에 같이 보여 주고, 가끔 🛡️ 아이템이 떨어져서 먹으면 3초 동안 무적이 되게 해 보세요."),
+)
+more("game", 4,
+ls("벽돌 깨기", r"""
+공 · 패들 · 벽돌, 세 가지만 있으면 돼요. 이번엔 **반사**가 핵심이에요.
+
+- 공은 속도 `vx`, `vy` 를 가져요. 벽에 닿으면 `vx = -vx` (좌우 벽) / `vy = -vy` (천장)
+- 패들에 맞을 때 **맞은 위치에 따라 각도**를 바꾸면 조작하는 재미가 생겨요
+- 벽돌은 2차원 배열(줄 × 칸)로 만들고, 공과 사각형 충돌 검사 → 맞으면 `alive = false`
+- 벽돌이 다 깨지면 승리, 공이 바닥으로 떨어지면 목숨 −1
+""", r"""
+<canvas id="c" width="300" height="300" style="background:#111827;border-radius:10px;display:block;touch-action:none"></canvas>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  const W = 300, H = 300, pad = { x: 120, w: 60, y: 280 };
+  let ball, bricks, lives = 3, msg = "";
+  cv.onpointermove = e => pad.x = e.offsetX * W / cv.clientWidth - pad.w / 2;
+  addEventListener("keydown", e => { if (e.key === "ArrowLeft") pad.x -= 25; if (e.key === "ArrowRight") pad.x += 25; });
+  cv.onpointerdown = () => { if (msg) start(); };
+
+  function start() {
+    ball = { x: 150, y: 200, r: 6, vx: 2.5, vy: -3.5 };
+    bricks = [];
+    const colors = ["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6"];
+    for (let r = 0; r < 5; r++)
+      for (let c = 0; c < 7; c++) bricks.push({ x: 8 + c * 41, y: 30 + r * 18, w: 38, h: 14, color: colors[r], alive: true });
+    lives = 3; msg = "";
+  }
+  function update() {
+    if (msg) return;
+    pad.x = Math.max(0, Math.min(W - pad.w, pad.x));
+    ball.x += ball.vx; ball.y += ball.vy;
+    if (ball.x < ball.r || ball.x > W - ball.r) ball.vx *= -1;
+    if (ball.y < ball.r) ball.vy *= -1;
+    // 패들: 맞은 위치(-1 ~ 1)에 따라 튕기는 각도
+    if (ball.vy > 0 && ball.y + ball.r > pad.y && ball.y < pad.y + 10 && ball.x > pad.x && ball.x < pad.x + pad.w) {
+      const hit = (ball.x - (pad.x + pad.w / 2)) / (pad.w / 2);
+      const speed = Math.hypot(ball.vx, ball.vy);
+      ball.vx = speed * hit * 0.8;
+      ball.vy = -Math.sqrt(speed * speed - ball.vx * ball.vx);
+    }
+    for (const b of bricks) {
+      if (b.alive && ball.x > b.x && ball.x < b.x + b.w && ball.y - ball.r < b.y + b.h && ball.y + ball.r > b.y) {
+        b.alive = false; ball.vy *= -1; break;
+      }
+    }
+    if (ball.y > H) { lives--; ball = { x: 150, y: 200, r: 6, vx: 2.5, vy: -3.5 }; if (!lives) msg = "😢 게임 오버"; }
+    if (bricks.every(b => !b.alive)) msg = "🎉 클리어!";
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const b of bricks) if (b.alive) { ctx.fillStyle = b.color; ctx.fillRect(b.x, b.y, b.w, b.h); }
+    ctx.fillStyle = "#e5e7eb"; ctx.fillRect(pad.x, pad.y, pad.w, 8);
+    ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+    ctx.font = "13px sans-serif"; ctx.fillText("❤️".repeat(lives), 8, 18);
+    if (msg) { ctx.font = "bold 24px sans-serif"; ctx.textAlign = "center"; ctx.fillText(msg, 150, 170); ctx.font = "13px sans-serif"; ctx.fillText("눌러서 다시 시작", 150, 195); ctx.textAlign = "left"; }
+  }
+  function loop() { update(); draw(); requestAnimationFrame(loop); }
+  start(); loop();
+</script>
+""", task="벽돌 몇 개를 **두 번 맞아야 깨지는 단단한 벽돌**(색이 어두움)로 만들고, 벽돌을 깰 때마다 점수가 오르게 해 보세요. 벽돌이 깨질 때 가끔 패들이 넓어지는 아이템이 떨어지게도!"),
+)
+more("game", 5,
+ls("꼬리 잡기 뱀 게임 (격자 게임)", r"""
+**격자(그리드) 게임**은 화면을 칸으로 나눠 생각해요. 지렁이·퍼즐·보드게임이 이 방식이에요.
+
+- 뱀 = 칸 좌표의 배열 `[{x, y}, ...]` (맨 앞이 머리)
+- 한 칸 이동 = **머리 앞에 새 칸 추가 + 꼬리 한 칸 빼기** (`unshift` + `pop`)
+- 먹이를 먹으면 꼬리를 안 빼서 길어져요
+- 매 프레임이 아니라 **일정 시간마다** 움직여요 (`setInterval` 또는 프레임 세기)
+- 반대 방향으로 바로 꺾으면 자기 몸에 부딪히니 막아요
+""", r"""
+<canvas id="c" width="300" height="300" style="background:#14532d;border-radius:10px;display:block;touch-action:none"></canvas>
+<div style="display:grid;grid-template-columns:repeat(3,60px);gap:4px;margin-top:6px">
+  <span></span><button data-d="0,-1">▲</button><span></span>
+  <button data-d="-1,0">◀</button><button data-d="0,1">▼</button><button data-d="1,0">▶</button>
+</div>
+<script>
+  const ctx = document.getElementById("c").getContext("2d");
+  const N = 15, S = 20;                      // 15 × 15 칸, 한 칸 20px
+  let snake, dir, nextDir, food, score, dead;
+  function reset() {
+    snake = [{ x: 7, y: 7 }, { x: 6, y: 7 }, { x: 5, y: 7 }];
+    dir = nextDir = { x: 1, y: 0 }; score = 0; dead = false; placeFood();
+  }
+  function placeFood() {
+    do food = { x: Math.floor(Math.random() * N), y: Math.floor(Math.random() * N) };
+    while (snake.some(p => p.x === food.x && p.y === food.y));
+  }
+  function turn(x, y) {
+    if (dead) return reset();
+    if (x !== -dir.x || y !== -dir.y) nextDir = { x, y };   // 반대 방향 금지
+  }
+  addEventListener("keydown", e => {
+    const m = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[e.key];
+    if (m) { e.preventDefault(); turn(...m); }
+  });
+  document.querySelectorAll("[data-d]").forEach(b => b.onclick = () => turn(...b.dataset.d.split(",").map(Number)));
+
+  function step() {
+    if (dead) return;
+    dir = nextDir;
+    const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+    if (head.x < 0 || head.y < 0 || head.x >= N || head.y >= N || snake.some(p => p.x === head.x && p.y === head.y)) { dead = true; return; }
+    snake.unshift(head);
+    if (head.x === food.x && head.y === food.y) { score++; placeFood(); }
+    else snake.pop();
+  }
+  function draw() {
+    ctx.fillStyle = "#14532d"; ctx.fillRect(0, 0, 300, 300);
+    ctx.font = "18px sans-serif"; ctx.fillText("🍎", food.x * S, food.y * S + 17);
+    snake.forEach((p, i) => { ctx.fillStyle = i ? "#4ade80" : "#bbf7d0"; ctx.fillRect(p.x * S + 1, p.y * S + 1, S - 2, S - 2); });
+    ctx.fillStyle = "#fff"; ctx.font = "14px sans-serif"; ctx.fillText("점수 " + score, 6, 16);
+    if (dead) { ctx.textAlign = "center"; ctx.font = "bold 22px sans-serif"; ctx.fillText("부딪혔어요! 방향키로 다시", 150, 150); ctx.textAlign = "left"; }
+  }
+  reset();
+  setInterval(() => { step(); draw(); }, 130);
+</script>
+""", task="먹이를 먹을 때마다 조금씩 빨라지게 해 보세요. (`setInterval` 대신 `setTimeout` 을 매번 다시 걸면서 시간을 줄이기) 벽에 부딪히는 대신 **반대편으로 나오게**(`(x + N) % N`) 바꿔 보세요."),
+)
+more("game", 6,
+ls("점프 플랫포머 (중력과 발판)", r"""
+마리오처럼 뛰어다니는 게임의 핵심은 **물리**예요. 진짜 물리 공식을 아주 간단하게 써요.
+
+- 매 프레임 `vy += 중력` → `y += vy` (속도가 점점 빨라지며 떨어짐)
+- 점프 = 바닥에 서 있을 때만 `vy = -점프힘`
+- **발판 착지**: 떨어지는 중(`vy > 0`)이고, 발이 발판 위를 막 지나갔으면 → 발판 위에 세우고 `vy = 0`
+- 화면보다 큰 맵은 **카메라** `camX` 만큼 빼고 그려요 (캐릭터를 따라감)
+""", r"""
+<canvas id="c" width="320" height="240" style="background:linear-gradient(#7dd3fc,#e0f2fe);border-radius:10px;display:block;touch-action:none"></canvas>
+<div style="display:flex;gap:6px;margin-top:6px">
+  <button id="L" style="flex:1;padding:10px">◀</button><button id="J" style="flex:1;padding:10px">점프</button><button id="R" style="flex:1;padding:10px">▶</button>
+</div>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  const keys = {};
+  addEventListener("keydown", e => keys[e.key] = true);
+  addEventListener("keyup", e => keys[e.key] = false);
+  for (const [id, k] of [["L", "ArrowLeft"], ["R", "ArrowRight"], ["J", " "]]) {
+    const b = document.getElementById(id);
+    b.onpointerdown = () => keys[k] = true; b.onpointerup = b.onpointerleave = () => keys[k] = false;
+  }
+  const GRAVITY = 0.5, JUMP = 10, SPEED = 3;
+  const plats = [{ x: 0, y: 220, w: 400 }, { x: 140, y: 170, w: 70 }, { x: 250, y: 130, w: 70 }, { x: 380, y: 95, w: 80 },
+                 { x: 520, y: 150, w: 90 }, { x: 650, y: 110, w: 60 }, { x: 760, y: 200, w: 300 }];
+  const coins = [{ x: 170, y: 140 }, { x: 280, y: 100 }, { x: 410, y: 65 }, { x: 670, y: 80 }, { x: 900, y: 170 }];
+  const p = { x: 30, y: 180, w: 22, h: 28, vx: 0, vy: 0, ground: false };
+  let camX = 0, got = 0;
+
+  function update() {
+    p.vx = (keys.ArrowRight ? SPEED : 0) - (keys.ArrowLeft ? SPEED : 0);
+    if ((keys[" "] || keys.ArrowUp) && p.ground) { p.vy = -JUMP; p.ground = false; }
+    p.vy += GRAVITY;
+    p.x += p.vx;
+    const prevBottom = p.y + p.h;
+    p.y += p.vy;
+    p.ground = false;
+    for (const pl of plats) {
+      const onX = p.x + p.w > pl.x && p.x < pl.x + pl.w;
+      if (onX && p.vy >= 0 && prevBottom <= pl.y && p.y + p.h >= pl.y) { p.y = pl.y - p.h; p.vy = 0; p.ground = true; }
+    }
+    if (p.y > 300) { p.x = 30; p.y = 180; p.vy = 0; }          // 떨어지면 처음으로
+    for (const c of coins) if (!c.got && Math.abs(p.x + 11 - c.x) < 18 && Math.abs(p.y + 14 - c.y) < 20) { c.got = true; got++; }
+    camX += (p.x - 140 - camX) * 0.1;                           // 카메라가 부드럽게 따라와요
+    camX = Math.max(0, camX);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, 320, 240);
+    ctx.save(); ctx.translate(-camX, 0);
+    ctx.fillStyle = "#65a30d";
+    for (const pl of plats) ctx.fillRect(pl.x, pl.y, pl.w, 12);
+    ctx.font = "18px sans-serif";
+    for (const c of coins) if (!c.got) ctx.fillText("🪙", c.x - 9, c.y + 7);
+    ctx.fillStyle = "#dc2626"; ctx.fillRect(p.x, p.y, p.w, p.h);
+    ctx.fillStyle = "#fff"; ctx.fillRect(p.x + (p.vx < 0 ? 3 : 13), p.y + 6, 6, 6);
+    ctx.restore();
+    ctx.fillStyle = "#0f172a"; ctx.font = "14px sans-serif";
+    ctx.fillText(`🪙 ${got} / ${coins.length}`, 8, 18);
+    if (got === coins.length) ctx.fillText("🎉 코인을 다 모았어요!", 90, 40);
+  }
+  function loop() { update(); draw(); requestAnimationFrame(loop); }
+  loop();
+</script>
+""", task="좌우로 움직이는 발판을 하나 만들어 보세요. (발판에 `vx` 를 주고 일정 범위에서 왔다 갔다, 위에 선 캐릭터도 같이 움직이게) 그리고 **2단 점프**를 넣어 보세요."),
+)
+more("game", 7,
+ls("슈팅 게임 (총알 · 적 · 파티클)", r"""
+물체가 수십~수백 개로 늘어나요. **배열로 관리하고, 다 쓴 건 지우는 것**이 중요해요.
+
+- 총알·적·파티클을 각각 배열에 넣고, 매 프레임 움직이고 `filter` 로 화면 밖·죽은 것 지우기
+- **쿨다운**: 총알이 너무 빨리 나가지 않게 마지막 발사 시각 기억
+- 적은 **웨이브**마다 늘어나고 빨라져요 (난이도 곡선)
+- **파티클**: 터질 때 작은 점 수십 개를 사방으로 뿌리고, 수명(`life`)이 줄면 사라지게 → 손맛!
+""", r"""
+<canvas id="c" width="300" height="320" style="background:#030712;border-radius:10px;display:block;touch-action:none"></canvas>
+<p style="margin:4px 0">화면을 끌어서 움직이면 자동 발사 · 키보드: ◀ ▶ + 스페이스</p>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  const keys = {}; let touching = false;
+  addEventListener("keydown", e => keys[e.key] = true);
+  addEventListener("keyup", e => keys[e.key] = false);
+  cv.onpointerdown = e => { touching = true; if (over) reset(); };
+  cv.onpointerup = () => touching = false;
+  cv.onpointermove = e => { if (touching) ship.x = e.offsetX * 300 / cv.clientWidth; };
+
+  let ship, bullets, enemies, parts, score, wave, lastShot, over, t;
+  function reset() { ship = { x: 150, y: 290 }; bullets = []; enemies = []; parts = []; score = 0; wave = 0; lastShot = 0; over = false; t = 0; }
+  function spawnWave() {
+    wave++;
+    for (let i = 0; i < 4 + wave * 2; i++)
+      enemies.push({ x: 20 + Math.random() * 260, y: -20 - Math.random() * 200, v: 0.6 + wave * 0.15 + Math.random() * 0.5, hp: wave > 2 && Math.random() < 0.3 ? 2 : 1 });
+  }
+  function boom(x, y, color) {
+    for (let i = 0; i < 18; i++) {
+      const a = Math.random() * Math.PI * 2, s = 1 + Math.random() * 3;
+      parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 30, color });
+    }
+  }
+  function update() {
+    if (over) return;
+    t++;
+    if (keys.ArrowLeft) ship.x -= 5;
+    if (keys.ArrowRight) ship.x += 5;
+    ship.x = Math.max(12, Math.min(288, ship.x));
+    if ((keys[" "] || touching) && t - lastShot > 10) { bullets.push({ x: ship.x, y: ship.y - 14 }); lastShot = t; }
+    if (!enemies.length) spawnWave();
+    for (const b of bullets) b.y -= 7;
+    for (const e of enemies) {
+      e.y += e.v;
+      e.x += Math.sin((t + e.y) / 30) * 0.8;
+      if (e.y > 330 || Math.hypot(e.x - ship.x, e.y - ship.y) < 20) { over = true; boom(ship.x, ship.y, "#f97316"); }
+      for (const b of bullets) if (!b.dead && Math.abs(b.x - e.x) < 14 && Math.abs(b.y - e.y) < 14) {
+        b.dead = true;
+        if (--e.hp <= 0) { e.dead = true; score += 10; boom(e.x, e.y, "#a3e635"); }
+      }
+    }
+    bullets = bullets.filter(b => !b.dead && b.y > -10);
+    enemies = enemies.filter(e => !e.dead);
+  }
+  function draw() {
+    ctx.fillStyle = "rgba(3,7,18,.4)"; ctx.fillRect(0, 0, 300, 320);   // 살짝 남는 잔상 효과
+    for (const p of parts) { p.x += p.vx; p.y += p.vy; p.life--; ctx.fillStyle = p.color; ctx.globalAlpha = p.life / 30; ctx.fillRect(p.x, p.y, 3, 3); }
+    ctx.globalAlpha = 1; parts = parts.filter(p => p.life > 0);
+    ctx.fillStyle = "#fde047"; for (const b of bullets) ctx.fillRect(b.x - 1.5, b.y, 3, 10);
+    ctx.font = "22px sans-serif"; ctx.textAlign = "center";
+    for (const e of enemies) ctx.fillText(e.hp > 1 ? "👾" : "👽", e.x, e.y + 8);
+    if (!over) ctx.fillText("🛸", ship.x, ship.y + 8);
+    ctx.fillStyle = "#fff"; ctx.font = "13px sans-serif"; ctx.textAlign = "left";
+    ctx.fillText(`점수 ${score}   웨이브 ${wave}`, 8, 18);
+    if (over) { ctx.textAlign = "center"; ctx.font = "bold 24px sans-serif"; ctx.fillText("GAME OVER", 150, 150); ctx.font = "13px sans-serif"; ctx.fillText("눌러서 다시", 150, 175); }
+  }
+  function loop() { update(); draw(); requestAnimationFrame(loop); }
+  reset(); loop();
+</script>
+""", task="5 웨이브마다 **보스**(크고 체력 20, 좌우로 움직이며 총알을 쏨)가 나오게 해 보세요. 보스 체력 바도 위에 그려 보세요."),
+)
+more("game", 8,
+ls("던전 탈출 (타일맵 · 추격 AI)", r"""
+RPG·탈출 게임의 맵은 **글자 지도**로 만들면 쉬워요. `#` 벽, `.` 길, `$` 보석, `Z` 좀비…
+
+좀비가 벽을 피해 플레이어를 쫓아오게 하려면 **BFS 길찾기**를 써요. (파이썬 6단계에서 배운 바로 그거!)
+
+1. 플레이어 칸에서 BFS 를 돌려 **모든 칸까지의 거리** 표를 만들어요
+2. 좀비는 상하좌우 중 **거리가 가장 작은 칸**으로 한 칸 이동
+3. 플레이어가 움직일 때마다 표를 다시 계산
+
+이렇게 하면 좀비가 아무리 많아도 BFS 는 한 번만 돌리면 돼요.
+""", r"""
+<canvas id="c" width="300" height="260" style="background:#020617;border-radius:10px;display:block"></canvas>
+<div style="display:grid;grid-template-columns:repeat(3,56px);gap:4px;margin-top:6px">
+  <span></span><button data-d="0,-1">▲</button><span></span>
+  <button data-d="-1,0">◀</button><button data-d="0,1">▼</button><button data-d="1,0">▶</button>
+</div>
+<script>
+  const MAP = [
+    "###############",
+    "#P....#......$#",
+    "#.###.#.#####.#",
+    "#.#$........#.#",
+    "#.#.###.###.#.#",
+    "#.....#Z#.....#",
+    "#.###.#.#.###.#",
+    "#$..#.....#..$#",
+    "###.#.###.#.###",
+    "#.......#....Z#",
+    "#.#####...###.#",
+    "#$...........$#",
+    "###############",
+  ];
+  const S = 20, R = MAP.length, C = MAP[0].length;
+  const ctx = document.getElementById("c").getContext("2d");
+  let wall, dots, player, ghosts, dist, tick = 0, state = "play";
+  function reset() {
+    wall = MAP.map(r => [...r].map(ch => ch === "#"));
+    dots = new Set(); ghosts = [];
+    MAP.forEach((row, y) => [...row].forEach((ch, x) => {
+      if (ch === "P") player = { x, y };
+      else if (ch === "Z") ghosts.push({ x, y });
+      else if (ch === "$") dots.add(y * C + x);
+    }));
+    state = "play"; bfs();
+  }
+  function bfs() {                         // 플레이어로부터 모든 칸까지 거리
+    dist = Array.from({ length: R }, () => Array(C).fill(Infinity));
+    const q = [[player.x, player.y]]; dist[player.y][player.x] = 0;
+    for (let h = 0; h < q.length; h++) {
+      const [x, y] = q[h];
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nx = x + dx, ny = y + dy;
+        if (!wall[ny][nx] && dist[ny][nx] === Infinity) { dist[ny][nx] = dist[y][x] + 1; q.push([nx, ny]); }
+      }
+    }
+  }
+  function move(dx, dy) {
+    if (state !== "play") return reset();
+    const nx = player.x + dx, ny = player.y + dy;
+    if (wall[ny][nx]) return;
+    player.x = nx; player.y = ny;
+    dots.delete(ny * C + nx);
+    bfs();
+    if (!dots.size) state = "win";
+  }
+  addEventListener("keydown", e => {
+    const m = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[e.key];
+    if (m) { e.preventDefault(); move(...m); }
+  });
+  document.querySelectorAll("[data-d]").forEach(b => b.onclick = () => move(...b.dataset.d.split(",").map(Number)));
+
+  function ghostStep() {
+    for (const g of ghosts) {
+      let best = null;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nx = g.x + dx, ny = g.y + dy;
+        if (!wall[ny][nx] && (!best || dist[ny][nx] < dist[best.y][best.x])) best = { x: nx, y: ny };
+      }
+      if (best) { g.x = best.x; g.y = best.y; }
+      if (g.x === player.x && g.y === player.y) state = "lose";
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, 300, 260);
+    for (let y = 0; y < R; y++) for (let x = 0; x < C; x++)
+      if (wall[y][x]) { ctx.fillStyle = "#1d4ed8"; ctx.fillRect(x * S + 1, y * S + 1, S - 2, S - 2); }
+    ctx.font = "16px sans-serif";
+    for (const k of dots) ctx.fillText("💎", (k % C) * S + 1, Math.floor(k / C) * S + 16);
+    ctx.fillText("😀", player.x * S + 1, player.y * S + 16);
+    for (const g of ghosts) ctx.fillText("🧟", g.x * S + 1, g.y * S + 16);
+    if (state !== "play") {
+      ctx.fillStyle = "rgba(0,0,0,.6)"; ctx.fillRect(0, 100, 300, 50);
+      ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.font = "bold 18px sans-serif";
+      ctx.fillText(state === "win" ? "🎉 보석을 다 모았어요!" : "🧟 잡혔어요! 방향키로 다시", 150, 131); ctx.textAlign = "left";
+    }
+  }
+  reset();
+  (function loop() {
+    if (state === "play" && ++tick % 22 === 0) ghostStep();
+    draw(); requestAnimationFrame(loop);
+  })();
+</script>
+""", task="좀비 한 마리는 **겁쟁이**로 만들어 보세요: 거리가 가장 **큰** 칸으로 도망가게. 그리고 맵에 🔦 를 놓아서, 주우면 5초 동안 좀비들이 손전등을 무서워해 도망가게 해 보세요."),
+)
+more("game", 9,
+ls("동굴 비행 (상태 기계 · 소리)", r"""
+"게임 같은 게임" 이 되려면 **타이틀 화면 → 플레이 → 일시정지 → 게임 오버** 흐름이 있어야 해요. 이걸 **상태 기계(State Machine)** 로 만들어요.
+
+- `state` 변수 하나에 지금 화면 이름을 넣고, `update` · `draw` · 입력을 **상태마다 따로** 처리
+- 상태를 바꿀 땐 `setState("over")` 처럼 한곳에서 → 들어갈 때 할 일(소리, 기록 저장)을 넣기 좋아요
+- **효과음**: 파일 없이 `Web Audio API` 로 직접 소리를 만들어요 (주파수 · 길이 · 파형)
+- 시간 기반 이동: 컴퓨터마다 화면 속도가 달라도 같게 → `dt`(지난 프레임부터 흐른 시간)를 곱해요
+""", r"""
+<canvas id="c" width="300" height="260" style="background:#292524;border-radius:10px;display:block;touch-action:none"></canvas>
+<p style="margin:4px 0">누르기/스페이스: 위로 · P: 일시정지</p>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  let audio;
+  function beep(freq, dur = 0.08, type = "square") {         // 효과음 만들기
+    try {
+      audio = audio || new AudioContext();
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.type = type; o.frequency.value = freq;
+      g.gain.setValueAtTime(0.08, audio.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + dur);
+      o.connect(g).connect(audio.destination); o.start(); o.stop(audio.currentTime + dur);
+    } catch (e) {}
+  }
+
+  let state = "title", heli, pipes, score, best = 0, timer;
+  function setState(s) {
+    state = s;
+    if (s === "play") { heli = { y: 120, v: 0 }; pipes = []; score = 0; timer = 0; }
+    if (s === "over") { beep(140, 0.4, "sawtooth"); best = Math.max(best, score); }
+  }
+  function press() {
+    if (state === "title" || state === "over") return setState("play");
+    if (state === "play") { heli.v = -230; beep(660, 0.05); }
+  }
+  cv.onpointerdown = press;
+  addEventListener("keydown", e => {
+    if (e.key === " ") { e.preventDefault(); press(); }
+    if (e.key === "p" || e.key === "P") state = state === "play" ? "pause" : state === "pause" ? "play" : state;
+  });
+
+  function update(dt) {
+    if (state !== "play") return;
+    heli.v += 700 * dt; heli.y += heli.v * dt;
+    timer -= dt;
+    if (timer <= 0) { timer = 1.6; pipes.push({ x: 310, gap: 60 + Math.random() * 120 }); }
+    for (const p of pipes) {
+      p.x -= 110 * dt;
+      if (!p.passed && p.x < 60) { p.passed = true; score++; beep(880, 0.06, "triangle"); }
+      if (p.x < 80 && p.x > 30 && (heli.y < p.gap - 45 || heli.y > p.gap + 45)) setState("over");
+    }
+    pipes = pipes.filter(p => p.x > -50);
+    if (heli.y > 260 || heli.y < 0) setState("over");
+  }
+  function draw() {
+    ctx.clearRect(0, 0, 300, 260);
+    ctx.fillStyle = "#a8a29e";
+    for (const p of pipes || []) { ctx.fillRect(p.x, 0, 40, p.gap - 45); ctx.fillRect(p.x, p.gap + 45, 40, 260); }
+    ctx.font = "24px sans-serif"; ctx.textAlign = "center"; ctx.fillStyle = "#fff";
+    if (heli) ctx.fillText("🚁", 60, heli.y + 9);
+    ctx.font = "bold 16px sans-serif"; ctx.fillText(state === "title" ? "" : score, 150, 26);
+    const big = { title: "🚁 동굴 비행", pause: "⏸ 일시정지", over: "게임 오버" }[state];
+    if (big) {
+      ctx.fillStyle = "rgba(0,0,0,.45)"; ctx.fillRect(0, 90, 300, 80); ctx.fillStyle = "#fff";
+      ctx.font = "bold 24px sans-serif"; ctx.fillText(big, 150, 125);
+      ctx.font = "13px sans-serif";
+      ctx.fillText(state === "pause" ? "P 를 누르면 계속" : `눌러서 시작  ·  최고 ${best}점`, 150, 152);
+    }
+  }
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;   // 초 단위 시간
+    update(dt); draw(); requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+""", task="`\"ready\"` 상태를 추가해서 시작 전에 3, 2, 1 카운트다운(숫자마다 삐 소리)이 나오게 해 보세요. 점수 10점마다 배경색이 밤↔낮으로 바뀌게도 해 보세요."),
+)
+more("game", 10,
+ls("물리 엔진 만들기 (당구공 충돌)", r"""
+게임 엔진(유니티 등)이 해 주는 **물리 계산**을 직접 만들어 봐요. 공끼리 부딪혀 튕기는 **탄성 충돌**이에요.
+
+1. **벡터**: 위치·속도를 `{x, y}` 로. 두 공 사이 방향 `n = (b − a) / 거리`
+2. **겹침 풀기**: 부딪힌 순간 두 공이 겹쳐 있으면 반씩 밀어내기
+3. **충격량**: 두 공의 속도 차이를 `n` 방향으로 잰 값 `vn = (va − vb)·n`
+   - `vn > 0` (서로 다가가는 중)일 때만: 질량이 같으면 `va −= vn·n`, `vb += vn·n`
+4. **마찰**: 매 프레임 속도에 `0.99` 를 곱해 천천히 멈추게
+
+공을 끌었다 놓으면(드래그) 반대 방향으로 쳐요.
+""", r"""
+<canvas id="c" width="300" height="300" style="background:#166534;border:8px solid #78350f;border-radius:12px;display:block;touch-action:none"></canvas>
+<p id="info" style="margin:4px 0">흰 공을 끌었다가 놓아서 치세요</p>
+<script>
+  const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+  const R = 11, W = 300, H = 300;
+  const colors = ["#fff", "#facc15", "#2563eb", "#dc2626", "#7c3aed", "#f97316", "#16a34a", "#7f1d1d", "#111"];
+  const balls = [{ x: 75, y: 150, vx: 0, vy: 0, c: colors[0] }];
+  let k = 1;
+  for (let col = 0; col < 4; col++)
+    for (let row = 0; row <= col; row++)
+      if (k < colors.length) balls.push({ x: 180 + col * 2 * R * 0.87, y: 150 + (row - col / 2) * 2 * R, vx: 0, vy: 0, c: colors[k++] });
+
+  let drag = null;
+  const pos = e => ({ x: e.offsetX * W / cv.clientWidth, y: e.offsetY * H / cv.clientHeight });
+  cv.onpointerdown = e => { const p = pos(e), cue = balls[0]; if (Math.hypot(p.x - cue.x, p.y - cue.y) < 40) drag = p; };
+  cv.onpointermove = e => { if (drag) drag = pos(e); };
+  cv.onpointerup = () => {
+    if (!drag) return;
+    const cue = balls[0];
+    cue.vx = (cue.x - drag.x) * 0.15; cue.vy = (cue.y - drag.y) * 0.15;
+    drag = null;
+  };
+
+  function physics() {
+    for (const b of balls) {
+      b.x += b.vx; b.y += b.vy;
+      b.vx *= 0.99; b.vy *= 0.99;                        // 마찰
+      if (Math.hypot(b.vx, b.vy) < 0.03) b.vx = b.vy = 0;
+      if (b.x < R) { b.x = R; b.vx *= -0.9; } if (b.x > W - R) { b.x = W - R; b.vx *= -0.9; }
+      if (b.y < R) { b.y = R; b.vy *= -0.9; } if (b.y > H - R) { b.y = H - R; b.vy *= -0.9; }
+    }
+    for (let i = 0; i < balls.length; i++)
+      for (let j = i + 1; j < balls.length; j++) {
+        const a = balls[i], b = balls[j];
+        const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
+        if (d === 0 || d >= 2 * R) continue;
+        const nx = dx / d, ny = dy / d, push = (2 * R - d) / 2;   // 겹침 풀기
+        a.x -= nx * push; a.y -= ny * push; b.x += nx * push; b.y += ny * push;
+        const vn = (a.vx - b.vx) * nx + (a.vy - b.vy) * ny;        // 다가가는 속도
+        if (vn > 0) { a.vx -= vn * nx; a.vy -= vn * ny; b.vx += vn * nx; b.vy += vn * ny; }
+      }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const b of balls) {
+      ctx.fillStyle = b.c; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.beginPath(); ctx.arc(b.x - 3, b.y - 4, 3, 0, Math.PI * 2); ctx.fill();
+    }
+    if (drag) {
+      const cue = balls[0];
+      ctx.strokeStyle = "#fde68a"; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.moveTo(cue.x, cue.y); ctx.lineTo(cue.x + (cue.x - drag.x) * 2, cue.y + (cue.y - drag.y) * 2); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    const e = balls.reduce((s, b) => s + b.vx * b.vx + b.vy * b.vy, 0) / 2;
+    document.getElementById("info").textContent = e > 0.01 ? `운동 에너지 ${e.toFixed(1)} (마찰로 줄어들어요)` : "흰 공을 끌었다가 놓아서 치세요";
+  }
+  (function loop() { for (let s = 0; s < 2; s++) physics(); draw(); requestAnimationFrame(loop); })();
+</script>
+""", task="네 모서리와 양옆 가운데에 **포켓**(구멍 6개)을 만들어 공이 들어가면 사라지게 하고, 흰 공이 들어가면 원래 자리로 돌아오게 해 보세요. 공마다 **질량**을 다르게 주는 것도 도전! (충격량을 `2·mb/(ma+mb)` 비율로 나누기)"),
+)
+
+# ================= 🌍 웹사이트 만들기 (프로젝트 강의) =================
+lang("site", "🌍 웹사이트 만들기", "html", "자기소개 페이지에서 시작해 포트폴리오, 할 일 앱, 여러 페이지가 있는 사이트, 나만의 **미니 프레임워크**까지 실제로 쓸 수 있는 웹사이트를 만들어요. 마지막엔 인터넷에 올리는 방법도 배워요.", [])
+more("site", 1,
+ls("첫 웹페이지: 자기소개", r"""
+웹사이트는 **HTML(내용) + CSS(모양) + JS(동작)** 세 가지로 만들어요. 오늘은 HTML 과 조금의 CSS 로 자기소개 페이지를 만들어요.
+
+- `<h1>` 큰 제목, `<p>` 문단, `<ul><li>` 목록
+- `<img src="주소" alt="설명">` 그림 (여기선 이모지로 대신해요)
+- `<a href="주소">` 링크
+- `style="..."` 로 바로 꾸미거나, `<style>` 에 모아서 꾸미기
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 480px; margin: 20px auto; padding: 0 12px; line-height: 1.6; }
+  .avatar { font-size: 64px; }
+  h1 { margin: 0; color: #4f46e5; }
+</style>
+<div class="avatar">🧑‍💻</div>
+<h1>안녕하세요, 김코딩입니다</h1>
+<p>고등학생이고 <b>게임 만들기</b>와 <b>수학</b>을 좋아해요.</p>
+<h2>좋아하는 것</h2>
+<ul>
+  <li>🎮 게임 만들기</li>
+  <li>📐 수학 문제 풀기</li>
+  <li>🎧 음악 듣기</li>
+</ul>
+<h2>연락하기</h2>
+<p><a href="mailto:me@example.com">📧 이메일 보내기</a></p>
+""", task="내 이름과 이모지로 바꾸고, `<h2>올해 목표</h2>` 와 번호 목록(`<ol>`)을 추가해 보세요. 링크 색도 바꿔 보세요."),
+)
+more("site", 2,
+ls("프로필 카드 꾸미기", r"""
+요즘 웹사이트는 대부분 **카드**로 이루어져 있어요. 카드 하나를 예쁘게 만드는 법을 익히면 어디든 쓸 수 있어요.
+
+- `border-radius` 둥근 모서리, `box-shadow` 그림자
+- `display: flex` + `gap` 으로 가로 배치
+- `linear-gradient(...)` 그라데이션 배경
+- `:hover` 로 마우스를 올렸을 때 살짝 떠오르게
+""", r"""
+<style>
+  body { font-family: sans-serif; background: #f1f5f9; display: grid; place-items: center; min-height: 90vh; margin: 0; }
+  .card { width: 260px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.12); transition: transform .2s; }
+  .card:hover { transform: translateY(-6px); }
+  .cover { height: 80px; background: linear-gradient(135deg, #6366f1, #ec4899); }
+  .avatar { width: 80px; height: 80px; border-radius: 50%; background: white; font-size: 48px; display: grid; place-items: center; margin: -40px auto 0; border: 4px solid white; }
+  .body { text-align: center; padding: 8px 16px 18px; }
+  .tags { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .tags span { background: #eef2ff; color: #4338ca; padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+  button { margin-top: 14px; border: 0; background: #4f46e5; color: white; padding: 10px 24px; border-radius: 999px; font-size: 15px; }
+</style>
+<div class="card">
+  <div class="cover"></div>
+  <div class="avatar">🦊</div>
+  <div class="body">
+    <h2 style="margin:6px 0 2px">김코딩</h2>
+    <p style="margin:0 0 10px;color:#64748b">미래의 게임 개발자</p>
+    <div class="tags"><span>#파이썬</span><span>#JS</span><span>#게임</span></div>
+    <button onclick="this.textContent = this.textContent === '팔로우' ? '팔로잉 ✓' : '팔로우'">팔로우</button>
+  </div>
+</div>
+""", task="카드 아래에 `게시물 12 · 팔로워 340 · 팔로잉 51` 을 가로로 3칸 나눠 보여 주고, 다크 모드 버전 카드도 하나 더 만들어 보세요."),
+)
+more("site", 3,
+ls("한 페이지 사이트 (메뉴 · 섹션)", r"""
+진짜 웹사이트처럼 **위에 고정된 메뉴**와 여러 **섹션**(소개 · 프로젝트 · 연락)을 만들어요.
+
+- 메뉴: `position: sticky; top: 0` 으로 스크롤해도 위에 붙어 있게
+- 링크 `href="#about"` 를 누르면 `id="about"` 인 곳으로 이동
+- `html { scroll-behavior: smooth }` 로 부드럽게 스크롤
+- 섹션마다 `min-height` 를 주고 배경색을 번갈아 주면 구분이 쉬워요
+""", r"""
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: sans-serif; }
+  nav { position: sticky; top: 0; display: flex; gap: 14px; padding: 12px 16px; background: rgba(255,255,255,.9); backdrop-filter: blur(6px); box-shadow: 0 1px 0 #e2e8f0; }
+  nav b { margin-right: auto; color: #4f46e5; }
+  nav a { color: #334155; text-decoration: none; }
+  nav a:hover { color: #4f46e5; }
+  section { min-height: 260px; padding: 30px 20px; }
+  section:nth-of-type(even) { background: #f8fafc; }
+  .hero { background: linear-gradient(135deg, #312e81, #6d28d9); color: white; }
+  .hero h1 { font-size: 30px; margin: 30px 0 8px; }
+</style>
+<nav><b>KIM.dev</b><a href="#about">소개</a><a href="#projects">프로젝트</a><a href="#contact">연락</a></nav>
+<section class="hero"><h1>코딩으로 재밌는 걸 만들어요 ✨</h1><p>게임 · 웹 · 알고리즘</p></section>
+<section id="about"><h2>👋 소개</h2><p>코딩을 시작한 지 1년 된 학생 개발자예요.</p></section>
+<section id="projects"><h2>🛠 프로젝트</h2><p>벽돌 깨기, 할 일 앱, 날씨 위젯…</p></section>
+<section id="contact"><h2>📮 연락</h2><p>me@example.com</p></section>
+""", task="프로젝트 섹션을 카드 3개(앞 강의의 카드 디자인)로 꾸미고, 맨 아래에 `<footer>` 를 만들어 보세요. 휴대폰에서 메뉴 글자가 넘치지 않게 `font-size` 도 맞춰 보세요."),
+)
+more("site", 4,
+ls("반응형 포트폴리오 + 햄버거 메뉴", r"""
+같은 사이트가 **휴대폰·태블릿·PC** 모두에서 보기 좋아야 해요.
+
+- `grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))` : 화면 폭에 따라 1~4칸
+- `@media (max-width: 600px)` : 좁은 화면에서만 메뉴를 **☰ 햄버거 버튼**으로
+- 버튼을 누르면 `classList.toggle("open")` → CSS 에서 `.open` 일 때만 메뉴 보이기
+- 이미지가 넘치지 않게 `max-width: 100%`
+""", r"""
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  header { display: flex; align-items: center; padding: 12px 16px; background: #0f172a; color: white; position: relative; }
+  header b { margin-right: auto; }
+  .menu { display: flex; gap: 16px; }
+  .menu a { color: #cbd5e1; text-decoration: none; }
+  .burger { display: none; background: none; border: 0; color: white; font-size: 24px; }
+  @media (max-width: 600px) {
+    .burger { display: block; }
+    .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: #1e293b; padding: 12px 16px; }
+    .menu.open { display: flex; }
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; padding: 16px; }
+  .item { border-radius: 14px; overflow: hidden; background: #f1f5f9; }
+  .thumb { height: 90px; display: grid; place-items: center; font-size: 40px; }
+  .item p { margin: 0; padding: 10px; font-size: 14px; }
+</style>
+<header>
+  <b>🎨 MY WORKS</b>
+  <button class="burger" onclick="document.querySelector('.menu').classList.toggle('open')">☰</button>
+  <nav class="menu"><a href="#">작품</a><a href="#">소개</a><a href="#">연락</a></nav>
+</header>
+<div class="grid" id="grid"></div>
+<script>
+  const works = [["🧱", "벽돌 깨기", "#fee2e2"], ["🐍", "뱀 게임", "#dcfce7"], ["✅", "할 일 앱", "#e0e7ff"],
+                 ["🌦️", "날씨 위젯", "#e0f2fe"], ["🎹", "피아노", "#fef9c3"], ["🧮", "계산기", "#fae8ff"]];
+  document.getElementById("grid").innerHTML = works.map(([e, t, c]) =>
+    `<div class="item"><div class="thumb" style="background:${c}">${e}</div><p><b>${t}</b><br>HTML · CSS · JS</p></div>`).join("");
+</script>
+""", task="실행 칸의 오른쪽 아래를 끌어 폭을 좁혀서 햄버거 메뉴가 나오는지 확인해 보세요. 그리고 작품마다 `게임` / `앱` 분류를 넣고, 위에 분류 버튼을 눌러 걸러 보기를 만들어 보세요."),
+)
+more("site", 5,
+ls("할 일 목록 앱 (DOM 다루기)", r"""
+이제 **사용자가 데이터를 넣고 바꾸는** 웹 앱을 만들어요. (이 계획표 앱도 같은 원리예요!)
+
+- **데이터(배열)** 가 진짜고, 화면은 그 데이터를 **그린 결과**일 뿐이에요
+- 데이터가 바뀔 때마다 `render()` 로 화면을 다시 그리기
+- `<form>` 의 `submit` 으로 엔터·버튼 둘 다 처리
+- `localStorage` 에 JSON 으로 저장하면 새로고침해도 남아요 (이 실행 칸은 보안 때문에 저장이 막혀 있어서 `try` 로 감쌌어요)
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 420px; margin: 16px auto; padding: 0 12px; }
+  form { display: flex; gap: 6px; }
+  input[type=text] { flex: 1; padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 15px; }
+  form button { border: 0; background: #4f46e5; color: white; border-radius: 10px; padding: 0 16px; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 10px; border-bottom: 1px solid #f1f5f9; }
+  li.done span { text-decoration: line-through; color: #94a3b8; }
+  li span { flex: 1; }
+  li button { border: 0; background: none; font-size: 16px; cursor: pointer; }
+</style>
+<h2>✅ 할 일</h2>
+<form id="f"><input type="text" id="t" placeholder="할 일을 입력하고 엔터" autocomplete="off"><button>추가</button></form>
+<ul id="list"></ul>
+<p id="count"></p>
+<script>
+  let todos = [];
+  try { todos = JSON.parse(localStorage.getItem("todos")) || []; } catch (e) {}
+  if (!todos.length) todos = [{ text: "수학 숙제", done: false }, { text: "코딩 공부 1강", done: true }];
+  const save = () => { try { localStorage.setItem("todos", JSON.stringify(todos)); } catch (e) {} };
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function render() {
+    document.getElementById("list").innerHTML = todos.map((t, i) => `
+      <li class="${t.done ? "done" : ""}">
+        <input type="checkbox" data-i="${i}" ${t.done ? "checked" : ""}>
+        <span>${esc(t.text)}</span>
+        <button data-del="${i}">🗑</button>
+      </li>`).join("");
+    const left = todos.filter(t => !t.done).length;
+    document.getElementById("count").textContent = `남은 일 ${left}개 / 전체 ${todos.length}개`;
+    save();
+  }
+  document.getElementById("f").onsubmit = e => {
+    e.preventDefault();
+    const box = document.getElementById("t"), text = box.value.trim();
+    if (!text) return;
+    todos.push({ text, done: false }); box.value = ""; render();
+  };
+  document.getElementById("list").onclick = e => {      // 이벤트 위임: 목록 하나에만 이벤트를 달아요
+    const i = e.target.dataset.i, d = e.target.dataset.del;
+    if (i !== undefined) todos[i].done = e.target.checked;
+    if (d !== undefined) todos.splice(d, 1);
+    render();
+  };
+  render();
+</script>
+""", task="`전체 / 남은 일 / 끝난 일` 걸러 보기 버튼과 `끝난 일 모두 지우기` 버튼을 만들어 보세요. 할 일을 **두 번 눌러서 고치기**도 도전!"),
+)
+more("site", 6,
+ls("UI 부품 만들기 (탭 · 모달 · 아코디언)", r"""
+웹사이트마다 쓰는 **UI 부품**을 직접 만들어 봐요. 원리는 모두 같아요: **상태 하나 + 클래스 바꾸기**.
+
+- **탭**: 누른 탭 번호를 기억 → 그 번호의 내용만 `.on`
+- **모달**(팝업 창): `<dialog>` 태그와 `showModal()` / `close()` — 배경 클릭·Esc 닫기가 저절로
+- **아코디언**(접고 펴기): `<details>` + `<summary>` 태그만으로도 돼요!
+- 접근성: 버튼은 `<button>`, 탭은 `role="tab"` / `aria-selected` 로 화면 낭독기도 알 수 있게
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 440px; margin: 14px auto; padding: 0 12px; }
+  .tabs { display: flex; border-bottom: 2px solid #e2e8f0; }
+  .tabs button { flex: 1; border: 0; background: none; padding: 10px; font-size: 15px; color: #64748b; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .tabs button[aria-selected=true] { color: #4f46e5; border-color: #4f46e5; font-weight: bold; }
+  .panel { display: none; padding: 12px 2px; } .panel.on { display: block; }
+  details { border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; margin: 6px 0; }
+  summary { cursor: pointer; font-weight: bold; }
+  dialog { border: 0; border-radius: 16px; padding: 20px; max-width: 280px; box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+  dialog::backdrop { background: rgba(15,23,42,.5); }
+  .btn { border: 0; background: #4f46e5; color: white; padding: 8px 16px; border-radius: 8px; }
+</style>
+<div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true">소개</button><button role="tab">자주 묻는 질문</button><button role="tab">설정</button>
+</div>
+<div class="panel on"><p>탭을 눌러 보세요. 아래 버튼은 모달 창을 열어요.</p><button class="btn" id="open">🎁 이벤트 보기</button></div>
+<div class="panel">
+  <details open><summary>무료인가요?</summary><p>네, 완전 무료예요.</p></details>
+  <details><summary>휴대폰에서도 되나요?</summary><p>네! 반응형으로 만들었어요.</p></details>
+</div>
+<div class="panel"><label><input type="checkbox"> 알림 받기</label></div>
+<dialog id="dlg"><h3 style="margin-top:0">🎉 축하해요!</h3><p>코딩 공부 100강 달성 이벤트에 당첨됐어요.</p><button class="btn" onclick="dlg.close()">닫기</button></dialog>
+<script>
+  const tabs = [...document.querySelectorAll("[role=tab]")], panels = [...document.querySelectorAll(".panel")];
+  tabs.forEach((t, i) => t.onclick = () => {
+    tabs.forEach((x, j) => x.setAttribute("aria-selected", i === j));
+    panels.forEach((p, j) => p.classList.toggle("on", i === j));
+  });
+  const dlg = document.getElementById("dlg");
+  document.getElementById("open").onclick = () => dlg.showModal();
+  dlg.onclick = e => { if (e.target === dlg) dlg.close(); };   // 바깥(배경) 누르면 닫기
+</script>
+""", task="화면 아래에서 올라왔다가 3초 뒤 사라지는 **토스트 알림**(`저장했어요 ✓`)을 만들고, 설정 탭의 체크박스를 누를 때 띄워 보세요."),
+)
+more("site", 7,
+ls("검색 · 필터 · 정렬 되는 목록", r"""
+쇼핑몰·영화 사이트처럼 **많은 데이터를 검색하고 거르고 정렬**하는 화면이에요. 실무에서 가장 많이 만드는 화면 중 하나!
+
+**상태(state)** 를 한 객체에 모아요: `{ q: 검색어, cat: 분류, sort: 정렬 }`
+
+1. 입력이 바뀌면 → 상태만 바꾸고 → `render()`
+2. `render()` 는 **원본 데이터 → filter → sort → 화면** 순서로 매번 새로 계산
+
+이렇게 "**화면 = 함수(상태)**" 로 생각하면 버그가 확 줄어요. React 의 핵심 아이디어예요.
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 460px; margin: 12px auto; padding: 0 10px; }
+  .bar { display: flex; gap: 6px; flex-wrap: wrap; }
+  .bar input, .bar select { padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
+  .bar input { flex: 1; min-width: 120px; }
+  .list { display: grid; gap: 8px; margin-top: 10px; }
+  .row { display: flex; gap: 10px; align-items: center; padding: 10px; border-radius: 12px; background: #f8fafc; }
+  .row .e { font-size: 28px; }
+  .row small { color: #64748b; }
+  mark { background: #fde68a; }
+</style>
+<div class="bar">
+  <input id="q" placeholder="🔍 검색">
+  <select id="cat"><option value="">전체</option><option>과일</option><option>채소</option><option>간식</option></select>
+  <select id="sort"><option value="name">이름순</option><option value="low">싼 순</option><option value="high">비싼 순</option></select>
+</div>
+<div class="list" id="list"></div>
+<script>
+  const items = [
+    { e: "🍎", name: "사과", cat: "과일", price: 1200 }, { e: "🍌", name: "바나나", cat: "과일", price: 800 },
+    { e: "🥕", name: "당근", cat: "채소", price: 600 },  { e: "🥦", name: "브로콜리", cat: "채소", price: 1500 },
+    { e: "🍪", name: "쿠키", cat: "간식", price: 2000 },  { e: "🍩", name: "도넛", cat: "간식", price: 1800 },
+    { e: "🍇", name: "포도", cat: "과일", price: 3500 },  { e: "🌽", name: "옥수수", cat: "채소", price: 900 },
+  ];
+  const state = { q: "", cat: "", sort: "name" };
+  const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  function render() {
+    let list = items.filter(x => (!state.cat || x.cat === state.cat) && x.name.includes(state.q));
+    const by = { name: (a, b) => a.name.localeCompare(b.name, "ko"), low: (a, b) => a.price - b.price, high: (a, b) => b.price - a.price };
+    list = [...list].sort(by[state.sort]);
+    const hl = s => state.q ? esc(s).split(esc(state.q)).join(`<mark>${esc(state.q)}</mark>`) : esc(s);
+    document.getElementById("list").innerHTML = list.length ? list.map(x =>
+      `<div class="row"><span class="e">${x.e}</span><div><b>${hl(x.name)}</b><br><small>${x.cat} · ${x.price.toLocaleString()}원</small></div></div>`).join("")
+      : "<p>찾는 게 없어요 😢</p>";
+  }
+  for (const id of ["q", "cat", "sort"]) document.getElementById(id).oninput = e => { state[id] = e.target.value.trim(); render(); };
+  render();
+</script>
+""", task="각 상품에 `🛒 담기` 버튼을 달고, 위에 **장바구니 개수와 합계 금액**이 나오게 해 보세요. 장바구니도 `state` 안에 넣어야 해요!"),
+)
+more("site", 8,
+ls("여러 페이지 사이트 (SPA 라우터)", r"""
+요즘 웹앱은 페이지를 이동할 때 **새로 불러오지 않고** 내용만 바꿔요. 이걸 **SPA(Single Page Application)** 라고 하고, 주소에 따라 화면을 고르는 걸 **라우터**라고 해요.
+
+- 주소 끝의 `#/about` 같은 **해시**를 읽어요: `location.hash`
+- 해시가 바뀌면 `hashchange` 이벤트 → 알맞은 화면 함수 실행
+- `routes = { "/": home, "/about": about }` 처럼 **주소 → 화면 함수** 표
+- `#/post/3` 처럼 주소 안의 값(**파라미터**)도 꺼낼 수 있어요
+- 없는 주소면 **404 화면**
+""", r"""
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  nav { display: flex; gap: 4px; padding: 10px; background: #0f172a; }
+  nav a { color: #cbd5e1; text-decoration: none; padding: 6px 12px; border-radius: 8px; }
+  nav a.on { background: #4f46e5; color: white; }
+  main { padding: 16px; }
+  .post { display: block; padding: 10px; margin: 6px 0; background: #f1f5f9; border-radius: 10px; color: inherit; text-decoration: none; }
+</style>
+<nav><a href="#/">🏠 홈</a><a href="#/blog">📝 블로그</a><a href="#/about">🙋 소개</a></nav>
+<main id="app"></main>
+<script>
+  const posts = [
+    { id: 1, title: "벽돌 깨기 만든 후기", body: "공이 패들에 맞는 각도를 계산하는 게 제일 어려웠다." },
+    { id: 2, title: "재귀 함수 정리", body: "멈추는 조건부터 쓰자!" },
+    { id: 3, title: "다크 모드 넣기", body: "CSS 변수만 바꾸면 끝." },
+  ];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const routes = [
+    [/^\/$/, () => `<h1>환영해요 👋</h1><p>위 메뉴를 눌러 보세요. 페이지가 새로 열리지 않고 내용만 바뀌어요.</p>`],
+    [/^\/blog$/, () => `<h1>블로그</h1>` + posts.map(p => `<a class="post" href="#/post/${p.id}">${esc(p.title)}</a>`).join("")],
+    [/^\/post\/(\d+)$/, id => {
+      const p = posts.find(p => p.id === +id);
+      return p ? `<p><a href="#/blog">← 목록</a></p><h1>${esc(p.title)}</h1><p>${esc(p.body)}</p>` : notFound();
+    }],
+    [/^\/about$/, () => `<h1>소개</h1><p>주소창의 # 뒤가 바뀌는 걸 확인해 보세요: <code>${esc(location.hash)}</code></p>`],
+  ];
+  const notFound = () => `<h1>404</h1><p>그런 페이지는 없어요. <a href="#/">홈으로</a></p>`;
+  function router() {
+    const path = location.hash.slice(1) || "/";
+    let html = notFound();
+    for (const [re, view] of routes) { const m = path.match(re); if (m) { html = view(...m.slice(1)); break; } }
+    document.getElementById("app").innerHTML = html;
+    document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", path === a.hash.slice(1) || (a.hash !== "#/" && path.startsWith(a.hash.slice(1)))));
+  }
+  addEventListener("hashchange", router);
+  router();
+</script>
+""", task="블로그 글에 `❤️ 좋아요` 버튼을 달고, 좋아요 수가 페이지를 옮겨 다녀도 유지되게 해 보세요. `#/blog?tag=코딩` 처럼 태그로 거르는 기능도 도전!"),
+)
+more("site", 9,
+ls("서버와 통신하기 (로딩 · 오류 처리)", r"""
+진짜 사이트는 **서버(API)** 에서 데이터를 받아 와요: `const res = await fetch("주소"); const data = await res.json();`
+
+서버는 느리거나 실패할 수 있으니 화면에 **세 가지 상태**를 꼭 보여 줘야 해요.
+
+- ⏳ **로딩 중**: 스켈레톤(회색 상자)이나 스피너
+- ❌ **오류**: 무슨 일인지 + `다시 시도` 버튼
+- ✅ **성공**: 데이터 보여 주기
+
+여기선 인터넷 없이 연습하려고 **가짜 서버**(`fakeFetch`: 0.8초 뒤 응답, 가끔 실패)를 만들었어요. 진짜로 바꿀 땐 `fakeFetch` 자리에 `fetch` 만 쓰면 돼요.
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 420px; margin: 14px auto; padding: 0 12px; }
+  .card { display: flex; gap: 10px; align-items: center; padding: 12px; border-radius: 12px; background: #f8fafc; margin: 8px 0; }
+  .sk { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: sh 1s infinite; border-radius: 8px; }
+  @keyframes sh { to { background-position: -200% 0; } }
+  .err { background: #fef2f2; color: #b91c1c; padding: 12px; border-radius: 12px; }
+  button { border: 0; background: #4f46e5; color: white; padding: 8px 14px; border-radius: 8px; }
+</style>
+<h2>🌦️ 오늘의 날씨</h2>
+<button id="load">새로고침</button> <label><input type="checkbox" id="fail"> 서버 고장 내기</label>
+<div id="box"></div>
+<script>
+  // 가짜 서버: 진짜 fetch 처럼 Promise 를 돌려줘요
+  function fakeFetch(url) {
+    return new Promise((ok, no) => setTimeout(() => {
+      if (document.getElementById("fail").checked || Math.random() < 0.15) return no(new Error("503 서버가 바빠요"));
+      const icons = ["☀️", "⛅", "🌧️", "❄️"];
+      ok({ json: async () => ["서울", "부산", "제주"].map(city => ({ city, icon: icons[Math.floor(Math.random() * 4)], temp: Math.round(Math.random() * 25) })) });
+    }, 800));
+  }
+  const box = document.getElementById("box");
+  async function load() {
+    box.innerHTML = Array(3).fill(`<div class="card"><div class="sk" style="width:40px;height:40px"></div><div class="sk" style="flex:1;height:16px"></div></div>`).join("");
+    try {
+      const res = await fakeFetch("/api/weather");
+      const data = await res.json();
+      box.innerHTML = data.map(d => `<div class="card"><span style="font-size:32px">${d.icon}</span><b style="flex:1">${d.city}</b><span>${d.temp}°C</span></div>`).join("")
+        + `<small>업데이트: ${new Date().toLocaleTimeString()}</small>`;
+    } catch (e) {
+      box.innerHTML = `<div class="err">❌ 불러오지 못했어요 (${e.message}) <button id="retry">다시 시도</button></div>`;
+      document.getElementById("retry").onclick = load;
+    }
+  }
+  document.getElementById("load").onclick = load;
+  load();
+</script>
+""", task="실패하면 **자동으로 최대 3번까지** 다시 시도하게(1초, 2초, 4초 기다리며) 바꿔 보세요. 화면에 `재시도 2/3…` 도 보여 주세요."),
+ls("내 사이트 인터넷에 올리기 (배포)", r"""
+만든 사이트를 **누구나 주소로 볼 수 있게** 올려 봐요. 무료로 할 수 있어요!
+
+**GitHub Pages** (이 계획표 앱도 여기에 올라가 있어요)
+1. github.com 가입 → 새 저장소(repository) 만들기 — 이름을 `아이디.github.io` 로 하면 주소가 짧아져요
+2. `index.html` 파일 올리기 (Add file → Upload files)
+3. Settings → Pages → Branch 를 `main` 으로 → Save
+4. 1~2분 뒤 `https://아이디.github.io` 로 접속!
+
+**올리기 전 체크리스트**는 아래 실행 결과에서 하나씩 눌러 보세요.
+
+- `index.html` 은 사이트의 **첫 페이지** 이름이에요 (꼭 이 이름!)
+- 다른 파일은 `<link href="style.css">`, `<script src="app.js">` 처럼 **상대 경로**로 연결
+- 비밀번호·API 키는 절대 올리면 안 돼요 — 공개 저장소는 **누구나** 볼 수 있어요
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 440px; margin: 14px auto; padding: 0 12px; }
+  label { display: flex; gap: 8px; align-items: flex-start; padding: 10px; border-radius: 10px; background: #f8fafc; margin: 6px 0; cursor: pointer; }
+  label:has(input:checked) { background: #dcfce7; text-decoration: line-through; color: #64748b; }
+  .bar { height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: #22c55e; transition: width .3s; }
+</style>
+<h2>🚀 배포 체크리스트</h2>
+<div class="bar"><i id="p" style="width:0"></i></div>
+<div id="list"></div>
+<h3 id="done"></h3>
+<script>
+  const steps = [
+    "첫 페이지 파일 이름이 index.html 이다",
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> 를 넣었다 (휴대폰 화면 맞춤)",
+    "<title> 에 사이트 이름을 썼다",
+    "CSS·JS·그림 파일을 상대 경로로 연결했다",
+    "휴대폰 폭에서도 글자가 넘치지 않는다",
+    "비밀번호·API 키·개인정보가 코드에 없다",
+    "GitHub 저장소 → Settings → Pages 를 켰다",
+  ];
+  const list = document.getElementById("list");
+  list.innerHTML = steps.map(s => `<label><input type="checkbox"><span></span></label>`).join("");
+  list.querySelectorAll("span").forEach((el, i) => el.textContent = steps[i]);
+  list.onchange = () => {
+    const n = list.querySelectorAll("input:checked").length;
+    document.getElementById("p").style.width = n / steps.length * 100 + "%";
+    document.getElementById("done").textContent = n === steps.length ? "🎉 이제 친구에게 주소를 보내 보세요!" : "";
+  };
+</script>
+""", task="지금까지 만든 강의(자기소개 + 포트폴리오 + 할 일 앱)를 **하나의 사이트**로 합쳐 보세요: 라우터(8단계)로 `#/`, `#/works`, `#/todo` 세 페이지를 만들고, 실제로 GitHub Pages 에 올려 보세요!"),
+)
+more("site", 10,
+ls("나만의 미니 프레임워크 (가상 DOM)", r"""
+React · Vue 가 속으로 하는 일을 **100줄 안에** 직접 만들어 봐요.
+
+1. **`h(태그, 속성, ...자식)`** : 화면을 자바스크립트 객체(**가상 DOM**)로 표현
+2. **`mount`** : 가상 DOM → 진짜 DOM 만들기
+3. **`patch(옛것, 새것)`** : 둘을 비교해서 **바뀐 부분만** 진짜 DOM 에 반영 (diff)
+4. **`app({ state, view, actions })`** : 상태가 바뀌면 새 가상 DOM 을 만들고 patch
+
+`innerHTML` 로 통째로 다시 그리면 입력 칸의 글자·포커스가 날아가지만, patch 는 바뀐 곳만 고쳐서 그대로 남아요. 아래에서 입력하면서 직접 확인해 보세요!
+""", r"""
+<style>
+  body { font-family: sans-serif; max-width: 420px; margin: 14px auto; padding: 0 12px; }
+  .log { font: 12px monospace; color: #64748b; height: 60px; overflow: auto; background: #f8fafc; border-radius: 8px; padding: 6px; }
+  li { padding: 4px 0; } button { margin-left: 6px; }
+</style>
+<div id="root"></div>
+<p>🔧 진짜 DOM 이 바뀐 기록:</p>
+<div class="log" id="log"></div>
+<script>
+  // 1) 가상 DOM 만들기
+  const h = (tag, props, ...kids) => ({ tag, props: props || {}, kids: kids.flat().filter(k => k != null && k !== false).map(k => typeof k === "object" ? k : String(k)) });
+  const log = m => { const el = document.getElementById("log"); el.textContent = m + "\n" + el.textContent.slice(0, 400); };
+
+  function setProp(el, k, v) {
+    if (k.startsWith("on")) el[k.toLowerCase()] = v;   // 이벤트
+    else if (k === "value" || k === "checked") el[k] = v;
+    else el.setAttribute(k, v);
+  }
+  // 2) 가상 → 진짜
+  function mount(v) {
+    if (typeof v === "string") return document.createTextNode(v);
+    const el = document.createElement(v.tag);
+    for (const [k, val] of Object.entries(v.props)) setProp(el, k, val);
+    v.kids.forEach(k => el.appendChild(mount(k)));
+    return el;
+  }
+  // 3) 바뀐 곳만 고치기
+  function patch(parent, el, oldV, newV) {
+    if (oldV === undefined) { log("+ 추가 " + (newV.tag || newV)); return parent.appendChild(mount(newV)); }
+    if (newV === undefined) { log("- 삭제 " + (oldV.tag || oldV)); return parent.removeChild(el); }
+    if (typeof oldV !== typeof newV || (typeof newV === "string" && oldV !== newV) || oldV.tag !== newV.tag) {
+      log("~ 바꿈 " + (newV.tag || JSON.stringify(newV)));
+      return parent.replaceChild(mount(newV), el);
+    }
+    if (typeof newV === "string") return;
+    for (const k of new Set([...Object.keys(oldV.props), ...Object.keys(newV.props)]))
+      if (oldV.props[k] !== newV.props[k]) {
+        if (newV.props[k] === undefined) el.removeAttribute(k); else setProp(el, k, newV.props[k]);
+        if (!k.startsWith("on")) log(`  속성 ${newV.tag}.${k}`);
+      }
+    const kids = [...el.childNodes];
+    for (let i = Math.max(oldV.kids.length, newV.kids.length) - 1; i >= 0; i--) patch(el, kids[i], oldV.kids[i], newV.kids[i]);
+  }
+  // 4) 상태 → 화면
+  function app({ root, state, view }) {
+    let old = view(state, set);
+    root.appendChild(mount(old));
+    function set(change) {
+      state = { ...state, ...change };
+      const now = view(state, set);
+      patch(root, root.firstChild, old, now);
+      old = now;
+    }
+  }
+
+  // ---- 이 프레임워크로 만든 앱 ----
+  app({
+    root: document.getElementById("root"),
+    state: { text: "", items: ["가상 DOM 이해하기"], n: 0 },
+    view: (s, set) => h("div", null,
+      h("h2", null, "📝 메모 (", s.items.length, "개)"),
+      h("input", { value: s.text, placeholder: "입력하고 추가", oninput: e => set({ text: e.target.value }) }),
+      h("button", { onclick: () => s.text.trim() && set({ items: [...s.items, s.text.trim()], text: "" }) }, "추가"),
+      h("ul", null, s.items.map((it, i) => h("li", null, it,
+        h("button", { onclick: () => set({ items: s.items.filter((_, j) => j !== i) }) }, "✕")))),
+      h("p", null, "글자 수: ", s.text.length, s.text.length > 10 ? " 🔥" : ""),
+    ),
+  });
+</script>
+""", task="목록 순서가 바뀌거나 중간이 지워질 때도 효율적으로 고치도록 **key** 를 지원해 보세요. (`h(\"li\", { key: 아이디 }, ...)` → 같은 key 끼리 비교) 그리고 이 프레임워크로 앞에서 만든 할 일 앱을 다시 만들어 보세요."),
+)
+
 LINKS = [
   ("🐍 파이썬 더 배우기", [("점프 투 파이썬 (무료 책)", "https://wikidocs.net/book/1"), ("파이썬 공식 튜토리얼 (한국어)", "https://docs.python.org/ko/3/tutorial/")]),
   ("⚙️ C · C++", [("코드업 — C 기초 100제", "https://codeup.kr/problemsetsol.php?psid=23"), ("모두의 코드 — 씹어먹는 C 언어", "https://modoocode.com/231"), ("모두의 코드 — 씹어먹는 C++", "https://modoocode.com/135")]),

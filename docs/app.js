@@ -1873,7 +1873,7 @@ const LEARN_PATH = "learn.json";
 let learnData = null, learnLang = store("llang") || "py", learnLv = +store("llv") || 0, learnOpen = null, learnShow = {}, learnOut = null, learnRunning = false;
 let learnProg = { done: {}, code: {}, stdin: {} };
 async function loadLearn(seq = loadSeq) {
-  $("label").innerHTML = `코딩 공부<span class="sub">기초부터 전설까지 10단계 · 파이썬 · C · JS · HTML · CSS</span>`;
+  $("label").innerHTML = `코딩 공부<span class="sub">기초부터 전설까지 10단계 · 언어 5가지 + 🎮 게임 · 🌍 웹사이트 만들기</span>`;
   $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
   try {
     const [r, f] = await Promise.all([fetch("learn.json?v=" + Date.now(), { cache: "no-store" }), SB ? getFile(LEARN_PATH) : null]);
@@ -1933,7 +1933,7 @@ function renderLearn() {
     const top = has[has.length - 1] || 1;
     $("view").innerHTML = bar + `<section class="day"><div class="dhead"><span class="date">${esc(L.name)}</span><span class="sp"></span><span class="empty" style="margin:0">${nDone}/${L.lessons.length} 완료</span></div>
       <div class="lbody">${mdLite(L.intro)}</div><div class="lbar"><i style="width:${Math.round(nDone / L.lessons.length * 100)}%"></i></div>
-      ${lvbar}${top < LV.length && !learnLv ? `<div class="empty" style="margin:4px 0 0;font-size:12px">${esc(L.name)} 는 ${top}단계(${esc(lvInfo(top).name)})까지 있어요. ${LV.slice(top).map(v => v.icon + " " + v.name).join(" · ")} 은 파이썬 · C · JS 에서 도전!</div>` : ""}
+      ${lvbar}${top < LV.length && !learnLv ? `<div class="empty" style="margin:4px 0 0;font-size:12px">${esc(L.name)} 는 ${top}단계(${esc(lvInfo(top).name)})까지 있어요. ${LV.slice(top).map(v => v.icon + " " + v.name).join(" · ")} 은 ${d.langs.filter(l => l.lessons.some(x => lvOf(x) > top)).map(l => esc(l.name)).join(" · ")} 에서 도전!</div>` : ""}
       ${groups}</section>`;
     return;
   }
@@ -1949,7 +1949,7 @@ function renderLearn() {
     ${L.run === "python" || L.run === "c" ? `<label>⌨️ 입력값 <span class="hint">— 프로그램이 읽을 입력, 한 줄에 하나</span></label><textarea class="lstdin" id="lstdin" spellcheck="false" autocapitalize="off">${esc(stdin)}</textarea>` : ""}
     <div class="rbtns"><button class="mini-btn go" data-act="Lrun" ${learnRunning ? "disabled" : ""}>${learnRunning ? "⏳ 실행 중…" : "▶ 실행"}</button>
       <button class="mini-btn" data-act="Lreset">↺ 처음 코드로</button></div>
-    ${html ? `<iframe class="lframe" id="lframe" sandbox="allow-scripts allow-modals" title="실행 결과"></iframe>` : `<pre class="lout" id="lout"><span class="m">▶ 실행을 누르면 여기에 결과가 나와요${L.run === "python" ? " (파이썬은 처음 한 번 준비하는 데 10초쯤 걸려요)" : L.run === "c" ? " (C 코드는 실행하려고 Compiler Explorer 서버로 보내요)" : ""}</span></pre>`}
+    ${html ? `<iframe class="lframe${L.key === "game" ? " tall" : ""}" id="lframe" sandbox="allow-scripts allow-modals" title="실행 결과"></iframe>` : `<pre class="lout" id="lout"><span class="m">▶ 실행을 누르면 여기에 결과가 나와요${L.run === "python" ? " (파이썬은 처음 한 번 준비하는 데 10초쯤 걸려요)" : L.run === "c" ? " (C 코드는 실행하려고 Compiler Explorer 서버로 보내요)" : ""}</span></pre>`}
     ${x.task ? `<div class="ltask"><b>🎯 도전 과제</b><div class="lbody">${mdLite(x.task)}</div>
       <div class="rbtns">${x.hint ? `<button class="mini-btn" data-act="Lhint">💡 힌트</button>` : ""}${x.ans ? `<button class="mini-btn" data-act="Lans">👀 정답 보기</button>` : ""}</div>
       ${learnShow.hint && x.hint ? `<div class="lbody" style="margin-top:6px">💡 ${mdLite(x.hint)}</div>` : ""}
