@@ -232,14 +232,18 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak", "mock", "study"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak", "mock", "study", "community"];
 let mode = store("mode") === "eng" ? "study" : MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
+// 💬 커뮤니티 상태 (아래 커뮤니티 칸에서 써요. 링크 ?mode=community&post=번호 를 읽느라 여기 둬요)
+let comList = [], comMore = false, comQuery = "", comView = null, comDraft = null, comCmt = "", comErr = "", comOpenId = null;
+const comPw = new Map();   // 글 번호 → 맞힌 비밀번호 (새로고침하면 사라져요)
 { // 알림에서 열면 ?report=YYYY-MM-DD → 그날 보고서 탭
   const qs = new URLSearchParams(location.search), q = qs.get("report"), qd = qs.get("day");
   if (qs.has("v")) history.replaceState(null, "", location.pathname);
   if (MODES.includes(qs.get("mode"))) { mode = qs.get("mode"); history.replaceState(null, "", location.pathname); }
+  if (mode === "community" && /^\d{1,15}$/.test(qs.get("post") || "")) comOpenId = +qs.get("post");   // 🔗 커뮤니티 글 링크
   if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) { mode = "report"; anchor = q; store("rkind", "date"); history.replaceState(null, "", location.pathname); }
   else if (qd && /^\d{4}-\d{2}-\d{2}$/.test(qd)) { mode = "today"; anchor = qd; history.replaceState(null, "", location.pathname); }
 }
@@ -283,7 +287,7 @@ const viewTitle = () => {
   if (weekish()) { const s = weekStart(anchor), e = addDays(s, 6); return `주간 계획표 (${s.replace(/-/g, ".")} 일 ~ ${e.slice(5).replace("-", ".")} 토)`; }
   return `${+anchor.slice(0, 4)}년 ${+anchor.slice(5, 7)}월 계획표`;
 };
-const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft || !!(stDraft && stDraft.dirty)
+const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft || comDraftDirty() || !!(stDraft && stDraft.dirty)
   || (repDraft && buildReport(anchor, repDraft) !== buildReport(anchor, rep.data))
   || (editing && formatRow(days[editing.i].iso, clean(editing.draft)) !== formatRow(days[editing.i].iso, days[editing.i].day));
 const leaveOk = () => !editDirty() || confirm("수정 중인 내용이 저장되지 않았어요. 그래도 나갈까요?");
@@ -327,12 +331,13 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null; weakDraft = null; stDraft = null;
+  if (mode !== "community") { comView = null; comDraft = null; }
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock" || mode === "study";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock" || mode === "study" || mode === "community";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점", mock: "📝 모의고사", study: "📚 시험 공부" }[mode];
+  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점", mock: "📝 모의고사", study: "📚 시험 공부", community: "💬 커뮤니티" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   $("noticeBtn").setAttribute("aria-pressed", mode === "notice");
@@ -348,6 +353,7 @@ async function load() {
   if (mode === "weak") return loadWeak(seq);
   if (mode === "mock") return loadMock(seq);
   if (mode === "study") return loadStudy(seq);
+  if (mode === "community") return loadCommunity(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -531,6 +537,7 @@ $("view").addEventListener("change", ev => {
 });
 $("view").addEventListener("keydown", ev => {
   if (ev.key === "Enter" && ev.target.id === "ewrite" && !ev.isComposing) { ev.preventDefault(); stCheck(); }
+  if (ev.key === "Enter" && ev.target.id === "cpw" && !ev.isComposing && !saving) { ev.preventDefault(); comUnlock(); }
 });
 $("view").addEventListener("input", ev => {
   const t = ev.target;
@@ -542,6 +549,12 @@ $("view").addEventListener("input", ev => {
   if (placeDraft && t.dataset.q) { placeDraft[t.dataset.q] = t.value; return; }
   if (stDraft && t.dataset.en) return stInput(t);
   if (t.id === "esearch") { stQuery = t.value; const r = $("eresults"); if (r) r.innerHTML = stListHtml(stPool()); return; }
+  if (comDraft && t.dataset.cd) {
+    if (t.dataset.cd === "lock") { comDraft.lock = t.checked; return renderCommunity(); }
+    comDraft[t.dataset.cd] = t.value; return;
+  }
+  if (t.id === "ccmt") { comCmt = t.value; return; }
+  if (t.id === "csearch") { comQuery = t.value; clearTimeout(comFetch.t); comFetch.t = setTimeout(() => comFetch().then(() => { if (mode === "community" && !comView && !comDraft) { renderCommunity(); const i = $("csearch"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } } }, e => showError(e)), 350); return; }
   if (weakDraft && t.dataset.wk) { weakDraft[t.dataset.wk] = t.type === "checkbox" ? t.checked : t.value; return; }
   if (secEdit) {
     if (t.dataset.s === "text") secEdit.draft = t.value;
@@ -571,6 +584,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("K")) return weakClick(b);
   if (act.startsWith("M")) return mockClick(b);
   if (act.startsWith("E")) return studyClick(b);
+  if (act.startsWith("C")) return comClick(b);
   if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); newsShow = NEWS_PAGE; return renderNews(); }
   if (act === "nmore") { newsShow += NEWS_PAGE; return newsList(); }
   if (act === "ngonotice") { if (!leaveOk()) return; mode = "notice"; store("mode", mode); return load(); }
@@ -1605,6 +1619,213 @@ function weakClick(b) {
   }
   renderWeak();
   if (act === "Knew" || act === "Kedit") { window.scrollTo({ top: 0 }); document.querySelector(`[data-wk="${act === "Knew" && weakDraft.subject ? "text" : "subject"}"]`)?.focus(); }
+}
+
+/* ---------- 💬 커뮤니티 (Supabase community_* 함수) ----------
+   모두가 같이 보는 게시판. 글마다 🔒 비밀번호를 걸면 제목·별명만 보이고, 내용·댓글은 비밀번호를 아는 사람만.
+   비밀번호는 서버에서만 검사하고(bcrypt), 이 기기에는 지금 열어 둔 동안만 기억해요 (저장 안 함) */
+const COM_PAGE = 30;
+const comNick = () => store("cnick") || "";
+const comDate = s => { const d = new Date(new Date(s).getTime() + 9 * 3600e3).toISOString(); return `${d.slice(0, 10).replace(/-/g, ".")} ${d.slice(11, 16)}`; };
+async function comRpc(fn, args) {
+  const { data, error } = await SB.rpc(fn, args);
+  if (error) {
+    const e = new Error(/PGRST202|Could not find the function/.test(error.code + error.message)
+      ? "커뮤니티 표가 아직 없어요. Supabase SQL Editor 에서 supabase/schema.sql 을 다시 실행해 주세요."
+      : /JWT/i.test(error.message) ? "로그인이 풀렸어요. ⚙️ 에서 다시 로그인해 주세요." : error.message);
+    e.status = 0; throw e;
+  }
+  return data;
+}
+function comErrText(code, item) {
+  if (code === "need_pw") return "";
+  if (code === "locked") return "비밀번호를 너무 많이 틀렸어요. 10분 뒤에 다시 해 보세요.";
+  if (code === "none") return "지워진 글이에요.";
+  if (code === "login") return "로그인이 필요해요.";
+  if (/^wrong:/.test(code)) { const n = +code.slice(6); return n > 0 ? `비밀번호가 틀렸어요. (${n}번 더 해 볼 수 있어요)` : "비밀번호가 틀렸어요. 10분 뒤에 다시 해 보세요."; }
+  return code;
+}
+async function loadCommunity(seq = loadSeq) {
+  $("label").innerHTML = `커뮤니티<span class="sub">💬 같이 보는 게시판 · 🔒 비밀글</span>`;
+  comDraft = null; comErr = "";
+  if (!SB || !sbUser) { $("view").innerHTML = `<div class="day"><div class="empty">커뮤니티는 구글로 로그인해야 쓸 수 있어요. ⚙️ 에서 로그인해 주세요.</div></div>`; return; }
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try {
+    if (comOpenId) { const id = comOpenId; comOpenId = null; if (seq === loadSeq) return comOpen(id); }
+    if (comView) return comOpen(comView.id);
+    await comFetch(); if (seq === loadSeq) renderCommunity();
+  } catch (e) { if (seq === loadSeq) showError(e); }
+}
+async function comFetch(more) {
+  const before = more && comList.length ? comList.at(-1).id : null;
+  const rows = await comRpc("community_list", { p_before: before, p_q: comQuery.trim() || null }) || [];
+  comList = more ? [...comList, ...rows] : rows;
+  comMore = rows.length >= COM_PAGE;
+}
+const comMeta = p => `${esc(p.nickname)} · ${comDate(p.created_at)}${p.updated_at ? " (고침)" : ""}`;
+function renderCommunity() {
+  if (comDraft) { $("view").innerHTML = comForm(comDraft); return; }
+  if (comView) { $("view").innerHTML = comPostHtml(); return; }
+  $("view").innerHTML = `
+    <input class="search" id="csearch" type="search" placeholder="🔎 제목으로 찾기" value="${esc(comQuery)}">
+    <button class="add" data-act="Cnew" style="width:100%;background:var(--card);margin-bottom:10px">+ 새 글 쓰기</button>
+    ${comList.length ? comList.map(p => `<button class="day notecard cpost" data-act="Copen" data-id="${p.id}">
+        <div class="dhead"><span class="date">${p.locked ? "🔒 " : ""}${esc(p.title)}</span><span class="sp"></span>${p.mine ? `<span class="chip">내 글</span>` : ""}${p.comments ? `<span class="chip">💬 ${p.comments}</span>` : ""}</div>
+        <div class="cmeta">${comMeta(p)}</div>
+        <div class="cprev">${p.locked ? "비밀번호를 아는 사람만 볼 수 있는 글이에요" : esc(p.preview || "")}</div></button>`).join("")
+      : `<div class="day"><div class="empty">${comQuery.trim() ? "찾는 글이 없어요." : "아직 글이 없어요. 첫 글을 써 보세요! 🔒 비밀번호를 걸면 비밀번호를 아는 사람끼리만 볼 수 있어요."}</div></div>`}
+    ${comMore ? `<button class="btn ghost" data-act="Cmore" style="width:100%;margin:6px 0 10px">▼ 더 보기</button>` : ""}`;
+}
+function comPostHtml() {
+  const v = comView, p = v.post;
+  if (!p) {   // 🔒 비밀번호 묻기
+    return `<button class="btn ghost" data-act="Cback" style="margin-bottom:10px">← 목록</button>
+      <section class="day rform"><div class="dhead"><span class="date">🔒 ${esc(v.title || "비밀글")}</span></div>
+      ${v.nickname ? `<div class="cmeta">${esc(v.nickname)}</div>` : ""}
+      <p class="empty">비밀번호를 아는 사람만 볼 수 있는 글이에요.</p>
+      <label>비밀번호</label><input id="cpw" type="password" autocomplete="off" placeholder="글쓴이에게 받은 비밀번호">
+      ${comErr ? `<div class="err" style="margin-top:8px">⚠️ ${esc(comErr)}</div>` : ""}
+      <div class="actions" style="margin-top:12px"><button class="btn" data-act="Cunlock" ${saving ? "disabled" : ""}>${saving ? "확인 중…" : "🔓 열기"}</button></div></section>`;
+  }
+  const cs = v.comments || [];
+  return `<button class="btn ghost" data-act="Cback" style="margin-bottom:10px">← 목록</button>
+    <section class="day"><div class="dhead"><span class="date">${p.locked ? "🔒 " : ""}${esc(p.title)}</span><span class="sp"></span>
+      <button class="pencil" data-act="Clink" title="링크 복사" aria-label="링크 복사">🔗</button>
+      ${p.mine ? `<button class="pencil" data-act="Cedit" title="고치기" aria-label="고치기">✏️</button>` : ""}</div>
+      <div class="cmeta">${comMeta(p)}</div>
+      <div class="pre cbody">${esc(p.body)}</div>
+      ${p.mine ? `<div class="actions" style="margin-top:10px"><button class="btn ghost danger" data-act="Cdel" ${saving ? "disabled" : ""}>🗑 삭제</button></div>` : ""}</section>
+    <section class="day"><div class="dhead"><span class="date">💬 댓글 ${cs.length}</span></div>
+      ${cs.length ? `<ul class="list ccmts">${cs.map(c => `<li data-cid="${c.id}"><div style="flex:1;min-width:0"><div class="cmeta">${esc(c.nickname)} · ${comDate(c.created_at)}</div><div class="pre">${esc(c.body)}</div></div>
+        ${c.mine || p.mine ? `<button class="ev del" data-act="Ccdel" aria-label="댓글 삭제" title="댓글 삭제">×</button>` : ""}</li>`).join("")}</ul>` : `<div class="empty">첫 댓글을 달아 보세요.</div>`}
+      <div class="rform ccform">
+        <input id="cnick" maxlength="20" placeholder="별명" value="${esc(comNick())}">
+        <textarea id="ccmt" maxlength="1000" placeholder="댓글 쓰기">${esc(comCmt)}</textarea>
+        <div class="actions"><button class="btn" data-act="Ccmt" ${saving ? "disabled" : ""}>${saving ? "올리는 중…" : "댓글 달기"}</button></div>
+      </div></section>`;
+}
+function comForm(d) {
+  return `<section class="day editing rform">
+    <div class="dhead"><span class="date">${d.id ? "✏️ 글 고치기" : "💬 새 글 쓰기"}</span></div>
+    <label>제목 <span class="hint">— 목록에 보여요 (비밀글이어도)</span></label><input data-cd="title" maxlength="100" value="${esc(d.title)}" placeholder="제목">
+    <label>별명 <span class="hint">— 계정·이메일은 안 보이고 별명만 보여요</span></label><input data-cd="nickname" maxlength="20" value="${esc(d.nickname)}" placeholder="예) 공부왕">
+    <label>내용</label><textarea data-cd="body" maxlength="20000" style="min-height:180px" placeholder="하고 싶은 이야기를 적어 보세요">${esc(d.body)}</textarea>
+    <label class="tbcur" style="margin-top:12px"><input type="checkbox" data-cd="lock" ${d.lock ? "checked" : ""}><span>🔒 비밀번호 걸기<small>비밀번호를 아는 사람끼리만 내용·댓글을 볼 수 있어요</small></span></label>
+    ${d.lock ? `<label>비밀번호 <span class="hint">— 4~50자${d.wasLocked ? ", 비워 두면 예전 비밀번호 그대로" : ""}</span></label>
+      <input data-cd="pw" type="password" autocomplete="new-password" maxlength="50" value="${esc(d.pw)}" placeholder="${d.wasLocked ? "바꿀 때만 적기" : "비밀번호"}">
+      <label>비밀번호 확인</label><input data-cd="pw2" type="password" autocomplete="new-password" maxlength="50" value="${esc(d.pw2)}" placeholder="한 번 더">
+      <div class="empty">비밀번호는 다른 사람이 볼 수 없게 암호화돼서 저장돼요. 잊어버리면 글쓴이(나)만 볼 수 있어요.</div>` : ""}
+    <div class="actions" style="margin-top:12px">
+      <button class="btn ghost" data-act="Ccancel" ${saving ? "disabled" : ""}>취소</button>
+      <button class="btn" data-act="Csave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : d.id ? "저장" : "올리기"}</button>
+    </div></section>`;
+}
+async function comOpen(id, pw) {
+  const item = comList.find(x => x.id === id) || (comView && comView.id === id ? comView : {});
+  pw = pw ?? comPw.get(id) ?? null;
+  const r = await comRpc("community_open", { p_id: id, p_pw: pw });
+  if (r.error) {
+    if (r.error !== "need_pw" && !/^wrong:|^locked$/.test(r.error)) { comView = null; toast(comErrText(r.error)); await comFetch(); return renderCommunity(); }
+    if (pw) comPw.delete(id);
+    comView = { id, title: item.title, nickname: item.nickname, post: null };
+    comErr = comErrText(r.error);
+  } else {
+    if (pw) comPw.set(id, pw);
+    comView = { id, post: r.post, comments: r.comments }; comErr = "";
+  }
+  renderCommunity();
+  if (!comView.post) $("cpw")?.focus();
+}
+async function comBusy(fn) {
+  saving = true; renderCommunity();
+  try { await fn(); } catch (e) { toast("⚠️ " + (e.message || e), 4000); }
+  saving = false; renderCommunity();
+}
+async function comUnlock() {
+  const pw = $("cpw")?.value || "";
+  if (!pw) return toast("비밀번호를 적어 주세요");
+  saving = true; renderCommunity();
+  try { await comOpen(comView.id, pw); } catch (e) { toast("⚠️ " + e.message, 4000); }
+  saving = false; renderCommunity();
+  if (comView && !comView.post) $("cpw")?.focus();
+}
+function comClick(b) {
+  const act = b.dataset.act;
+  if (act === "Copen") { comErr = ""; return comOpen(+b.dataset.id).catch(e => showError(e)); }
+  if (act === "Cback") { comView = null; comCmt = ""; comErr = ""; return comBusy(() => comFetch()); }
+  if (act === "Cmore") return comBusy(() => comFetch(true));
+  if (act === "Cunlock") return comUnlock();
+  if (act === "Clink") {
+    const url = `${location.origin}${location.pathname}?mode=community&post=${comView.id}`;
+    const done = () => toast(comView.post?.locked ? "링크를 복사했어요 🔗 비밀번호는 따로 알려 주세요" : "링크를 복사했어요 🔗");
+    return navigator.clipboard?.writeText(url).then(done, () => prompt("링크를 복사하세요", url)) ?? prompt("링크를 복사하세요", url);
+  }
+  if (act === "Cnew") { comDraft = { title: "", body: "", nickname: comNick(), lock: false, pw: "", pw2: "" }; renderCommunity(); window.scrollTo({ top: 0 }); return; }
+  if (act === "Cedit") {
+    const p = comView.post;
+    comDraft = { id: p.id, title: p.title, body: p.body, nickname: p.nickname, lock: p.locked, wasLocked: p.locked, pw: "", pw2: "" };
+    renderCommunity(); window.scrollTo({ top: 0 }); return;
+  }
+  if (act === "Ccancel") { if (comDraftDirty() && !confirm("쓰던 글이 저장되지 않았어요. 그래도 나갈까요?")) return; comDraft = null; return renderCommunity(); }
+  if (act === "Csave") return comSave();
+  if (act === "Cdel") {
+    if (!confirm("이 글을 지울까요? 댓글도 같이 지워져요.")) return;
+    const id = comView.id;
+    return comBusy(async () => { await comRpc("community_delete", { p_id: id }); comView = null; comPw.delete(id); toast("지웠어요"); await comFetch(); });
+  }
+  if (act === "Ccmt") {
+    const body = ($("ccmt")?.value || "").trim(), nick = ($("cnick")?.value || "").trim();
+    if (!nick) return toast("별명을 적어 주세요");
+    if (!body) return toast("댓글을 적어 주세요");
+    store("cnick", nick); comCmt = body;
+    const id = comView.id;
+    return comBusy(async () => {
+      const r = await comRpc("community_comment", { p_id: id, p_pw: comPw.get(id) || null, p_body: body, p_nickname: nick });
+      if (r.error) { comPw.delete(id); comView = { id, title: comView.post?.title, nickname: comView.post?.nickname, post: null }; comErr = comErrText(r.error) || "비밀번호를 다시 넣어 주세요."; return; }
+      comView = { id, post: r.post, comments: r.comments }; comCmt = ""; toast("댓글을 달았어요 ✓");
+    });
+  }
+  if (act === "Ccdel") {
+    if (!confirm("이 댓글을 지울까요?")) return;
+    const cid = +b.closest("[data-cid]").dataset.cid, id = comView.id;
+    return comBusy(async () => {
+      await comRpc("community_comment_delete", { p_comment_id: cid });
+      const r = await comRpc("community_open", { p_id: id, p_pw: comPw.get(id) || null });
+      if (!r.error) comView = { id, post: r.post, comments: r.comments };
+      toast("지웠어요");
+    });
+  }
+}
+const comDraftDirty = () => !!comDraft && (comDraft.id
+  ? comDraft.title !== comView?.post?.title || comDraft.body !== comView?.post?.body || comDraft.lock !== comDraft.wasLocked || !!comDraft.pw
+  : !!(comDraft.title.trim() || comDraft.body.trim()));
+function comSave() {
+  const d = comDraft, title = d.title.trim(), body = d.body.trim(), nickname = d.nickname.trim();
+  if (!title) return toast("제목을 적어 주세요");
+  if (!nickname) return toast("별명을 적어 주세요");
+  if (!body) return toast("내용을 적어 주세요");
+  // p_pw: null = 그대로, "" = 비밀번호 없애기, 그 밖 = 새 비밀번호
+  let pw = null;
+  if (d.lock) {
+    if (d.pw || !d.wasLocked) {
+      if (d.pw.length < 4) return toast("비밀번호는 4자 이상으로 정해 주세요");
+      if (d.pw !== d.pw2) return toast("비밀번호 확인이 달라요");
+      pw = d.pw;
+    }
+  } else pw = d.id ? (d.wasLocked ? "" : null) : null;
+  if (d.id && d.wasLocked && !d.lock && !confirm("비밀번호를 없애면 누구나 이 글을 볼 수 있어요. 그래도 없앨까요?")) return;
+  store("cnick", nickname);
+  return comBusy(async () => {
+    let id = d.id;
+    if (id) await comRpc("community_edit", { p_id: id, p_title: title, p_body: body, p_nickname: nickname, p_pw: pw });
+    else id = await comRpc("community_write", { p_title: title, p_body: body, p_nickname: nickname, p_pw: pw });
+    if (pw) comPw.set(id, pw);
+    comDraft = null;
+    const r = await comRpc("community_open", { p_id: id, p_pw: comPw.get(id) || null });
+    comView = r.error ? null : { id, post: r.post, comments: r.comments };
+    if (!comView) await comFetch();
+    toast(d.id ? "저장됨 ✓" : pw ? "🔒 비밀글을 올렸어요. 🔗 링크와 비밀번호를 친구에게 알려 주세요" : "글을 올렸어요 ✓", 4000);
+  });
 }
 
 /* ---------- 📚 학교 시험 공부 (plans/study.json) ----------
