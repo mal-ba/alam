@@ -232,7 +232,7 @@ async function resolveDay(s) {
 }
 
 /* ---------- 화면 상태 ---------- */
-const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak", "mock"];
+const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map", "news", "notice", "learn", "web", "weak", "mock", "eng"];
 let mode = MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
@@ -283,7 +283,7 @@ const viewTitle = () => {
   if (weekish()) { const s = weekStart(anchor), e = addDays(s, 6); return `주간 계획표 (${s.replace(/-/g, ".")} 일 ~ ${e.slice(5).replace("-", ".")} 토)`; }
   return `${+anchor.slice(0, 4)}년 ${+anchor.slice(5, 7)}월 계획표`;
 };
-const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft
+const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft || !!(engDraft && engDraft.dirty)
   || (repDraft && buildReport(anchor, repDraft) !== buildReport(anchor, rep.data))
   || (editing && formatRow(days[editing.i].iso, clean(editing.draft)) !== formatRow(days[editing.i].iso, days[editing.i].day));
 const leaveOk = () => !editDirty() || confirm("수정 중인 내용이 저장되지 않았어요. 그래도 나갈까요?");
@@ -326,13 +326,13 @@ function showsToday() {
 let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오기가 새 화면을 덮지 않게
 async function load() {
   const seq = ++loadSeq;
-  editing = null; repDraft = null; secEdit = null; weakDraft = null;
+  editing = null; repDraft = null; secEdit = null; weakDraft = null; engDraft = null;
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
-  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock";
+  const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock" || mode === "eng";
   $("goToday").hidden = free || showsToday();
   $("prev").style.visibility = $("next").style.visibility = free ? "hidden" : "";
   document.querySelectorAll(".tabs button[data-mode], #moreMenu button").forEach(b => b.setAttribute("aria-selected", b.dataset.mode === mode));
-  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점", mock: "📝 모의고사" }[mode];
+  const more = { exam: "📝 시험", books: "📚 출판사", year: "📆 연간", map: "🗺️ 지도", news: "📰 뉴스", learn: "💻 코딩", web: "🔎 검색", weak: "🩹 약점", mock: "📝 모의고사", eng: "🔤 영어 시험" }[mode];
   $("moreBtn").textContent = more ? more + " ▾" : "☰ 메뉴";
   $("moreBtn").setAttribute("aria-selected", !!more);
   $("noticeBtn").setAttribute("aria-pressed", mode === "notice");
@@ -347,6 +347,7 @@ async function load() {
   if (mode === "web") return loadWeb(seq);
   if (mode === "weak") return loadWeak(seq);
   if (mode === "mock") return loadMock(seq);
+  if (mode === "eng") return loadEng(seq);
   const s = weekStart(anchor);
   $("label").innerHTML = mode === "today"
     ? `${mmdd(anchor)} (${WD[wday(anchor)]})<span class="sub">${anchor === todayKST() ? "오늘 일정" : "하루 일정"}</span>`
@@ -528,6 +529,9 @@ function render() {
 $("view").addEventListener("change", ev => {
   if (ev.target.id === "rdate" && ev.target.value) { anchor = ev.target.value; load(); }
 });
+$("view").addEventListener("keydown", ev => {
+  if (ev.key === "Enter" && ev.target.id === "ewrite" && !ev.isComposing) { ev.preventDefault(); engCheck(); }
+});
 $("view").addEventListener("input", ev => {
   const t = ev.target;
   if (repDraft && t.dataset.r) return reportInput(t);
@@ -536,6 +540,8 @@ $("view").addEventListener("input", ev => {
   if (examDraft && t.dataset.x) return examInput(t);
   if (tbDraft && t.dataset.tb) return tbInput(t);
   if (placeDraft && t.dataset.q) { placeDraft[t.dataset.q] = t.value; return; }
+  if (engDraft && t.dataset.en) return engInput(t);
+  if (t.id === "esearch") { engQuery = t.value; const r = $("eresults"); if (r) r.innerHTML = engListHtml(engPool()); return; }
   if (weakDraft && t.dataset.wk) { weakDraft[t.dataset.wk] = t.type === "checkbox" ? t.checked : t.value; return; }
   if (secEdit) {
     if (t.dataset.s === "text") secEdit.draft = t.value;
@@ -564,6 +570,7 @@ $("view").addEventListener("click", async ev => {
   if (act.startsWith("w")) return webClick(b);
   if (act.startsWith("K")) return weakClick(b);
   if (act.startsWith("M")) return mockClick(b);
+  if (act.startsWith("E")) return engClick(b);
   if (act === "ncat") { newsCat = b.dataset.k; store("ncat", newsCat); newsShow = NEWS_PAGE; return renderNews(); }
   if (act === "nmore") { newsShow += NEWS_PAGE; return newsList(); }
   if (act === "ngonotice") { if (!leaveOk()) return; mode = "notice"; store("mode", mode); return load(); }
@@ -1599,6 +1606,332 @@ function weakClick(b) {
   renderWeak();
   if (act === "Knew" || act === "Kedit") { window.scrollTo({ top: 0 }); document.querySelector(`[data-wk="${act === "Knew" && weakDraft.subject ? "text" : "subject"}"]`)?.focus(); }
 }
+
+/* ---------- 🔤 영어 시험 준비 (plans/english.json) ----------
+   { sets: [{ id, title, exam, date, items: [{ id, k: "g"|"i"|"v", t, m, ex, note, known, wrong }] }] }
+   지문(단원)마다 📘 문법 · 💬 숙어·표현 · 🔤 단어를 모아 두고, 정리 노트 · 🃏 카드 · ❓ 4지선다 · ✍️ 쓰기로 외워요.
+   필기 정리를 통째로 붙여넣으면 "1. 문법 / 2. 숙어 / 3. 어휘" 제목과 • ◦ 줄을 읽어서 알아서 나눠 넣어요 (engParse). */
+const ENG_PATH = "plans/english.json";
+const EK = { g: ["📘", "문법"], i: ["💬", "숙어·표현"], v: ["🔤", "단어"] };
+let engData = { sets: [] }, engDraft = null, engSet = store("eset") || "all", engKind = store("ekind") || "all",
+  engMode = store("emode") || "list", engLeft = store("eleft") === "1", engQuery = "", engCur = null, engShow = false,
+  engQuiz = null, engRev = false, engScore = [0, 0], engAns = null, engSaveT = null;
+async function loadEngData(force) {
+  const f = await getFile(ENG_PATH, force);
+  try { engData = f ? JSON.parse(f.text) : { sets: [] }; } catch (e) { engData = { sets: [] }; }
+  if (!Array.isArray(engData.sets)) engData.sets = [];
+  engData.sets.forEach(s => { if (!Array.isArray(s.items)) s.items = []; });
+}
+async function loadEng(seq = loadSeq) {
+  $("label").innerHTML = `영어 시험 준비<span class="sub">문법 · 숙어 · 단어</span>`;
+  $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
+  try { await loadEngData(true); await loadExamData().catch(() => {}); if (seq === loadSeq) renderEng(); } catch (e) { if (seq === loadSeq) showError(e); }
+}
+const engSetOf = id => engData.sets.find(s => s.id === id);
+const engAllItems = () => engData.sets.flatMap(s => s.items.map(x => ({ ...x, set: s.id })));
+const engItemsOf = (kind = engKind) => engAllItems().filter(x => (engSet === "all" || x.set === engSet) && (kind === "all" || x.k === kind));
+const engPool = () => engItemsOf().filter(x => !engLeft || !x.known);
+const engFind = (sid, id) => engSetOf(sid)?.items.find(x => x.id === id);
+const engAnsText = x => x.m || (x.note || "").split("\n")[0].slice(0, 90);
+const hasHangul = s => /[ㄱ-ㅎ가-힣]/.test(s);
+const engNorm = s => String(s || "").toLowerCase().replace(/[~∼…,.!?'"’‘“”()\[\]]/g, " ").replace(/\s+/g, " ").trim();
+const engSpeak = t => "speechSynthesis" in window && /^[A-Za-z]/.test(t) ? `<button class="mini-btn" data-act="Espeak" data-w="${esc(t.replace(/[ㄱ-ㅎ가-힣].*$/, "").trim())}" aria-label="발음 듣기">🔊</button>` : "";
+function engNextExam() {   // 다가오는 영어 시험 (📝 시험 탭에 적어 둔 것)
+  const t = todayKST(), en = s => subjKey(s) === "영어";
+  return (examData.exams || []).filter(x => x.date && x.date >= t && (en(x.subject) || (x.subjects || []).some(v => en(v.subject))))
+    .sort((a, b) => a.date.localeCompare(b.date))[0];
+}
+
+/* 필기 정리 붙여넣기 → 항목 목록 */
+function engParse(text, defKind = "v") {
+  const out = []; let kind = defKind, cur = null;
+  const kindOf = s => /어휘|단어|voca/i.test(s) ? "v" : /숙어|idiom|표현|expression/i.test(s) ? "i" : /문법|어법|grammar|구문|구조/i.test(s) ? "g" : null;
+  const add = (field, v) => { v = v.trim(); if (!v || !cur) return; cur[field] = cur[field] ? cur[field] + (field === "m" ? " / " : "\n") + v : v; };
+  const split = s => {
+    let m = s.match(/^(.+?)\s*[:：]\s+(.+)$/);
+    if (m && !/^(문장|예문|의미|뜻|설명)$/.test(m[1])) return [m[1], m[2]];
+    m = s.match(/^(.+?)\s+[-=–]\s+(.+)$/); if (m && hasHangul(m[2]) && !hasHangul(m[1])) return [m[1], m[2]];
+    m = s.match(/^(.+?)\s*\(([^()]+)\)\s*$/); if (m && hasHangul(m[2])) return [m[1], m[2]];
+    return [s, ""];
+  };
+  for (const raw of String(text || "").split(/\r?\n/)) {
+    const line = raw.trim(); if (!line) continue;
+    const head = line.replace(/^#+\s*|^\[|\]$/g, "").replace(/^(\d+|[IVX]+)[.)]\s*/, "");
+    if ((/^(#|\[|\d+[.)]|[IVX]+[.)])/.test(line)) && head.length <= 40 && kindOf(head) && !/[:：]\s/.test(head)) { kind = kindOf(head); cur = null; continue; }
+    const main = line.match(/^[•●■▶►★✔✓\-*]\s*(.+)$/), sub = line.match(/^[◦○▪▫∘ㄴ→⇒–]\s*(.+)$/) || (/^\s{2,}[-*]\s*/.test(raw) && raw.match(/^\s+[-*]\s*(.+)$/));
+    if (main && !sub) {
+      const [t, m] = split(main[1].trim());
+      cur = { k: kind, t: t.trim().slice(0, 200), m: m.trim().slice(0, 300), ex: "", note: "" }; out.push(cur); continue;
+    }
+    if (sub || cur) {
+      const s = (sub ? sub[1] : line).trim(); let m;
+      if ((m = s.match(/^(문장|예문|예시|예|ex|example|e\.g\.)\s*[:：]\s*(.*)$/i))) add("ex", m[2]);
+      else if ((m = s.match(/^(의미|뜻|해석)\s*[:：]\s*(.*)$/))) add("m", m[2]);
+      else if ((m = s.match(/^(설명|참고|팁|주의|포인트|note)\s*[:：]\s*(.*)$/i))) add("note", m[2]);
+      else if (!sub && /^[A-Za-z][\w\s'’-]{0,40}\s*[:：]\s+\S/.test(s)) {   // 글머리표 없는 "lens: 관점" 줄
+        const [t, mm] = split(s); cur = { k: kind, t, m: mm, ex: "", note: "" }; out.push(cur);
+      } else add(hasHangul(s) ? "note" : "ex", s);
+      continue;
+    }
+    if (/^[A-Za-z][\w\s'’-]{0,40}\s*[:：]\s+\S/.test(line)) { const [t, m] = split(line); cur = { k: kind, t, m, ex: "", note: "" }; out.push(cur); }
+  }
+  return out.filter(x => x.t).map(x => ({ ...x, ex: x.ex.slice(0, 1000), note: x.note.slice(0, 2000) }));
+}
+
+/* 저장: 내 화면의 engData 를 그대로 저장 (외움 체크는 0.8초 모아서 조용히) */
+async function engWrite(msg, okMsg) {
+  clearTimeout(engSaveT); engSaveT = null;
+  saving = true; renderEng();
+  try {
+    const text = JSON.stringify(engData, null, 1) + "\n";
+    await updateFile(ENG_PATH, () => text, msg); engDraft = null; if (okMsg) toast(okMsg);
+  } catch (e) { saving = false; renderEng(); showError(e, true); return; }
+  saving = false; renderEng();
+}
+function engQuiet() {
+  clearTimeout(engSaveT);
+  engSaveT = setTimeout(async () => { engSaveT = null; try { await updateFile(ENG_PATH, () => JSON.stringify(engData, null, 1) + "\n", "앱에서 영어 외움 체크"); } catch (e) { showError(e, true); } }, 800);
+}
+function engMark(x, ok) {
+  const it = engFind(x.set, x.id); if (!it) return;
+  if (ok) it.known = true; else { it.wrong = (it.wrong || 0) + 1; it.known = false; }
+  engQuiet();
+}
+
+/* 고치기 칸 */
+const engSetOpts = sel => engData.sets.map(s => `<option value="${esc(s.id)}" ${s.id === sel ? "selected" : ""}>${esc(s.title)}</option>`).join("");
+const engKindOpts = sel => Object.entries(EK).map(([k, [ic, n]]) => `<option value="${k}" ${k === sel ? "selected" : ""}>${ic} ${n}</option>`).join("");
+const engBtns = (del, cancel = "Ecancel", save = "Esave", label = "저장") => `<div class="actions" style="margin-top:12px">
+  ${del ? `<button class="btn ghost danger" data-act="${del}" ${saving ? "disabled" : ""} style="margin-right:auto">🗑 삭제</button>` : ""}
+  <button class="btn ghost" data-act="${cancel}" ${saving ? "disabled" : ""}>취소</button>
+  <button class="btn" data-act="${save}" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : label}</button></div>`;
+function engPreview(d) {
+  const xs = engParse(d.text, d.k);
+  if (!d.text.trim()) return `<div class="empty">붙여넣으면 여기에 몇 개가 들어갈지 보여요.</div>`;
+  if (!xs.length) return `<div class="empty">읽을 수 있는 항목이 없어요. 줄 앞에 • 나 - 를 붙이거나 "단어: 뜻" 처럼 적어 주세요.</div>`;
+  const c = k => xs.filter(x => x.k === k).length;
+  return `<div class="mnote">✓ <b>${xs.length}개</b> 읽었어요 — ${Object.entries(EK).map(([k, [ic, n]]) => `${ic} ${n} ${c(k)}`).join(" · ")}</div>
+    <ul class="vlist">${xs.slice(0, 40).map(x => `<li><span class="mtag">${EK[x.k][1]}</span><b>${esc(x.t)}</b><span>${esc(x.m || "")}</span></li>`).join("")}</ul>
+    ${xs.length > 40 ? `<div class="empty">…${xs.length - 40}개 더</div>` : ""}`;
+}
+function engForm(d) {
+  if (d.type === "set") return `<section class="day editing rform">
+    <div class="dhead"><span class="date">${d.id ? "✏️ 지문·단원 고치기" : "📄 지문·단원 추가"}</span></div>
+    <label>이름 <span class="hint">— 지문 번호, 단원, 본문 제목</span></label>
+    <input data-en="title" value="${esc(d.title)}" placeholder="예) 2과 본문 · 18번 지문 (고객 경청)">
+    <datalist id="eexams">${(examData.exams || []).map(x => `<option value="${esc(x.name || "")}">`).join("")}</datalist>
+    <label>시험 <span class="hint">— 어느 시험 범위인지</span></label>
+    <input data-en="exam" list="eexams" value="${esc(d.exam || "")}" placeholder="예) 2학기 기말고사">
+    <label>시험 날짜 <span class="hint">— 넣으면 D-day 가 보여요</span></label>
+    <input type="date" data-en="date" value="${esc(d.date || "")}">
+    ${d.id ? "" : `<label>필기 정리 붙여넣기 <span class="hint">— 지금 안 넣고 나중에 넣어도 돼요</span></label>
+    <textarea data-en="text" style="min-height:160px" placeholder="1. 주요 문법 사항 (Grammar)&#10;• whether A or B (양보/선택)&#10;◦ 문장: People, whether customers or otherwise, want to feel heard.&#10;◦ 설명: 'A이든 B이든 간에'…&#10;2. 주요 숙어 및 표현&#10;• pay attention to (~에 주의를 기울이다)&#10;3. 어휘&#10;• concern: 우려, 걱정거리">${esc(d.text || "")}</textarea>
+    <div id="epreview">${engPreview(d)}</div>`}
+    ${engBtns(d.id ? "Edelset" : "", "Ecancel", "Esaveset")}</section>`;
+  if (d.type === "paste") return `<section class="day editing rform">
+    <div class="dhead"><span class="date">📋 필기 정리 붙여넣기</span></div>
+    <div class="mnote">"1. 문법 / 2. 숙어 / 3. 어휘" 같은 제목 줄로 종류를 나누고, <b>•</b> 줄은 항목, <b>◦</b> 줄의 <b>문장:</b> <b>의미:</b> <b>설명:</b> 은 예문·뜻·설명으로 들어가요. "단어: 뜻", "숙어 (뜻)" 도 알아서 나눠요.</div>
+    <label>넣을 지문·단원</label><select data-en="set" class="minput">${engSetOpts(d.set)}</select>
+    <label>제목 줄이 없을 때 종류</label><select data-en="k" class="minput">${engKindOpts(d.k)}</select>
+    <label>붙여넣기</label><textarea data-en="text" style="min-height:200px" placeholder="여기에 필기 정리를 통째로 붙여넣으세요">${esc(d.text)}</textarea>
+    <div id="epreview">${engPreview(d)}</div>
+    ${engBtns("", "Ecancel", "Esavepaste", "넣기")}</section>`;
+  return `<section class="day editing rform">
+    <div class="dhead"><span class="date">${d.id ? "✏️ 항목 고치기" : "+ 항목 추가"}</span></div>
+    <label>지문·단원</label><select data-en="set" class="minput">${engSetOpts(d.set)}</select>
+    <label>종류</label><div class="kindbar">${Object.entries(EK).map(([k, [ic, n]]) => `<button data-act="Ekind" data-k="${k}" class="${d.k === k ? "on" : ""}">${ic} ${n}</button>`).join("")}</div>
+    <label>${d.k === "g" ? "문법 사항" : d.k === "i" ? "숙어·표현" : "단어"}</label>
+    <input data-en="t" value="${esc(d.t)}" placeholder="${d.k === "g" ? "예) 조동사 + have p.p. (과거 사실에 대한 추측)" : d.k === "i" ? "예) make sense" : "예) concern"}">
+    <label>뜻</label><input data-en="m" value="${esc(d.m || "")}" placeholder="${d.k === "g" ? "예) ~했을지도 모른다" : d.k === "i" ? "예) 말이 되다, 타당하다" : "예) 우려, 걱정거리"}">
+    <label>본문 문장 · 예문</label><textarea data-en="ex" placeholder="예) They might have attended to everything we said.">${esc(d.ex || "")}</textarea>
+    <label>설명 · 필기 <span class="hint">— 시험 포인트, 헷갈리는 것</span></label><textarea data-en="note" placeholder="예) 과거에 실제로 그러했을 가능성을 추측">${esc(d.note || "")}</textarea>
+    ${d.id ? `<label class="tbcur" style="margin-top:12px"><input type="checkbox" data-en="known" ${d.known ? "checked" : ""}><span>✓ 외웠어요</span></label>` : ""}
+    ${engBtns(d.id ? "Edel" : "")}</section>`;
+}
+function engInput(t) {
+  const d = engDraft, f = t.dataset.en; d.dirty = true;
+  d[f] = t.type === "checkbox" ? t.checked : t.value;
+  if ((f === "text" || f === "k") && $("epreview")) $("epreview").innerHTML = engPreview(d);
+}
+
+/* 화면 */
+function engItemHtml(x) {
+  return `<li class="eitem${x.known ? " ok" : ""}" data-set="${esc(x.set)}" data-id="${esc(x.id)}">
+    <button class="vchk" data-act="Eknow" aria-label="외움 표시">${x.known ? "✓" : ""}</button>
+    <div class="ebody"><div class="et"><b>${esc(x.t)}</b> ${engSpeak(x.t)}${x.wrong && !x.known ? ` <small class="vwrong">❌${x.wrong}</small>` : ""}</div>
+      ${x.m ? `<div class="em">${esc(x.m)}</div>` : ""}
+      ${x.ex ? `<div class="eex pre">${esc(x.ex)}</div>` : ""}
+      ${x.note ? `<div class="enote pre">${esc(x.note)}</div>` : ""}</div>
+    <button class="pencil" data-act="Eedit" aria-label="수정" title="수정">✏️</button></li>`;
+}
+function engListHtml(pool) {   // 찾기 칸은 그대로 두고 결과만 다시 그려요 (한글 입력이 끊기지 않게)
+  const qq = engQuery.trim().toLowerCase(), xs = pool.filter(x => !qq || [x.t, x.m, x.ex, x.note].some(v => (v || "").toLowerCase().includes(qq)));
+  return xs.length ? Object.entries(EK).filter(([k]) => xs.some(x => x.k === k)).map(([k, [ic, n]]) => { const ys = xs.filter(x => x.k === k);
+    return `<section class="day"><div class="dhead"><span class="date">${ic} ${n}</span><span class="chip">${ys.length}개</span><span class="sp"></span></div>
+      <ul class="elist">${ys.map(engItemHtml).join("")}</ul></section>`; }).join("") : `<section class="day"><div class="empty">찾는 항목이 없어요.</div></section>`;
+}
+function engNext(pool) {   // 못 외운 것 먼저, 틀린 것은 더 자주
+  if (!pool.length) { engCur = null; return; }
+  const left = pool.filter(x => !x.known), src = left.length ? left : pool;
+  let pick;
+  for (let t = 0; t < 3; t++) { pick = src[Math.floor(Math.random() * src.length)]; if (pick.id !== engCur?.id && (pick.wrong || Math.random() < .6)) break; }
+  engCur = pick; engShow = false; engAns = null;
+}
+function engMakeQuiz(pool) {
+  const qp = pool.filter(x => engAnsText(x));
+  engNext(qp); if (!engCur) { engQuiz = null; return; }
+  const all = engAllItems().filter(x => x.id !== engCur.id && engAnsText(x) && engAnsText(x) !== engAnsText(engCur));
+  const same = all.filter(x => x.k === engCur.k), other = all.filter(x => x.k !== engCur.k), opts = [engCur];
+  for (const src of [same, other]) while (opts.length < 4 && src.length) opts.push(src.splice(Math.floor(Math.random() * src.length), 1)[0]);
+  opts.sort(() => Math.random() - .5);
+  engQuiz = { w: engCur, opts, pick: null };
+}
+function engStudyView(pool) {
+  const tag = x => `<span class="mtag">${EK[x.k][0]} ${EK[x.k][1]}</span>${engSet === "all" ? ` <span class="muted" style="font-size:12px">${esc(engSetOf(x.set)?.title || "")}</span>` : ""}`;
+  if (engMode === "quiz") {
+    if (pool.filter(x => engAnsText(x)).length < 1 || engAllItems().filter(x => engAnsText(x)).length < 2) return `<section class="day"><div class="empty">뜻이 적힌 항목이 2개 넘게 있어야 4지선다를 만들 수 있어요.</div></section>`;
+    if (!engQuiz || !pool.some(x => x.id === engQuiz.w.id)) engMakeQuiz(pool);
+    const z = engQuiz, ans = z.w, done = z.pick != null, right = done && z.opts[z.pick].id === ans.id;
+    const btn = (o, i) => { const ok = o.id === ans.id, cls = !done ? "" : ok ? "right" : i === z.pick ? "wrong" : "";
+      return `<button class="vopt ${cls}" data-act="Epick" data-i="${i}" ${done ? "disabled" : ""}>${i + 1}. ${esc(engRev ? o.t : engAnsText(o))}</button>`; };
+    return `<section class="day vcard"><div class="vtop"><span>${tag(ans)}</span><span class="muted">맞힘 ${engScore[0]} / ${engScore[1]}</span>
+        <button class="mini-btn" data-act="Erev">${engRev ? "뜻 → 표현" : "표현 → 뜻"} ⇄</button></div>
+      <div class="vword eword">${esc(engRev ? engAnsText(ans) : ans.t)} ${engRev ? "" : engSpeak(ans.t)}</div>
+      <div class="vopts">${z.opts.map(btn).join("")}</div>
+      ${done ? `<div class="vres ${right ? "ok" : "no"}">${right ? "⭕ 정답!" : `❌ 정답: <b>${esc(ans.t)}</b> ${esc(engAnsText(ans))}`}</div>
+        ${ans.ex || ans.note ? `<div class="ecard-more">${ans.ex ? `<div class="eex pre">${esc(ans.ex)}</div>` : ""}${ans.note ? `<div class="enote pre">${esc(ans.note)}</div>` : ""}</div>` : ""}
+        <button class="btn" data-act="Enextq" style="width:100%;margin-top:10px">다음 문제 →</button>` : ""}</section>`;
+  }
+  if (engMode === "write") {
+    const wp = pool.filter(x => /[A-Za-z]/.test(x.t) && engAnsText(x));
+    if (!wp.length) return `<section class="day"><div class="empty">영어 표현과 뜻이 같이 적힌 항목이 있어야 쓰기 연습을 할 수 있어요.</div></section>`;
+    if (!engCur || !wp.some(x => x.id === engCur.id)) engNext(wp);
+    const x = engCur, cloze = x.ex ? x.ex.replace(new RegExp(x.t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), "_____") : "";
+    return `<section class="day vcard"><div class="vtop"><span>${tag(x)}</span><span class="muted">맞힘 ${engScore[0]} / ${engScore[1]}</span></div>
+      <div class="vmean" style="margin:16px 0 6px;font-size:20px">${esc(engAnsText(x))}</div>
+      ${cloze && cloze !== x.ex ? `<div class="eex pre" style="text-align:left">${esc(cloze)}</div>` : ""}
+      <input id="ewrite" class="minput" style="margin-top:12px;text-align:center;font-size:18px" placeholder="영어로 써 보세요" autocomplete="off" autocapitalize="off" spellcheck="false" value="${esc(engAns?.v || "")}" ${engAns ? "disabled" : ""}>
+      ${engAns ? `<div class="vres ${engAns.ok ? "ok" : "no"}">${engAns.ok ? "⭕ 정답!" : `❌ 정답: <b>${esc(x.t)}</b>`} ${engSpeak(x.t)}</div>
+        ${x.note ? `<div class="enote pre" style="text-align:left">${esc(x.note)}</div>` : ""}
+        <button class="btn" data-act="Enextw" style="width:100%;margin-top:10px">다음 →</button>`
+        : `<div class="rbtns" style="justify-content:center;gap:10px;margin-top:10px"><button class="btn ghost" data-act="Egiveup">모르겠어요</button><button class="btn" data-act="Echeck">확인</button></div>`}</section>`;
+  }
+  // 🃏 카드
+  if (!engCur || !pool.some(x => x.id === engCur.id)) engNext(pool);
+  const x = engCur;
+  return `<section class="day vcard"><div class="vtop"><span>${tag(x)}</span>${x.known ? `<span class="muted">✓ 외운 것</span>` : x.wrong ? `<span class="vwrong">❌ ${x.wrong}번 틀림</span>` : ""}</div>
+    <div class="vword eword">${esc(x.t)} ${engSpeak(x.t)}</div>
+    ${engShow ? `${x.m ? `<div class="vmean">${esc(x.m)}</div>` : ""}
+      <div class="ecard-more">${x.ex ? `<div class="eex pre">${esc(x.ex)}</div>` : ""}${x.note ? `<div class="enote pre">${esc(x.note)}</div>` : ""}</div>
+      <div class="rbtns" style="justify-content:center;gap:10px;margin-top:12px"><button class="btn ghost danger" data-act="Eno">❌ 몰라요</button><button class="btn" data-act="Eyes">⭕ 알아요</button></div>`
+      : `<button class="btn ghost" data-act="Eshow" style="width:100%;margin-top:12px">뜻 · 설명 보기</button>`}
+    <div style="text-align:center;margin-top:8px"><button class="mini-btn" data-act="Eskip">건너뛰기 →</button></div></section>`;
+}
+function renderEng() {
+  if (mode !== "eng") return;
+  if (engDraft) { $("view").innerHTML = engForm(engDraft); return; }
+  const sets = engData.sets;
+  if (engSet !== "all" && !engSetOf(engSet)) engSet = "all";
+  const ex = engNextExam();
+  const examLine = ex ? `<div class="mnote">📝 다음 영어 시험: <b>${esc(ex.name || "시험")}</b> ${mdw(ex.date)} <span class="dday ${ddayOf(ex.date)[1]}">${ddayOf(ex.date)[0]}</span></div>` : "";
+  if (!sets.length) {
+    $("view").innerHTML = examLine + `<section class="day"><div class="dhead"><span class="date">🔤 영어 시험 준비</span></div>
+      <div class="empty" style="line-height:1.7">시험 범위의 <b>지문·단원</b>을 하나 만들고, 필기한 <b>문법 · 숙어 · 단어</b> 정리를 통째로 붙여넣으세요.<br>
+      "1. 주요 문법 사항 / 2. 주요 숙어 및 표현 / 3. 어휘" 처럼 나뉜 정리는 알아서 종류별로 나눠 들어가요.<br>
+      그다음 📋 정리 노트로 보고, 🃏 카드 · ❓ 4지선다 · ✍️ 쓰기로 외워요.</div>
+      <button class="btn" data-act="Enewset" style="width:100%;margin-top:12px">📄 첫 지문·단원 만들기</button></section>`;
+    return;
+  }
+  const all = engAllItems(), inSet = all.filter(x => engSet === "all" || x.set === engSet);
+  const cnt = (xs, k) => xs.filter(x => k === "all" || x.k === k);
+  const setbar = `<div class="lvbar">${[["all", "전체", all], ...sets.map(s => [s.id, s.title, all.filter(x => x.set === s.id)])].map(([k, n, xs]) => { const a = xs.filter(x => x.known).length;
+    return `<button data-act="Eset" data-k="${esc(k)}" class="${engSet === k ? "on" : ""} ${xs.length && a === xs.length ? "clear" : ""}">${esc(n)}<small>${xs.length && a === xs.length ? "✓" : `${a}/${xs.length}`}</small></button>`; }).join("")}</div>`;
+  const s = engSet !== "all" && engSetOf(engSet), known = inSet.filter(x => x.known).length;
+  const head = `<section class="day">
+    <div class="dhead"><span class="date">${s ? esc(s.title) : "📚 전체 지문"}</span>${s && s.exam ? `<span class="chip">${esc(s.exam)}</span>` : ""}
+      ${s && s.date ? `<span class="dday ${ddayOf(s.date)[1]}">${ddayOf(s.date)[0]}</span>` : ""}<span class="sp"></span>
+      ${s ? `<button class="pencil" data-act="Eeditset" aria-label="지문 고치기" title="지문 고치기">✏️</button>` : ""}</div>
+    <div class="mstat"><b>${known}</b> / ${inSet.length} 외움 <span class="mbar"><i style="width:${inSet.length ? (known / inSet.length * 100).toFixed(1) : 0}%"></i></span></div>
+    ${setbar}
+    <div class="rbtns"><button class="mini-btn go" data-act="Epaste">📋 붙여넣기로 넣기</button><button class="mini-btn" data-act="Enew">+ 하나씩 추가</button><button class="mini-btn" data-act="Enewset">📄 지문·단원 추가</button></div></section>`;
+  const kinds = `<div class="kindbar mkinds">${[["all", "전체"], ...Object.entries(EK).map(([k, [ic, n]]) => [k, `${ic} ${n}`])].map(([k, n]) => `<button data-act="Ekindf" data-k="${k}" class="${engKind === k ? "on" : ""}">${n} ${cnt(inSet, k).length}</button>`).join("")}</div>`;
+  const modes = `<div class="filters">${[["list", "📋 정리 노트"], ["card", "🃏 카드"], ["quiz", "❓ 4지선다"], ["write", "✍️ 쓰기"]].map(([k, n]) => `<button data-act="Emode" data-k="${k}" class="${engMode === k ? "on" : ""}">${n}</button>`).join("")}
+    <button data-act="Eleft" class="${engLeft ? "on" : ""}">${engLeft ? "☑" : "☐"} 못 외운 것만</button></div>`;
+  const pool = engPool();
+  let body;
+  if (!pool.length) body = `<section class="day"><div class="empty">${inSet.length && engLeft && engItemsOf().length ? "다 외웠어요 🎉 '못 외운 것만'을 끄면 전부 다시 볼 수 있어요." : "아직 항목이 없어요. 📋 붙여넣기나 + 하나씩 추가로 넣어 보세요."}</div></section>`;
+  else if (engMode === "list") {
+    body = `<input id="esearch" class="minput" placeholder="🔎 표현·뜻·예문 찾기" value="${esc(engQuery)}" autocomplete="off" style="margin-bottom:10px"><div id="eresults">${engListHtml(pool)}</div>`;
+  } else body = engStudyView(pool);
+  $("view").innerHTML = examLine + head + kinds + modes + body;
+}
+function engCheck() {
+  const inp = $("ewrite"); if (!inp || !engCur || engAns) return;
+  const v = inp.value, alts = engCur.t.split(/\s*[\/,;]\s*/).map(engNorm), ok = !!engNorm(v) && (alts.includes(engNorm(v)) || engNorm(engCur.t) === engNorm(v));
+  engAns = { v, ok }; engScore = [engScore[0] + (ok ? 1 : 0), engScore[1] + 1]; engMark(engCur, ok); renderEng();
+}
+function engClick(b) {
+  const act = b.dataset.act, li = b.closest("[data-id]"), sid = li?.dataset.set, id = li?.dataset.id;
+  const blank = () => ({ type: "item", set: engSet !== "all" ? engSet : engData.sets[0]?.id, k: engKind !== "all" ? engKind : "v", t: "", m: "", ex: "", note: "" });
+  if (act === "Espeak") { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(b.dataset.w); u.lang = "en-US"; u.rate = .9; speechSynthesis.speak(u); } catch (e) {} return; }
+  if (act === "Eset") { engSet = b.dataset.k; store("eset", engSet); engCur = engQuiz = null; return renderEng(); }
+  if (act === "Ekindf") { engKind = b.dataset.k; store("ekind", engKind); engCur = engQuiz = null; return renderEng(); }
+  if (act === "Emode") { engMode = b.dataset.k; store("emode", engMode); engCur = engQuiz = null; engAns = null; return renderEng(); }
+  if (act === "Eleft") { engLeft = !engLeft; store("eleft", engLeft ? "1" : "0"); engCur = engQuiz = null; return renderEng(); }
+  if (act === "Eknow") { const it = engFind(sid, id); if (!it) return; it.known = !it.known; engQuiet(); return renderEng(); }
+  if (act === "Eshow") { engShow = true; return renderEng(); }
+  if (act === "Eskip") { engNext(engPool().filter(x => x.id !== engCur?.id).concat(engPool().length < 2 ? engPool() : [])); return renderEng(); }
+  if (act === "Eyes" || act === "Eno") { engMark(engCur, act === "Eyes"); engNext(engPool()); return renderEng(); }
+  if (act === "Erev") { engRev = !engRev; engQuiz = null; return renderEng(); }
+  if (act === "Epick") { const z = engQuiz; if (!z || z.pick != null) return; z.pick = +b.dataset.i; const ok = z.opts[z.pick].id === z.w.id;
+    engScore = [engScore[0] + (ok ? 1 : 0), engScore[1] + 1]; engMark(z.w, ok); return renderEng(); }
+  if (act === "Enextq") { engMakeQuiz(engPool()); return renderEng(); }
+  if (act === "Echeck") return engCheck();
+  if (act === "Egiveup") { engAns = { v: $("ewrite")?.value || "", ok: false }; engScore = [engScore[0], engScore[1] + 1]; engMark(engCur, false); return renderEng(); }
+  if (act === "Enextw") { engNext(engPool().filter(x => /[A-Za-z]/.test(x.t) && engAnsText(x))); renderEng(); $("ewrite")?.focus(); return; }
+  if (act === "Ekind") { engDraft.k = b.dataset.k; engDraft.dirty = true; return renderEng(); }
+  if (act === "Enewset") { if (!leaveOk()) return; engDraft = { type: "set", title: "", exam: ex0()?.name || "", date: ex0()?.date || "", text: "", k: "v" }; }
+  else if (act === "Eeditset") { if (!leaveOk()) return; const s = engSetOf(engSet); if (!s) return; engDraft = { type: "set", id: s.id, title: s.title, exam: s.exam || "", date: s.date || "" }; }
+  else if (act === "Epaste") { if (!leaveOk()) return; engDraft = { type: "paste", set: engSet !== "all" ? engSet : engData.sets[0]?.id, k: engKind !== "all" ? engKind : "v", text: "" }; }
+  else if (act === "Enew") { if (!leaveOk()) return; engDraft = blank(); }
+  else if (act === "Eedit") { if (!leaveOk()) return; const it = engFind(sid, id); if (!it) return; engDraft = { type: "item", ...structuredClone(it), set: sid, from: sid, idx: engSetOf(sid).items.indexOf(it) }; }
+  else if (act === "Ecancel") engDraft = null;
+  else if (act === "Edelset") {
+    const s = engSetOf(engDraft.id); if (!s || !confirm(`"${s.title}" 과 그 안의 항목 ${s.items.length}개를 지울까요?`)) return;
+    engData.sets = engData.sets.filter(x => x.id !== s.id); engSet = "all"; store("eset", engSet);
+    return engWrite(`앱에서 영어 지문 삭제`, "지웠어요");
+  } else if (act === "Edel") {
+    if (!confirm("이 항목을 지울까요?")) return;
+    const s = engSetOf(engDraft.from); if (s) s.items = s.items.filter(x => x.id !== engDraft.id);
+    return engWrite("앱에서 영어 항목 삭제", "지웠어요");
+  } else if (act === "Esaveset") {
+    const d = engDraft, title = cleanText(d.title).slice(0, 60);
+    if (!title) return toast("이름을 적어 주세요");
+    if (d.id) { Object.assign(engSetOf(d.id), { title, exam: cleanText(d.exam).slice(0, 60), date: d.date || "" }); return engWrite("앱에서 영어 지문 수정", "저장됨 ✓"); }
+    const items = engParse(d.text, d.k).map((x, i) => ({ ...x, id: "e" + Date.now().toString(36) + i }));
+    const s = { id: "s" + Date.now().toString(36), title, exam: cleanText(d.exam).slice(0, 60), date: d.date || "", items };
+    engData.sets.push(s); engSet = s.id; store("eset", engSet);
+    return engWrite(`앱에서 영어 지문 추가: ${title}`, items.length ? `저장됨 ✓ ${items.length}개 넣었어요` : "저장됨 ✓ 이제 항목을 넣어 보세요");
+  } else if (act === "Esavepaste") {
+    const d = engDraft, s = engSetOf(d.set); if (!s) return toast("지문·단원을 골라 주세요");
+    const items = engParse(d.text, d.k); if (!items.length) return toast("읽을 수 있는 항목이 없어요");
+    const have = new Set(s.items.map(x => x.k + "|" + engNorm(x.t)));
+    const add = items.filter(x => !have.has(x.k + "|" + engNorm(x.t))).map((x, i) => ({ ...x, id: "e" + Date.now().toString(36) + i }));
+    s.items.push(...add); engSet = s.id; store("eset", engSet);
+    return engWrite(`앱에서 영어 항목 ${add.length}개 붙여넣기`, `✓ ${add.length}개 넣었어요${items.length > add.length ? ` (이미 있는 ${items.length - add.length}개 빼고)` : ""}`);
+  } else if (act === "Esave") {
+    const d = engDraft, s = engSetOf(d.set), t = (d.t || "").trim();
+    if (!s) return toast("지문·단원을 먼저 만들어 주세요");
+    if (!t) return toast("내용을 적어 주세요");
+    const it = { id: d.id || "e" + Date.now().toString(36), k: d.k, t: t.slice(0, 200), m: (d.m || "").trim().slice(0, 300), ex: (d.ex || "").trim().slice(0, 1000), note: (d.note || "").trim().slice(0, 2000), ...(d.known ? { known: true } : {}), ...(d.wrong ? { wrong: d.wrong } : {}) };
+    if (d.id) { const from = engSetOf(d.from); if (from) from.items = from.items.filter(x => x.id !== d.id); }
+    if (d.id && d.from === s.id) { const at = engSetOf(d.from).items.length; s.items.splice(Math.min(d.idx ?? at, at), 0, it); } else s.items.push(it);
+    return engWrite(`앱에서 영어 항목 ${d.id ? "수정" : "추가"}`, "저장됨 ✓");
+  }
+  renderEng();
+  if (engDraft) { window.scrollTo({ top: 0 }); document.querySelector(engDraft.type === "paste" ? '[data-en="text"]' : engDraft.type === "set" ? '[data-en="title"]' : '[data-en="t"]')?.focus(); }
+}
+const ex0 = () => engNextExam();
 
 /* ---------- 뉴스 · 공지 ----------
    docs/news.json            : 최근 기사 (GitHub Actions 가 3시간마다 구글 뉴스에서 모음, 기사마다 처음 들어온 시각 added)
