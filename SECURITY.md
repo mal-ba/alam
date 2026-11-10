@@ -40,6 +40,7 @@
 - Claude API 키(`ANTHROPIC_API_KEY`)는 **Supabase Edge Function Secrets 에만** 있어요. 앱(브라우저)·저장소에는 없어요.
 - 함수는 요청마다 로그인 토큰을 확인해서 **로그인한 사람만** 쓸 수 있고, 사진 장수(4장)·크기·종류를 제한해요.
 - 계정마다 하루 사용 횟수 제한 (`supabase/ai_scan.sql` 의 `ai_scans` 표 — 앱에서는 읽기·쓰기 못 하고 서버만 써요).
+- AI 서버가 없으면 기기 안에서 글자를 읽어요 (Tesseract.js, 버전 고정 + SRI 확인, 사진은 밖으로 안 나가요).
 - 사진은 저장하지 않아요. AI 결과는 바로 저장되지 않고, 사람이 확인하는 입력 칸에 먼저 채워져요.
 
 ### GitHub Actions

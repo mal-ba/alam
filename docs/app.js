@@ -1016,7 +1016,8 @@ let aiNote = null;     // "report" | "note" | "exam" — AI 가 채운 입력 �
 let planDraft = null;  // 계획표 사진 → 확인·수정 칸 { merge, grit, must, goal, memo, days:[{iso, ev, tk}] }
 const AI_MAX = 4, AI_PX = 1800;
 const aiBtn = (act, label, extra = "") => `<button class="add aiscan" data-act="${act}" ${extra}>📷 ${label}</button>`;
-const aiBanner = (k, saveAct) => aiNote === k ? `<div class="aibanner"><span>📷 AI가 사진에서 읽어 채웠어요. 틀린 곳은 고쳐서 저장하거나, 그대로 저장해도 돼요.</span>
+const aiFrom = () => aiSrc === "local" ? "📷 기기에서 사진 글자를 읽어 채웠어요 (손글씨는 틀리기 쉬워요)." : "📷 AI가 사진에서 읽어 채웠어요.";
+const aiBanner = (k, saveAct) => aiNote === k ? `<div class="aibanner"><span>${aiFrom()} 틀린 곳은 고쳐서 저장하거나, 그대로 저장해도 돼요.</span>
   <button class="btn" data-act="${saveAct}" ${saving ? "disabled" : ""}>💾 그대로 저장</button></div>` : "";
 function pickPhotos() {
   return new Promise(ok => {
@@ -1038,14 +1039,24 @@ async function shrinkImage(file) {   // 긴 쪽 1800px JPEG 로 줄여서 보내
     return { media_type: "image/jpeg", data: c.toDataURL("image/jpeg", 0.85).split(",")[1] };
   } finally { URL.revokeObjectURL(url); }
 }
-function aiWait(on, n) {
+function aiWait(on, n, msg) {
   let el = $("aiwait");
   if (!on) { if (el) el.remove(); return; }
   if (!el) { el = document.createElement("div"); el.id = "aiwait"; el.setAttribute("role", "status"); el.setAttribute("aria-live", "polite"); document.body.append(el); }
-  el.innerHTML = `<div class="aiw"><div class="spin"></div><b>📷 AI가 사진 ${n}장을 읽고 있어요…</b><span>보통 10~40초 걸려요. 화면을 닫지 마세요.</span></div>`;
+  el.innerHTML = `<div class="aiw"><div class="spin"></div><b>📷 사진 ${n}장을 읽고 있어요…</b><span>${esc(msg || "보통 10~40초 걸려요. 화면을 닫지 마세요.")}</span></div>`;
+}
+async function aiServer(kind, images, context) {   // AI 서버(Supabase Edge Function). 설정 안 됐으면 notReady
+  const { data, error } = await SB.functions.invoke("ai-scan", { body: { kind, images, context } });
+  if (error) {
+    let msg = "", code = "", status = error.context && error.context.status;
+    try { const j = await error.context.json(); msg = j.error || ""; code = j.code || ""; } catch (e) { /* 본문 없음 */ }
+    const notReady = status === 404 || code === "no_key" || code === "bad_key" || (!status && /Failed to send|fetch/i.test(error.message || ""));
+    throw Object.assign(new Error(msg || error.message || "사진 인식 실패"), { notReady });
+  }
+  if (!data || !data.result) throw new Error("AI 결과가 비어 있어요.");
+  return data.result;
 }
 async function aiScan(kind, context) {
-  if (!SB || !sbUser) { toast("📷 사진 인식은 로그인해야 쓸 수 있어요", 3500); return null; }
   const all = await pickPhotos();
   if (!all.length) return null;
   const pics = all.filter(f => /^image\//.test(f.type) || !f.type).slice(0, AI_MAX);
@@ -1055,16 +1066,21 @@ async function aiScan(kind, context) {
   try {
     const images = [];
     for (const f of pics) images.push(await shrinkImage(f));
-    const { data, error } = await SB.functions.invoke("ai-scan", { body: { kind, images, context } });
-    if (error) {
-      let msg = "", status = error.context && error.context.status;
-      try { msg = (await error.context.json()).error || ""; } catch (e) { /* 본문 없음 */ }
-      if (!msg && (status === 404 || /Failed to send|fetch/i.test(error.message || "")))
-        msg = "사진 인식 서버가 아직 준비 안 됐어요. SUPABASE_SETUP.md 의 \"📷 사진으로 채우기\" 설정을 한 번 해 주세요.";
-      throw new Error(msg || error.message || "사진 인식 실패");
+    // 1) AI 서버가 설정돼 있으면 AI 로 (더 정확해요)
+    if (SB && sbUser && !aiServerOff) {
+      aiWait(true, pics.length, "AI가 읽는 중… 보통 10~40초 걸려요.");
+      try { const r = await aiServer(kind, images, context); aiSrc = "ai"; return r; }
+      catch (e) {
+        if (e.notReady) aiServerOff = true;   // 이번에 연 동안은 다시 묻지 않아요
+        else toast("⚠️ " + e.message + " — 기기에서 직접 읽을게요", 4500);
+      }
     }
-    if (!data || !data.result) throw new Error("AI 결과가 비어 있어요. 다시 해 주세요.");
-    return data.result;
+    // 2) 기기에서 직접: 글자 인식 + 규칙으로 나누기 (무료, 서버 없이)
+    aiWait(true, pics.length, "기기에서 글자를 읽는 중… 처음 한 번은 한글 데이터를 받느라 조금 더 걸려요.");
+    const text = await ocrImages(images, m => aiWait(true, pics.length, m));
+    if (!text.trim()) throw new Error("사진에서 글자를 찾지 못했어요. 밝은 곳에서 글씨가 크게 나오게 찍어 주세요.");
+    aiSrc = "local";
+    return LOCAL_PARSE[kind](text, context);
   } catch (e) {
     console.error(e); toast("⚠️ " + (e.message || e), 6000); return null;
   } finally { aiBusy = false; aiWait(false); }
@@ -1154,7 +1170,7 @@ function planPanel() {
   const ta = (k, v, ph) => `<textarea class="sbox" data-pl="${k}" placeholder="${ph}">${esc(v)}</textarea>`;
   return `<section class="day editing rform plan-ai">
     <div class="dhead"><span class="date">📷 사진에서 읽은 ${month ? "월간" : "주간"} 계획</span></div>
-    <div class="aibanner"><span>AI가 읽은 내용이에요. 틀린 곳은 고치고 저장하거나, 그대로 💾 저장해도 돼요.</span></div>
+    <div class="aibanner"><span>${aiFrom()} 틀린 곳은 고치고 저장하거나, 그대로 💾 저장해도 돼요.</span></div>
     <div class="kindbar">
       <button data-act="Apmerge" data-v="1" class="${p.merge ? "on" : ""}">➕ 원래 계획에 더하기</button>
       <button data-act="Apmerge" data-v="0" class="${p.merge ? "" : "on"}">🔁 사진 내용으로 바꾸기</button></div>
@@ -1282,6 +1298,187 @@ async function aiClick(b) {
     render(); return window.scrollTo({ top: 0 });
   }
 }
+
+/* ---------- 📷 기기에서 읽기 (AI 서버 없이, 무료) ----------
+   Tesseract.js(글자 인식, 브라우저 안에서 실행) → 아래 규칙으로 앱 형식에 나눠 넣어요.
+   인쇄된 글씨는 잘 읽고, 손글씨는 틀리기 쉬워요. 처음 한 번 글자 데이터(약 5MB)를 받고, 그다음부턴 기기에 저장돼 빨라요. */
+const TESS = "https://cdn.jsdelivr.net/npm/tesseract.js@7.0.0/dist/";
+const TESS_SRI = "sha384-2BQ3U3OdKOb0Uczxqr41I9UvZkzr4V9Hv8uSzMMZAlmhsFClvdZX5wi5fDCzG+tM";
+const TESS_CORE = "https://cdn.jsdelivr.net/npm/tesseract.js-core@7.0.0";
+let ocrWorker = null, aiSrc = "ai", aiServerOff = false;
+function loadScript(src, integrity) {
+  return new Promise((ok, no) => {
+    const s = document.createElement("script");
+    s.src = src; s.integrity = integrity; s.crossOrigin = "anonymous";
+    s.onload = ok; s.onerror = () => no(new Error("글자 인식 도구를 받지 못했어요. 인터넷 연결을 확인해 주세요."));
+    document.head.append(s);
+  });
+}
+async function ocrImages(images, onProg) {
+  if (!window.Tesseract) await loadScript(TESS + "tesseract.min.js", TESS_SRI);
+  const step = { "loading tesseract core": "도구 준비", "initializing tesseract": "도구 준비", "loading language traineddata": "한글 데이터 받는 중", "initializing api": "도구 준비", "recognizing text": "글자 읽는 중" };
+  let page = 0;
+  const logger = m => { if (step[m.status]) onProg(`${step[m.status]}${images.length > 1 && m.status === "recognizing text" ? ` (${page + 1}/${images.length})` : ""} ${Math.round((m.progress || 0) * 100)}%`); };
+  if (!ocrWorker) {
+    ocrWorker = await Tesseract.createWorker(["kor", "eng"], 1, { workerPath: TESS + "worker.min.js", corePath: TESS_CORE, logger: m => ocrWorker && ocrWorker._log ? ocrWorker._log(m) : logger(m) });
+    await ocrWorker.setParameters({ preserve_interword_spaces: "1" });
+  }
+  ocrWorker._log = logger;
+  const out = [];
+  for (; page < images.length; page++) out.push((await ocrWorker.recognize("data:image/jpeg;base64," + images[page].data)).data.text);
+  return out.join("\n");
+}
+// 한글이 한 글자씩 띄어 읽힌 줄(예: "수 학 숙 제")을 붙여요
+const ocrFix = l => l.replace(/(?:^|\s)((?:[가-힣]\s){3,}[가-힣])(?=\s|$)/g, m => m.replace(/(\S)\s(?=\S)/g, "$1")).replace(/[|｜]/g, " ").replace(/\s+/g, " ").trim();
+const ocrLines = text => text.split("\n").map(ocrFix).filter(l => /[가-힣]|[A-Za-z0-9]{2}/.test(l));
+const unBullet = l => l.replace(/^(?:[-–—•·*▪◦○●□■◆◇▶►>※✓✔☑☐✅]|\[[ vVxX✓]?\])+\s*/, "").trim();
+const isChecked = l => /^\s*(?:[✓✔☑✅]|\[[vVxX✓]\])/.test(l);
+const EXTRA_SUBJ = ["공통국어", "공통수학", "공통영어", "통합사회", "통합과학", "과학탐구실험", "한국사", "문학", "독서", "화법과작문", "언어와매체", "미적분", "확률과통계", "기하", "생물", "지구", "도덕", "기가", "중국어", "일본어", "독일어", "프랑스어", "스페인어"];
+function subjList(ctx) {
+  const all = [...(ctx.subjects || []), ...SUBJECTS, ...EXTRA_SUBJ].map(s => String(s).replace(/\s+/g, "")).filter(Boolean);
+  return [...new Set(all)].sort((a, b) => b.length - a.length);
+}
+// 줄 맨 앞의 과목 이름: "수학: ...", "[영어] ...", "<국어>", "통합과학 1~3단원"
+function lineSubject(l, list) {
+  const flat = l.replace(/^[\[(<【〈]\s*/, "").replace(/\s+/g, "");
+  for (const s of list) {
+    if (!flat.startsWith(s)) continue;
+    let rest = l.replace(/^[\[(<【〈]\s*/, "");
+    for (let i = 0, n = 0; i < rest.length && n < s.length; i++) if (!/\s/.test(rest[i])) { n++; if (n === s.length) { rest = rest.slice(i + 1); break; } }
+    const num = (rest.match(/^\s*([0-9Ⅰ-Ⅴ]{1,2})(?=\s*[\])>】〉:：\-–]|\s|$)/) || [])[1] || "";
+    if (num) rest = rest.replace(/^\s*[0-9Ⅰ-Ⅴ]{1,2}/, "");
+    if (/^[가-힣]/.test(rest)) continue;   // "수학여행" 같은 건 과목 아님
+    return { subject: s + num, rest: rest.replace(/^\s*[\])>】〉]?\s*[:：\-–)]?\s*/, "").trim() };
+  }
+  // 과목 이름만 있는 짧은 줄은 한 글자 틀려도 과목으로 ("수하" → 수학)
+  const w = flat.replace(/[\])>】〉:：\-–]+$/, "");
+  if (w.length >= 2 && w.length <= 5 && /^[가-힣]+$/.test(w)) {
+    const near = list.find(x => x.length === w.length && x[0] === w[0] && [...x].filter((c, i) => c !== w[i]).length === 1);
+    if (near) return { subject: near, rest: "" };
+  }
+  return null;
+}
+function ocrDates(l, today) {   // "12/9", "12.9", "12월 9일" → YYYY-MM-DD (가까운 앞날 기준 연도)
+  const out = [], y = +today.slice(0, 4);
+  for (const m of l.matchAll(/(?<!\d)(1[0-2]|0?[1-9])\s*(?:[\/.]|월\s*)\s*(3[01]|[12]\d|0?[1-9])(?!\d)\s*일?/g)) {
+    let iso = `${y}-${pad(+m[1])}-${pad(+m[2])}`;
+    if (isNaN(D(iso)) || iso.slice(5) !== `${pad(+m[1])}-${pad(+m[2])}`) continue;
+    if (iso < addDays(today, -60)) iso = `${y + 1}${iso.slice(4)}`;
+    out.push(iso);
+  }
+  return out;
+}
+const RE_REMEMBER = /숙제|과제|준비물|제출|까지|챙기|가져오|수행|발표|프린트\s*(?:가져|챙)/;
+const RE_MEMORIZE = /암기|외우|외울|외워|단어\s*시험/;
+const RE_IMPORTANT = /중요|★|☆|시험에\s*(?:나|출제)|꼭(?!짓)|강조|별표|출제/;
+const RE_EXAM_MEMO = /%|반영|배점|서술형|객관식|논술형|준비물|지참|유의|주의|컴퓨터용|사인펜|교시/;
+const DATE_RE = /(?<!\d)(?:1[0-2]|0?[1-9])\s*(?:[\/.]|월\s*)\s*(?:3[01]|[12]\d|0?[1-9])(?!\d)\s*일?\s*(?:\([^)]{0,3}\))?/g;
+const RE_RANGE = /p\.?\s*\d|쪽|페이지|단원|\d\s*[~\-–]\s*\d|프린트|학습지|교과서|부교재|워크북|문제집|본문|lesson|chapter|unit|[Ⅰ-Ⅹ]\.|부터|까지|전체|범위/i;
+const RE_TIME = /^(?:(오전|오후|저녁|밤|아침)\s*)?(\d{1,2})\s*(?::\s*(\d{2})|시\s*(?:(\d{1,2})\s*분|반)?)(?:\s*[~\-–]\s*(?:(오전|오후|저녁|밤)\s*)?(\d{1,2})\s*(?::\s*(\d{2})|시\s*(?:(\d{1,2})\s*분|반)?))?\s*(.*)$/;
+function ocrTime(l) {
+  const m = unBullet(l).match(RE_TIME); if (!m || !m[9]) return null;
+  const hh = (ap, h) => { h = +h; if (/오후|저녁|밤/.test(ap || "") && h < 12) h += 12; else if (!ap && h >= 1 && h <= 6) h += 12; return h; };
+  const mm = (a, b, raw) => a ? +a : b ? +b : /반/.test(raw || "") ? 30 : 0;
+  const sh = hh(m[1], m[2]); if (sh > 23) return null;
+  const start = pad(sh) + ":" + pad(mm(m[3], m[4], m[0].slice(0, 12)));
+  let end = "";
+  if (m[6]) { const eh = hh(m[5] || (m[1] && /오후|저녁|밤/.test(m[1]) ? "오후" : ""), m[6]); if (eh <= 23) end = pad(eh) + ":" + pad(mm(m[7], m[8])); }
+  return { start, end: end > start ? end : "", title: m[9].replace(/^[\s:：\-–]+/, "").trim() };
+}
+
+function parseReportText(text, ctx) {
+  const list = subjList(ctx), classes = [], b = { important: [], memorize: [], remember: [], etc: [] };
+  let cur = null;
+  const route = l => {
+    if (RE_REMEMBER.test(l)) b.remember.push(l);
+    else if (RE_MEMORIZE.test(l)) b.memorize.push(l);
+    else if (RE_IMPORTANT.test(l)) b.important.push(l.replace(/[★☆]/g, "").trim());
+    else if (cur) cur.text.push(l); else b.etc.push(l);
+  };
+  for (const raw of ocrLines(text)) {
+    const l = unBullet(raw), s = lineSubject(l, list);
+    if (/^(?:수업\s*(?:내용|보고서)|오늘\s*배운\s*것|날짜|\d{4}[.\-/]\s*\d)/.test(l.replace(/\s/g, "")) && !s) continue;
+    if (s) { cur = { subject: s.subject, text: [] }; classes.push(cur); if (s.rest) route(s.rest); continue; }
+    route(l);
+  }
+  if (!classes.length && b.etc.length) { classes.push({ subject: guessSubject(b.etc.join(" ")), text: b.etc }); b.etc = []; }
+  return { classes: classes.map(c => ({ subject: c.subject, text: c.text.join("\n") })), important: b.important.join("\n"), memorize: b.memorize.join("\n"), remember: b.remember.join("\n"), etc: b.etc.join("\n") };
+}
+function parseNoteText(text, ctx) {
+  const ls = ocrLines(text).map(unBullet), list = subjList(ctx);
+  let title = ls.length && ls[0].length <= 40 ? ls.shift() : "";
+  const s = title && lineSubject(title, list);
+  return { title, subject: s ? s.subject : guessSubject(ls.join(" ") + " " + title), body: ls.join("\n"),
+    important: ls.filter(l => RE_IMPORTANT.test(l)).map(l => l.replace(/[★☆]/g, "").trim()).join("\n"),
+    memorize: ls.filter(l => RE_MEMORIZE.test(l)).join("\n"), remember: ls.filter(l => RE_REMEMBER.test(l)).join("\n"), etc: "" };
+}
+function parseExamText(text, ctx) {
+  const list = subjList(ctx), today = ctx.today || todayKST(), ls = ocrLines(text).map(unBullet), all = ls.join(" ");
+  const kind = /수행/.test(all) && !/중간|기말|정기|지필|고사/.test(all) ? "수행" : "정기";
+  const nameLine = ls.find(l => /중간|기말|정기|지필|고사|수행|평가|시험/.test(l) && !lineSubject(l, list)) || "";
+  const name = nameLine.replace(DATE_RE, " ").replace(/[()~\-–]/g, " ").replace(/\s+/g, " ").trim().replace(/(?:\s*(?:시험|안내|범위|일정|공지))+$/, "").trim();
+  const splitR = r => r.replace(/\((?:[월화수목금토일])\)/g, " ").split(/\s*[,，;]\s*|\s+\/\s+|\s{3,}/).map(x => x.trim()).filter(x => x && /[\p{L}\p{N}]/u.test(x));
+  const subjects = [], memo = [], allDates = [];
+  let cur = null;
+  for (const l of ls) {
+    const ds = ocrDates(l, today); allDates.push(...ds);
+    if (l === nameLine) continue;
+    const s = lineSubject(l, list);
+    if (s) {
+      cur = { subject: s.subject, date: ds[0] || "", ranges: [] }; subjects.push(cur);
+      const rest = s.rest.replace(DATE_RE, " ").replace(/^\s*[:：\-–]\s*/, "").replace(/\s+/g, " ").trim();
+      if (rest && !/^(?:시험|범위)$/.test(rest)) cur.ranges.push(...splitR(rest).map(text => ({ text })));
+    } else if (RE_EXAM_MEMO.test(l)) memo.push(l);
+    else if (cur && RE_RANGE.test(l)) cur.ranges.push(...splitR(l).map(text => ({ text })));
+    else if (!/^(?:과목|시험\s*범위|범위|날짜|교시|비고)(?:\s|$)/.test(l)) (cur && kind === "정기" && l.length < 40 && !/[.!?]$/.test(l) ? cur.ranges.push({ text: l }) : memo.push(l));
+  }
+  const sorted = [...new Set(allDates)].sort();
+  if (kind === "수행") {
+    const sub = subjects[0] || { subject: guessSubject(all), ranges: [] };
+    const nk = sub.ranges.findIndex(r => /수행|평가/.test(r.text));   // "영어 말하기 수행평가 11/25" → 이름은 "말하기 수행평가"
+    const perfName = name || (nk >= 0 ? sub.ranges.splice(nk, 1)[0].text : "");
+    return { kind, name: perfName, subject: sub.subject, date: sorted[0] || "", end: "", subjects: [], memo: memo.filter(l => l !== nameLine).join("\n"),
+      ranges: [...sub.ranges, ...subjects.slice(1).flatMap(v => v.ranges), ...memo.filter(l => RE_RANGE.test(l)).map(text => ({ text }))] };
+  }
+  return { kind, name, subject: "", date: sorted[0] || "", end: sorted.length > 1 ? sorted[sorted.length - 1] : "", subjects, ranges: [], memo: memo.join("\n") };
+}
+function parsePlanText(text, ctx) {
+  const list = subjList(ctx), today = ctx.today || todayKST(), month = ctx.view === "month";
+  const vd = viewDays(), inView = new Set(vd);
+  const out = { grit: [], must: [], goal: [], memo: [], days: [] }, byDay = new Map();
+  const dayOf = iso => { if (!byDay.has(iso)) { const d = { date: iso, events: [], tasks: [] }; byDay.set(iso, d); out.days.push(d); } return byDay.get(iso); };
+  let sec = month ? "memo" : "must", cur = null;
+  for (const raw of ocrLines(text)) {
+    let l = raw.trim();
+    const flat = l.replace(/\s/g, "").toLowerCase();
+    if (/^must\s*do/i.test(l) || /^꼭할(것|일)/.test(flat)) { sec = "must"; cur = null; l = l.replace(/^must\s*do|^꼭\s*할\s*(것|일)/i, "").replace(/^[\s:：\-]+/, ""); if (!l) continue; }
+    else if (/^grit/i.test(l)) { sec = "grit"; cur = null; l = l.replace(/^grit/i, "").replace(/^[\s:：\-]+/, ""); if (!l) continue; }
+    else if (/^(?:이달의?|이번달|월간)?목표/.test(flat)) { sec = month ? "goal" : "must"; cur = null; l = l.replace(/^.*?목\s*표\s*[:：\-]?\s*/, ""); if (!l) continue; }
+    else if (/^(?:memo|메모)/i.test(flat)) { sec = month ? "memo" : "must"; cur = null; l = l.replace(/^(?:memo|메\s*모)\s*[:：\-]?\s*/i, ""); if (!l) continue; }
+    else if (/^(?:subject|content|day|과목|내용|요일|weekly|studyplan|주간계획)/.test(flat) && l.length < 30) continue;
+    // 날짜 머리: "11/9", "11월 9일", "(월)", "월요일", 월간은 "9일"
+    let iso = "", m;
+    const d0 = ocrDates(l, today)[0];
+    if (d0 && /^\(?\s*\d/.test(l) && inView.has(d0)) { iso = d0; l = l.replace(/^\(?\s*\d{1,2}\s*(?:[\/.]|월)\s*\d{1,2}\s*일?\s*\)?\s*(?:\(?\s*[월화수목금토일](?:요일)?\s*\)?)?/, ""); }
+    else if ((m = l.match(/^[\[(<]?\s*([월화수목금토일])(?:요일)?\s*[\])>:.]?(?![가-힣])/))) { if (!month) iso = vd[WD.indexOf(m[1])]; l = l.slice(m[0].length); }
+    else if (month && (m = l.match(/^(3[01]|[12]\d|[1-9])\s*(?:일|\.|\))(?![가-힣])/))) { const c = anchor.slice(0, 8) + pad(+m[1]); if (inView.has(c)) { iso = c; l = l.slice(m[0].length); } }
+    if (iso) { cur = iso; sec = "day"; }
+    l = l.replace(/^[\s:：\-–.)\]]+/, "").trim();
+    if (!l) continue;
+    const done = isChecked(l), item = unBullet(l);
+    if (!item) continue;
+    if (sec === "day" && cur) {
+      const t = ocrTime(item);
+      if (t && t.title) dayOf(cur).events.push(t); else dayOf(cur).tasks.push((done ? "✅ " : "") + item);
+    } else if (sec === "grit") {
+      const s = lineSubject(item, list);
+      if (s) { const days = (s.rest.match(/[월화수목금토일](?=\s*[,·/·\s]|$)/g) || []).join("·"); out.grit.push({ subject: s.subject, content: s.rest.replace(/(?:\s*[월화수목금토일](?=[\s,·/]|$)[,·/]?)+\s*$/, "").trim(), day: days }); }
+      else out.must.push(item);
+    } else out[sec].push((done ? "✅ " : "") + item);
+  }
+  return out;
+}
+const LOCAL_PARSE = { report: parseReportText, note: parseNoteText, exam: parseExamText, plan: parsePlanText };
 
 /* ---------- 과목 묶음 (공수2·수학 → 수학 등) ---------- */
 const SUBJECT_GROUPS = [
