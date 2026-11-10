@@ -195,6 +195,21 @@ header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 82
 .kindbar{display:flex;gap:6px;margin-bottom:10px}
 .kindbar button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px;font-weight:700;cursor:pointer;color:var(--muted)}
 .kindbar button.on{background:var(--accent-weak);border-color:var(--accent);color:var(--accent)}
+/* 📷 사진으로 채우기 (AI) */
+.add.aiscan{color:var(--accent2);border-color:var(--accent2)}
+.aibanner{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:var(--accent-weak);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;margin:6px 0 10px;font-size:13.5px}
+.aibanner span{flex:1 1 220px}
+.aibanner .btn{white-space:nowrap}
+.pday{border:1px solid var(--line);border-radius:10px;padding:8px;margin:8px 0}
+.pday .lbl{display:flex;align-items:center;gap:6px;margin:0 0 6px}
+.pday .lbl .sp{flex:1}
+.pday textarea{width:100%;min-height:56px;margin-top:4px}
+#aiwait{position:fixed;inset:0;z-index:60;background:rgba(10,12,30,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+#aiwait .aiw{background:var(--card);color:var(--text);border-radius:14px;padding:22px 20px;max-width:340px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center;box-shadow:var(--shadow)}
+#aiwait .aiw span{color:var(--muted);font-size:13px}
+#aiwait .spin{width:34px;height:34px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--accent);animation:aispin .9s linear infinite}
+@keyframes aispin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#aiwait .spin{animation-duration:3s}}
 .notecard{display:block;width:100%;text-align:left;border:0;cursor:pointer;font:inherit;color:inherit}
 .chip{font-size:11px;font-weight:700;background:var(--input);color:var(--muted);border-radius:6px;padding:2px 6px}
 .btn.danger{color:var(--danger)}
@@ -413,7 +428,7 @@ img,iframe,video,table{max-width:100%}
   .mh span{font-size:10px} .mg button,.mg span{font-size:11.5px;padding:3px 0}
   /* 주간: 하루 카드 2개씩 */
   body[data-mode="week"] #view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;align-items:start}
-  body[data-mode="week"] #view>.note,body[data-mode="week"] #view>.grit,body[data-mode="week"] #view>.loading,body[data-mode="week"] #view>.err{grid-column:1/-1}
+  body[data-mode="week"] #view>.note,body[data-mode="week"] #view>.aiscan,body[data-mode="week"] #view>.plan-ai,body[data-mode="week"] #view>.grit,body[data-mode="week"] #view>.loading,body[data-mode="week"] #view>.err{grid-column:1/-1}
   /* 공지: 분야 카드 2개씩 */
   body[data-mode="notice"] #view{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px;align-items:start}
   body[data-mode="notice"] #view>:first-child,body[data-mode="notice"] #view>.loading{grid-column:1/-1}
@@ -442,7 +457,7 @@ img,iframe,video,table{max-width:100%}
   body[data-mode="week"] #view{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 14px}
   /* 월간: 달력은 왼쪽 크게, 고른 날·메모는 오른쪽 */
   body[data-mode="month"] #view{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:0 16px;align-items:start}
-  body[data-mode="month"] #view>.note,body[data-mode="month"] #view>.goal,body[data-mode="month"] #view>.loading,body[data-mode="month"] #view>.err{grid-column:1/-1}
+  body[data-mode="month"] #view>.note,body[data-mode="month"] #view>.aiscan,body[data-mode="month"] #view>.plan-ai,body[data-mode="month"] #view>.goal,body[data-mode="month"] #view>.loading,body[data-mode="month"] #view>.err{grid-column:1/-1}
   body[data-mode="month"] #view>.cal{grid-column:1}
   body[data-mode="month"] #view>.mside{grid-column:2}
   /* 공지: 3개씩 */
@@ -589,6 +604,6 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 <div id="toast" role="status"></div>
 
 <!-- app.js 를 고치면 ?v= 값을 바꿔 주세요 (예전 app.js 가 브라우저 캐시에 남아 새 화면과 안 맞는 걸 막아요) -->
-<script src="app.js?v=9ad975a821"></script>
+<script src="app.js?v=9b928a0b0c"></script>
 </body>
 </html>

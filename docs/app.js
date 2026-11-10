@@ -289,7 +289,7 @@ const viewTitle = () => {
   if (weekish()) { const s = weekStart(anchor), e = addDays(s, 6); return `주간 계획표 (${s.replace(/-/g, ".")} 일 ~ ${e.slice(5).replace("-", ".")} 토)`; }
   return `${+anchor.slice(0, 4)}년 ${+anchor.slice(5, 7)}월 계획표`;
 };
-const editDirty = () => !!secEdit || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft || comDraftDirty() || !!(stDraft && stDraft.dirty)
+const editDirty = () => !!secEdit || !!planDraft || !!noteDraft || !!examDraft || !!tbDraft || !!placeDraft || !!weakDraft || comDraftDirty() || !!(stDraft && stDraft.dirty)
   || (repDraft && buildReport(anchor, repDraft) !== buildReport(anchor, rep.data))
   || (editing && formatRow(days[editing.i].iso, clean(editing.draft)) !== formatRow(days[editing.i].iso, days[editing.i].day));
 const leaveOk = () => !editDirty() || confirm("수정 중인 내용이 저장되지 않았어요. 그래도 나갈까요?");
@@ -332,7 +332,7 @@ function showsToday() {
 let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오기가 새 화면을 덮지 않게
 async function load() {
   const seq = ++loadSeq;
-  editing = null; repDraft = null; secEdit = null; weakDraft = null; stDraft = null;
+  editing = null; repDraft = null; secEdit = null; weakDraft = null; stDraft = null; planDraft = null; aiNote = null;
   if (mode !== "community") { comView = null; comDraft = null; }
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
   const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock" || mode === "study" || mode === "community";
@@ -521,9 +521,10 @@ function renderYear() {
 /* ---------- 그리기 ---------- */
 function render() {
   if (mode === "year") return renderYear();
+  if (planDraft && (mode === "week" || mode === "month")) { $("view").innerHTML = planPanel(); return; }
   const note = fileExists || mode === "today" ? "" :
     `<div class="note">아직 이 ${mode === "week" ? "주" : "달"}의 표가 없어서 기본 시간표를 보여주고 있어요. ✏️로 고치고 저장하면 표가 만들어져요.</div>`;
-  let html = note;
+  let html = note + (mode === "week" || mode === "month" ? aiBtn("Aplan", `${mode === "week" ? "주간" : "월간"} 계획표 사진으로 채우기`, 'style="width:100%;margin-bottom:10px;background:var(--card)"') : "");
   if (mode === "today") html += dayCard(days.findIndex(d => d.iso === anchor));
   else if (mode === "week") html += gritCard() + days.map((_, i) => dayCard(i)).join("");
   else {
@@ -544,6 +545,7 @@ $("view").addEventListener("keydown", ev => {
 });
 $("view").addEventListener("input", ev => {
   const t = ev.target;
+  if (planDraft && t.dataset.pl) return planInput(t);
   if (repDraft && t.dataset.r) return reportInput(t);
   if (noteDraft && t.dataset.n) { noteDraft[t.dataset.n] = t.value; return; }
   if (t.id === "rsearch") { allQuery = t.value; return renderAllResults(); }
@@ -579,6 +581,7 @@ $("view").addEventListener("input", ev => {
 $("view").addEventListener("click", async ev => {
   const b = ev.target.closest("button[data-act]"); if (!b || saving) return;
   const act = b.dataset.act;
+  if (act.startsWith("A")) return aiClick(b);
   if (act.startsWith("r")) return reportClick(b);
   if (act.startsWith("x")) return examClick(b);
   if (act.startsWith("q")) return placeClick(b);
@@ -773,13 +776,14 @@ function renderReport() {
   const today = todayKST(), w = wday(anchor), ed = !!repDraft;
   const head = `<div class="dhead"><span class="date ${w === 0 ? "sun" : w === 6 ? "sat" : ""}">${mmdd(anchor)} (${WD[w]})</span>
     ${anchor === today ? '<span class="badge">오늘</span>' : ""}<span class="sp"></span>
-    ${ed ? "" : `<button class="pencil" data-act="redit" aria-label="보고서 ${rep.exists ? "수정" : "쓰기"}" title="수정">✏️</button>`}</div>`;
+    ${ed ? "" : `<button class="pencil" data-act="Areport" aria-label="사진으로 보고서 채우기" title="사진으로 채우기">📷</button>
+    <button class="pencil" data-act="redit" aria-label="보고서 ${rep.exists ? "수정" : "쓰기"}" title="수정">✏️</button>`}</div>`;
   const ttSubj = Object.values(school().timetable || {}).flat();
   const dl = `<datalist id="subjects">${[...new Set([...ttSubj, ...SUBJECTS])].map(x => `<option value="${x}">`).join("")}</datalist>`;
   if (!ed) {
     const r = rep.data;
     let body = "";
-    if (!rep.exists) body = `<div class="empty">아직 보고서가 없어요. ✏️을 눌러 ${anchor === today ? "오늘" : "이날"} 한 것을 정리해 보세요. 지난 날짜도 쓸 수 있어요.</div>`;
+    if (!rep.exists) body = `<div class="empty">아직 보고서가 없어요. ✏️을 눌러 ${anchor === today ? "오늘" : "이날"} 한 것을 정리해 보세요. 지난 날짜도 쓸 수 있어요.<br>📷 을 누르면 필기·프린트 사진을 AI가 읽어서 채워 줘요.</div>`;
     else {
       body += `<div class="rsec"><h3>📚 수업 내용</h3>${r.classes.length ? r.classes.map(c => `<div class="subj"><b>${esc(c.subject)}</b><div class="pre">${esc(c.text)}</div></div>`).join("") : '<div class="empty">-</div>'}</div>`;
       for (const [k, title] of RSECS) if (r[k]) body += `<div class="rsec"><h3>${title}</h3>${bullets(r[k])}</div>`;
@@ -795,6 +799,7 @@ function renderReport() {
   }
   const d = repDraft;
   $("view").innerHTML = kindBar() + `<section class="day editing rform">${head}${dl}
+    ${aiBanner("report", "rsave")}${aiBtn("Areport", "사진에서 더 채우기", 'style="width:100%"')}
     <label>📚 수업 내용 <span class="hint">— 과목별로 오늘 배운 것 (안 쓴 과목은 저장 안 돼요)</span></label>
     ${d.classes.map((c, j) => `<div class="sedit" data-j="${j}">
       <input data-r="subject" list="subjects" value="${esc(c.subject)}" placeholder="과목 (예: 수학)">
@@ -840,8 +845,8 @@ async function reportClick(b) {
       ])];
       draft.classes = subj.length ? subj.map(x => ({ subject: x, text: "" })) : [{ subject: "", text: "" }];
     }
-    repDraft = draft;
-  } else if (act === "rcancel") repDraft = null;
+    repDraft = draft; aiNote = null;
+  } else if (act === "rcancel") { repDraft = null; aiNote = null; }
   else if (act === "radd") repDraft.classes.push({ subject: "", text: "" });
   else if (act === "rdel") repDraft.classes.splice(+b.closest(".sedit").dataset.j, 1);
   else if (act === "rsave") return saveReport();
@@ -854,7 +859,7 @@ async function saveReport() {
   saving = true; renderReport();
   try {
     await updateFile(reportPath(anchor), () => text, `앱에서 ${mmdd(anchor)} 보고서 ${rep.exists ? "수정" : "작성"}`);
-    rep = { exists: true, data: parseReport(text) }; reportSet.add(anchor); repDraft = null;
+    rep = { exists: true, data: parseReport(text) }; reportSet.add(anchor); repDraft = null; aiNote = null;
     toast("보고서 저장됨 ✓", 2500);
   } catch (e) { saving = false; renderReport(); showError(e, true); return; }
   saving = false; renderReport();
@@ -925,6 +930,7 @@ function noteForm(d) {
   const ttSubj = Object.values(school().timetable || {}).flat();
   return `<section class="day editing rform">
     <div class="dhead"><span class="date">${d.id ? "✏️ 보고서 수정" : "📝 새 보고서"}</span></div>
+    ${aiBanner("note", "rnsave")}${aiBtn("Anote", "사진에서 채우기", 'style="width:100%"')}
     <datalist id="subjects">${[...new Set([...ttSubj, ...SUBJECTS])].map(x => `<option value="${x}">`).join("")}</datalist>
     <label>제목</label><input data-n="title" value="${esc(d.title)}" placeholder="예) 이차함수 정리, 임진왜란 흐름">
     <label>과목 <span class="hint">— 선택</span></label><input data-n="subject" list="subjects" value="${esc(d.subject)}" placeholder="예) 수학">
@@ -952,7 +958,8 @@ function renderNotes() {
         ${NSECS.map(([k, title]) => d[k] ? `<div class="rsec"><h3>${title}</h3>${bullets(d[k])}</div>` : "").join("")}
       </section>`;
   } else {
-    html += `<button class="add" data-act="rnnew" style="width:100%;margin-bottom:10px;background:var(--card)">+ 새 자유 보고서</button>`;
+    html += `<div style="display:flex;gap:8px;margin-bottom:10px"><button class="add" data-act="rnnew" style="flex:1;background:var(--card)">+ 새 자유 보고서</button>
+      ${aiBtn("Anote", "사진으로 쓰기", 'style="flex:1;background:var(--card)"')}</div>`;
     html += notes.length ? notes.map(n => {
       const preview = (n.data.body || n.data.important || n.data.memorize || "").split("\n")[0];
       return `<button class="day notecard" data-act="rnopen" data-id="${n.id}">
@@ -964,6 +971,7 @@ function renderNotes() {
 }
 async function noteClick(b) {
   const act = b.dataset.act;
+  if (act === "rnnew" || act === "rnedit" || act === "rncancel") aiNote = null;
   if (act === "rnnew") noteDraft = emptyNote();
   else if (act === "rnopen") noteOpen = b.dataset.id;
   else if (act === "rnback") noteOpen = null;
@@ -984,7 +992,7 @@ async function saveNote() {
     await updateFile(path, () => text, `앱에서 자유 보고서 ${d.id ? "수정" : "작성"}: ${(d.title || "").trim() || "제목 없음"}`);
     const item = { id, path, data: parseNote(text) };
     notes = [item, ...notes.filter(x => x.id !== id)].sort((a, b) => b.id.localeCompare(a.id));
-    noteDraft = null; noteOpen = id; toast("보고서 저장됨 ✓");
+    noteDraft = null; noteOpen = id; aiNote = null; toast("보고서 저장됨 ✓");
   } catch (e) { saving = false; renderNotes(); showError(e, true); return; }
   saving = false; renderNotes();
 }
@@ -1001,6 +1009,282 @@ async function deleteNote() {
   saving = false; renderNotes();
 }
 
+
+/* ---------- 📷 사진으로 채우기 (AI) ----------
+   시험 범위표·수업 필기·계획표 사진을 찍으면 Supabase Edge Function(ai-scan)이 Claude 로 읽어서
+   앱 형식(JSON)으로 돌려줘요 → 원래 입력 칸에 채워 넣고, 사람이 고치거나 💾 그대로 저장.
+   서버 쪽: supabase/functions/ai-scan/index.ts, 설정: SUPABASE_SETUP.md "📷 사진으로 채우기" */
+let aiBusy = false;
+let aiNote = null;     // "report" | "note" | "exam" — AI 가 채운 입력 칸 위에 안내 띠
+let planDraft = null;  // 계획표 사진 → 확인·수정 칸 { merge, grit, must, goal, memo, days:[{iso, ev, tk}] }
+const AI_MAX = 4, AI_PX = 1800;
+const aiBtn = (act, label, extra = "") => `<button class="add aiscan" data-act="${act}" ${extra}>📷 ${label}</button>`;
+const aiBanner = (k, saveAct) => aiNote === k ? `<div class="aibanner"><span>📷 AI가 사진에서 읽어 채웠어요. 틀린 곳은 고쳐서 저장하거나, 그대로 저장해도 돼요.</span>
+  <button class="btn" data-act="${saveAct}" ${saving ? "disabled" : ""}>💾 그대로 저장</button></div>` : "";
+function pickPhotos() {
+  return new Promise(ok => {
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = "image/*"; inp.multiple = true;   // 휴대폰: 카메라로 찍기 / 앨범에서 고르기
+    inp.addEventListener("change", () => ok([...(inp.files || [])]));
+    inp.addEventListener("cancel", () => ok([]));
+    inp.click();
+  });
+}
+async function shrinkImage(file) {   // 긴 쪽 1800px JPEG 로 줄여서 보내요 (빠르고, 글씨는 충분히 보여요)
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error("이 사진은 열 수 없어요 (" + (file.type || file.name) + "). JPG·PNG 로 다시 골라 주세요.")); i.src = url; });
+    const s = Math.min(1, AI_PX / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(img.naturalWidth * s)); c.height = Math.max(1, Math.round(img.naturalHeight * s));
+    const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+    return { media_type: "image/jpeg", data: c.toDataURL("image/jpeg", 0.85).split(",")[1] };
+  } finally { URL.revokeObjectURL(url); }
+}
+function aiWait(on, n) {
+  let el = $("aiwait");
+  if (!on) { if (el) el.remove(); return; }
+  if (!el) { el = document.createElement("div"); el.id = "aiwait"; el.setAttribute("role", "status"); el.setAttribute("aria-live", "polite"); document.body.append(el); }
+  el.innerHTML = `<div class="aiw"><div class="spin"></div><b>📷 AI가 사진 ${n}장을 읽고 있어요…</b><span>보통 10~40초 걸려요. 화면을 닫지 마세요.</span></div>`;
+}
+async function aiScan(kind, context) {
+  if (!SB || !sbUser) { toast("📷 사진 인식은 로그인해야 쓸 수 있어요", 3500); return null; }
+  const all = await pickPhotos();
+  if (!all.length) return null;
+  const pics = all.filter(f => /^image\//.test(f.type) || !f.type).slice(0, AI_MAX);
+  if (!pics.length) { toast("사진 파일을 골라 주세요"); return null; }
+  if (all.length > AI_MAX) toast(`사진은 한 번에 ${AI_MAX}장까지예요. 앞의 ${AI_MAX}장만 읽어요.`, 3500);
+  aiBusy = true; aiWait(true, pics.length);
+  try {
+    const images = [];
+    for (const f of pics) images.push(await shrinkImage(f));
+    const { data, error } = await SB.functions.invoke("ai-scan", { body: { kind, images, context } });
+    if (error) {
+      let msg = "", status = error.context && error.context.status;
+      try { msg = (await error.context.json()).error || ""; } catch (e) { /* 본문 없음 */ }
+      if (!msg && (status === 404 || /Failed to send|fetch/i.test(error.message || "")))
+        msg = "사진 인식 서버가 아직 준비 안 됐어요. SUPABASE_SETUP.md 의 \"📷 사진으로 채우기\" 설정을 한 번 해 주세요.";
+      throw new Error(msg || error.message || "사진 인식 실패");
+    }
+    if (!data || !data.result) throw new Error("AI 결과가 비어 있어요. 다시 해 주세요.");
+    return data.result;
+  } catch (e) {
+    console.error(e); toast("⚠️ " + (e.message || e), 6000); return null;
+  } finally { aiBusy = false; aiWait(false); }
+}
+const aiStr = v => typeof v === "string" ? v.trim() : "";
+const aiDate = v => /^\d{4}-\d{2}-\d{2}$/.test(aiStr(v)) && !isNaN(D(aiStr(v))) ? aiStr(v) : "";
+const aiTime = v => { const m = aiStr(v).match(/^(\d{1,2}):(\d{2})$/); return m && +m[1] < 24 && +m[2] < 60 ? pad(+m[1]) + ":" + m[2] : ""; };
+function addLines(a, b) {   // 원래 내용 뒤에, 없던 줄만 더하기
+  const have = new Set((a || "").split("\n").map(s => s.trim()).filter(Boolean));
+  const add = (b || "").split("\n").map(s => s.trim()).filter(s => s && !have.has(s) && have.add(s));
+  return [(a || "").trim(), ...add].filter(Boolean).join("\n");
+}
+const addBlock = (a, b) => [(a || "").trim(), (b || "").trim()].filter(Boolean).join("\n\n");
+const aiSubjects = () => [...new Set([...Object.values(school().timetable || {}).flat(), ...((tbInfo().textbooks || {})[tbInfo().grade] || []).map(t => t.subject)])].filter(Boolean);
+
+// 날짜별 보고서
+function reportFromAi(r, d) {
+  for (const c of r.classes || []) {
+    const subject = aiStr(c.subject), text = aiStr(c.text);
+    if (!text) continue;
+    const same = d.classes.find(x => subject && subjKey(x.subject) === subjKey(subject)) || (!subject && d.classes.find(x => !x.subject && !x.text));
+    if (same) same.text = addBlock(same.text, text);
+    else d.classes.push({ subject, text });
+  }
+  if (d.classes.length > 1) d.classes = d.classes.filter(c => c.subject || c.text);
+  if (!d.classes.length) d.classes = [{ subject: "", text: "" }];
+  for (const [k] of RSECS) d[k] = addLines(d[k], aiStr(r[k]));
+  return d;
+}
+// 자유 보고서
+function noteFromAi(r, d) {
+  d.title ||= aiStr(r.title); d.subject ||= aiStr(r.subject);
+  d.body = addBlock(d.body, aiStr(r.body));
+  for (const [k] of NSECS) d[k] = addLines(d[k], aiStr(r[k]));
+  return d;
+}
+// 시험 범위 (진도는 0% 로 시작)
+function examFromAi(r, d) {
+  const blank = () => ({ text: "", progress: 0, memo: "" });
+  const R = rs => (Array.isArray(rs) ? rs : []).map(x => aiStr(x && x.text)).filter(Boolean);
+  const addR = (list, rs) => { const out = (list || []).filter(x => (x.text || "").trim()); R(rs).forEach(t => { if (!out.some(x => x.text.trim() === t)) out.push({ text: t, progress: 0, memo: "" }); }); return out.length ? out : [blank()]; };
+  const perfAi = r.kind === "수행";
+  d ||= { kind: perfAi ? "수행" : "정기", subject: "", name: "", date: "", end: "", subjects: [], ranges: [], memo: "" };
+  d.subjects ||= []; d.ranges ||= [];
+  d.name ||= aiStr(r.name); d.date ||= aiDate(r.date); d.end ||= aiDate(r.end); d.memo = addLines(d.memo, aiStr(r.memo));
+  if (d.kind === "수행") {
+    d.subject ||= aiStr(r.subject) || aiStr((r.subjects || [])[0] && r.subjects[0].subject);
+    d.ranges = addR(d.ranges, perfAi ? r.ranges : [...(r.ranges || []), ...(r.subjects || []).flatMap(v => v.ranges || [])]);
+  } else {
+    const subs = perfAi ? [{ subject: r.subject, date: r.date, ranges: r.ranges }] : r.subjects || [];
+    d.subjects = d.subjects.filter(v => v.subject || v.date || (v.ranges || []).some(x => x.text));
+    for (const s of subs) {
+      const name = aiStr(s.subject);
+      let v = name && d.subjects.find(x => subjKey(x.subject) === subjKey(name));
+      if (!v) { v = { subject: name, date: "", ranges: [] }; d.subjects.push(v); }
+      v.date ||= aiDate(s.date); v.ranges = addR(v.ranges, s.ranges);
+    }
+    if (!d.subjects.length) d.subjects = [{ subject: "", date: "", ranges: [blank()] }];
+  }
+  return d;
+}
+// 계획표 (주간·월간) → 확인 칸
+function planFromAi(r) {
+  const inView = new Set(viewDays()), byDay = new Map();
+  for (const x of r.days || []) {
+    const iso = aiDate(x.date); if (!inView.has(iso)) continue;
+    const cur = byDay.get(iso) || { iso, ev: [], tk: [] };
+    for (const e of x.events || []) {
+      const title = cleanText(aiStr(e.title)), s = aiTime(e.start), en = aiTime(e.end);
+      if (!title) continue;
+      if (s) cur.ev.push(`${en && en > s ? s + "~" + en : s} ${title}`); else cur.tk.push(title);
+    }
+    for (const t of x.tasks || []) { const v = aiStr(t).replace(/[,|]/g, "·"); if (v) cur.tk.push(v); }
+    byDay.set(iso, cur);
+  }
+  const days = [...byDay.values()].filter(d => d.ev.length || d.tk.length).sort((a, b) => a.iso.localeCompare(b.iso))
+    .map(d => ({ iso: d.iso, ev: d.ev.join("\n"), tk: d.tk.join("\n") }));
+  const list = a => (Array.isArray(a) ? a : []).map(aiStr).filter(Boolean).join("\n");
+  return {
+    merge: true, days,
+    grit: (r.grit || []).map(g => ({ subject: aiStr(g.subject), content: aiStr(g.content), day: aiStr(g.day) })).filter(g => g.subject || g.content),
+    must: list(r.must), goal: list(r.goal), memo: list(r.memo),
+  };
+}
+function planPanel() {
+  const p = planDraft, month = mode === "month";
+  const ta = (k, v, ph) => `<textarea class="sbox" data-pl="${k}" placeholder="${ph}">${esc(v)}</textarea>`;
+  return `<section class="day editing rform plan-ai">
+    <div class="dhead"><span class="date">📷 사진에서 읽은 ${month ? "월간" : "주간"} 계획</span></div>
+    <div class="aibanner"><span>AI가 읽은 내용이에요. 틀린 곳은 고치고 저장하거나, 그대로 💾 저장해도 돼요.</span></div>
+    <div class="kindbar">
+      <button data-act="Apmerge" data-v="1" class="${p.merge ? "on" : ""}">➕ 원래 계획에 더하기</button>
+      <button data-act="Apmerge" data-v="0" class="${p.merge ? "" : "on"}">🔁 사진 내용으로 바꾸기</button></div>
+    ${month ? `<label>🎯 이달의 목표 <span class="hint">— 한 줄에 하나</span></label>${ta("goal", p.goal, "사진에 목표가 없으면 비워 두세요")}
+      <label>🗒️ MEMO</label>${ta("memo", p.memo, "한 줄에 하나")}`
+    : `<label>💪 GRIT <span class="hint">— 과목별 이번 주 목표</span></label>
+      ${p.grit.map((g, k) => `<div class="grow" data-k="${k}">
+        <input data-pl="g" data-gk="subject" value="${esc(g.subject)}" placeholder="과목">
+        <input data-pl="g" data-gk="content" value="${esc(g.content)}" placeholder="내용">
+        <input data-pl="g" data-gk="day" value="${esc(g.day)}" placeholder="요일">
+        <button class="del" data-act="Apgdel" aria-label="삭제">×</button></div>`).join("")}
+      <button class="add" data-act="Apgadd">+ 과목 추가</button>
+      <label>✅ MUST DO <span class="hint">— 한 줄에 하나</span></label>${ta("must", p.must, "이번 주 꼭 할 것")}`}
+    <label>📅 날짜별 <span class="hint">— 일정은 "19:00~21:00 학원"처럼 시간 먼저, 할 일은 그냥 한 줄에 하나</span></label>
+    ${p.days.length ? p.days.map((d, k) => `<div class="pday" data-k="${k}">
+      <div class="lbl"><b class="${dateCls(d.iso)}">${mmdd(d.iso)} (${WD[wday(d.iso)]})</b><span class="sp"></span><button class="del" data-act="Apddel" aria-label="이날 빼기">×</button></div>
+      <textarea data-pl="ev" placeholder="⏰ 시간 일정 (예: 19:00~21:00 수학 학원)">${esc(d.ev)}</textarea>
+      <textarea data-pl="tk" placeholder="☑️ 할 일·메모 (예: 쎈 p.30~35)">${esc(d.tk)}</textarea></div>`).join("")
+      : '<div class="empty">날짜별 일정은 사진에서 못 찾았어요.</div>'}
+    <div class="actions" style="margin-top:12px">
+      <button class="btn ghost" data-act="Apcancel" ${saving ? "disabled" : ""}>취소</button>
+      <button class="btn" data-act="Apsave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : "💾 저장"}</button></div></section>`;
+}
+function planInput(t) {
+  const k = t.dataset.pl, p = planDraft;
+  if (k === "ev" || k === "tk") p.days[+t.closest(".pday").dataset.k][k] = t.value;
+  else if (k === "g") p.grit[+t.closest(".grow").dataset.k][t.dataset.gk] = t.value;
+  else p[k] = t.value;
+}
+function planLines(ev, tk) {
+  const events = [], tasks = [];
+  for (const l of (ev || "").split("\n").map(s => s.trim()).filter(Boolean)) {
+    const m = l.match(/^(\d{1,2}):(\d{2})(?:\s*[~\-]\s*(\d{1,2}):(\d{2}))?\s+(.+)$/);
+    if (m && +m[1] < 24 && +m[2] < 60) events.push({ start: pad(+m[1]) + ":" + m[2], end: m[3] && +m[3] < 24 ? pad(+m[3]) + ":" + m[4] : "", title: m[5], remind: null });
+    else tasks.push(l);
+  }
+  tasks.push(...(tk || "").split("\n").map(s => s.trim()).filter(Boolean));
+  return { events, tasks };
+}
+async function savePlan() {
+  const p = planDraft, rows = {}, changed = {};
+  for (const d of p.days) {
+    const cur = days.find(x => x.iso === d.iso); if (!cur) continue;
+    const { events, tasks } = planLines(d.ev, d.tk);
+    let ev, memos;
+    if (p.merge) {
+      ev = [...cur.day.events];
+      for (const e of events) if (!ev.some(x => x.start === e.start && x.title === cleanText(e.title))) ev.push(e);
+      memos = [...cur.day.memos];
+      for (const t of tasks) if (!memos.some(m => taskText(m) === taskText(cleanText(t)))) memos.push(t);
+    } else { ev = events; memos = [...cur.day.memos.filter(isSys), ...tasks]; }
+    const day = clean({ events: ev, memos });
+    if (fileExists && formatRow(d.iso, day) === formatRow(d.iso, cur.day)) continue;
+    rows[d.iso] = formatRow(d.iso, day); changed[d.iso] = day;
+  }
+  const merge = (old, add) => p.merge ? [...old, ...add.filter(x => !old.includes(x))] : add.length ? add : old;
+  const lines = t => t.split("\n").map(x => x.trim().replace(/^[-*•]\s*/, "")).filter(Boolean);
+  const cell = t => (t || "").replace(/\|/g, "/").trim();
+  saving = true; render();
+  try {
+    await updateFile(viewPath(), text => {
+      let t = text ? replaceRows(text, viewRef(), rows) : newTable(viewTitle(), viewDays(), allRows(rows));
+      const list = (name, v) => { const add = lines(v); if (add.length) t = setSection(t, name, merge(listOf(t, name), add).map(x => "- " + x.replace(/^#/, "＃"))); };
+      if (mode === "month") { list(SEC.goal, p.goal); list(SEC.memo, p.memo); }
+      else {
+        const add = p.grit.filter(g => g.subject.trim() || g.content.trim());
+        if (add.length) {
+          const old = gritOf(t), key = g => subjKey(g.subject) + "|" + subjKey(g.content);
+          const rowsG = p.merge ? [...old, ...add.filter(g => !old.some(o => key(o) === key(g)))] : add;
+          t = setSection(t, SEC.grit, ["| 과목 | 내용 | 요일 |", "|---|---|---|", ...rowsG.map(r => `| ${cell(r.subject)} | ${cell(r.content)} | ${cell(r.day)} |`)]);
+        }
+        list(SEC.must, p.must);
+      }
+      return t;
+    }, "앱에서 사진으로 계획 채우기");
+    // 반대쪽 표(주간↔월간)가 이미 있으면 같은 날짜도 맞춰 둬요 (saveDay 와 같은 규칙)
+    const others = new Map();
+    for (const iso of Object.keys(rows)) {
+      const path = weekish() ? monthPath(iso) : weekPath(iso), ref = weekish() ? monthFirst(iso) : weekStart(iso);
+      if (!others.has(path)) others.set(path, { ref, rows: {} });
+      others.get(path).rows[iso] = rows[iso];
+    }
+    for (const [path, o] of others) if (await getFile(path, true)) await updateFile(path, text => replaceRows(text, o.ref, o.rows), "앱에서 사진으로 계획 채우기");
+    for (const x of days) if (changed[x.iso]) x.day = changed[x.iso];
+    fileExists = true; viewText = files.get(viewPath()).text; planDraft = null;
+    toast(`저장됨 ✓ ${Object.keys(rows).length}일 계획을 채웠어요`, 3500);
+  } catch (e) { saving = false; render(); showError(e, true); return; }
+  saving = false; render();
+}
+async function aiClick(b) {
+  const act = b.dataset.act;
+  if (act === "Apcancel") { planDraft = null; return render(); }
+  if (act === "Apsave") return savePlan();
+  if (act === "Apmerge") { planDraft.merge = b.dataset.v === "1"; return render(); }
+  if (act === "Apgadd") { planDraft.grit.push({ subject: "", content: "", day: "" }); return render(); }
+  if (act === "Apgdel") { planDraft.grit.splice(+b.closest(".grow").dataset.k, 1); return render(); }
+  if (act === "Apddel") { planDraft.days.splice(+b.closest(".pday").dataset.k, 1); return render(); }
+  if (aiBusy) return;
+  const t = todayKST();
+  if (act === "Areport") {
+    const r = await aiScan("report", { today: t, date: anchor, subjects: [...new Set([...classesOf(anchor), ...aiSubjects()])] });
+    if (!r || mode !== "report" || reportKind !== "date") return;
+    repDraft = reportFromAi(r, repDraft || structuredClone(rep.data)); aiNote = "report";
+    renderReport(); return window.scrollTo({ top: 0 });
+  }
+  if (act === "Anote") {
+    const r = await aiScan("note", { today: t, subjects: aiSubjects() });
+    if (!r || mode !== "report" || reportKind !== "free") return;
+    noteDraft = noteFromAi(r, noteDraft || emptyNote()); aiNote = "note";
+    renderNotes(); return window.scrollTo({ top: 0 });
+  }
+  if (act === "Aexam") {
+    const r = await aiScan("exam", { today: t, subjects: aiSubjects() });
+    if (!r || mode !== "exam") return;
+    examDraft = examFromAi(r, examDraft); aiNote = "exam"; examCands = null;
+    renderExams(); return window.scrollTo({ top: 0 });
+  }
+  if (act === "Aplan") {
+    if (!leaveOk()) return;
+    const vd = viewDays();
+    const r = await aiScan("plan", { today: t, view: mode === "month" ? "month" : "week", from: vd[0], to: vd[vd.length - 1], subjects: aiSubjects() });
+    if (!r || !(mode === "week" || mode === "month")) return;
+    editing = null; secEdit = null; planDraft = planFromAi(r);
+    if (!planDraft.days.length && !planDraft.grit.length && !planDraft.must && !planDraft.goal && !planDraft.memo) { planDraft = null; return toast("사진에서 계획을 찾지 못했어요. 더 밝고 가깝게 찍어 보세요.", 4000); }
+    render(); return window.scrollTo({ top: 0 });
+  }
+}
 
 /* ---------- 과목 묶음 (공수2·수학 → 수학 등) ---------- */
 const SUBJECT_GROUPS = [
@@ -1323,6 +1607,7 @@ function examForm(d) {
   const perf = d.kind === "수행";
   return `<section class="day editing rform">
     <div class="dhead"><span class="date">${d.id ? "✏️ 시험 수정" : "📝 새 시험"}</span></div>
+    ${aiBanner("exam", "xsave")}${aiBtn("Aexam", "시험 범위표 사진에서 채우기", 'style="width:100%"')}
     <datalist id="subjects">${subj.map(x => `<option value="${esc(x)}">`).join("")}</datalist>
     <label>종류</label><select data-x="kind"><option value="정기" ${!perf ? "selected" : ""}>정기시험</option><option value="수행" ${perf ? "selected" : ""}>수행평가</option></select>
     ${perf ? `
@@ -1365,6 +1650,7 @@ function renderExams() {
     <div style="display:flex;gap:8px;margin-bottom:10px">
       <button class="add" data-act="xnew" style="flex:1;background:var(--card)">+ 시험 추가</button>
       <button class="add" data-act="xscan" style="flex:1;background:var(--card)">📥 계획에서 시험 찾기</button></div>
+    ${aiBtn("Aexam", "시험 범위표·수행평가 안내 사진으로 추가", 'style="width:100%;margin-bottom:10px;background:var(--card)"')}
     ${examCands ? candPanel() : ""}
     ${up.length ? up.map(examCard).join("") : '<div class="day"><div class="empty">다가오는 시험이 없어요. + 시험 추가로 정기시험에 보는 과목과 과목별 범위를 적어 보세요. (예: 2차 정기시험 12/9~12/15)</div></div>'}
     ${past.length ? `<button class="btn ghost" data-act="xpast" style="width:100%;margin:6px 0 10px">${examOpenPast ? "▲ 지난 시험 접기" : `▼ 지난 시험 ${past.length}개`}</button>${examOpenPast ? past.map(examCard).join("") : ""}` : ""}`;
@@ -1476,6 +1762,7 @@ async function examClick(b) {
   if (act === "xpast") { examOpenPast = !examOpenPast; return renderExams(); }
   const sub = b.closest(".xsub"), rangesOf = () => sub ? examDraft.subjects[+sub.dataset.s].ranges : examDraft.ranges;
   const blankRange = () => ({ text: "", progress: 0, memo: "" });
+  if (act === "xnew" || act === "xedit" || act === "xcancel") aiNote = null;
   if (act === "xnew") { if (!leaveOk()) return; examDraft = { kind: examFilter === "수행" ? "수행" : "정기", subject: "", name: "", date: "", end: "", subjects: [{ subject: "", date: "", ranges: [blankRange()] }], ranges: [blankRange()], memo: "" }; }
   else if (act === "xedit") {
     if (!leaveOk()) return; const id = b.closest("[data-id]").dataset.id;
@@ -1522,7 +1809,7 @@ async function saveExam(remove) {
       data.exams.sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
       return JSON.stringify(data, null, 2) + "\n";
     }, `앱에서 시험 ${remove ? "삭제" : d.id ? "수정" : "추가"}: ${clean.subject || ""} ${clean.name}`.replace(/\s+/g, " ").trim());
-    setExamData(files.get(EXAM_PATH).text); examDraft = null; toast(remove ? "지웠어요" : "저장됨 ✓");
+    setExamData(files.get(EXAM_PATH).text); examDraft = null; aiNote = null; toast(remove ? "지웠어요" : "저장됨 ✓");
   } catch (e) { saving = false; renderExams(); showError(e, true); return; }
   saving = false; renderExams();
 }
