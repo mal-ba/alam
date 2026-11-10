@@ -1317,11 +1317,13 @@ function loadScript(src, integrity) {
     document.head.append(s);
   });
 }
+// [글자 줄 높이(px), 배치 방식]: 3 = 자동(줄 공책·두 단), 4 = 한 단 세로, 6 = 한 덩어리(깨끗한 인쇄물)
+const OCR_PASSES = [[30, "3"], [37, "3"], [46, "3"], [37, "6"]];
 async function ocrImages(images, onProg) {
   if (!window.Tesseract) await loadScript(TESS + "tesseract.min.js", TESS_SRI);
   const step = { "loading tesseract core": "도구 준비", "initializing tesseract": "도구 준비", "loading language traineddata": "한글 데이터 받는 중", "initializing api": "도구 준비", "recognizing text": "글자 읽는 중" };
   let page = 0, pass = 0;
-  const logger = m => { if (step[m.status]) onProg(`${step[m.status]}${m.status === "recognizing text" ? ` — ${images.length > 1 ? `사진 ${page + 1}/${images.length}, ` : ""}${pass}/4번째 읽기` : ""} ${Math.round((m.progress || 0) * 100)}%`); };
+  const logger = m => { if (step[m.status]) onProg(`${step[m.status]}${m.status === "recognizing text" ? ` — ${images.length > 1 ? `사진 ${page + 1}/${images.length}, ` : ""}${pass}/${OCR_PASSES.length}번째 읽기` : ""} ${Math.round((m.progress || 0) * 100)}%`); };
   if (!ocrWorker) {
     ocrWorker = await Tesseract.createWorker(["kor", "eng"], 1, { workerPath: TESS + "worker.min.js", corePath: TESS_CORE, logger: m => ocrWorker && ocrWorker._log ? ocrWorker._log(m) : logger(m) });
     await ocrWorker.setParameters({ preserve_interword_spaces: "1", tessedit_pageseg_mode: "3" });   // 3 = 줄·문단 자동 (기본 6 은 공책 사진에서 많이 틀려요)
@@ -1331,16 +1333,16 @@ async function ocrImages(images, onProg) {
   for (; page < images.length; page++) {
     // 1) 다듬기(그림자·종이색 없애기)  2) 글자 줄 높이에 맞춰 크기를 3가지로 바꿔 읽고  3) 가장 자신 있는 결과
     const im = images[page], base = await ocrPrep(im.src || im.data, { long: 2400, noUp: true });
-    const lh = base.lineH, sizes = lh ? [30, 37, 46].map(t => t / lh) : [1600, 1200, 2000].map(L => L / Math.max(base.width, base.height));
+    const lh = base.lineH, kOf = t => lh ? t / lh : t * 1600 / 37 / Math.max(base.width, base.height);   // 글자 줄 높이 t px 가 되게
     const tries = []; pass = 0;
     // 줄 공책·손글씨는 '자동 배치'(3), 깨끗한 인쇄물은 '한 덩어리'(6) 가 잘 읽혀요 → 둘 다 읽어 보고 고르기
-    for (const [k, psm] of [...sizes.map(k => [k, "3"]), [sizes[1], "6"]]) {
+    for (const [t, psm] of (window.__passes || OCR_PASSES)) {
       await ocrWorker.setParameters({ tessedit_pageseg_mode: psm }); pass++;
-      const sc = Math.min(k, 3200 / Math.max(base.width, base.height));
+      const sc = Math.min(kOf(t), 3200 / Math.max(base.width, base.height));
       const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(base.width * sc)); c.height = Math.max(1, Math.round(base.height * sc));
       const g = c.getContext("2d"); g.imageSmoothingQuality = "high"; g.drawImage(base, 0, 0, c.width, c.height);
       const d = (await ocrWorker.recognize(c, {}, { text: true, blocks: true })).data;
-      const lines = (d.blocks || []).flatMap(b => b.paragraphs.flatMap(p => p.lines)).map(l => ({ text: l.text.replace(/([^가-힣\s])\1{4,}/g, " ").replace(/(?:[\d_\-—=.,'"^~]\s?){8,}/g, " ").replace(/\s{2,}/g, " ").trim(), conf: l.confidence, y: (l.bbox.y0 + l.bbox.y1) / 2 / sc, n: tries.length }));
+      const lines = (d.blocks || []).flatMap(b => b.paragraphs.flatMap(p => p.lines)).map(l => ({ text: l.text.replace(/([^가-힣\s])\1{4,}/g, " ").replace(/(?:[\d_\-—=.,'"^~]\s?){8,}/g, " ").replace(/\s{2,}/g, " ").trim(), conf: l.confidence, y: (l.bbox.y0 + l.bbox.y1) / 2 / sc, x0: l.bbox.x0 / sc, x1: l.bbox.x1 / sc, n: tries.length }));
       tries.push(lines.filter(l => /[가-힣A-Za-z0-9]/.test(l.text)));
     }
     await ocrWorker.setParameters({ tessedit_pageseg_mode: "3" });
@@ -1348,32 +1350,46 @@ async function ocrImages(images, onProg) {
   }
   return out.map(ocrWords).join("\n");
 }
-// 여러 크기로 읽은 결과를 줄마다 맞춰 보고, 줄마다 가장 자신 있게 읽은 것을 골라요
+// 여러 번 읽은 결과 합치기: 가장 잘 읽힌 결과를 뼈대로, 줄마다 더 자신 있게 읽은 것으로 바꾸고,
+// 뼈대가 놓친 줄(두 단 편집에서 자주 생겨요)은 다른 결과에서 가져와 같은 단의 알맞은 자리에 끼워요
 function ocrVote(tries, lh) {
-  const score = ls => ls.reduce((a, l) => a + (l.conf / 100) ** 2 * l.text.replace(/\s/g, "").length, 0);
-  const best0 = [...tries].sort((a, b) => score(b) - score(a))[0] || [];
   const size = t => t.replace(/\s/g, "").length;
-  // 같은 높이에 붙은 조각("x" + 진짜 줄)은 긴 쪽만
-  const anchor = best0.filter(l => !best0.some(o => o !== l && Math.abs(o.y - l.y) < lh * 0.35 && size(o.text) > size(l.text)));
+  const score = ls => ls.reduce((a, l) => a + (l.conf / 100) ** 2 * size(l.text), 0);
+  const best0 = [...tries].sort((a, b) => score(b) - score(a))[0] || [];
+  const xo = (a, b) => (Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0)) / Math.max(1, Math.min(a.x1 - a.x0, b.x1 - b.x0));   // 가로로 겹치는 정도
+  const same = (a, b, k = 0.6) => Math.abs(a.y - b.y) < lh * k && xo(a, b) > 0.3;
   const chars = t => new Set(t.replace(/\s/g, ""));
   const cover = (a, b) => { const A = chars(a), B = chars(b); let n = 0; A.forEach(c => B.has(c) && n++); return n / Math.max(1, A.size); };
   const sim = (a, b) => { const A = chars(a), B = chars(b); let n = 0; A.forEach(c => B.has(c) && n++); return n / Math.max(1, Math.max(A.size, B.size)); };
-  // 한글을 영어 얼룩으로 읽은 짧은 줄 (예: 수학 → "ASF"): 다른 크기에서 같은 자리를 한글로 읽었으면 그걸로
+  // 같은 자리에 붙은 조각("x" + 진짜 줄)은 긴 쪽만
+  const anchor = best0.filter(l => !best0.some(o => o !== l && same(o, l, 0.35) && size(o.text) > size(l.text)));
+  // 한글을 영어 얼룩으로 읽은 짧은 줄 (예: 수학 → "ASF"): 다른 결과가 같은 자리를 한글로 읽었으면 그걸로
   const junkLatin = t => !/[가-힣\d]/.test(t) && /[A-Za-z].*[A-Za-z]/.test(t) && t.replace(/[^A-Za-z]/g, "").length <= 5 && !/^(must|do|grit|memo|todo|test|quiz|unit|day)\b/i.test(t.trim());
-  const picked = anchor.filter(l => l.conf >= 45 || l.text.replace(/\s/g, "").length > 3).map(l => {
+  const rows = anchor.filter(l => l.conf >= 45 || size(l.text) > 3).map(l => {
     let best = l;
     for (const t of tries) {
-      if (t === anchor) continue;
-      const near = t.filter(x => Math.abs(x.y - l.y) < lh * 0.8).sort((a, b) => Math.abs(a.y - l.y) - Math.abs(b.y - l.y));
+      if (t === best0) continue;
+      const near = t.filter(x => same(x, l, 0.8)).sort((a, b) => Math.abs(a.y - l.y) - Math.abs(b.y - l.y));
       const m = near.find(x => sim(x.text, l.text) >= 0.3);
       if (m && m.conf > best.conf + 3) best = m;
       const h = near.find(x => Math.abs(x.y - l.y) < lh * 0.35 && /[가-힣]/.test(x.text) && x.conf >= 30);
       if (junkLatin(best.text) && h) best = h;
     }
-    return best.text.trim();
-  }).filter(t => t.replace(/[^가-힣A-Za-z0-9]/g, "").length >= 2 || /^\d$/.test(t));   // 한 글자 얼룩("프", "x") 빼기
+    return { ...l, text: best.text.trim() };
+  });
+  // 뼈대가 놓친 줄 끼우기
+  for (const t of tries) {
+    if (t === best0) continue;
+    for (const x of t) {
+      if (x.conf < 65 || size(x.text) < 3 || rows.some(r => same(r, x, 0.7))) continue;
+      const above = rows.map((r, i) => [r, i]).filter(([r]) => r.y < x.y && xo(r, x) > 0.2).sort((a, b) => b[0].y - a[0].y)[0];
+      const at = above ? above[1] + 1 : rows.findIndex(r => r.y > x.y && xo(r, x) > 0.2);
+      rows.splice(at < 0 ? rows.length : at, 0, { ...x, text: x.text.trim() });
+    }
+  }
+  const picked = rows.map(r => r.text).filter(t => t.replace(/[^가-힣A-Za-z0-9]/g, "").length >= 2 || /^\d$/.test(t));   // 한 글자 얼룩("프", "x") 빼기
   // 같은 줄이 둘로 나뉘어 읽힌 것("2학기 기 말고" + "2학기 기말고사 12/9") → 짧은 쪽 빼기
-  return picked.filter((t, i) => !picked.some((u, j) => j !== i && Math.abs(i - j) === 1 && u.replace(/\s/g, "").length > t.replace(/\s/g, "").length && cover(t, u) >= 0.75)).join("\n");
+  return picked.filter((t, i) => !picked.some((u, j) => j !== i && Math.abs(i - j) === 1 && size(u) > size(t) && cover(t, u) >= 0.75)).join("\n");
 }
 // 자주 나오는 공부 낱말은 한 글자 틀려도 고쳐요 (3글자 이상만: "준비믈" → 준비물). 짧은 낱말은 다른 말일 수 있어 그대로
 const OCR_WORDS = ["준비물", "수행평가", "프린트", "학습지", "교과서", "문제집", "기말고사", "중간고사", "독서실", "부교재", "워크북", "관계대명사", "꼭짓점", "방정식", "함수", "단원평가", "모의고사", "복습하기", "예습하기", "외우기", "풀어오기", "제출하기", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
@@ -1394,16 +1410,27 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
   const g = c.getContext("2d", { willReadFrequently: true });
   g.imageSmoothingQuality = "high"; g.drawImage(img, 0, 0, W, H);
   const id = g.getImageData(0, 0, W, H), px = id.data, N = W * H, gray = new Float32Array(N);
-  for (let i = 0; i < N; i++) gray[i] = 0.299 * px[i * 4] + 0.587 * px[i * 4 + 1] + 0.114 * px[i * 4 + 2];
+  let colored = 0;
+  for (let i = 0; i < N; i++) {
+    const r = px[i * 4], gg = px[i * 4 + 1], b = px[i * 4 + 2], mx = Math.max(r, gg, b), mn = Math.min(r, gg, b);
+    gray[i] = 0.299 * r + 0.587 * gg + 0.114 * b;
+    // 색 있는 펜·형광펜(채도 높음)은 종이로: 인쇄된 검은 글씨만 남겨요. 손으로 쓴 색 필기는 글자 인식이 어차피 못 읽고, 인쇄 글씨를 가려요
+    // (형광펜 위의 검은 글씨는 어두워서 남겨요: 밝기 110 이상인 색만 지움)
+    if (o.inkColor !== false && mx > 110 && mx - mn > 55 && (mx - mn) / (mx + 1) > 0.28) { gray[i] = 255; colored++; }
+  }
   let out = gray;
   if (o.normalize !== false) {
     // 종이 밝기(배경) = 칸마다 밝은 쪽 값 → 부드럽게 이어 붙임. 글씨÷배경 으로 그림자·누런 종이를 없애요
-    const B = Math.max(16, Math.round(long / 40)), gw = Math.ceil(W / B), gh = Math.ceil(H / B), grid = new Float32Array(gw * gh);
+    const B = Math.max(16, Math.round(long / 40)), gw = Math.ceil(W / B), gh = Math.ceil(H / B), grid = new Float32Array(gw * gh), mid = new Float32Array(gw * gh);
     for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) {
       const vals = [];
       for (let y = gy * B; y < Math.min(H, (gy + 1) * B); y += 2) for (let x = gx * B; x < Math.min(W, (gx + 1) * B); x += 2) vals.push(gray[y * W + x]);
-      vals.sort((a, b) => a - b); grid[gy * gw + gx] = vals[Math.floor(vals.length * 0.9)] || 255;
+      vals.sort((a, b) => a - b); grid[gy * gw + gx] = vals[Math.floor(vals.length * 0.9)] || 255; mid[gy * gw + gx] = vals[Math.floor(vals.length * 0.4)] || 255;
     }
+    // 종이가 아닌 곳(바닥·책상·옷: 종이보다 훨씬 어두운 칸)은 하얗게
+    const paper = [...grid].sort((a, b) => a - b)[Math.floor(grid.length * 0.9)] || 255, offPaper = new Uint8Array(gw * gh);
+    // 아주 어둡거나(옷·그림자 밖), 얼룩덜룩한(바닥 돌·나무결: 칸의 절반 가까이가 어두움) 칸. 그늘진 종이는 고르게 어두워서 남아요
+    for (let i = 0; i < grid.length; i++) if (grid[i] < paper * 0.4 || (grid[i] < paper * 0.85 && mid[i] < grid[i] * 0.8)) offPaper[i] = 1;
     const sm = new Float32Array(gw * gh);   // 이웃 칸과 평균 (글씨로 꽉 찬 칸 보정)
     for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) {
       let m = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const yy = Math.min(gh - 1, Math.max(0, gy + dy)), xx = Math.min(gw - 1, Math.max(0, gx + dx)); m = Math.max(m, grid[yy * gw + xx] * (dx || dy ? 0.97 : 1)); }
@@ -1416,7 +1443,7 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
         const fx = Math.min(gw - 1.001, Math.max(0, x / B - 0.5)), x0 = Math.floor(fx), tx = fx - x0;
         const a = sm[y0 * gw + x0], b2 = sm[y0 * gw + Math.min(gw - 1, x0 + 1)], c2 = sm[Math.min(gh - 1, y0 + 1) * gw + x0], d = sm[Math.min(gh - 1, y0 + 1) * gw + Math.min(gw - 1, x0 + 1)];
         const bg = Math.max(40, (a * (1 - tx) + b2 * tx) * (1 - ty) + (c2 * (1 - tx) + d * tx) * ty);
-        out[y * W + x] = Math.min(255, gray[y * W + x] / bg * 255);
+        out[y * W + x] = offPaper[Math.min(gh - 1, Math.floor(y / B)) * gw + Math.min(gw - 1, Math.floor(x / B))] ? 255 : Math.min(255, gray[y * W + x] / bg * 255);
       }
     }
     // 대비: 가장 진한 1% 를 검정으로
