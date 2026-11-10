@@ -1525,7 +1525,6 @@ function ocrWords(text) {
 }
 /* 사진 다듬기: 그림자·종이 색 없애기 → 글씨 진하게 → (선택) 흑백 + 공책 줄 지우기. 손글씨 사진에서 글자 인식이 훨씬 좋아져요 */
 async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또는 base64
-  o = { ...o, ...(window.__ocrOpt || {}) };
   const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error("사진을 열 수 없어요")); i.src = /^(blob|data):/.test(src) ? src : "data:image/jpeg;base64," + src; });
   const long = Math.min(o.long || 2200, o.noUp ? Math.max(img.naturalWidth, img.naturalHeight) : 1e9), s = long / Math.max(img.naturalWidth, img.naturalHeight);
   const W = Math.max(1, Math.round(img.naturalWidth * s)), H = Math.max(1, Math.round(img.naturalHeight * s));
@@ -1567,8 +1566,7 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
     const paper = [...grid].sort((a, b) => a - b)[Math.floor(grid.length * 0.9)] || 255, offPaper = new Uint8Array(gw * gh);
     // 종이 찾기: 확실히 밝은 종이 칸에서 시작해, 밝기가 서서히 바뀌는 이웃 칸으로 넓혀 가요.
     // 그림자는 서서히 어두워져서 종이로 남고, 종이 가장자리 → 바닥·옷은 갑자기 바뀌어서 종이 밖이 돼요
-    if (o.paper === "texture") { for (let i = 0; i < grid.length; i++) offPaper[i] = grid[i] < paper * 0.4 || (grid[i] < paper * 0.85 && mid[i] < grid[i] * 0.8) ? 1 : 0; }
-    else if (o.paper === "none") offPaper.fill(0);
+    if (o.paper === "none") offPaper.fill(0);
     else {
     offPaper.fill(1);
     const q = [];
@@ -1613,7 +1611,7 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
         if (x > 0) push(i - 1); if (x < W - 1) push(i + 1); if (i >= W) push(i - W); if (i < N - W) push(i + W);
       }
     }
-    if (o.lines !== false) {   // 가로로 길고 얇은 선(공책 줄·밑줄)은 지워요: 위아래가 비어 있는 긴 가로 줄
+    if (o.lines) {   // (선택) 가로로 길고 얇은 선(공책 줄·밑줄) 지우기 — 실제 사진에선 오히려 글자를 깎아서 기본은 꺼 둬요: 위아래가 비어 있는 긴 가로 줄
       const minRun = Math.round(W * 0.06), gap = Math.max(2, Math.round(long / 600)), dark = v => v < 215;
       for (let y = gap; y < H - gap; y++) {
         let x = 0;
@@ -1707,7 +1705,8 @@ function lineSubject(l, list) {
     if (near) return { subject: near, rest: "" };
   }
   const t = l.match(/^([가-힣]{2,5})(?=\s|\d|[:：(])\s*[:：]?\s*(.*)$/);   // 줄 맨 앞 낱말 ("순학 12/10 ..." → 수학)
-  if (t) { const near = jamoNear(t[1], list, 1); if (near) return { subject: near, rest: t[2].trim() }; }
+  // 두 글자 낱말은 다른 말일 때가 많아서, 줄이 짧을 때(제목처럼)만
+  if (t && (t[1].length >= 3 || l.length <= 14)) { const near = jamoNear(t[1], list, 1); if (near) return { subject: near, rest: t[2].trim() }; }
   return null;
 }
 const jamo = w => [...w].flatMap(ch => { const c = ch.charCodeAt(0) - 0xAC00; if (c < 0 || c > 11171) return [ch]; const jo = c % 28; return ["c" + Math.floor(c / 588), "v" + Math.floor(c % 588 / 28), ...(jo ? ["j" + jo] : [])]; });
@@ -1718,7 +1717,9 @@ function jamoDist(a, b) {
 }
 const JAMO_PRI = ["국어", "수학", "영어", "한국사", "과학", "사회", "역사", "통합과학", "통합사회", "물리", "화학", "문학", "독서", "정보", "체육", "음악", "미술"];
 function jamoNear(w, list, max) {   // 같은 글자 수의 과목 중 자음·모음이 max 개 이하로 다른 것 하나 (애매하면 안 고름)
-  const a = jamo(w), hits = list.filter(x => x.length === w.length && /^[가-힣]+$/.test(x)).map(x => [x, jamoDist(a, jamo(x))]).filter(([, d]) => d <= max).sort((p, q) => p[1] - q[1]);
+  // 두 글자에서 2개까지 다른 건 주요 과목만 (소하 → 수학 은 되고, 신호 → 진로 는 안 되게)
+  const core = ["국어", "수학", "영어", "과학", "사회", "역사"];
+  const a = jamo(w), hits = list.filter(x => x.length === w.length && /^[가-힣]+$/.test(x)).map(x => [x, jamoDist(a, jamo(x))]).filter(([x, d]) => d <= (w.length === 2 && max >= 2 && !core.includes(x) ? 1 : max)).sort((p, q) => p[1] - q[1]);
   const pri = x => { const i = JAMO_PRI.indexOf(x); return i < 0 ? 99 : i; };   // 같으면 많이 쓰는 과목 먼저 (수학 > 기하)
   hits.sort((p, q) => p[1] - q[1] || pri(p[0]) - pri(q[0]));
   return hits.length && (hits.length === 1 || hits[0][1] < hits[1][1] || pri(hits[0][0]) < pri(hits[1][0])) ? hits[0][0] : "";
