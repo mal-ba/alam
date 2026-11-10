@@ -64,14 +64,12 @@ Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schem
 - 다른 사람에게는 **학교 이름, 학년, 출판사 목록, 몇 명이 등록했는지**만 보여요. 누가 등록했는지(계정·이메일)는 안 보여요.
 - 공유되는 건 각자 **지금 학년(★)** 출판사뿐이에요.
 
-## 💬 커뮤니티 (한 번만)
-☰ 메뉴 → 💬 커뮤니티 게시판을 쓰려면 Supabase 에 게시판 표가 있어야 해요.
-Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schema.sql) 전체를 다시 붙여넣고 **Run** 하세요. (여러 번 실행해도 괜찮아요)
+## 💬 커뮤니티 (설정 필요 없음)
+☰ 메뉴 → 💬 커뮤니티는 따로 할 일이 없어요. 위 3번의 GitHub Secrets(`SUPABASE_URL`, `SUPABASE_SERVICE_KEY`)만 있으면 돼요.
 
-- 글·댓글 표는 앱에서 **직접 읽을 수 없고**, `community_*` 함수로만 읽고 써요.
-- 🔒 비밀번호를 건 글은 목록에 **제목·별명만** 보여요. 내용·댓글은 비밀번호가 맞을 때만 함수가 돌려줘요 (글쓴이 본인은 비밀번호 없이 봐요).
-- 비밀번호는 `pgcrypto` 의 bcrypt 해시로만 저장돼요. 한 계정이 한 글에 10분 동안 5번 넘게 틀리면 잠시 막혀요.
-- 한 계정당 글은 하루 30개, 댓글은 하루 200개까지예요.
+- 게시물은 쓴 사람의 Supabase 칸(`community/posts/…json`)에 저장돼요.
+- GitHub Actions **커뮤니티 피드**(`.github/workflows/community.yml`)가 5분마다 모두의 게시물을 모아 Supabase **Storage** 공개 버킷 `community` 에 올려요. 버킷은 처음 실행할 때 알아서 만들어요.
+- 바로 보고 싶으면 저장소 **Actions → 커뮤니티 피드 → Run workflow**.
 
 ## 전국 학교 목록 (한 번만: 공공데이터 키 넣기)
 이름이 같은 학교가 많아서, 앱에서 **전국 중·고등학교 목록**을 주소(지번·도로명)와 함께 보여 주고 고르게 해요.

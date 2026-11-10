@@ -238,14 +238,11 @@ const MODES = ["today", "week", "month", "year", "report", "exam", "books", "map
 let mode = store("mode") === "eng" ? "study" : MODES.includes(store("mode")) ? store("mode") : "today";
 const weekish = () => mode === "week" || mode === "today";   // '오늘'은 주간 표를 읽고 그날만 보여줌
 let anchor = todayKST();
-// 💬 커뮤니티 상태 (아래 커뮤니티 칸에서 써요. 링크 ?mode=community&post=번호 를 읽느라 여기 둬요)
-let comList = [], comMore = false, comQuery = "", comView = null, comDraft = null, comCmt = "", comErr = "", comOpenId = null;
-const comPw = new Map();   // 글 번호 → 맞힌 비밀번호 (새로고침하면 사라져요)
 { // 알림에서 열면 ?report=YYYY-MM-DD → 그날 보고서 탭
   const qs = new URLSearchParams(location.search), q = qs.get("report"), qd = qs.get("day");
   if (qs.has("v")) history.replaceState(null, "", location.pathname);
   if (MODES.includes(qs.get("mode"))) { mode = qs.get("mode"); history.replaceState(null, "", location.pathname); }
-  if (mode === "community" && /^\d{1,15}$/.test(qs.get("post") || "")) comOpenId = +qs.get("post");   // 🔗 커뮤니티 글 링크
+  if (mode === "community" && /^[0-9a-f]{16}$/.test(qs.get("post") || "")) store("cpost", qs.get("post"));   // 🔗 커뮤니티 게시물 링크
   if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) { mode = "report"; anchor = q; store("rkind", "date"); history.replaceState(null, "", location.pathname); }
   else if (qd && /^\d{4}-\d{2}-\d{2}$/.test(qd)) { mode = "today"; anchor = qd; history.replaceState(null, "", location.pathname); }
 }
@@ -333,7 +330,7 @@ let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오�
 async function load() {
   const seq = ++loadSeq;
   editing = null; repDraft = null; secEdit = null; weakDraft = null; stDraft = null;
-  if (mode !== "community") { comView = null; comDraft = null; }
+  if (mode !== "community") comDraft = null;
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
   const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock" || mode === "study" || mode === "community";
   $("goToday").hidden = free || showsToday();
@@ -537,10 +534,11 @@ function render() {
 
 $("view").addEventListener("change", ev => {
   if (ev.target.id === "rdate" && ev.target.value) { anchor = ev.target.value; load(); }
+  if (ev.target.id === "cfile" && ev.target.files.length) comAddFiles(ev.target.files);
 });
 $("view").addEventListener("keydown", ev => {
   if (ev.key === "Enter" && ev.target.id === "ewrite" && !ev.isComposing) { ev.preventDefault(); stCheck(); }
-  if (ev.key === "Enter" && ev.target.id === "cpw" && !ev.isComposing && !saving) { ev.preventDefault(); comUnlock(); }
+  if (ev.key === "Enter" && ev.target.dataset.pw && !ev.isComposing) { ev.preventDefault(); comUnlock(ev.target.dataset.pw); }
 });
 $("view").addEventListener("input", ev => {
   const t = ev.target;
@@ -553,11 +551,10 @@ $("view").addEventListener("input", ev => {
   if (stDraft && t.dataset.en) return stInput(t);
   if (t.id === "esearch") { stQuery = t.value; const r = $("eresults"); if (r) r.innerHTML = stListHtml(stPool()); return; }
   if (comDraft && t.dataset.cd) {
+    comDraft.dirty = true;
     if (t.dataset.cd === "lock") { comDraft.lock = t.checked; return renderCommunity(); }
     comDraft[t.dataset.cd] = t.value; return;
   }
-  if (t.id === "ccmt") { comCmt = t.value; return; }
-  if (t.id === "csearch") { comQuery = t.value; clearTimeout(comFetch.t); comFetch.t = setTimeout(() => comFetch().then(() => { if (mode === "community" && !comView && !comDraft) { renderCommunity(); const i = $("csearch"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } } }, e => showError(e)), 350); return; }
   if (weakDraft && t.dataset.wk) { weakDraft[t.dataset.wk] = t.type === "checkbox" ? t.checked : t.value; return; }
   if (secEdit) {
     if (t.dataset.s === "text") secEdit.draft = t.value;
@@ -1624,244 +1621,240 @@ function weakClick(b) {
   if (act === "Knew" || act === "Kedit") { window.scrollTo({ top: 0 }); document.querySelector(`[data-wk="${act === "Knew" && weakDraft.subject ? "text" : "subject"}"]`)?.focus(); }
 }
 
-/* ---------- 💬 커뮤니티 (Supabase community_* 함수) ----------
-   모두가 같이 보는 게시판. 글마다 🔒 비밀번호를 걸면 제목·별명만 보이고, 내용·댓글은 비밀번호를 아는 사람만.
-   비밀번호는 서버에서만 검사하고(bcrypt), 이 기기에는 지금 열어 둔 동안만 기억해요 (저장 안 함) */
-const COM_PAGE = 30;
+/* ---------- 💬 커뮤니티 (인스타처럼 글·사진 게시물) ----------
+   내 게시물은 내 Supabase 칸 community/posts/<cid>.json 에 저장 (따로 설정 필요 없음).
+   GitHub Actions(community_feed.py)가 몇 분마다 모두의 게시물을 모아 Supabase Storage 공개 버킷에 feed.json 으로 올리고,
+   앱은 그 피드를 읽어서 보여 줘요.
+   🔒 비밀번호를 걸면 글·사진을 이 기기에서 비밀번호로 암호화(PBKDF2 + AES-GCM)해서 저장 → 피드에는 암호문만 올라가요.
+   비밀번호를 아는 사람만 자기 기기에서 풀어 볼 수 있어요. (내 글은 내 칸에 저장한 열쇠로 바로 풀려요) */
+const COM_DIR = "community/posts", COM_MAX_IMG = 4, COM_IMG_CHARS = 300_000, COM_DOC_CHARS = 1_900_000, COM_PBKDF2 = 600_000;
+const comBase = () => `${String(CFG.supabaseUrl || "").replace(/\/$/, "")}/storage/v1/object/public/community/`;
 const comNick = () => store("cnick") || "";
-const comDate = s => { const d = new Date(new Date(s).getTime() + 9 * 3600e3).toISOString(); return `${d.slice(0, 10).replace(/-/g, ".")} ${d.slice(11, 16)}`; };
-async function comRpc(fn, args) {
-  const { data, error } = await SB.rpc(fn, args);
-  if (error) {
-    const e = new Error(/PGRST202|Could not find the function/.test(error.code + error.message)
-      ? "커뮤니티 표가 아직 없어요. Supabase SQL Editor 에서 supabase/schema.sql 을 다시 실행해 주세요."
-      : /JWT/i.test(error.message) ? "로그인이 풀렸어요. ⚙️ 에서 다시 로그인해 주세요." : error.message);
-    e.status = 0; e.setup = /PGRST202|Could not find the function/.test(error.code + error.message); throw e;
-  }
-  return data;
+const comAgo = s => {
+  const m = Math.max(0, Math.round((Date.now() - new Date(s).getTime()) / 60000));
+  if (m < 1) return "방금"; if (m < 60) return m + "분 전"; if (m < 1440) return Math.floor(m / 60) + "시간 전";
+  if (m < 10080) return Math.floor(m / 1440) + "일 전";
+  const d = new Date(new Date(s).getTime() + 9 * 3600e3).toISOString(); return d.slice(0, 10).replace(/-/g, ".");
+};
+const bytesB64 = u8 => { let o = ""; for (let i = 0; i < u8.length; i += 0x8000) o += String.fromCharCode(...u8.subarray(i, i + 0x8000)); return btoa(o); };
+const b64Bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function comHash(cid) {   // 피드의 게시물 번호 = sha256(내 계정:cid) 앞 16자리 (community_feed.py 와 같게)
+  const h = new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${sbUser.id}:${cid}`)));
+  return [...h].map(x => x.toString(16).padStart(2, "0")).join("").slice(0, 16);
 }
-function comErrText(code, item) {
-  if (code === "need_pw") return "";
-  if (code === "locked") return "비밀번호를 너무 많이 틀렸어요. 10분 뒤에 다시 해 보세요.";
-  if (code === "none") return "지워진 글이에요.";
-  if (code === "login") return "로그인이 필요해요.";
-  if (/^wrong:/.test(code)) { const n = +code.slice(6); return n > 0 ? `비밀번호가 틀렸어요. (${n}번 더 해 볼 수 있어요)` : "비밀번호가 틀렸어요. 10분 뒤에 다시 해 보세요."; }
-  return code;
+async function comDerive(pw, salt) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: COM_PBKDF2, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
 }
+const comKeyIn = b64 => crypto.subtle.importKey("raw", b64Bytes(b64), "AES-GCM", true, ["encrypt", "decrypt"]);
+const comKeyOut = async key => bytesB64(new Uint8Array(await crypto.subtle.exportKey("raw", key)));
+async function comEncrypt(key, salt, obj) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const data = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(JSON.stringify(obj)));
+  return { salt: bytesB64(salt), iv: bytesB64(iv), data: bytesB64(new Uint8Array(data)) };
+}
+async function comDecrypt(key, enc) {
+  const out = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64Bytes(enc.iv) }, key, b64Bytes(enc.data));
+  return JSON.parse(new TextDecoder().decode(out));
+}
+// 사진 → 긴 쪽 1080px JPEG (크면 더 줄여요)
+async function comShrink(file) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error("사진을 열 수 없어요")); i.src = url; });
+    for (const [side, q] of [[1080, 0.8], [1080, 0.68], [900, 0.65], [720, 0.6], [600, 0.5]]) {
+      const r = Math.min(1, side / Math.max(img.naturalWidth, img.naturalHeight));
+      const c = document.createElement("canvas"); c.width = Math.round(img.naturalWidth * r); c.height = Math.round(img.naturalHeight * r);
+      const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+      const d = c.toDataURL("image/jpeg", q);
+      if (d.length <= COM_IMG_CHARS) return d;
+    }
+    throw new Error("사진이 너무 커요");
+  } finally { URL.revokeObjectURL(url); }
+}
+
+let comFeed = null, comMine = [], comDraft = null, comErr = {}, comBusyId = null, comFeedErr = "";
+const comOpen = new Map();   // 게시물 번호 → 푼 내용 {text, images} (새로고침하면 다시 비밀번호)
 async function loadCommunity(seq = loadSeq) {
-  $("label").innerHTML = `커뮤니티<span class="sub">💬 같이 보는 게시판 · 🔒 비밀글</span>`;
-  comDraft = null; comErr = "";
+  $("label").innerHTML = `커뮤니티<span class="sub">📷 글·사진 게시물 · 🔒 비밀 게시물</span>`;
+  comDraft = null; comOnly = store("cpost") || null; store("cpost", null);
   if (!SB || !sbUser) { $("view").innerHTML = `<div class="day"><div class="empty">커뮤니티는 구글로 로그인해야 쓸 수 있어요. ⚙️ 에서 로그인해 주세요.</div></div>`; return; }
   $("view").innerHTML = `<div class="loading">불러오는 중…</div>`;
-  try {
-    if (comOpenId) { const id = comOpenId; comOpenId = null; if (seq === loadSeq) return comOpen(id); }
-    if (comView) return comOpen(comView.id);
-    await comFetch(); if (seq === loadSeq) renderCommunity();
-  } catch (e) { if (seq === loadSeq) e.setup ? renderComSetup() : showError(e); }
+  await Promise.all([comLoadMine(), comLoadFeed()]);
+  if (seq === loadSeq) renderCommunity();
 }
-/* 커뮤니티 표가 아직 없을 때: 표 만드는 SQL 을 복사 → Supabase SQL Editor 에 붙여넣고 Run
-   (앱의 공개 키로는 표를 만들 수 없어서, 프로젝트 주인이 SQL Editor 에서 한 번 실행해야 해요) */
-let comSql = null;
-const comSqlLoad = () => comSql ||= fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/supabase/schema.sql`, { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-cache" })
-  .then(r => { if (!r.ok) throw new Error("SQL 을 받아오지 못했어요 (" + r.status + ")"); return r.text(); })
-  .catch(e => { comSql = null; throw e; });
-function renderComSetup() {
-  const ref = (String(CFG.supabaseUrl || "").match(/^https:\/\/([a-z0-9]+)\.supabase\.co/) || [])[1];
-  const editor = ref ? `https://supabase.com/dashboard/project/${ref}/sql/new` : "https://supabase.com/dashboard/projects";
-  $("view").innerHTML = `<section class="day rform csetup">
-    <div class="dhead"><span class="date">🛠 커뮤니티 만들기 (한 번만)</span></div>
-    <p class="empty" style="margin:6px 0 10px">게시판 표가 아직 Supabase 에 없어요. 아래 순서대로 한 번만 하면 돼요.
-      <br>(Supabase 프로젝트 주인 계정으로 해야 해요. 이미 있는 데이터는 그대로예요)</p>
-    <button class="btn" data-act="Csqlcopy" style="width:100%">① 📋 만드는 SQL 복사하기</button>
-    <a class="btn ghost" href="${esc(editor)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none;margin-top:8px">② 🛠 Supabase SQL Editor 열기</a>
-    <p class="empty" style="margin:10px 0">③ SQL Editor 빈 칸에 붙여넣기 → 오른쪽 아래 <b>Run</b> → "Success" 가 나오면</p>
-    <button class="btn ghost" data-act="Cretry" style="width:100%">④ 🔄 다 했어요, 다시 확인</button>
-    <textarea id="csql" readonly hidden style="margin-top:10px;min-height:160px;font:12px/1.4 ui-monospace,monospace"></textarea>
-  </section>`;
-  comSqlLoad().catch(() => {});   // 미리 받아 둬야 버튼을 누를 때 바로 복사돼요 (휴대폰은 누른 순간에만 복사 허용)
-}
-async function comSqlCopy() {
-  const ta = $("csql");
-  let sql;
-  try { sql = await comSqlLoad(); } catch (e) { return toast("⚠️ " + e.message + " 잠시 뒤 다시 눌러 주세요", 4000); }
-  try { await navigator.clipboard.writeText(sql); toast("📋 복사했어요! ② SQL Editor 를 열어 붙여넣고 Run 하세요", 4000); }
-  catch (e) {   // 복사가 막히면 글을 보여 주고 전체 선택 → 직접 복사
-    if (ta) { ta.value = sql; ta.hidden = false; ta.focus(); ta.select(); }
-    toast("자동 복사가 막혔어요. 아래 글이 선택돼 있으니 '복사'를 눌러 주세요", 4500);
+async function comLoadMine() {
+  const out = [];
+  for (const n of await listDir(COM_DIR)) {
+    try {
+      const d = JSON.parse(files.get(`${COM_DIR}/${n}`).text);
+      d.id = await comHash(d.cid);
+      if (d.lock && d.key && !comOpen.has(d.id)) comOpen.set(d.id, await comDecrypt(await comKeyIn(d.key), d.enc));
+      out.push(d);
+    } catch (e) { console.warn("내 게시물", n, e); }
   }
+  comMine = out;
 }
-async function comFetch(more) {
-  const before = more && comList.length ? comList.at(-1).id : null;
-  const rows = await comRpc("community_list", { p_before: before, p_q: comQuery.trim() || null }) || [];
-  comList = more ? [...comList, ...rows] : rows;
-  comMore = rows.length >= COM_PAGE;
+async function comLoadFeed() {
+  comFeedErr = "";
+  try {
+    const r = await fetch(comBase() + "feed.json?t=" + Date.now(), { cache: "no-store" });
+    if (r.status === 400 || r.status === 404) { comFeed = null; return; }   // 아직 한 번도 안 모였어요
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    comFeed = await r.json();
+  } catch (e) { comFeedErr = "다른 사람 게시물을 불러오지 못했어요 (" + (e.message || e) + ")"; }
 }
-const comMeta = p => `${esc(p.nickname)} · ${comDate(p.created_at)}${p.updated_at ? " (고침)" : ""}`;
+function comPosts() {   // 피드 + 내 게시물 (내 것은 내 칸 내용이 최신이라 그걸로 보여 줘요)
+  const mine = new Map(comMine.map(m => [m.id, m])), out = [];
+  for (const p of (comFeed && comFeed.posts) || []) {
+    const m = mine.get(p.id);
+    if (!m) { out.push(p); continue; }
+    mine.delete(p.id);
+    out.push({ ...comFromMine(m), pending: (m.updated || m.created) !== (p.updated || p.created) });
+  }
+  for (const m of mine.values()) out.push({ ...comFromMine(m), pending: true });   // 아직 피드에 안 들어간 내 게시물
+  return out.sort((a, b) => b.created.localeCompare(a.created));
+}
+const comFromMine = m => ({ id: m.id, cid: m.cid, nickname: m.nickname, created: m.created, updated: m.updated, lock: !!m.lock, text: m.text, images: m.images, own: true, local: true });
+const comImgSrc = (p, u) => p.local || /^data:/.test(u) ? u : comBase() + u;
+function comCard(p) {
+  const opened = p.lock ? comOpen.get(p.id) : p, err = comErr[p.id] || "";
+  const imgs = opened ? (opened.images || []).map(u => comImgSrc(p.lock ? { local: true } : p, u)) : [];
+  return `<article class="day igpost" data-id="${esc(p.id)}">
+    <div class="ighead"><span class="igav">${esc((p.nickname || "?").slice(0, 1))}</span>
+      <span class="ignm"><b>${esc(p.nickname)}</b><span class="cmeta">${comAgo(p.created)}${p.updated ? " · 고침" : ""}</span></span><span class="sp"></span>
+      ${p.pending ? `<span class="chip" title="몇 분 뒤 다른 사람에게 보여요">⏳ 올리는 중</span>` : ""}
+      ${p.lock ? `<span class="chip">🔒</span>` : ""}
+      <button class="pencil" data-act="Clink" title="링크 복사" aria-label="링크 복사">🔗</button>
+      ${p.own ? `<button class="pencil" data-act="Cedit" title="고치기" aria-label="고치기">✏️</button><button class="pencil" data-act="Cdel" title="삭제" aria-label="삭제">🗑</button>` : ""}</div>
+    ${opened ? `${imgs.length ? `<div class="igimgs">${imgs.map((u, i) => `<img src="${esc(safeImg(u))}" alt="사진 ${i + 1}" loading="lazy">`).join("")}</div>
+        ${imgs.length > 1 ? `<div class="igcnt">📷 ${imgs.length}장 · 옆으로 넘겨 보세요</div>` : ""}` : ""}
+      ${opened.text ? `<div class="pre igtext">${esc(opened.text)}</div>` : ""}`
+    : `<div class="iglock"><div class="iglk">🔒</div><b>비밀 게시물</b><div class="cmeta">비밀번호를 아는 사람만 볼 수 있어요</div>
+        <div class="igpw"><input type="password" data-pw="${esc(p.id)}" autocomplete="off" placeholder="비밀번호">
+        <button class="btn" data-act="Cunlock" ${comBusyId === p.id ? "disabled" : ""}>${comBusyId === p.id ? "푸는 중…" : "🔓 열기"}</button></div>
+        ${err ? `<div class="err">⚠️ ${esc(err)}</div>` : ""}</div>`}
+  </article>`;
+}
+const safeImg = u => /^data:image\/(jpeg|png|webp);base64,/.test(u) ? u : safeUrl(u);
+let comOnly = null;   // 🔗 링크로 연 게시물 하나만 보기
 function renderCommunity() {
   if (comDraft) { $("view").innerHTML = comForm(comDraft); return; }
-  if (comView) { $("view").innerHTML = comPostHtml(); return; }
+  let posts = comPosts();
+  const one = comOnly && posts.find(p => p.id === comOnly);
+  if (one) posts = [one];
+  const gen = comFeed && comFeed.generated, pending = posts.some(p => p.pending);
   $("view").innerHTML = `
-    <input class="search" id="csearch" type="search" placeholder="🔎 제목으로 찾기" value="${esc(comQuery)}">
-    <button class="add" data-act="Cnew" style="width:100%;background:var(--card);margin-bottom:10px">+ 새 글 쓰기</button>
-    ${comList.length ? comList.map(p => `<button class="day notecard cpost" data-act="Copen" data-id="${p.id}">
-        <div class="dhead"><span class="date">${p.locked ? "🔒 " : ""}${esc(p.title)}</span><span class="sp"></span>${p.mine ? `<span class="chip">내 글</span>` : ""}${p.comments ? `<span class="chip">💬 ${p.comments}</span>` : ""}</div>
-        <div class="cmeta">${comMeta(p)}</div>
-        <div class="cprev">${p.locked ? "비밀번호를 아는 사람만 볼 수 있는 글이에요" : esc(p.preview || "")}</div></button>`).join("")
-      : `<div class="day"><div class="empty">${comQuery.trim() ? "찾는 글이 없어요." : "아직 글이 없어요. 첫 글을 써 보세요! 🔒 비밀번호를 걸면 비밀번호를 아는 사람끼리만 볼 수 있어요."}</div></div>`}
-    ${comMore ? `<button class="btn ghost" data-act="Cmore" style="width:100%;margin:6px 0 10px">▼ 더 보기</button>` : ""}`;
-}
-function comPostHtml() {
-  const v = comView, p = v.post;
-  if (!p) {   // 🔒 비밀번호 묻기
-    return `<button class="btn ghost" data-act="Cback" style="margin-bottom:10px">← 목록</button>
-      <section class="day rform"><div class="dhead"><span class="date">🔒 ${esc(v.title || "비밀글")}</span></div>
-      ${v.nickname ? `<div class="cmeta">${esc(v.nickname)}</div>` : ""}
-      <p class="empty">비밀번호를 아는 사람만 볼 수 있는 글이에요.</p>
-      <label>비밀번호</label><input id="cpw" type="password" autocomplete="off" placeholder="글쓴이에게 받은 비밀번호">
-      ${comErr ? `<div class="err" style="margin-top:8px">⚠️ ${esc(comErr)}</div>` : ""}
-      <div class="actions" style="margin-top:12px"><button class="btn" data-act="Cunlock" ${saving ? "disabled" : ""}>${saving ? "확인 중…" : "🔓 열기"}</button></div></section>`;
-  }
-  const cs = v.comments || [];
-  return `<button class="btn ghost" data-act="Cback" style="margin-bottom:10px">← 목록</button>
-    <section class="day"><div class="dhead"><span class="date">${p.locked ? "🔒 " : ""}${esc(p.title)}</span><span class="sp"></span>
-      <button class="pencil" data-act="Clink" title="링크 복사" aria-label="링크 복사">🔗</button>
-      ${p.mine ? `<button class="pencil" data-act="Cedit" title="고치기" aria-label="고치기">✏️</button>` : ""}</div>
-      <div class="cmeta">${comMeta(p)}</div>
-      <div class="pre cbody">${esc(p.body)}</div>
-      ${p.mine ? `<div class="actions" style="margin-top:10px"><button class="btn ghost danger" data-act="Cdel" ${saving ? "disabled" : ""}>🗑 삭제</button></div>` : ""}</section>
-    <section class="day"><div class="dhead"><span class="date">💬 댓글 ${cs.length}</span></div>
-      ${cs.length ? `<ul class="list ccmts">${cs.map(c => `<li data-cid="${c.id}"><div style="flex:1;min-width:0"><div class="cmeta">${esc(c.nickname)} · ${comDate(c.created_at)}</div><div class="pre">${esc(c.body)}</div></div>
-        ${c.mine || p.mine ? `<button class="ev del" data-act="Ccdel" aria-label="댓글 삭제" title="댓글 삭제">×</button>` : ""}</li>`).join("")}</ul>` : `<div class="empty">첫 댓글을 달아 보세요.</div>`}
-      <div class="rform ccform">
-        <input id="cnick" maxlength="20" placeholder="별명" value="${esc(comNick())}">
-        <textarea id="ccmt" maxlength="1000" placeholder="댓글 쓰기">${esc(comCmt)}</textarea>
-        <div class="actions"><button class="btn" data-act="Ccmt" ${saving ? "disabled" : ""}>${saving ? "올리는 중…" : "댓글 달기"}</button></div>
-      </div></section>`;
+    ${one ? `<button class="btn ghost" data-act="Call" style="margin-bottom:10px">← 전체 게시물</button>` :
+      `<button class="add" data-act="Cnew" style="width:100%;background:var(--card);margin-bottom:10px">＋ 새 게시물 (글 · 사진)</button>`}
+    ${comFeedErr ? `<div class="note">⚠️ ${esc(comFeedErr)}</div>` : ""}
+    ${pending ? `<div class="note">⏳ 방금 올린 게시물은 몇 분 뒤에 다른 사람에게도 보여요. (나에게는 바로 보여요)</div>` : ""}
+    ${comOnly && !one ? `<div class="note">이 게시물은 아직 피드에 없거나 지워졌어요.</div>` : ""}
+    ${posts.length ? posts.map(comCard).join("") : `<div class="day"><div class="empty">아직 게시물이 없어요. ＋ 새 게시물로 글이나 사진을 올려 보세요! 🔒 비밀번호를 걸면 비밀번호를 아는 사람끼리만 볼 수 있어요.</div></div>`}
+    <div class="cmeta" style="text-align:center;margin:8px 0 16px">${gen ? `피드 업데이트: ${comAgo(gen)}` : "피드가 아직 한 번도 안 모였어요"} ·
+      <button class="linkbtn" data-act="Crefresh">🔄 새로고침</button></div>`;
 }
 function comForm(d) {
   return `<section class="day editing rform">
-    <div class="dhead"><span class="date">${d.id ? "✏️ 글 고치기" : "💬 새 글 쓰기"}</span></div>
-    <label>제목 <span class="hint">— 목록에 보여요 (비밀글이어도)</span></label><input data-cd="title" maxlength="100" value="${esc(d.title)}" placeholder="제목">
+    <div class="dhead"><span class="date">${d.cid ? "✏️ 게시물 고치기" : "📷 새 게시물"}</span></div>
+    <label>사진 <span class="hint">— ${COM_MAX_IMG}장까지</span></label>
+    <div class="igpick">${d.images.map((u, i) => `<div class="igth"><img src="${esc(safeImg(u))}" alt=""><button data-act="Cimgdel" data-i="${i}" aria-label="사진 빼기">×</button></div>`).join("")}
+      ${d.images.length < COM_MAX_IMG ? `<label class="igadd">＋<input type="file" id="cfile" accept="image/*" multiple hidden></label>` : ""}</div>
+    <label>글</label><textarea data-cd="text" maxlength="2000" style="min-height:120px" placeholder="무슨 이야기를 나눌까요?">${esc(d.text)}</textarea>
     <label>별명 <span class="hint">— 계정·이메일은 안 보이고 별명만 보여요</span></label><input data-cd="nickname" maxlength="20" value="${esc(d.nickname)}" placeholder="예) 공부왕">
-    <label>내용</label><textarea data-cd="body" maxlength="20000" style="min-height:180px" placeholder="하고 싶은 이야기를 적어 보세요">${esc(d.body)}</textarea>
-    <label class="tbcur" style="margin-top:12px"><input type="checkbox" data-cd="lock" ${d.lock ? "checked" : ""}><span>🔒 비밀번호 걸기<small>비밀번호를 아는 사람끼리만 내용·댓글을 볼 수 있어요</small></span></label>
-    ${d.lock ? `<label>비밀번호 <span class="hint">— 4~50자${d.wasLocked ? ", 비워 두면 예전 비밀번호 그대로" : ""}</span></label>
-      <input data-cd="pw" type="password" autocomplete="new-password" maxlength="50" value="${esc(d.pw)}" placeholder="${d.wasLocked ? "바꿀 때만 적기" : "비밀번호"}">
-      <label>비밀번호 확인</label><input data-cd="pw2" type="password" autocomplete="new-password" maxlength="50" value="${esc(d.pw2)}" placeholder="한 번 더">
-      <div class="empty">비밀번호는 다른 사람이 볼 수 없게 암호화돼서 저장돼요. 잊어버리면 글쓴이(나)만 볼 수 있어요.</div>` : ""}
+    <label class="tbcur" style="margin-top:12px"><input type="checkbox" data-cd="lock" ${d.lock ? "checked" : ""}><span>🔒 비밀번호 걸기<small>켜면 비밀번호를 아는 사람만 글·사진을 볼 수 있어요. 끄면 누구나 봐요</small></span></label>
+    ${d.lock ? `<label>비밀번호 <span class="hint">— 6자 이상${d.wasLocked ? ", 비워 두면 예전 비밀번호 그대로" : ""}</span></label>
+      <input data-cd="pw" type="password" autocomplete="new-password" maxlength="64" value="${esc(d.pw)}" placeholder="${d.wasLocked ? "바꿀 때만 적기" : "비밀번호"}">
+      <label>비밀번호 확인</label><input data-cd="pw2" type="password" autocomplete="new-password" maxlength="64" value="${esc(d.pw2)}" placeholder="한 번 더">
+      <div class="empty">글·사진이 이 비밀번호로 암호화돼서 올라가요. 비밀번호를 친구에게 따로 알려 주세요. 짧거나 쉬운 비밀번호는 풀릴 수 있어요.</div>` : ""}
     <div class="actions" style="margin-top:12px">
       <button class="btn ghost" data-act="Ccancel" ${saving ? "disabled" : ""}>취소</button>
-      <button class="btn" data-act="Csave" ${saving ? "disabled" : ""}>${saving ? "저장 중…" : d.id ? "저장" : "올리기"}</button>
+      <button class="btn" data-act="Csave" ${saving ? "disabled" : ""}>${saving ? "올리는 중…" : d.cid ? "저장" : "올리기"}</button>
     </div></section>`;
 }
-async function comOpen(id, pw) {
-  const item = comList.find(x => x.id === id) || (comView && comView.id === id ? comView : {});
-  pw = pw ?? comPw.get(id) ?? null;
-  const r = await comRpc("community_open", { p_id: id, p_pw: pw });
-  if (r.error) {
-    if (r.error !== "need_pw" && !/^wrong:|^locked$/.test(r.error)) { comView = null; toast(comErrText(r.error)); await comFetch(); return renderCommunity(); }
-    if (pw) comPw.delete(id);
-    comView = { id, title: item.title, nickname: item.nickname, post: null };
-    comErr = comErrText(r.error);
-  } else {
-    if (pw) comPw.set(id, pw);
-    comView = { id, post: r.post, comments: r.comments }; comErr = "";
-  }
+const comDraftDirty = () => !!comDraft && !!comDraft.dirty;
+async function comAddFiles(list) {
+  const d = comDraft; if (!d) return;
+  const fs = [...list].slice(0, COM_MAX_IMG - d.images.length);
+  if (list.length > fs.length) toast(`사진은 ${COM_MAX_IMG}장까지예요`);
+  for (const f of fs) { try { d.images.push(await comShrink(f)); d.dirty = true; } catch (e) { toast("⚠️ " + e.message); } }
   renderCommunity();
-  if (!comView.post) $("cpw")?.focus();
 }
-async function comBusy(fn) {
-  saving = true; renderCommunity();
-  try { await fn(); } catch (e) { toast("⚠️ " + (e.message || e), 4000); }
-  saving = false; renderCommunity();
-}
-async function comUnlock() {
-  const pw = $("cpw")?.value || "";
+async function comUnlock(id) {
+  const p = comPosts().find(x => x.id === id), inp = document.querySelector(`[data-pw="${CSS.escape(id)}"]`), pw = inp ? inp.value : "";
+  if (!p || !p.enc) return;
   if (!pw) return toast("비밀번호를 적어 주세요");
+  comBusyId = id; delete comErr[id]; renderCommunity();
+  try {
+    const r = await fetch(comBase() + p.enc); if (!r.ok) throw new Error("내용을 받아오지 못했어요 (HTTP " + r.status + ")");
+    const enc = await r.json();
+    let obj;
+    try { obj = await comDecrypt(await comDerive(pw, b64Bytes(enc.salt)), enc); } catch (e) { throw new Error("비밀번호가 틀렸어요"); }
+    comOpen.set(id, { text: String(obj.text || ""), images: (obj.images || []).filter(u => /^data:image\/(jpeg|png|webp);base64,/.test(u)) });
+  } catch (e) { comErr[id] = e.message || String(e); }
+  comBusyId = null; renderCommunity();
+  if (comErr[id]) document.querySelector(`[data-pw="${CSS.escape(id)}"]`)?.focus();
+}
+async function comSave() {
+  const d = comDraft, text = d.text.trim(), nickname = d.nickname.trim();
+  if (!text && !d.images.length) return toast("글이나 사진을 넣어 주세요");
+  if (!nickname) return toast("별명을 적어 주세요");
+  if (d.lock && (d.pw || !d.wasLocked)) {
+    if (d.pw.length < 6) return toast("비밀번호는 6자 이상으로 정해 주세요");
+    if (d.pw !== d.pw2) return toast("비밀번호 확인이 달라요");
+  }
+  if (d.wasLocked && !d.lock && !confirm("비밀번호를 없애면 누구나 이 게시물을 볼 수 있어요. 그래도 없앨까요?")) return;
+  store("cnick", nickname);
   saving = true; renderCommunity();
-  try { await comOpen(comView.id, pw); } catch (e) { toast("⚠️ " + e.message, 4000); }
+  try {
+    const now = new Date().toISOString().replace(/\.\d+Z$/, "Z");
+    const cid = d.cid || (Date.now().toString(36) + Math.random().toString(36).slice(2, 8));
+    const doc = { v: 1, cid, nickname, created: d.created || now, ...(d.cid ? { updated: now } : {}), lock: !!d.lock };
+    if (d.lock) {
+      let key, salt;
+      if (d.pw) { salt = crypto.getRandomValues(new Uint8Array(16)); key = await comDerive(d.pw, salt); }
+      else { salt = b64Bytes(d.salt); key = await comKeyIn(d.key); }
+      doc.enc = await comEncrypt(key, salt, { text, images: d.images });
+      doc.key = await comKeyOut(key);   // 내 칸(나만 읽는 곳)에만 저장 → 내 글은 비밀번호 없이 봐요. 피드에는 안 올라가요
+    } else Object.assign(doc, { text, images: d.images });
+    const content = JSON.stringify(doc);
+    if (content.length > COM_DOC_CHARS) throw new Error("사진이 너무 커요. 사진 수를 줄여 주세요");
+    await updateFile(`${COM_DIR}/${cid}.json`, () => content, "앱에서 커뮤니티 게시물");
+    comDraft = null; comOpen.delete(await comHash(cid));
+    await comLoadMine();
+    toast(d.cid ? "저장됨 ✓" : d.lock ? "🔒 비밀 게시물을 올렸어요. 🔗 링크와 비밀번호를 친구에게 알려 주세요" : "게시물을 올렸어요 ✓ 몇 분 뒤 모두에게 보여요", 4500);
+  } catch (e) { toast("⚠️ " + (e.message || e), 4500); }
   saving = false; renderCommunity();
-  if (comView && !comView.post) $("cpw")?.focus();
 }
 function comClick(b) {
-  const act = b.dataset.act;
-  if (act === "Copen") { comErr = ""; return comOpen(+b.dataset.id).catch(e => showError(e)); }
-  if (act === "Cback") { comView = null; comCmt = ""; comErr = ""; return comBusy(() => comFetch()); }
-  if (act === "Cmore") return comBusy(() => comFetch(true));
-  if (act === "Cunlock") return comUnlock();
-  if (act === "Csqlcopy") return comSqlCopy();
-  if (act === "Cretry") return load();
+  const act = b.dataset.act, id = b.closest("[data-id]")?.dataset.id;
+  if (act === "Cunlock") return comUnlock(id);
+  if (act === "Crefresh") { $("view").insertAdjacentHTML("afterbegin", `<div class="loading" style="padding:8px">불러오는 중…</div>`); return comLoadFeed().then(renderCommunity); }
+  if (act === "Call") { comOnly = null; return renderCommunity(); }
   if (act === "Clink") {
-    const url = `${location.origin}${location.pathname}?mode=community&post=${comView.id}`;
-    const done = () => toast(comView.post?.locked ? "링크를 복사했어요 🔗 비밀번호는 따로 알려 주세요" : "링크를 복사했어요 🔗");
+    const p = comPosts().find(x => x.id === id);
+    const url = `${location.origin}${location.pathname}?mode=community&post=${id}`;
+    const done = () => toast(p && p.lock ? "링크를 복사했어요 🔗 비밀번호는 따로 알려 주세요" : "링크를 복사했어요 🔗");
     return navigator.clipboard?.writeText(url).then(done, () => prompt("링크를 복사하세요", url)) ?? prompt("링크를 복사하세요", url);
   }
-  if (act === "Cnew") { comDraft = { title: "", body: "", nickname: comNick(), lock: false, pw: "", pw2: "" }; renderCommunity(); window.scrollTo({ top: 0 }); return; }
+  if (act === "Cnew") { comDraft = { text: "", images: [], nickname: comNick(), lock: false, pw: "", pw2: "" }; renderCommunity(); window.scrollTo({ top: 0 }); return; }
   if (act === "Cedit") {
-    const p = comView.post;
-    comDraft = { id: p.id, title: p.title, body: p.body, nickname: p.nickname, lock: p.locked, wasLocked: p.locked, pw: "", pw2: "" };
+    const m = comMine.find(x => x.id === id); if (!m) return;
+    const body = m.lock ? comOpen.get(id) : m; if (!body) return toast("이 게시물을 열 수 없어요");
+    comDraft = { cid: m.cid, created: m.created, text: body.text || "", images: [...(body.images || [])], nickname: m.nickname, lock: !!m.lock, wasLocked: !!m.lock,
+      key: m.key, salt: m.enc && m.enc.salt, pw: "", pw2: "" };
     renderCommunity(); window.scrollTo({ top: 0 }); return;
   }
-  if (act === "Ccancel") { if (comDraftDirty() && !confirm("쓰던 글이 저장되지 않았어요. 그래도 나갈까요?")) return; comDraft = null; return renderCommunity(); }
+  if (act === "Cimgdel") { comDraft.images.splice(+b.dataset.i, 1); comDraft.dirty = true; return renderCommunity(); }
+  if (act === "Ccancel") { if (comDraftDirty() && !confirm("쓰던 게시물이 저장되지 않았어요. 그래도 나갈까요?")) return; comDraft = null; return renderCommunity(); }
   if (act === "Csave") return comSave();
   if (act === "Cdel") {
-    if (!confirm("이 글을 지울까요? 댓글도 같이 지워져요.")) return;
-    const id = comView.id;
-    return comBusy(async () => { await comRpc("community_delete", { p_id: id }); comView = null; comPw.delete(id); toast("지웠어요"); await comFetch(); });
+    const m = comMine.find(x => x.id === id); if (!m || !confirm("이 게시물을 지울까요? (몇 분 뒤 피드에서도 사라져요)")) return;
+    saving = true;
+    return deleteFile(`${COM_DIR}/${m.cid}.json`, "앱에서 커뮤니티 게시물 삭제")
+      .then(async () => { comOpen.delete(id); if (comFeed) comFeed.posts = comFeed.posts.filter(p => p.id !== id); await comLoadMine(); toast("지웠어요"); }, e => toast("⚠️ " + e.message))
+      .finally(() => { saving = false; renderCommunity(); });
   }
-  if (act === "Ccmt") {
-    const body = ($("ccmt")?.value || "").trim(), nick = ($("cnick")?.value || "").trim();
-    if (!nick) return toast("별명을 적어 주세요");
-    if (!body) return toast("댓글을 적어 주세요");
-    store("cnick", nick); comCmt = body;
-    const id = comView.id;
-    return comBusy(async () => {
-      const r = await comRpc("community_comment", { p_id: id, p_pw: comPw.get(id) || null, p_body: body, p_nickname: nick });
-      if (r.error) { comPw.delete(id); comView = { id, title: comView.post?.title, nickname: comView.post?.nickname, post: null }; comErr = comErrText(r.error) || "비밀번호를 다시 넣어 주세요."; return; }
-      comView = { id, post: r.post, comments: r.comments }; comCmt = ""; toast("댓글을 달았어요 ✓");
-    });
-  }
-  if (act === "Ccdel") {
-    if (!confirm("이 댓글을 지울까요?")) return;
-    const cid = +b.closest("[data-cid]").dataset.cid, id = comView.id;
-    return comBusy(async () => {
-      await comRpc("community_comment_delete", { p_comment_id: cid });
-      const r = await comRpc("community_open", { p_id: id, p_pw: comPw.get(id) || null });
-      if (!r.error) comView = { id, post: r.post, comments: r.comments };
-      toast("지웠어요");
-    });
-  }
-}
-const comDraftDirty = () => !!comDraft && (comDraft.id
-  ? comDraft.title !== comView?.post?.title || comDraft.body !== comView?.post?.body || comDraft.lock !== comDraft.wasLocked || !!comDraft.pw
-  : !!(comDraft.title.trim() || comDraft.body.trim()));
-function comSave() {
-  const d = comDraft, title = d.title.trim(), body = d.body.trim(), nickname = d.nickname.trim();
-  if (!title) return toast("제목을 적어 주세요");
-  if (!nickname) return toast("별명을 적어 주세요");
-  if (!body) return toast("내용을 적어 주세요");
-  // p_pw: null = 그대로, "" = 비밀번호 없애기, 그 밖 = 새 비밀번호
-  let pw = null;
-  if (d.lock) {
-    if (d.pw || !d.wasLocked) {
-      if (d.pw.length < 4) return toast("비밀번호는 4자 이상으로 정해 주세요");
-      if (d.pw !== d.pw2) return toast("비밀번호 확인이 달라요");
-      pw = d.pw;
-    }
-  } else pw = d.id ? (d.wasLocked ? "" : null) : null;
-  if (d.id && d.wasLocked && !d.lock && !confirm("비밀번호를 없애면 누구나 이 글을 볼 수 있어요. 그래도 없앨까요?")) return;
-  store("cnick", nickname);
-  return comBusy(async () => {
-    let id = d.id;
-    if (id) await comRpc("community_edit", { p_id: id, p_title: title, p_body: body, p_nickname: nickname, p_pw: pw });
-    else id = await comRpc("community_write", { p_title: title, p_body: body, p_nickname: nickname, p_pw: pw });
-    if (pw) comPw.set(id, pw);
-    comDraft = null;
-    const r = await comRpc("community_open", { p_id: id, p_pw: comPw.get(id) || null });
-    comView = r.error ? null : { id, post: r.post, comments: r.comments };
-    if (!comView) await comFetch();
-    toast(d.id ? "저장됨 ✓" : pw ? "🔒 비밀글을 올렸어요. 🔗 링크와 비밀번호를 친구에게 알려 주세요" : "글을 올렸어요 ✓", 4000);
-  });
 }
 
 /* ---------- 📚 학교 시험 공부 (plans/study.json) ----------
