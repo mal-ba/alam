@@ -6,6 +6,7 @@ const HOW_TO_EDIT = `> **고치는 법** (오른쪽 위 연필 ✏️ 버튼 →
 >   - 예) \`08:45 등교, 18:00~21:00 야자, 19:00 친구 생일 [60,10]\`
 >   - 끝에 \`[60,10]\`처럼 쓰면 60분 전·10분 전에 알림 (안 쓰면 기본값)
 >   - \`[0]\`은 정각에 알림, \`[]\`는 알림 없음
+>   - 제목 뒤에 \`// 설명\`을 붙이면 부가 설명이 돼요. 예) \`19:00 영어 학원 // 단어 시험 Day 12\`
 > - \`할 일·메모\` 칸: 시간 없이 적고 싶은 것 (아침 요약 알림에 같이 와요)
 > - 그날 일정을 다 지우면 그날은 일정 없음으로 처리돼요.
 `;
@@ -161,7 +162,8 @@ function parseCells(ec, mc) {
   for (const it of splitItems(ec)) {
     const m = it.match(EV);
     if (!m) { memos.push(it); continue; }
-    events.push({ start: pad(+m[1]) + ":" + m[2], end: m[3] ? pad(+m[3]) + ":" + m[4] : "", title: m[5],
+    const [title, ...rest] = m[5].split(/\s*\/\/\s*/);   // "제목 // 설명"
+    events.push({ start: pad(+m[1]) + ":" + m[2], end: m[3] ? pad(+m[3]) + ":" + m[4] : "", title, desc: rest.join(" / ").trim(),
       remind: m[6] == null ? null : m[6].replace(/\s/g, "").split(",").filter(Boolean).map(Number) });
   }
   memos.push(...splitItems(mc));
@@ -175,7 +177,7 @@ function defaultRemind(title) {
 }
 const remindText = r => r.length ? r.map(x => x === 0 ? "정각" : x + "분 전").join(", ") : "알림 없음";
 function formatEvent(e) {
-  let t = `${e.end ? e.start + "~" + e.end : e.start} ${e.title}`;
+  let t = `${e.end ? e.start + "~" + e.end : e.start} ${e.title}${e.desc ? " // " + e.desc : ""}`;
   if (e.remind && JSON.stringify(e.remind) !== JSON.stringify(defaultRemind(e.title))) t += ` [${e.remind.join(",")}]`;
   return t;
 }
@@ -208,7 +210,7 @@ function classesOf(s) {
   return subj;
 }
 function baseDay(s) {
-  let events = (schedule.weekly[String(pyWd(s))] || []).map(e => ({ start: e.start, end: e.end || "", title: e.title, remind: null }));
+  let events = (schedule.weekly[String(pyWd(s))] || []).map(e => ({ start: e.start, end: e.end || "", title: e.title, desc: "", remind: null }));
   const memos = [], off = schoolOff(s);
   if (off) {
     const st = new Set(school().school_events || []);
@@ -269,10 +271,10 @@ const cleanText = t => (t || "").replace(/[,]/g, "·").replace(/[|\[\]]/g, " ").
 function clean(day) {
   const events = [];
   for (const e of day.events) {
-    const title = cleanText(e.title);
+    const title = cleanText(e.title).replace(/\s*\/\/+\s*/g, "/"), desc = cleanText(e.desc).replace(/\s*\/\/+\s*/g, "/");
     if (!title) continue;
-    if (!e.start) { (day.tasks ||= []).push({ text: title, done: false }); continue; }
-    events.push({ start: e.start, end: e.end || "", title, remind: e.remind });
+    if (!e.start) { (day.tasks ||= []).push({ text: desc ? `${title} (${desc})` : title, done: false }); continue; }
+    events.push({ start: e.start, end: e.end || "", title, desc, remind: e.remind });
   }
   const memos = day.tasks
     ? day.tasks.map(t => ({ ...t, text: cleanText(t.text) })).filter(t => t.text).map(t => (t.done ? "✅ " : "") + t.text)
@@ -395,7 +397,7 @@ function dayCard(i) {
     ${ed ? "" : `<button class="repbtn${reportSet.has(d.iso) ? " has" : ""}" data-act="report">📒 보고서</button>
     <button class="pencil" data-act="edit" aria-label="${mmdd(d.iso)} 수정" title="수정">✏️</button>`}</div>`;
   if (!ed) {
-    const evs = d.day.events.map(e => `<li><span class="t">${spanOf(e)}</span><span>${esc(e.title)}</span><span class="r">${remindShort(e)}</span></li>`).join("");
+    const evs = d.day.events.map(e => `<li><span class="t">${spanOf(e)}</span><span class="et">${esc(e.title)}${e.desc ? `<small class="edesc">${esc(e.desc)}</small>` : ""}</span><span class="r">${remindShort(e)}</span></li>`).join("");
     const notes = d.day.memos.map((m, k) => isSys(m) ? `<li class="memo-i">${esc(m)}</li>`
       : `<li class="task${isDone(m) ? " done" : ""}"><button class="chk${isDone(m) ? " on" : ""}" data-act="chk" data-k="${k}" aria-label="완료 표시">${isDone(m) ? "✓" : ""}</button><span>${esc(taskText(m))}</span></li>`).join("");
     const cls = classesOf(d.iso), times = school().period_times || [];
@@ -414,6 +416,7 @@ function dayCard(i) {
       ${dr.events.map((e, j) => `<div class="ev" data-j="${j}">
         <div class="times"><input type="time" data-f="start" value="${e.start}" aria-label="시작">~<input type="time" data-f="end" value="${e.end}" aria-label="끝(선택)"></div>
         <input class="title" data-f="title" value="${esc(e.title)}" placeholder="일정 이름">
+        <input class="desc" data-f="desc" value="${esc(e.desc || "")}" placeholder="설명 (선택) 예) 단어 시험 Day 12" aria-label="설명">
         <div class="remind">🔔<input data-f="remind" value="${e.remind == null ? "" : e.remind.length ? e.remind.join(",") : "없음"}"
            placeholder="기본: ${esc(remindText(defaultRemind(e.title || "")))}" aria-label="몇 분 전 알림">분 전</div>
         <button class="del" data-act="del" aria-label="삭제">×</button></div>`).join("")}
@@ -619,7 +622,7 @@ $("view").addEventListener("click", async ev => {
     editing = { i, draft };
   } else if (act === "cancel") editing = null;
   else if (act === "save") return saveDay(editing.i, clean(editing.draft));
-  else if (act === "add") editing.draft.events.push({ start: "", end: "", title: "", remind: null });
+  else if (act === "add") editing.draft.events.push({ start: "", end: "", title: "", desc: "", remind: null });
   else if (act === "del") editing.draft.events.splice(+b.closest(".ev").dataset.j, 1);
   else if (act === "tadd") editing.draft.tasks.push({ text: "", done: false });
   else if (act === "tdel") editing.draft.tasks.splice(+b.closest(".trow").dataset.k, 1);
@@ -1920,7 +1923,7 @@ async function comRpc(fn, args) {
     const e = new Error(/PGRST202|Could not find the function/.test(error.code + error.message)
       ? "커뮤니티 표가 아직 없어요. Supabase SQL Editor 에서 supabase/schema.sql 을 다시 실행해 주세요."
       : /JWT/i.test(error.message) ? "로그인이 풀렸어요. ⚙️ 에서 다시 로그인해 주세요." : error.message);
-    e.status = 0; throw e;
+    e.status = 0; e.setup = /PGRST202|Could not find the function/.test(error.code + error.message); throw e;
   }
   return data;
 }
@@ -1941,7 +1944,38 @@ async function loadCommunity(seq = loadSeq) {
     if (comOpenId) { const id = comOpenId; comOpenId = null; if (seq === loadSeq) return comOpen(id); }
     if (comView) return comOpen(comView.id);
     await comFetch(); if (seq === loadSeq) renderCommunity();
-  } catch (e) { if (seq === loadSeq) showError(e); }
+  } catch (e) { if (seq === loadSeq) e.setup ? renderComSetup() : showError(e); }
+}
+/* 커뮤니티 표가 아직 없을 때: 표 만드는 SQL 을 복사 → Supabase SQL Editor 에 붙여넣고 Run
+   (앱의 공개 키로는 표를 만들 수 없어서, 프로젝트 주인이 SQL Editor 에서 한 번 실행해야 해요) */
+let comSql = null;
+const comSqlLoad = () => comSql ||= fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/supabase/schema.sql`, { headers: { Accept: "application/vnd.github.raw+json" }, cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error("SQL 을 받아오지 못했어요 (" + r.status + ")"); return r.text(); })
+  .catch(e => { comSql = null; throw e; });
+function renderComSetup() {
+  const ref = (String(CFG.supabaseUrl || "").match(/^https:\/\/([a-z0-9]+)\.supabase\.co/) || [])[1];
+  const editor = ref ? `https://supabase.com/dashboard/project/${ref}/sql/new` : "https://supabase.com/dashboard/projects";
+  $("view").innerHTML = `<section class="day rform csetup">
+    <div class="dhead"><span class="date">🛠 커뮤니티 만들기 (한 번만)</span></div>
+    <p class="empty" style="margin:6px 0 10px">게시판 표가 아직 Supabase 에 없어요. 아래 순서대로 한 번만 하면 돼요.
+      <br>(Supabase 프로젝트 주인 계정으로 해야 해요. 이미 있는 데이터는 그대로예요)</p>
+    <button class="btn" data-act="Csqlcopy" style="width:100%">① 📋 만드는 SQL 복사하기</button>
+    <a class="btn ghost" href="${esc(editor)}" target="_blank" rel="noopener noreferrer" style="display:block;text-align:center;text-decoration:none;margin-top:8px">② 🛠 Supabase SQL Editor 열기</a>
+    <p class="empty" style="margin:10px 0">③ SQL Editor 빈 칸에 붙여넣기 → 오른쪽 아래 <b>Run</b> → "Success" 가 나오면</p>
+    <button class="btn ghost" data-act="Cretry" style="width:100%">④ 🔄 다 했어요, 다시 확인</button>
+    <textarea id="csql" readonly hidden style="margin-top:10px;min-height:160px;font:12px/1.4 ui-monospace,monospace"></textarea>
+  </section>`;
+  comSqlLoad().catch(() => {});   // 미리 받아 둬야 버튼을 누를 때 바로 복사돼요 (휴대폰은 누른 순간에만 복사 허용)
+}
+async function comSqlCopy() {
+  const ta = $("csql");
+  let sql;
+  try { sql = await comSqlLoad(); } catch (e) { return toast("⚠️ " + e.message + " 잠시 뒤 다시 눌러 주세요", 4000); }
+  try { await navigator.clipboard.writeText(sql); toast("📋 복사했어요! ② SQL Editor 를 열어 붙여넣고 Run 하세요", 4000); }
+  catch (e) {   // 복사가 막히면 글을 보여 주고 전체 선택 → 직접 복사
+    if (ta) { ta.value = sql; ta.hidden = false; ta.focus(); ta.select(); }
+    toast("자동 복사가 막혔어요. 아래 글이 선택돼 있으니 '복사'를 눌러 주세요", 4500);
+  }
 }
 async function comFetch(more) {
   const before = more && comList.length ? comList.at(-1).id : null;
@@ -2042,6 +2076,8 @@ function comClick(b) {
   if (act === "Cback") { comView = null; comCmt = ""; comErr = ""; return comBusy(() => comFetch()); }
   if (act === "Cmore") return comBusy(() => comFetch(true));
   if (act === "Cunlock") return comUnlock();
+  if (act === "Csqlcopy") return comSqlCopy();
+  if (act === "Cretry") return load();
   if (act === "Clink") {
     const url = `${location.origin}${location.pathname}?mode=community&post=${comView.id}`;
     const done = () => toast(comView.post?.locked ? "링크를 복사했어요 🔗 비밀번호는 따로 알려 주세요" : "링크를 복사했어요 🔗");

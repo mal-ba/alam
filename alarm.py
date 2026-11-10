@@ -43,6 +43,7 @@ HOW_TO_EDIT = """\
 >   - 예) `08:45 등교, 18:00~21:00 야자, 19:00 친구 생일 [60,10]`
 >   - 끝에 `[60,10]`처럼 쓰면 60분 전·10분 전에 알림 (안 쓰면 기본값)
 >   - `[0]`은 정각에 알림, `[]`는 알림 없음
+>   - 제목 뒤에 `// 설명`을 붙이면 부가 설명이 돼요. 예) `19:00 영어 학원 // 단어 시험 Day 12`
 > - `할 일·메모` 칸: 시간 없이 적고 싶은 것 (아침 요약 알림에 같이 와요)
 > - 그날 일정을 다 지우면 그날은 일정 없음으로 처리돼요.
 """
@@ -185,7 +186,10 @@ class Planner:
                 memos.append(item)  # 시간이 없으면 메모로
                 continue
             h1, m1, h2, m2, title, remind = m.groups()
+            title, *rest = re.split(r"\s*//\s*", title)  # "제목 // 설명"
             ev = {"title": title, "start": f"{int(h1):02d}:{m1}"}
+            if " / ".join(rest).strip():
+                ev["desc"] = " / ".join(rest).strip()
             if h2:
                 ev["end"] = f"{int(h2):02d}:{m2}"
             if remind is not None:
@@ -200,7 +204,7 @@ class Planner:
     # --- 표 쓰기
     def format_event(self, ev):
         span = f"{ev['start']}~{ev['end']}" if ev.get("end") else ev["start"]
-        text = f"{span} {ev['title']}"
+        text = f"{span} {ev['title']}" + (f" // {ev['desc']}" if ev.get("desc") else "")
         if ev.get("remind_before") != self.remind_by_title.get(ev["title"], self.default_remind):
             text += " [" + ",".join(str(x) for x in ev.get("remind_before", [])) + "]"
         return text
@@ -252,7 +256,7 @@ class Planner:
             span = f"{ev['start']}~{ev['end']}" if ev.get("end") else ev["start"]
             rb = ev.get("remind_before", [])
             remind = ", ".join("정각" if x == 0 else f"{x}분 전" for x in rb) or "없음"
-            lines.append(f"| {span} | {ev['title']} | {remind} |")
+            lines.append(f"| {span} | {title_of(ev)} | {remind} |")
         if not day["events"]:
             lines.append("| - | 일정 없음 | - |")
         if day["memos"]:
@@ -313,9 +317,14 @@ def span_of(ev):
     return f"{ev['start']}~{ev['end']}" if ev.get("end") else ev["start"]
 
 
+def title_of(ev):
+    """제목 + (설명) — 알림 문구용"""
+    return f"{ev['title']} ({ev['desc']})" if ev.get("desc") else ev["title"]
+
+
 def day_line(planner, d, with_date=True):
     day = planner.day(d)
-    parts = [f"{span_of(e)} {e['title']}" for e in day["events"]] + [f"📝{m}" for m in day["memos"]]
+    parts = [f"{span_of(e)} {title_of(e)}" for e in day["events"]] + [f"📝{m}" for m in day["memos"]]
     text = ", ".join(parts) if parts else "쉬는 날"
     return f"{d:%m/%d}({WEEKDAY_KO[d.weekday()]}) {text}" if with_date else text
 
@@ -393,7 +402,7 @@ def exam_lines(d, within=14):
 def daily_summary(planner, d, with_report=True):
     day = planner.day(d)
     head = f"{d:%m/%d} ({WEEKDAY_KO[d.weekday()]}) 오늘 일정"
-    lines = [f"- {span_of(e)} {e['title']}" for e in day["events"]]
+    lines = [f"- {span_of(e)} {title_of(e)}" for e in day["events"]]
     lines += [f"📝 {m}" for m in day["memos"]]
     if not lines:
         lines = ["오늘은 일정이 없어요. 푹 쉬세요!"]
@@ -418,6 +427,8 @@ def build_alarms(planner, d, tz):
         for before in ev.get("remind_before", []):
             when = start - timedelta(minutes=before)
             body = f"{before}분 뒤 {ev['title']} ({span_of(ev)})" if before > 0 else f"지금 {ev['title']} ({span_of(ev)})"
+            if ev.get("desc"):
+                body += f"\n📝 {ev['desc']}"
             alarms.append((when, ev["title"], body))
     alarms.sort(key=lambda a: a[0])
     return alarms
@@ -472,7 +483,7 @@ def todo_reminders(planner, d, tz):
                 end = e.get("end")
                 return bool(end) and (end <= e["start"] or end > t)
             later = [e for e in day["events"] if e["start"] >= t or ends_after(e)]
-            lines += ["", "⏰ 남은 일정"] + ([f"· {span_of(e)} {e['title']}" for e in later] or ["· 오늘 남은 일정 없음"])
+            lines += ["", "⏰ 남은 일정"] + ([f"· {span_of(e)} {title_of(e)}" for e in later] or ["· 오늘 남은 일정 없음"])
         title = f"📋 오늘 해야 할 일 ({len(todos)}개)" + (" · 등교" if t == commute_at and commute else "")
         out.append((when, title, clip("\n".join(lines))))
     return out
