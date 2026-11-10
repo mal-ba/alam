@@ -118,3 +118,186 @@ revoke all on function public.school_textbook_choices(text, text) from public, a
 revoke all on function public.school_names(text) from public, anon;
 grant execute on function public.school_textbook_choices(text, text) to authenticated;
 grant execute on function public.school_names(text) to authenticated;
+
+-- ============================================================
+-- 💬 커뮤니티 (모두가 같이 보는 게시판)
+-- 로그인한 사람은 누구나 글을 쓸 수 있고, 글마다 🔒 비밀번호를 걸 수 있어요.
+-- 비밀번호를 건 글은 제목·글쓴이(별명)만 목록에 보이고, 내용·댓글은 비밀번호를 아는 사람만 봐요.
+--   - 표를 직접 읽을 수 없게 막고(정책 없음 + 권한 회수), 아래 함수로만 읽고 써요.
+--   - 비밀번호는 bcrypt 해시로만 저장 (DB 를 봐도 원래 비밀번호는 몰라요)
+--   - 틀린 비밀번호는 한 사람이 한 글에 10분 동안 5번까지만 (마구 넣어 보기 막기)
+--   - 누가 썼는지(계정·이메일)는 안 보이고, 글 쓸 때 적은 별명만 보여요
+-- ============================================================
+create extension if not exists pgcrypto with schema extensions;
+
+create table if not exists public.community_posts (
+  id         bigint      generated always as identity primary key,
+  author_id  uuid        not null default auth.uid() references auth.users (id) on delete cascade,
+  nickname   text        not null check (char_length(nickname) between 1 and 20),
+  title      text        not null check (char_length(title) between 1 and 100),
+  body       text        not null check (char_length(body) between 1 and 20000),
+  pw_hash    text,                                   -- null 이면 누구나 보는 글
+  created_at timestamptz not null default now(),
+  updated_at timestamptz
+);
+create index if not exists community_posts_author on public.community_posts (author_id, created_at);
+
+create table if not exists public.community_comments (
+  id         bigint      generated always as identity primary key,
+  post_id    bigint      not null references public.community_posts (id) on delete cascade,
+  author_id  uuid        not null default auth.uid() references auth.users (id) on delete cascade,
+  nickname   text        not null check (char_length(nickname) between 1 and 20),
+  body       text        not null check (char_length(body) between 1 and 1000),
+  created_at timestamptz not null default now()
+);
+create index if not exists community_comments_post on public.community_comments (post_id, id);
+create index if not exists community_comments_author on public.community_comments (author_id, created_at);
+
+create table if not exists public.community_pw_fails (
+  user_id uuid        not null references auth.users (id) on delete cascade,
+  post_id bigint      not null references public.community_posts (id) on delete cascade,
+  at      timestamptz not null default now()
+);
+create index if not exists community_pw_fails_k on public.community_pw_fails (user_id, post_id, at);
+
+-- 🔒 표는 아무도 직접 못 읽고 못 써요 (함수로만)
+alter table public.community_posts    enable row level security;
+alter table public.community_comments enable row level security;
+alter table public.community_pw_fails enable row level security;
+revoke all on public.community_posts, public.community_comments, public.community_pw_fails from anon, authenticated;
+
+-- (안에서만 쓰는 함수) 이 글을 볼 수 있나? 'ok' | 'need_pw' | 'wrong:<남은 횟수>' | 'locked' | 'none'
+create or replace function public.community_access(p_id bigint, p_pw text) returns text
+language plpgsql security definer set search_path = '' as $$
+declare h text; a uuid; fails int;
+begin
+  select pw_hash, author_id into h, a from public.community_posts where id = p_id;
+  if not found then return 'none'; end if;
+  if h is null or a = auth.uid() then return 'ok'; end if;
+  select count(*) into fails from public.community_pw_fails
+   where user_id = auth.uid() and post_id = p_id and at > now() - interval '10 minutes';
+  if fails >= 5 then return 'locked'; end if;
+  if coalesce(p_pw, '') = '' then return 'need_pw'; end if;
+  if extensions.crypt(p_pw, h) = h then
+    delete from public.community_pw_fails where user_id = auth.uid() and post_id = p_id;
+    return 'ok';
+  end if;
+  insert into public.community_pw_fails (user_id, post_id) values (auth.uid(), p_id);
+  return 'wrong:' || (4 - fails);
+end $$;
+revoke all on function public.community_access(bigint, text) from public, anon, authenticated;
+
+-- 글 목록 (최신순 30개씩, p_before 보다 오래된 것). 비밀글은 내용 미리보기 없이
+create or replace function public.community_list(p_before bigint default null, p_q text default null)
+returns table (id bigint, nickname text, title text, preview text, locked boolean, mine boolean, comments int, created_at timestamptz, updated_at timestamptz)
+language sql stable security definer set search_path = '' as $$
+  select p.id, p.nickname, p.title,
+         case when p.pw_hash is null then left(p.body, 120) end,
+         p.pw_hash is not null, p.author_id = auth.uid(),
+         (select count(*)::int from public.community_comments c where c.post_id = p.id),
+         p.created_at, p.updated_at
+  from public.community_posts p
+  where auth.uid() is not null
+    and (p_before is null or p.id < p_before)
+    and (coalesce(trim(p_q), '') = '' or strpos(lower(p.title), lower(trim(p_q))) > 0)
+  order by p.id desc
+  limit 30;
+$$;
+
+-- 글 열기: 비밀글이면 비밀번호가 맞아야 내용·댓글이 와요
+create or replace function public.community_open(p_id bigint, p_pw text default null) returns jsonb
+language plpgsql security definer set search_path = '' as $$
+declare st text; r jsonb;
+begin
+  if auth.uid() is null then return jsonb_build_object('error', 'login'); end if;
+  st := public.community_access(p_id, p_pw);
+  if st <> 'ok' then return jsonb_build_object('error', st); end if;
+  select jsonb_build_object(
+    'post', jsonb_build_object('id', p.id, 'nickname', p.nickname, 'title', p.title, 'body', p.body,
+             'locked', p.pw_hash is not null, 'mine', p.author_id = auth.uid(), 'created_at', p.created_at, 'updated_at', p.updated_at),
+    'comments', coalesce((select jsonb_agg(jsonb_build_object('id', c.id, 'nickname', c.nickname, 'body', c.body,
+             'mine', c.author_id = auth.uid(), 'created_at', c.created_at) order by c.id)
+             from public.community_comments c where c.post_id = p.id), '[]'::jsonb))
+  into r from public.community_posts p where p.id = p_id;
+  return r;
+end $$;
+
+-- 비밀번호 검사: 4~50자 (빈 값 = 비밀번호 없음)
+create or replace function public.community_pw_hash(p_pw text) returns text
+language plpgsql security definer set search_path = '' as $$
+begin
+  if coalesce(p_pw, '') = '' then return null; end if;
+  if char_length(p_pw) not between 4 and 50 then
+    raise exception '비밀번호는 4~50자로 정해 주세요' using errcode = '22023';
+  end if;
+  return extensions.crypt(p_pw, extensions.gen_salt('bf', 8));
+end $$;
+revoke all on function public.community_pw_hash(text) from public, anon, authenticated;
+
+-- 글 쓰기 → 새 글 번호. 한 계정이 하루 30개까지
+create or replace function public.community_write(p_title text, p_body text, p_nickname text, p_pw text default null) returns bigint
+language plpgsql security definer set search_path = '' as $$
+declare nid bigint;
+begin
+  if auth.uid() is null then raise exception '로그인이 필요해요' using errcode = '42501'; end if;
+  if (select count(*) from public.community_posts where author_id = auth.uid() and created_at > now() - interval '1 day') >= 30 then
+    raise exception '글은 하루에 30개까지 쓸 수 있어요' using errcode = '54000';
+  end if;
+  insert into public.community_posts (nickname, title, body, pw_hash)
+  values (trim(p_nickname), trim(p_title), trim(p_body), public.community_pw_hash(p_pw))
+  returning id into nid;
+  return nid;
+end $$;
+
+-- 내 글 고치기. p_pw: null = 비밀번호 그대로, '' = 비밀번호 없애기, 그 밖 = 새 비밀번호
+create or replace function public.community_edit(p_id bigint, p_title text, p_body text, p_nickname text, p_pw text default null) returns void
+language plpgsql security definer set search_path = '' as $$
+begin
+  update public.community_posts
+     set title = trim(p_title), body = trim(p_body), nickname = trim(p_nickname), updated_at = now(),
+         pw_hash = case when p_pw is null then pw_hash else public.community_pw_hash(p_pw) end
+   where id = p_id and author_id = auth.uid();
+  if not found then raise exception '내가 쓴 글만 고칠 수 있어요' using errcode = '42501'; end if;
+end $$;
+
+-- 내 글 지우기 (댓글도 같이)
+create or replace function public.community_delete(p_id bigint) returns void
+language plpgsql security definer set search_path = '' as $$
+begin
+  delete from public.community_posts where id = p_id and author_id = auth.uid();
+  if not found then raise exception '내가 쓴 글만 지울 수 있어요' using errcode = '42501'; end if;
+end $$;
+
+-- 댓글 달기: 비밀글이면 비밀번호가 맞아야 해요. 한 계정이 하루 200개까지
+create or replace function public.community_comment(p_id bigint, p_pw text, p_body text, p_nickname text) returns jsonb
+language plpgsql security definer set search_path = '' as $$
+declare st text;
+begin
+  if auth.uid() is null then return jsonb_build_object('error', 'login'); end if;
+  st := public.community_access(p_id, p_pw);
+  if st <> 'ok' then return jsonb_build_object('error', st); end if;
+  if (select count(*) from public.community_comments where author_id = auth.uid() and created_at > now() - interval '1 day') >= 200 then
+    raise exception '댓글은 하루에 200개까지 달 수 있어요' using errcode = '54000';
+  end if;
+  insert into public.community_comments (post_id, nickname, body) values (p_id, trim(p_nickname), trim(p_body));
+  return public.community_open(p_id, p_pw);
+end $$;
+
+-- 내 댓글 지우기 (글쓴이는 자기 글에 달린 댓글도 지울 수 있어요)
+create or replace function public.community_comment_delete(p_comment_id bigint) returns void
+language plpgsql security definer set search_path = '' as $$
+begin
+  delete from public.community_comments c
+   where c.id = p_comment_id
+     and (c.author_id = auth.uid() or exists (select 1 from public.community_posts p where p.id = c.post_id and p.author_id = auth.uid()));
+  if not found then raise exception '내가 쓴 댓글만 지울 수 있어요' using errcode = '42501'; end if;
+end $$;
+
+revoke all on function public.community_list(bigint, text), public.community_open(bigint, text),
+  public.community_write(text, text, text, text), public.community_edit(bigint, text, text, text, text),
+  public.community_delete(bigint), public.community_comment(bigint, text, text, text),
+  public.community_comment_delete(bigint) from public, anon;
+grant execute on function public.community_list(bigint, text), public.community_open(bigint, text),
+  public.community_write(text, text, text, text), public.community_edit(bigint, text, text, text, text),
+  public.community_delete(bigint), public.community_comment(bigint, text, text, text),
+  public.community_comment_delete(bigint) to authenticated;

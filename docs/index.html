@@ -533,6 +533,16 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 .eword{font-size:24px}
 .ecard-more{text-align:left;margin-top:10px}
 #epreview .vlist li b{min-width:0}
+.cpost{margin-bottom:10px}
+.cmeta{font-size:12px;color:var(--muted);margin-top:2px}
+.cprev{font-size:13px;color:var(--muted);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cbody{margin-top:12px;line-height:1.65}
+.ccmts{gap:8px}
+.ccmts li{align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:8px}
+.ccmts .del{background:none;border:0;color:var(--danger);font-size:20px;cursor:pointer;padding:0 6px;display:block}
+.ccform{margin-top:12px;display:grid;gap:6px}
+.ccform input{max-width:200px}
+.ccform textarea{min-height:64px}
 </style>
 </head>
 <body>
@@ -561,6 +571,7 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
     <button data-mode="news">📰 뉴스</button>
     <button data-mode="learn">💻 코딩 공부</button>
     <button data-mode="web">🔎 찾아보기 (인터넷 검색)</button>
+    <button data-mode="community">💬 커뮤니티 (🔒 비밀글)</button>
   </div>
   <div class="navrow">
     <button class="icon-btn" id="prev" aria-label="이전">‹</button>
@@ -575,6 +586,6 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 <div id="toast" role="status"></div>
 
 <!-- app.js 를 고치면 ?v= 값을 바꿔 주세요 (예전 app.js 가 브라우저 캐시에 남아 새 화면과 안 맞는 걸 막아요) -->
-<script src="app.js?v=be422656e0"></script>
+<script src="app.js?v=9b2ec63f89"></script>
 </body>
 </html>
