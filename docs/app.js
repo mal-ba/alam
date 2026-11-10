@@ -329,7 +329,7 @@ function showsToday() {
 let loadSeq = 0;   // 탭을 빨리 바꿀 때, 늦게 끝난 예전 불러오기가 새 화면을 덮지 않게
 async function load() {
   const seq = ++loadSeq;
-  editing = null; repDraft = null; secEdit = null; weakDraft = null; stDraft = null; planDraft = null; aiNote = null;
+  editing = null; repDraft = null; secEdit = null; weakDraft = null; stDraft = null; planDraft = null; aiNote = null; aiSubj = "";
   if (mode !== "community") comDraft = null;
   document.body.dataset.mode = mode;   // 화면 크기에 맞춘 배치(index.html 의 반응형 CSS)가 화면마다 달라요
   const free = (mode === "report" && reportKind !== "date") || mode === "exam" || mode === "books" || mode === "map" || mode === "news" || mode === "notice" || mode === "learn" || mode === "web" || mode === "weak" || mode === "mock" || mode === "study" || mode === "community";
@@ -543,6 +543,7 @@ $("view").addEventListener("keydown", ev => {
 });
 $("view").addEventListener("input", ev => {
   const t = ev.target;
+  if (t.dataset.aisubj !== undefined) { aiSubj = t.value; return; }
   if (planDraft && t.dataset.pl) return planInput(t);
   if (repDraft && t.dataset.r) return reportInput(t);
   if (noteDraft && t.dataset.n) { noteDraft[t.dataset.n] = t.value; return; }
@@ -1016,18 +1017,23 @@ let aiNote = null;     // "report" | "note" | "exam" — AI 가 채운 입력 �
 let planDraft = null;  // 계획표 사진 → 확인·수정 칸 { merge, grit, must, goal, memo, days:[{iso, ev, tk}] }
 const AI_MAX = 4, AI_PX = 1800;
 // 📷 찍기(카메라) + 🖼️ 파일 올리기(앨범·파일). PC 에선 이미지를 끌어다 놓거나 Ctrl+V 로 붙여넣어도 돼요
+let aiSubj = "";   // 사진 올리기 전에 고른 과목 (비우면 자동)
+const aiSubjList = () => [...new Set([...aiSubjects(), ...SUBJECTS, "영단어", "영문법"])];
 const aiBtn = (act, label, extra = "") => `<div class="aigroup aiscan" ${extra}>
+  ${act === "Aplan" ? "" : `<label class="aisubjrow">과목 <input data-aisubj list="aisubjects" value="${esc(aiSubj)}" placeholder="비우면 자동으로 짐작" autocomplete="off"><datalist id="aisubjects">${aiSubjList().map(x => `<option value="${esc(x)}">`).join("")}</datalist></label>`}
   <button class="add aiscan" data-act="${act}" data-src="camera" title="카메라로 찍어서 읽기">📷 ${label}</button>
-  <button class="add aiscan aifile" data-act="${act}" data-src="file" title="사진·이미지 파일을 골라서 읽기 (여러 장 가능)">🖼️ 파일 올리기</button>
-  <small class="aihint">이미지를 여기로 끌어다 놓거나 Ctrl+V 로 붙여넣어도 돼요</small></div>`;
+  <button class="add aiscan aifile" data-act="${act}" data-src="file" title="사진·이미지·PDF 파일을 골라서 읽기 (여러 장 가능)">🖼️ 파일 올리기</button>
+  <small class="aihint">이미지·PDF 를 여기로 끌어다 놓거나 Ctrl+V 로 붙여넣어도 돼요</small></div>`;
 let aiPick = { src: "", files: null };   // 어떻게 사진을 받을지 (aiClick 이 정해요)
-const aiFrom = () => aiSrc === "local" ? "📷 기기에서 사진 글자를 읽어 채웠어요 (손글씨는 틀리기 쉬워요)." : "📷 AI가 사진에서 읽어 채웠어요.";
+const aiFrom = () => aiSrc === "pdf" ? "📄 PDF 에 들어 있는 글자로 채웠어요." : aiSrc === "local" ? "📷 기기에서 사진 글자를 읽어 채웠어요 (손글씨는 틀리기 쉬워요)." : "📷 AI가 사진에서 읽어 채웠어요.";
 const aiBanner = (k, saveAct) => aiNote === k ? `<div class="aibanner"><span>${aiFrom()} 틀린 곳은 고쳐서 저장하거나, 그대로 저장해도 돼요.</span>
+  ${k === "report" || k === "note" ? `<label class="aisubjrow">과목 한 번에 바꾸기 <input id="aisubjall" list="aisubjects2" placeholder="예) 영어" autocomplete="off"><datalist id="aisubjects2">${aiSubjList().map(x => `<option value="${esc(x)}">`).join("")}</datalist>
+    <button class="btn ghost" data-act="Asubjall">${k === "report" ? "모두 이 과목으로" : "적용"}</button></label>` : ""}
   <button class="btn" data-act="${saveAct}" ${saving ? "disabled" : ""}>💾 그대로 저장</button></div>` : "";
 function pickPhotos(src) {
   return new Promise(ok => {
     const inp = document.createElement("input");
-    inp.type = "file"; inp.accept = "image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.heic,.heif"; inp.multiple = true;
+    inp.type = "file"; inp.accept = src === "camera" ? "image/*" : "image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.heic,.heif,application/pdf,.pdf"; inp.multiple = true;
     if (src === "camera") inp.capture = "environment";   // 찍기: 바로 카메라 / 파일 올리기: 앨범·파일 고르기
     inp.addEventListener("change", () => ok([...(inp.files || [])]));
     inp.addEventListener("cancel", () => ok([]));
@@ -1062,38 +1068,109 @@ async function aiServer(kind, images, context) {   // AI 서버(Supabase Edge Fu
   if (!data || !data.result) throw new Error("AI 결과가 비어 있어요.");
   return data.result;
 }
+const isPdf = f => /pdf/.test(f.type || "") || /\.pdf$/i.test(f.name || "");
+const isImg = f => /^image\//.test(f.type || "") || (!f.type && !isPdf(f)) || /\.(jpe?g|png|webp|gif|bmp|hei[cf])$/i.test(f.name || "");
 async function aiScan(kind, context) {
   const all = aiPick.files || await pickPhotos(aiPick.src);
   aiPick = { src: "", files: null };
   if (!all.length) return null;
-  const pics = all.filter(f => /^image\//.test(f.type) || !f.type).slice(0, AI_MAX);
-  if (!pics.length) { toast("사진 파일을 골라 주세요"); return null; }
-  if (all.length > AI_MAX) toast(`사진은 한 번에 ${AI_MAX}장까지예요. 앞의 ${AI_MAX}장만 읽어요.`, 3500);
-  aiBusy = true; aiWait(true, pics.length);
+  const files = all.filter(f => isPdf(f) || isImg(f));
+  if (!files.length) { toast("사진이나 PDF 파일을 골라 주세요"); return null; }
+  aiBusy = true; aiWait(true, files.length, "파일 여는 중…");
   try {
-    const images = [];
-    for (const f of pics) images.push(await shrinkImage(f));
+    // PDF 는 쪽마다 [쪽 그림 + 들어 있는 글자] 로 펼쳐요. 사진·PDF 쪽 합쳐서 앞의 4장까지
+    const pics = [];   // [{ blob, text }]
+    let more = false;
+    for (const f of files) {
+      if (pics.length >= AI_MAX) { more = true; break; }
+      if (isPdf(f)) { const r = await pdfPages(f, AI_MAX - pics.length, m => aiWait(true, files.length, m)); pics.push(...r.pages); more ||= r.more; }
+      else pics.push({ blob: f, text: "" });
+    }
+    if (more) toast(`한 번에 ${AI_MAX}장(쪽)까지 읽어요. 앞의 ${AI_MAX}장만 읽을게요.`, 4000);
+    if (!pics.length) throw new Error("PDF 에 쪽이 없어요.");
+    const n = pics.length, images = [];
+    for (const p of pics) images.push(await shrinkImage(p.blob));
     // 1) AI 서버가 설정돼 있으면 AI 로 (더 정확해요)
     if (SB && sbUser && !aiServerOff) {
-      aiWait(true, pics.length, "AI가 읽는 중… 보통 10~40초 걸려요.");
+      aiWait(true, n, "AI가 읽는 중… 보통 10~40초 걸려요.");
       try { const r = await aiServer(kind, images, context); aiSrc = "ai"; return r; }
       catch (e) {
         if (e.notReady) aiServerOff = true;   // 이번에 연 동안은 다시 묻지 않아요
         else toast("⚠️ " + e.message + " — 기기에서 직접 읽을게요", 4500);
       }
     }
-    // 2) 기기에서 직접: 글자 인식 + 규칙으로 나누기 (무료, 서버 없이)
-    aiWait(true, pics.length, "기기에서 글자를 읽는 중… 처음 한 번은 한글 데이터를 받느라 조금 더 걸려요.");
-    const urls = pics.map(f => URL.createObjectURL(f));   // 글자 인식은 줄이지 않은 원래 사진으로 (작은 손글씨도 또렷하게)
-    let text;
-    try { text = await ocrImages(images.map((im, k) => ({ ...im, src: urls[k] })), m => aiWait(true, pics.length, m)); }
-    finally { urls.forEach(u => URL.revokeObjectURL(u)); }
+    // 2) 기기에서 직접: 글자가 들어 있는 PDF 쪽은 그 글자 그대로, 사진·스캔 쪽만 글자 인식 (무료, 서버 없이)
+    const texts = new Array(n).fill(""), need = pics.map((p, k) => p.text.replace(/\s/g, "").length >= 20 ? -1 : k).filter(k => k >= 0);
+    pics.forEach((p, k) => { if (!need.includes(k)) texts[k] = p.text; });
+    if (need.length) {
+      aiWait(true, n, "기기에서 글자를 읽는 중… 처음 한 번은 한글 데이터를 받느라 조금 더 걸려요.");
+      const urls = need.map(k => URL.createObjectURL(pics[k].blob));   // 글자 인식은 줄이지 않은 원래 사진으로 (작은 손글씨도 또렷하게)
+      try {
+        for (let j = 0; j < need.length; j++) texts[need[j]] = await ocrImages([{ ...images[need[j]], src: urls[j] }], m => aiWait(true, n, (need.length > 1 ? `${j + 1}/${need.length}장 · ` : "") + m));
+      } finally { urls.forEach(u => URL.revokeObjectURL(u)); }
+    }
+    const text = texts.join("\n");
     if (!text.trim()) throw new Error("사진에서 글자를 찾지 못했어요. 밝은 곳에서 글씨가 크게 나오게 찍어 주세요.");
-    aiSrc = "local";
+    aiSrc = need.length ? "local" : "pdf";
     return LOCAL_PARSE[kind](text, context);
   } catch (e) {
     console.error(e); toast("⚠️ " + (e.message || e), 6000); return null;
   } finally { aiBusy = false; aiWait(false); }
+}
+/* ---------- PDF 펼치기 (pdf.js, 버전 고정) ----------
+   쪽마다: 들어 있는 글자(디지털 PDF 면 정확해요) + 쪽 그림(AI 나 스캔 PDF 글자 인식용) */
+const PDFJS = "https://cdn.jsdelivr.net/npm/pdfjs-dist@6.4.299/";
+let pdfjsLib = null;
+async function loadPdfjs() {
+  if (pdfjsLib) return pdfjsLib;
+  const lib = await import(PDFJS + "build/pdf.min.mjs");
+  try {   // 작업자(worker)는 다른 사이트 주소로는 못 만들어서, 받아서 blob 으로 만들어요 (보안 정책 worker-src blob:)
+    const code = await (await fetch(PDFJS + "build/pdf.worker.min.mjs")).text();
+    lib.GlobalWorkerOptions.workerPort = new Worker(URL.createObjectURL(new Blob([code], { type: "text/javascript" })), { type: "module" });
+  } catch (e) { lib.GlobalWorkerOptions.workerSrc = PDFJS + "build/pdf.worker.min.mjs"; }
+  return (pdfjsLib = lib);
+}
+function pdfText(tc) {   // 글자 조각을 줄 단위로 (같은 높이끼리, 왼쪽부터)
+  const rows = [];
+  for (const it of tc.items) {
+    if (!it.str || !it.transform) continue;
+    const x = it.transform[4], y = it.transform[5], h = Math.abs(it.transform[3]) || Math.abs(it.height) || 10;
+    let r = rows.find(r => Math.abs(r.y - y) < Math.max(r.h, h) * 0.5);
+    if (!r) rows.push(r = { y, h, items: [] });
+    r.items.push({ x, w: it.width || 0, s: it.str, h });
+  }
+  return rows.sort((a, b) => b.y - a.y).map(r => {
+    let line = "", end = null;
+    for (const it of r.items.sort((a, b) => a.x - b.x)) { if (end !== null && it.x - end > it.h * 0.25 && !/\s$/.test(line)) line += " "; line += it.s; end = it.x + it.w; }
+    return line.replace(/\s+/g, " ").trim();
+  }).filter(Boolean).join("\n");
+}
+async function pdfPages(file, max, onProg) {
+  onProg("PDF 여는 중…");
+  const lib = await loadPdfjs();
+  let pdf, task;
+  try {
+    task = lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false, cMapUrl: PDFJS + "cmaps/", cMapPacked: true, standardFontDataUrl: PDFJS + "standard_fonts/", wasmUrl: PDFJS + "wasm/" });
+    pdf = await task.promise;
+  } catch (e) {
+    throw new Error(/password/i.test(e.name + e.message) ? "비밀번호가 걸린 PDF 는 열 수 없어요." : "PDF 를 열 수 없어요 (" + (file.name || "") + ").");
+  }
+  const pages = [], n = Math.min(pdf.numPages, max);
+  for (let i = 1; i <= n; i++) {
+    onProg(`PDF ${i}/${n}쪽 펼치는 중…`);
+    const page = await pdf.getPage(i);
+    const text = pdfText(await page.getTextContent());
+    const v1 = page.getViewport({ scale: 1 }), vp = page.getViewport({ scale: Math.min(4, 2200 / Math.max(v1.width, v1.height)) });
+    const c = document.createElement("canvas"); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+    const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+    await page.render({ canvasContext: g, viewport: vp, canvas: c }).promise;
+    const blob = await new Promise(ok => c.toBlob(ok, "image/jpeg", 0.92));
+    pages.push({ blob, text });
+    page.cleanup();
+  }
+  const more = pdf.numPages > n;
+  await task.destroy();
+  return { pages, more };
 }
 const aiStr = v => typeof v === "string" ? v.trim() : "";
 const aiDate = v => /^\d{4}-\d{2}-\d{2}$/.test(aiStr(v)) && !isNaN(D(aiStr(v))) ? aiStr(v) : "";
@@ -1281,21 +1358,37 @@ async function aiClick(b, files) {
   if (act === "Apddel") { planDraft.days.splice(+b.closest(".pday").dataset.k, 1); return render(); }
   if (aiBusy) return;
   const t = todayKST();
+  if (act === "Asubjall") {   // 안내 띠에서 과목 한 번에 바꾸기
+    const v = ($("aisubjall") || {}).value; const subj = (v || "").trim();
+    if (!subj) return toast("과목을 적거나 골라 주세요");
+    if (aiNote === "report" && repDraft) { repDraft.classes = [{ subject: subj, text: repDraft.classes.map(c => c.text.trim()).filter(Boolean).join("\n\n") }]; renderReport(); }
+    else if (aiNote === "note" && noteDraft) { noteDraft.subject = subj; renderNotes(); }
+    return toast(`과목을 '${subj}'(으)로 바꿨어요`);
+  }
+  const S = aiSubj.trim();   // 올리기 전에 고른 과목
   if (act === "Areport") {
-    const r = await aiScan("report", { today: t, date: anchor, subjects: [...new Set([...classesOf(anchor), ...aiSubjects()])] });
+    const r = await aiScan("report", { today: t, date: anchor, subject: S, subjects: [...new Set([...classesOf(anchor), ...aiSubjects()])] });
     if (!r || mode !== "report" || reportKind !== "date") return;
+    if (S) r.classes = [{ subject: S, text: (r.classes || []).map(c => aiStr(c.text)).filter(Boolean).join("\n\n") }];
     repDraft = reportFromAi(r, repDraft || structuredClone(rep.data)); aiNote = "report";
     renderReport(); return window.scrollTo({ top: 0 });
   }
   if (act === "Anote") {
-    const r = await aiScan("note", { today: t, subjects: aiSubjects() });
+    const r = await aiScan("note", { today: t, subject: S, subjects: aiSubjects() });
     if (!r || mode !== "report" || reportKind !== "free") return;
+    if (S) r.subject = S;
     noteDraft = noteFromAi(r, noteDraft || emptyNote()); aiNote = "note";
     renderNotes(); return window.scrollTo({ top: 0 });
   }
   if (act === "Aexam") {
-    const r = await aiScan("exam", { today: t, subjects: aiSubjects() });
+    const r = await aiScan("exam", { today: t, subject: S, subjects: aiSubjects() });
     if (!r || mode !== "exam") return;
+    if (S) {   // 고른 과목만: 수행평가면 그 과목, 범위표에 여러 과목이 있으면 그 과목만 남겨요
+      const subs = r.subjects || [], same = subs.filter(v => subjKey(v.subject) === subjKey(S) || (subjectGroup(v.subject) && subjectGroup(v.subject) === subjectGroup(S)));
+      if (r.kind === "수행") r.subject = S;
+      else if (same.length) r.subjects = same.map(v => ({ ...v, subject: S }));
+      else if (subs.length <= 1) r.subjects = [{ subject: S, date: (subs[0] || {}).date || "", ranges: [...((subs[0] || {}).ranges || []), ...(r.ranges || [])] }];
+    }
     examDraft = examFromAi(r, examDraft); aiNote = "exam"; examCands = null;
     renderExams(); return window.scrollTo({ top: 0 });
   }
@@ -1312,7 +1405,7 @@ async function aiClick(b, files) {
 
 // PC: 이미지 파일을 화면에 끌어다 놓거나 Ctrl+V 로 붙여넣으면, 그 화면의 📷 버튼으로 읽어요
 const aiTarget = el => (el && el.closest && el.closest(".aigroup") && el.closest(".aigroup").querySelector("[data-src]")) || document.querySelector("#view .aigroup [data-src]");
-const imgFiles = list => [...(list || [])].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|bmp|hei[cf])$/i.test(f.name || ""));
+const imgFiles = list => [...(list || [])].filter(f => isPdf(f) || /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|bmp|hei[cf])$/i.test(f.name || ""));
 document.addEventListener("dragover", e => {
   if (!aiTarget(e.target) || ![...(e.dataTransfer && e.dataTransfer.types || [])].includes("Files")) return;
   e.preventDefault(); e.dataTransfer.dropEffect = "copy"; document.body.classList.add("aidrag");
@@ -1323,7 +1416,7 @@ document.addEventListener("drop", e => {
   const b = aiTarget(e.target), fs = imgFiles(e.dataTransfer && e.dataTransfer.files);
   if (!b) return;
   e.preventDefault();
-  if (!fs.length) return toast("이미지 파일만 읽을 수 있어요");
+  if (!fs.length) return toast("이미지나 PDF 파일만 읽을 수 있어요");
   if (!saving && !aiBusy) aiClick(b, fs);
 });
 document.addEventListener("paste", e => {
@@ -1703,7 +1796,7 @@ const LOCAL_PARSE = { report: parseReportText, note: parseNoteText, exam: parseE
 /* ---------- 과목 묶음 (공수2·수학 → 수학 등) ---------- */
 const SUBJECT_GROUPS = [
   ["국어", /^(국어|공국|공통국어|문학|독서|화법과작문|언어와매체)\d*$/, /국어|공국|문학|독서/],
-  ["수학", /^(수학|공수|공통수학|미적분|확률과통계|기하)\d*$/, /수학|공수|미적|확통|기하/],
+  ["수학", /^(수학|공수|공통수학|미적분|확률과통계|기하)\d*$/, /수학|공수|미적|확통|(?<![가-힣])기하(?!다)/],   // "이야기하기" 의 '기하' 는 빼요
   ["영어", /^(영어|공영|공통영어|영어회화|영어독해)\d*$/, /영어|공영|영단어/],
   ["한국사", /^(한국사|국사)\d*$/, /한국사|국사/],
   ["사회", /^(사회|통사|통합사회|사탐|사회탐구)\d*$/, /사회|통사|사탐/],
@@ -1717,6 +1810,8 @@ function subjectGroup(name) {
 function guessSubject(text) {   // 자유 글에서 과목 짐작 (한국사를 국어보다 먼저)
   const order = ["한국사", "국어", "수학", "영어", "사회", "과학"];
   text = String(text).replace(/인사탐|인문사회/g, "");   // 방과후 '인사탐'은 사회 과목이 아님
+  const en = (text.match(/[A-Za-z]/g) || []).length, ko = (text.match(/[가-힣]/g) || []).length;
+  if (en >= 40 && en > ko * 1.2) return "영어";   // 영어 지문·단어 정리
   for (const g of order) { const e = SUBJECT_GROUPS.find(x => x[0] === g); if (e[2].test(text)) return g; }
   return "";
 }

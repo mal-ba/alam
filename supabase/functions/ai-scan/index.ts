@@ -68,7 +68,7 @@ const COMMON = `너는 한국 중·고등학생의 공부 계획 앱을 돕는 �
 
 function prompt(kind: string, ctx: Record<string, unknown>): string {
   const c = (k: string) => String(ctx[k] ?? "").slice(0, 400);
-  const head = `${COMMON}\n오늘 날짜: ${c("today")}\n`;
+  const head = `${COMMON}\n오늘 날짜: ${c("today")}\n${c("subject") ? `학생이 고른 이 사진의 과목: ${c("subject")} — 과목 칸은 이 과목으로 적어 (범위표에 여러 과목이 있으면 이 과목 것만).\n` : ""}`;
   const subj = Array.isArray(ctx.subjects) && ctx.subjects.length
     ? `이 학생의 과목들(참고용): ${(ctx.subjects as unknown[]).slice(0, 40).map(String).join(" · ")}\n` : "";
   if (kind === "report") return head + subj + `이 사진은 ${c("date")} 하루의 수업 필기·보고서야. 날짜별 수업 보고서 형식으로 옮겨.
