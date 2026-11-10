@@ -1340,7 +1340,7 @@ async function ocrImages(images, onProg) {
       const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(base.width * sc)); c.height = Math.max(1, Math.round(base.height * sc));
       const g = c.getContext("2d"); g.imageSmoothingQuality = "high"; g.drawImage(base, 0, 0, c.width, c.height);
       const d = (await ocrWorker.recognize(c, {}, { text: true, blocks: true })).data;
-      const lines = (d.blocks || []).flatMap(b => b.paragraphs.flatMap(p => p.lines)).map(l => ({ text: l.text.trim(), conf: l.confidence, y: (l.bbox.y0 + l.bbox.y1) / 2 / sc, n: tries.length }));
+      const lines = (d.blocks || []).flatMap(b => b.paragraphs.flatMap(p => p.lines)).map(l => ({ text: l.text.replace(/([^가-힣\s])\1{4,}/g, " ").replace(/(?:[\d_\-—=.,'"^~]\s?){8,}/g, " ").replace(/\s{2,}/g, " ").trim(), conf: l.confidence, y: (l.bbox.y0 + l.bbox.y1) / 2 / sc, n: tries.length }));
       tries.push(lines.filter(l => /[가-힣A-Za-z0-9]/.test(l.text)));
     }
     await ocrWorker.setParameters({ tessedit_pageseg_mode: "3" });
@@ -1424,6 +1424,10 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
     let acc = 0, lo = 0; for (; lo < 255 && (acc += hist[lo]) < N * 0.01; lo++);
     const hi = 250, k = 255 / Math.max(1, hi - lo);
     for (let i = 0; i < N; i++) out[i] = Math.max(0, Math.min(255, (out[i] - lo) * k));
+    if (o.clip !== false) {   // 글씨보다 연한 것(공책 줄·얼룩)은 하얗게: 진한 글씨와 연한 배경을 가르는 값(오츠)보다 밝으면 255
+      const th = otsu(out) * (o.clipK || 0.9);
+      for (let i = 0; i < N; i++) if (out[i] >= th) out[i] = 255;
+    }
   }
   if (o.binarize) {
     const hist = new Uint32Array(256); for (let i = 0; i < N; i++) hist[out[i] | 0]++;
@@ -1451,6 +1455,13 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
   g.putImageData(id, 0, 0);
   c.lineH = ocrLineHeight(out, W, H);
   return c;
+}
+function otsu(v) {
+  const N = v.length, hist = new Uint32Array(256); for (let i = 0; i < N; i++) hist[v[i] | 0]++;
+  let sum = 0; for (let t = 0; t < 256; t++) sum += t * hist[t];
+  let wB = 0, sB = 0, best = 0, th = 128;
+  for (let t = 0; t < 256; t++) { wB += hist[t]; if (!wB) continue; const wF = N - wB; if (!wF) break; sB += t * hist[t]; const mB = sB / wB, mF = (sum - sB) / wF, x = wB * wF * (mB - mF) ** 2; if (x > best) { best = x; th = t; } }
+  return th;
 }
 // 글자 줄 높이(px) 짐작: 가운데 세로 띠에서 어두운 점이 많은 줄 묶음의 높이 중앙값 (공책 줄처럼 얇은 건 빼요)
 function ocrLineHeight(v, W, H) {
@@ -1553,7 +1564,8 @@ function parseReportText(text, ctx) {
     if (s) { cur = { subject: s.subject, text: [] }; classes.push(cur); if (/[\p{L}\p{N}]/u.test(s.rest)) route(s.rest); continue; }
     route(l);
   }
-  if (!classes.length && b.etc.length) { classes.push({ subject: guessSubject(b.etc.join(" ")), text: b.etc }); b.etc = []; }
+  // 첫 과목 이름보다 앞에 있는 내용(과목 이름을 못 읽은 경우가 많아요) → 기타가 아니라 수업 내용으로 (과목은 짐작, 모르면 빈칸)
+  if (b.etc.length) { classes.unshift({ subject: guessSubject(b.etc.join(" ")), text: b.etc }); b.etc = []; }
   return { classes: classes.map(c => ({ subject: c.subject, text: c.text.join("\n") })), important: b.important.join("\n"), memorize: b.memorize.join("\n"), remember: b.remember.join("\n"), etc: b.etc.join("\n") };
 }
 function parseNoteText(text, ctx) {
