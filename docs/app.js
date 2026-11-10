@@ -6,6 +6,7 @@ const HOW_TO_EDIT = `> **고치는 법** (오른쪽 위 연필 ✏️ 버튼 →
 >   - 예) \`08:45 등교, 18:00~21:00 야자, 19:00 친구 생일 [60,10]\`
 >   - 끝에 \`[60,10]\`처럼 쓰면 60분 전·10분 전에 알림 (안 쓰면 기본값)
 >   - \`[0]\`은 정각에 알림, \`[]\`는 알림 없음
+>   - 제목 뒤에 \`// 설명\`을 붙이면 부가 설명이 돼요. 예) \`19:00 영어 학원 // 단어 시험 Day 12\`
 > - \`할 일·메모\` 칸: 시간 없이 적고 싶은 것 (아침 요약 알림에 같이 와요)
 > - 그날 일정을 다 지우면 그날은 일정 없음으로 처리돼요.
 `;
@@ -161,7 +162,8 @@ function parseCells(ec, mc) {
   for (const it of splitItems(ec)) {
     const m = it.match(EV);
     if (!m) { memos.push(it); continue; }
-    events.push({ start: pad(+m[1]) + ":" + m[2], end: m[3] ? pad(+m[3]) + ":" + m[4] : "", title: m[5],
+    const [title, ...rest] = m[5].split(/\s*\/\/\s*/);   // "제목 // 설명"
+    events.push({ start: pad(+m[1]) + ":" + m[2], end: m[3] ? pad(+m[3]) + ":" + m[4] : "", title, desc: rest.join(" / ").trim(),
       remind: m[6] == null ? null : m[6].replace(/\s/g, "").split(",").filter(Boolean).map(Number) });
   }
   memos.push(...splitItems(mc));
@@ -175,7 +177,7 @@ function defaultRemind(title) {
 }
 const remindText = r => r.length ? r.map(x => x === 0 ? "정각" : x + "분 전").join(", ") : "알림 없음";
 function formatEvent(e) {
-  let t = `${e.end ? e.start + "~" + e.end : e.start} ${e.title}`;
+  let t = `${e.end ? e.start + "~" + e.end : e.start} ${e.title}${e.desc ? " // " + e.desc : ""}`;
   if (e.remind && JSON.stringify(e.remind) !== JSON.stringify(defaultRemind(e.title))) t += ` [${e.remind.join(",")}]`;
   return t;
 }
@@ -208,7 +210,7 @@ function classesOf(s) {
   return subj;
 }
 function baseDay(s) {
-  let events = (schedule.weekly[String(pyWd(s))] || []).map(e => ({ start: e.start, end: e.end || "", title: e.title, remind: null }));
+  let events = (schedule.weekly[String(pyWd(s))] || []).map(e => ({ start: e.start, end: e.end || "", title: e.title, desc: "", remind: null }));
   const memos = [], off = schoolOff(s);
   if (off) {
     const st = new Set(school().school_events || []);
@@ -269,10 +271,10 @@ const cleanText = t => (t || "").replace(/[,]/g, "·").replace(/[|\[\]]/g, " ").
 function clean(day) {
   const events = [];
   for (const e of day.events) {
-    const title = cleanText(e.title);
+    const title = cleanText(e.title).replace(/\s*\/\/+\s*/g, "/"), desc = cleanText(e.desc).replace(/\s*\/\/+\s*/g, "/");
     if (!title) continue;
-    if (!e.start) { (day.tasks ||= []).push({ text: title, done: false }); continue; }
-    events.push({ start: e.start, end: e.end || "", title, remind: e.remind });
+    if (!e.start) { (day.tasks ||= []).push({ text: desc ? `${title} (${desc})` : title, done: false }); continue; }
+    events.push({ start: e.start, end: e.end || "", title, desc, remind: e.remind });
   }
   const memos = day.tasks
     ? day.tasks.map(t => ({ ...t, text: cleanText(t.text) })).filter(t => t.text).map(t => (t.done ? "✅ " : "") + t.text)
@@ -395,7 +397,7 @@ function dayCard(i) {
     ${ed ? "" : `<button class="repbtn${reportSet.has(d.iso) ? " has" : ""}" data-act="report">📒 보고서</button>
     <button class="pencil" data-act="edit" aria-label="${mmdd(d.iso)} 수정" title="수정">✏️</button>`}</div>`;
   if (!ed) {
-    const evs = d.day.events.map(e => `<li><span class="t">${spanOf(e)}</span><span>${esc(e.title)}</span><span class="r">${remindShort(e)}</span></li>`).join("");
+    const evs = d.day.events.map(e => `<li><span class="t">${spanOf(e)}</span><span class="et">${esc(e.title)}${e.desc ? `<small class="edesc">${esc(e.desc)}</small>` : ""}</span><span class="r">${remindShort(e)}</span></li>`).join("");
     const notes = d.day.memos.map((m, k) => isSys(m) ? `<li class="memo-i">${esc(m)}</li>`
       : `<li class="task${isDone(m) ? " done" : ""}"><button class="chk${isDone(m) ? " on" : ""}" data-act="chk" data-k="${k}" aria-label="완료 표시">${isDone(m) ? "✓" : ""}</button><span>${esc(taskText(m))}</span></li>`).join("");
     const cls = classesOf(d.iso), times = school().period_times || [];
@@ -414,6 +416,7 @@ function dayCard(i) {
       ${dr.events.map((e, j) => `<div class="ev" data-j="${j}">
         <div class="times"><input type="time" data-f="start" value="${e.start}" aria-label="시작">~<input type="time" data-f="end" value="${e.end}" aria-label="끝(선택)"></div>
         <input class="title" data-f="title" value="${esc(e.title)}" placeholder="일정 이름">
+        <input class="desc" data-f="desc" value="${esc(e.desc || "")}" placeholder="설명 (선택) 예) 단어 시험 Day 12" aria-label="설명">
         <div class="remind">🔔<input data-f="remind" value="${e.remind == null ? "" : e.remind.length ? e.remind.join(",") : "없음"}"
            placeholder="기본: ${esc(remindText(defaultRemind(e.title || "")))}" aria-label="몇 분 전 알림">분 전</div>
         <button class="del" data-act="del" aria-label="삭제">×</button></div>`).join("")}
@@ -616,7 +619,7 @@ $("view").addEventListener("click", async ev => {
     editing = { i, draft };
   } else if (act === "cancel") editing = null;
   else if (act === "save") return saveDay(editing.i, clean(editing.draft));
-  else if (act === "add") editing.draft.events.push({ start: "", end: "", title: "", remind: null });
+  else if (act === "add") editing.draft.events.push({ start: "", end: "", title: "", desc: "", remind: null });
   else if (act === "del") editing.draft.events.splice(+b.closest(".ev").dataset.j, 1);
   else if (act === "tadd") editing.draft.tasks.push({ text: "", done: false });
   else if (act === "tdel") editing.draft.tasks.splice(+b.closest(".trow").dataset.k, 1);
