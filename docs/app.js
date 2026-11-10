@@ -1318,7 +1318,7 @@ function loadScript(src, integrity) {
   });
 }
 // [글자 줄 높이(px), 배치 방식]: 3 = 자동(줄 공책·두 단), 4 = 한 단 세로, 6 = 한 덩어리(깨끗한 인쇄물)
-const OCR_PASSES = [[30, "3"], [37, "3"], [46, "3"], [37, "6"]];
+const OCR_PASSES = [[30, "3"], [37, "4"]];   // 실제 사진(두 단·필기) 기준으로 골랐어요: 4번 읽기보다 2배 빠르고 더 정확
 async function ocrImages(images, onProg) {
   if (!window.Tesseract) await loadScript(TESS + "tesseract.min.js", TESS_SRI);
   const step = { "loading tesseract core": "도구 준비", "initializing tesseract": "도구 준비", "loading language traineddata": "한글 데이터 받는 중", "initializing api": "도구 준비", "recognizing text": "글자 읽는 중" };
@@ -1331,12 +1331,11 @@ async function ocrImages(images, onProg) {
   ocrWorker._log = logger;
   const out = [];
   for (; page < images.length; page++) {
-    // 1) 다듬기(그림자·종이색 없애기)  2) 글자 줄 높이에 맞춰 크기를 3가지로 바꿔 읽고  3) 가장 자신 있는 결과
+    // 1) 다듬기(그림자·종이색·색 펜·바닥 없애기)  2) 글자 줄 높이에 맞춰 두 가지 방식으로 읽고  3) 줄마다 합치기
     const im = images[page], base = await ocrPrep(im.src || im.data, { long: 2400, noUp: true });
     const lh = base.lineH, kOf = t => lh ? t / lh : t * 1600 / 37 / Math.max(base.width, base.height);   // 글자 줄 높이 t px 가 되게
     const tries = []; pass = 0;
-    // 줄 공책·손글씨는 '자동 배치'(3), 깨끗한 인쇄물은 '한 덩어리'(6) 가 잘 읽혀요 → 둘 다 읽어 보고 고르기
-    for (const [t, psm] of (window.__passes || OCR_PASSES)) {
+    for (const [t, psm] of OCR_PASSES) {
       await ocrWorker.setParameters({ tessedit_pageseg_mode: psm }); pass++;
       const sc = Math.min(kOf(t), 3200 / Math.max(base.width, base.height));
       const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(base.width * sc)); c.height = Math.max(1, Math.round(base.height * sc));
