@@ -1564,7 +1564,8 @@ function parseReportText(text, ctx) {
     if (s) { cur = { subject: s.subject, text: [] }; classes.push(cur); if (/[\p{L}\p{N}]/u.test(s.rest)) route(s.rest); continue; }
     route(l);
   }
-  if (!classes.length && b.etc.length) { classes.push({ subject: guessSubject(b.etc.join(" ")), text: b.etc }); b.etc = []; }
+  // 첫 과목 이름보다 앞에 있는 내용(과목 이름을 못 읽은 경우가 많아요) → 기타가 아니라 수업 내용으로 (과목은 짐작, 모르면 빈칸)
+  if (b.etc.length) { classes.unshift({ subject: guessSubject(b.etc.join(" ")), text: b.etc }); b.etc = []; }
   return { classes: classes.map(c => ({ subject: c.subject, text: c.text.join("\n") })), important: b.important.join("\n"), memorize: b.memorize.join("\n"), remember: b.remember.join("\n"), etc: b.etc.join("\n") };
 }
 function parseNoteText(text, ctx) {
