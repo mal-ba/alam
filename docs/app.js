@@ -1015,14 +1015,20 @@ let aiBusy = false;
 let aiNote = null;     // "report" | "note" | "exam" — AI 가 채운 입력 칸 위에 안내 띠
 let planDraft = null;  // 계획표 사진 → 확인·수정 칸 { merge, grit, must, goal, memo, days:[{iso, ev, tk}] }
 const AI_MAX = 4, AI_PX = 1800;
-const aiBtn = (act, label, extra = "") => `<button class="add aiscan" data-act="${act}" ${extra}>📷 ${label}</button>`;
+// 📷 찍기(카메라) + 🖼️ 파일 올리기(앨범·파일). PC 에선 이미지를 끌어다 놓거나 Ctrl+V 로 붙여넣어도 돼요
+const aiBtn = (act, label, extra = "") => `<div class="aigroup aiscan" ${extra}>
+  <button class="add aiscan" data-act="${act}" data-src="camera" title="카메라로 찍어서 읽기">📷 ${label}</button>
+  <button class="add aiscan aifile" data-act="${act}" data-src="file" title="사진·이미지 파일을 골라서 읽기 (여러 장 가능)">🖼️ 파일 올리기</button>
+  <small class="aihint">이미지를 여기로 끌어다 놓거나 Ctrl+V 로 붙여넣어도 돼요</small></div>`;
+let aiPick = { src: "", files: null };   // 어떻게 사진을 받을지 (aiClick 이 정해요)
 const aiFrom = () => aiSrc === "local" ? "📷 기기에서 사진 글자를 읽어 채웠어요 (손글씨는 틀리기 쉬워요)." : "📷 AI가 사진에서 읽어 채웠어요.";
 const aiBanner = (k, saveAct) => aiNote === k ? `<div class="aibanner"><span>${aiFrom()} 틀린 곳은 고쳐서 저장하거나, 그대로 저장해도 돼요.</span>
   <button class="btn" data-act="${saveAct}" ${saving ? "disabled" : ""}>💾 그대로 저장</button></div>` : "";
-function pickPhotos() {
+function pickPhotos(src) {
   return new Promise(ok => {
     const inp = document.createElement("input");
-    inp.type = "file"; inp.accept = "image/*"; inp.multiple = true;   // 휴대폰: 카메라로 찍기 / 앨범에서 고르기
+    inp.type = "file"; inp.accept = "image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.heic,.heif"; inp.multiple = true;
+    if (src === "camera") inp.capture = "environment";   // 찍기: 바로 카메라 / 파일 올리기: 앨범·파일 고르기
     inp.addEventListener("change", () => ok([...(inp.files || [])]));
     inp.addEventListener("cancel", () => ok([]));
     inp.click();
@@ -1031,7 +1037,7 @@ function pickPhotos() {
 async function shrinkImage(file) {   // 긴 쪽 1800px JPEG 로 줄여서 보내요 (빠르고, 글씨는 충분히 보여요)
   const url = URL.createObjectURL(file);
   try {
-    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error("이 사진은 열 수 없어요 (" + (file.type || file.name) + "). JPG·PNG 로 다시 골라 주세요.")); i.src = url; });
+    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error(/hei[cf]$/i.test(file.name) || /hei[cf]/.test(file.type) ? "HEIC 사진은 이 브라우저가 못 열어요. 휴대폰에서 바로 올리거나, JPG 로 바꿔서 올려 주세요." : "이 사진은 열 수 없어요 (" + (file.type || file.name) + "). JPG·PNG 로 다시 골라 주세요.")); i.src = url; });
     const s = Math.min(1, AI_PX / Math.max(img.naturalWidth, img.naturalHeight));
     const c = document.createElement("canvas");
     c.width = Math.max(1, Math.round(img.naturalWidth * s)); c.height = Math.max(1, Math.round(img.naturalHeight * s));
@@ -1057,7 +1063,8 @@ async function aiServer(kind, images, context) {   // AI 서버(Supabase Edge Fu
   return data.result;
 }
 async function aiScan(kind, context) {
-  const all = await pickPhotos();
+  const all = aiPick.files || await pickPhotos(aiPick.src);
+  aiPick = { src: "", files: null };
   if (!all.length) return null;
   const pics = all.filter(f => /^image\//.test(f.type) || !f.type).slice(0, AI_MAX);
   if (!pics.length) { toast("사진 파일을 골라 주세요"); return null; }
@@ -1263,8 +1270,9 @@ async function savePlan() {
   } catch (e) { saving = false; render(); showError(e, true); return; }
   saving = false; render();
 }
-async function aiClick(b) {
+async function aiClick(b, files) {
   const act = b.dataset.act;
+  if (!/^Ap(cancel|save|merge|gadd|gdel|ddel)$/.test(act)) aiPick = { src: b.dataset.src || "", files: files || null };
   if (act === "Apcancel") { planDraft = null; return render(); }
   if (act === "Apsave") return savePlan();
   if (act === "Apmerge") { planDraft.merge = b.dataset.v === "1"; return render(); }
@@ -1301,6 +1309,28 @@ async function aiClick(b) {
     render(); return window.scrollTo({ top: 0 });
   }
 }
+
+// PC: 이미지 파일을 화면에 끌어다 놓거나 Ctrl+V 로 붙여넣으면, 그 화면의 📷 버튼으로 읽어요
+const aiTarget = el => (el && el.closest && el.closest(".aigroup") && el.closest(".aigroup").querySelector("[data-src]")) || document.querySelector("#view .aigroup [data-src]");
+const imgFiles = list => [...(list || [])].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|bmp|hei[cf])$/i.test(f.name || ""));
+document.addEventListener("dragover", e => {
+  if (!aiTarget(e.target) || ![...(e.dataTransfer && e.dataTransfer.types || [])].includes("Files")) return;
+  e.preventDefault(); e.dataTransfer.dropEffect = "copy"; document.body.classList.add("aidrag");
+});
+document.addEventListener("dragleave", e => { if (!e.relatedTarget) document.body.classList.remove("aidrag"); });
+document.addEventListener("drop", e => {
+  document.body.classList.remove("aidrag");
+  const b = aiTarget(e.target), fs = imgFiles(e.dataTransfer && e.dataTransfer.files);
+  if (!b) return;
+  e.preventDefault();
+  if (!fs.length) return toast("이미지 파일만 읽을 수 있어요");
+  if (!saving && !aiBusy) aiClick(b, fs);
+});
+document.addEventListener("paste", e => {
+  const fs = imgFiles(e.clipboardData && e.clipboardData.files), b = aiTarget(document.activeElement);
+  if (!fs.length || !b || saving || aiBusy) return;
+  e.preventDefault(); aiClick(b, fs);
+});
 
 /* ---------- 📷 기기에서 읽기 (AI 서버 없이, 무료) ----------
    Tesseract.js(글자 인식, 브라우저 안에서 실행) → 아래 규칙으로 앱 형식에 나눠 넣어요.
