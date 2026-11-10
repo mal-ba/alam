@@ -537,6 +537,7 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 .ssubj button{font-weight:700}
 .stkinds{flex-wrap:wrap}.stkinds button{flex:1 1 auto;white-space:nowrap;padding:8px 10px;font-size:13px;letter-spacing:-.3px}
 .skinds{display:grid;grid-template-columns:repeat(3,1fr)}.skinds button{white-space:nowrap;padding:8px 2px;font-size:13px;letter-spacing:-.3px}
+.rform .igadd{font-size:28px;font-weight:400}
 .linkbtn{border:0;background:none;padding:0;color:var(--accent);font:inherit;font-weight:700;cursor:pointer;text-align:left}
 .elist{list-style:none;margin:6px 0 0;padding:0}
 .eitem{display:flex;align-items:flex-start;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line)}
@@ -552,6 +553,28 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 .ecard-more{text-align:left;margin-top:10px}
 #epreview .vlist li b{min-width:0}
 .cpost{margin-bottom:10px}
+.igpost{padding:0;overflow:hidden}
+.ighead{display:flex;align-items:center;gap:8px;padding:10px 12px}
+.ighead .pencil{width:32px;height:30px;font-size:14px}
+.igav{width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.ignm{display:flex;flex-direction:column;min-width:0}
+.ignm b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.igimgs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;background:#000;-webkit-overflow-scrolling:touch}
+.igimgs img{flex:0 0 100%;width:100%;max-height:560px;object-fit:contain;scroll-snap-align:center;display:block}
+.igcnt{font-size:12px;color:var(--muted);padding:6px 12px 0}
+.igtext{padding:10px 12px 14px;line-height:1.6}
+.iglock{margin:0 12px 14px;padding:24px 14px;border-radius:12px;background:var(--input);text-align:center;display:grid;gap:6px;justify-items:center}
+.iglk{font-size:34px}
+.igpw{display:flex;gap:6px;width:100%;max-width:320px;margin-top:6px}
+.igpw input{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 10px}
+.igpw .btn{flex:none;padding:9px 12px}
+.igpick{display:flex;flex-wrap:wrap;gap:8px}
+.igth{position:relative;width:84px;height:84px}
+.igth img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+.igth button{position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;border:0;background:var(--danger);color:#fff;cursor:pointer;line-height:1}
+.igadd{width:84px;height:84px;border:2px dashed var(--line);border-radius:10px;display:grid!important;place-items:center;font-size:28px;color:var(--accent);cursor:pointer;margin:0!important}
+.rform .igadd{font-size:28px;font-weight:400}
+.linkbtn{border:0;background:none;color:var(--accent);font:inherit;font-size:12px;cursor:pointer;padding:0}
 .cmeta{font-size:12px;color:var(--muted);margin-top:2px}
 .cprev{font-size:13px;color:var(--muted);margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cbody{margin-top:12px;line-height:1.65}
@@ -589,7 +612,7 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
     <button data-mode="news">📰 뉴스</button>
     <button data-mode="learn">💻 코딩 공부</button>
     <button data-mode="web">🔎 찾아보기 (인터넷 검색)</button>
-    <button data-mode="community">💬 커뮤니티 (🔒 비밀글)</button>
+    <button data-mode="community">💬 커뮤니티 (📷 글·사진)</button>
   </div>
   <div class="navrow">
     <button class="icon-btn" id="prev" aria-label="이전">‹</button>
@@ -604,6 +627,6 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 <div id="toast" role="status"></div>
 
 <!-- app.js 를 고치면 ?v= 값을 바꿔 주세요 (예전 app.js 가 브라우저 캐시에 남아 새 화면과 안 맞는 걸 막아요) -->
-<script src="app.js?v=59aa57b507"></script>
+<script src="app.js?v=b1011974e6"></script>
 </body>
 </html>
