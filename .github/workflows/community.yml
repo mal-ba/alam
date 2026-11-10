@@ -1,0 +1,38 @@
+name: 커뮤니티 피드
+
+on:
+  schedule:
+    # 몇 분마다 모두의 게시물을 모아 피드로 올려요. GitHub 사정으로 조금 늦게 돌 때가 있어요.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:      # Actions 탭에서 바로 실행
+
+# 저장소에는 아무것도 안 써요 (피드는 Supabase Storage 에 올라가요)
+permissions:
+  contents: read
+
+concurrency:
+  group: community-feed
+  cancel-in-progress: false
+
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+      - name: 게시물 모아서 피드 올리기
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        # 공개 로그라 게시물 내용·계정은 안 찍어요 (개수만)
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
+            echo "::error::GitHub Secrets 에 SUPABASE_URL 과 SUPABASE_SERVICE_KEY 를 넣어 주세요 (SUPABASE_SETUP.md 3번)"
+            exit 1
+          fi
+          python community_feed.py
