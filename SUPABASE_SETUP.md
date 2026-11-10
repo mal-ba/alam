@@ -89,3 +89,29 @@ Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schem
 - 대신 나이스(https://open.neis.go.kr) 인증키를 `NEIS_KEY` 로 넣어도 돼요. 이 경우 도로명주소만 있고 **지번주소·지도 위치는 없어요**.
 - 목록이 없을 때는 앱이 예전처럼 학교 이름을 직접 적게 해요.
 - 학교 목록에서 고른 학교는 **학교 고유번호**로 친구들과 출판사를 맞춰요. 이름이 같아도 다른 학교와 섞이지 않아요.
+
+## 📷 사진으로 채우기 (한 번만: AI 서버 함수 + Claude API 키)
+시험 범위표 · 수업 필기(보고서) · 계획표를 **사진으로 찍으면** AI(Claude)가 읽어서 앱 형식에 맞게 채워 줘요.
+채운 뒤에는 **고쳐서 저장**하거나 **💾 그대로 저장**하면 돼요.
+
+| 어디서 | 버튼 | 무엇이 채워지나 |
+|---|---|---|
+| 보고서 → 📅 날짜별 | 날짜 옆 📷 / 수정 칸의 📷 | 과목별 수업 내용, 중요한 것, 외울 것, 기억할 것(숙제·수행 날짜), 기타 |
+| 보고서 → 📝 자유 | 📷 사진으로 쓰기 | 제목, 과목, 내용, 중요한 것 등 |
+| 시험 | 📷 시험 범위표·수행평가 안내 사진으로 추가 | 시험 이름·기간, 과목별 시험날·범위(진도 0%에서 시작), 메모 |
+| 주간 / 월간 | 📷 계획표 사진으로 채우기 | 날짜별 일정(시간)·할 일, 주간 GRIT·MUST DO / 월간 목표·MEMO — 확인 칸에서 **➕ 원래 계획에 더하기** 또는 **🔁 사진 내용으로 바꾸기** |
+
+사진은 한 번에 4장까지, 앱이 크기를 줄여서 보내요. 사진은 **저장하지 않고** 읽기만 해요.
+
+### 설정
+1. **Claude API 키 만들기**: https://platform.claude.com → API Keys → Create Key (결제 수단 등록 필요. 사진 한 장에 보통 몇십 원 정도)
+2. **키 넣기**: Supabase 대시보드 → **Edge Functions → Secrets** → Add new secret
+   - Name: `ANTHROPIC_API_KEY`, Value: 만든 키 (🔒 키는 서버에만 있고 앱·저장소에는 절대 안 들어가요)
+3. **서버 함수 만들기** (둘 중 하나)
+   - **대시보드에서**: Edge Functions → **Deploy a new function → Via Editor** → 이름 `ai-scan` → [`supabase/functions/ai-scan/index.ts`](supabase/functions/ai-scan/index.ts) 내용을 통째로 붙여넣고 **Deploy**
+   - **CLI 로**: `supabase functions deploy ai-scan --project-ref <프로젝트 ID>`
+   - 함수 안에서 로그인 토큰을 직접 확인해요. 새 API 키(`sb_publishable_…`)를 쓰는 프로젝트에서 401 이 나면 함수 설정의 **Verify JWT** 를 꺼 주세요 (CLI: `--no-verify-jwt`).
+4. **(권장) 하루 사용 횟수 제한**: SQL Editor 에 [`supabase/ai_scan.sql`](supabase/ai_scan.sql) 을 붙여넣고 **Run** → 계정마다 하루 40번까지 (`DAILY_LIMIT` 로 바꿀 수 있어요). 이 표가 없으면 제한 없이 동작해요.
+
+- 🔒 로그인한 사람만 쓸 수 있어요. 앱은 `https://<프로젝트>.supabase.co/functions/v1/ai-scan` 로만 보내서 보안 정책(CSP)을 바꿀 필요가 없어요.
+- 모델은 `claude-opus-5-5` (함수 맨 위 `MODEL`). 손글씨가 많이 흐리면 더 밝게, 가깝게 찍어 주세요.

@@ -36,6 +36,12 @@
 - `security definer` 함수는 `search_path = ''` 로 고정해 다른 스키마의 함수로 바꿔치기되지 않게 했어요.
 - 알림 실행(`run_supabase.py`)은 `SUPABASE_URL` 이 `https://<프로젝트>.supabase.co` 일 때만 비밀 키를 보내고, ntfy 토픽은 영문·숫자·`_-` 만 받아요.
 
+### 📷 사진 인식 (`supabase/functions/ai-scan`)
+- Claude API 키(`ANTHROPIC_API_KEY`)는 **Supabase Edge Function Secrets 에만** 있어요. 앱(브라우저)·저장소에는 없어요.
+- 함수는 요청마다 로그인 토큰을 확인해서 **로그인한 사람만** 쓸 수 있고, 사진 장수(4장)·크기·종류를 제한해요.
+- 계정마다 하루 사용 횟수 제한 (`supabase/ai_scan.sql` 의 `ai_scans` 표 — 앱에서는 읽기·쓰기 못 하고 서버만 써요).
+- 사진은 저장하지 않아요. AI 결과는 바로 저장되지 않고, 사람이 확인하는 입력 칸에 먼저 채워져요.
+
 ### GitHub Actions
 - 액션을 **커밋 SHA 로 고정** (태그가 바꿔치기돼도 안전). `.github/dependabot.yml` 이 한 달에 한 번 새 버전 PR 을 만들어 줘요.
 - 알람 작업은 `contents: read` + `persist-credentials: false` (토큰을 디스크에 안 남김), 모든 작업에 시간 제한.

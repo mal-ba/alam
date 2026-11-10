@@ -31,6 +31,7 @@
 | **🔎 찾아보기** | ☰ 메뉴 → 인터넷 검색: 위키백과 요약·검색 결과를 앱 안에서 바로 보고, 앱에 모은 뉴스도 같이 찾아요. 구글·네이버·유튜브·나무위키·EBSi·사전·네이버 쇼핑·쿠팡·다나와 등 버튼으로 같은 검색어를 그 사이트에서 바로 검색. ✨ 다가오는 시험(진도가 낮은 범위)·오늘 할 일·코딩 공부에서 **나에게 필요할 것 같은 검색어**를 추천, 최근 검색은 이 기기에만 저장 |
 
 | **💬 커뮤니티** | ☰ 메뉴: 인스타처럼 **글·사진(4장까지) 게시물**을 올리고 모두 같이 봐요(계정·이메일은 안 보이고 **별명**만). 올릴 때 **🔒 비밀번호 걸기**를 켜면 글·사진이 그 비밀번호로 암호화돼서 올라가고, **비밀번호를 아는 사람만** 풀어 봐요. 끄면 누구나 봐요. 🔗 로 게시물 링크 복사, 내 게시물은 ✏️ 고치기·🗑 삭제. 내 게시물은 내 Supabase 칸에 바로 저장되고, GitHub Actions(`community_feed.py`, 5분마다)가 모두의 게시물을 모아 Supabase Storage 피드로 올려요 → 다른 사람에게는 몇 분 뒤 보여요. **따로 설정할 것 없음** |
+| **📷 사진으로 채우기** | 보고서(날짜별·자유) · 시험 · 주간/월간 계획표에서 📷 를 누르고 **필기·프린트·시험 범위표·플래너 사진**을 찍거나 고르면, AI(Claude)가 읽어서 그 화면의 형식(과목별 수업 내용 / 시험 과목·범위 / 날짜별 일정·할 일·GRIT·MUST DO)에 맞게 채워요. 틀린 곳은 **고쳐서 저장**하거나 **💾 그대로 저장**. 계획표는 원래 계획에 **더하기** / 사진 내용으로 **바꾸기** 를 골라요. 처음 한 번 [SUPABASE_SETUP.md](SUPABASE_SETUP.md#-사진으로-채우기-한-번만-ai-서버-함수--claude-api-키) 설정 필요 |
 
 - 고치기는 항상 ✏️ 연필 → 저장/취소 (할 일 체크박스만 바로 저장)
 - ⚙️: 계정, 로그아웃, **ntfy 알림 토픽**, 기본 시간표(JSON)
@@ -73,6 +74,8 @@
 | `docs/sandbox.html` | 코딩 공부 HTML·CSS 실행 칸 (앱 로그인 정보에 못 닿는 격리된 틀) |
 | `docs/config.js` | Supabase 주소·publishable 키 (공개돼도 되는 값) |
 | `supabase/schema.sql` | 데이터 테이블 + 행 단위 보안 |
+| `supabase/functions/ai-scan/index.ts` | 📷 사진 → Claude → 앱 형식 JSON (Supabase Edge Function, 키는 Secrets 의 `ANTHROPIC_API_KEY`) |
+| `supabase/ai_scan.sql` | 📷 사진 인식 하루 사용 횟수 기록 표 (서버만 접근) |
 | `news.py` | 구글 뉴스 RSS → `docs/news.json` + 연도별 보관함 `docs/news/<분야>/<연도>.json` (`.github/workflows/news.yml`, 매시간 깨워서 3시간 지났으면 모음) |
 | `news_archive.py` | 2000년~지난달 기사를 분야·반달마다 채움 (6개 분야 동시에), 진행 상황 `docs/news/progress/<분야>.json` (`.github/workflows/news-archive.yml`, 6시간마다 남은 것 이어서 / Actions 에서 바로 실행) |
 | `docs/mock.json` | 모의고사 탭 데이터 (`mock_gen.py` 로 만들어요: `python mock_gen.py docs/mock.json`). 영어 단어는 `mock_words.py` (한 줄에 `단어\|뜻`), 시험 목록 규칙·과목별 문항 수·연습 문제는 `mock_gen.py`. 기출 시험지·정답 PDF 는 저작권이 출제 기관에 있어서 넣지 않고 링크로 열어요 |
