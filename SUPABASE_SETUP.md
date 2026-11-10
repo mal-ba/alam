@@ -105,7 +105,12 @@ Supabase **SQL Editor → New query** 에 [`supabase/schema.sql`](supabase/schem
 
 사진은 한 번에 4장까지, 앱이 크기를 줄여서 보내요. 사진은 **저장하지 않고** 읽기만 해요.
 
-### 설정
+**설정 없이도 돼요 (기기에서 읽기, 무료):** AI 서버를 설정하지 않으면 앱이 **휴대폰 안에서 직접** 글자를 읽어요
+(Tesseract.js 글자 인식 + 규칙으로 과목·날짜·시간·범위를 나눔). 처음 한 번 글자 데이터(약 5MB)를 받고, 그다음부턴 기기에 저장돼 빨라요.
+인쇄된 글씨(시험 범위 공지, 프린트)는 잘 읽지만 **손글씨는 틀리기 쉬워요**. 손글씨를 정확히 읽게 하고 싶으면 아래 AI 설정을 해 주세요.
+AI 서버가 설정돼 있으면 AI로 먼저 읽고, 실패하면 기기에서 읽기로 넘어가요.
+
+### (선택) AI 로 더 정확하게: 설정
 1. **Claude API 키 만들기**: https://platform.claude.com → API Keys → Create Key (결제 수단 등록 필요. 사진 한 장에 보통 몇십 원 정도)
 2. **키 넣기**: Supabase 대시보드 → **Edge Functions → Secrets** → Add new secret
    - Name: `ANTHROPIC_API_KEY`, Value: 만든 키 (🔒 키는 서버에만 있고 앱·저장소에는 절대 안 들어가요)
