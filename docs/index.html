@@ -515,7 +515,9 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 .ppass{background:var(--input);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:14px;line-height:1.6}
 .pexp{margin-top:6px;font-size:13.5px;line-height:1.55;color:var(--muted)}
 @media (min-width:700px){.mstats{grid-template-columns:repeat(4,1fr)}}
-/* 🔤 영어 시험 준비 */
+/* 📚 학교 시험 공부 */
+.ssubj button{font-weight:700}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);font:inherit;font-weight:700;cursor:pointer;text-align:left}
 .elist{list-style:none;margin:6px 0 0;padding:0}
 .eitem{display:flex;align-items:flex-start;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line)}
 .eitem:last-child{border-bottom:0}
@@ -523,7 +525,8 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 .ebody{flex:1;min-width:0}
 .et b{font-size:15.5px;word-break:break-word}.eitem.ok .et b{color:var(--ok)}
 .em{color:var(--accent);font-weight:600;font-size:14px;margin-top:2px}
-.eex{margin-top:6px;font-size:13.5px;line-height:1.55;padding:6px 10px;border-left:3px solid var(--accent);background:var(--input);border-radius:0 8px 8px 0;font-style:italic}
+.eex{margin-top:6px;font-size:13.5px;line-height:1.55;padding:6px 10px;border-left:3px solid var(--accent);background:var(--input);border-radius:0 8px 8px 0}
+.eex.en{font-style:italic}
 .enote{margin-top:6px;font-size:13px;line-height:1.55;color:var(--muted)}
 .eword{font-size:24px}
 .ecard-more{text-align:left;margin-top:10px}
@@ -546,9 +549,9 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
     <button id="moreBtn" aria-haspopup="true" aria-expanded="false">☰ 메뉴</button>
   </div>
   <div id="moreMenu" class="moremenu" hidden>
+    <button data-mode="study">📚 학교 시험 공부 (영어·국어·수학…)</button>
     <button data-mode="exam">📝 시험 범위·진도</button>
     <button data-mode="weak">🩹 과목별 부족한 점</button>
-    <button data-mode="eng">🔤 영어 시험 준비 (문법·숙어·단어)</button>
     <button data-mode="mock">📝 모의고사 · 영어 단어</button>
     <button data-mode="books">📚 교과서 출판사</button>
     <button data-mode="year">📆 연간 계획</button>
@@ -570,6 +573,6 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent)}
 <div id="toast" role="status"></div>
 
 <!-- app.js 를 고치면 ?v= 값을 바꿔 주세요 (예전 app.js 가 브라우저 캐시에 남아 새 화면과 안 맞는 걸 막아요) -->
-<script src="app.js?v=e8ffe179a8"></script>
+<script src="app.js?v=1f636ba87e"></script>
 </body>
 </html>
