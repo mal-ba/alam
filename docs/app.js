@@ -1619,9 +1619,14 @@ const ST_KINDS = {
   영어: { kinds: [["g", "📘", "문법", /문법|어법|grammar|구문|구조/i], ["i", "💬", "숙어·표현", /숙어|idiom|표현|expression/i], ["v", "🔤", "단어", /어휘|단어|voca/i]], find: "vig" },
   국어: { kinds: [["c", "📘", "개념·문법", /개념|문법|이론|갈래|표현법/], ["w", "📖", "작품·지문", /작품|지문|문학|비문학|소설|시가|수필|희곡|본문/], ["v", "🔤", "어휘·한자", /어휘|단어|한자|낱말|어구|관용/]], find: "vwc" },
   수학: { kinds: [["c", "📘", "개념·정의", /개념|정의|성질|정리|용어/], ["f", "🧮", "공식", /공식/], ["p", "✏️", "유형·풀이", /유형|풀이|문제|예제|기출|실수/]], find: "fpc" },
+  // 과학(통합과학·물리·화학·생명과학·지구과학도): 6가지로 나눠요. c·v·p 는 예전 '그 외' 과목과 같은 코드라 넣어 둔 것도 그대로 보여요
+  과학: { kinds: [["c", "📘", "개념·원리", /개념|원리|이론|핵심|정의|내용|구조|특징/], ["v", "🔤", "용어", /용어|암기|단어|어휘|이름/],
+    ["f", "🧮", "법칙·공식", /법칙|공식|반응식|화학식|단위|계산/], ["e", "🧪", "실험·탐구", /실험|탐구|관찰|측정|과정|준비물|변인/],
+    ["d", "📊", "그래프·자료", /그래프|자료|그림|도표|(^|\s)표(\s|$)|모형|모식도/], ["p", "🎯", "시험 포인트", /포인트|문제|주의|유형|기출|헷갈|비교|오개념/]], find: "edfpvc" },
   _: { kinds: [["c", "📘", "핵심 개념", /개념|핵심|원리|이론|정리|내용/], ["v", "🔤", "용어·암기", /용어|암기|단어|어휘|연도|인물|사건|외울/], ["p", "🎯", "시험 포인트", /포인트|문제|자료|주의|유형|기출|헷갈/]], find: "pvc" },
 };
-const stConf = (s = stSubj) => ST_KINDS[s] || ST_KINDS._;
+const isSci = s => /과학|물리|화학|생명|지구|생물/.test(s || "");
+const stConf = (s = stSubj) => ST_KINDS[s] || (isSci(s) ? ST_KINDS.과학 : ST_KINDS._);
 const stKinds = (s = stSubj) => stConf(s).kinds;
 const stKindOf = (k, s = stSubj) => stKinds(s).find(x => x[0] === k) || ["?", "•", "기타"];
 const isEn = (s = stSubj) => s === "영어";
@@ -1737,9 +1742,10 @@ const ST_PH = {   // 과목별 예시 문구
   영어: { set: "예) 2과 본문 · 18번 지문 (고객 경청)", paste: "1. 주요 문법 사항 (Grammar)&#10;• whether A or B (양보/선택)&#10;◦ 문장: People, whether customers or otherwise, want to feel heard.&#10;◦ 설명: 'A이든 B이든 간에'…&#10;2. 주요 숙어 및 표현&#10;• pay attention to (~에 주의를 기울이다)&#10;3. 어휘&#10;• concern: 우려, 걱정거리" },
   국어: { set: "예) 3단원 현대시 · 진달래꽃", paste: "1. 개념&#10;• 반어법: 겉으로 한 말과 속뜻이 반대인 표현&#10;2. 작품&#10;• 진달래꽃 (김소월)&#10;◦ 설명: 이별의 정한, 반어적 표현&#10;3. 어휘&#10;• 영변: 평안북도의 지명" },
   수학: { set: "예) 2단원 이차함수", paste: "1. 개념&#10;• 꼭짓점: 포물선의 축과 만나는 점&#10;2. 공식&#10;• 꼭짓점 좌표: (-b/2a, -(b²-4ac)/4a)&#10;3. 유형&#10;• 최댓값·최솟값 구하기&#10;◦ 설명: 정의역 끝값과 꼭짓점 비교" },
+  과학: { set: "예) 2단원 물질의 규칙성 · 세포의 구조", paste: "1. 개념·원리&#10;• 세포 호흡: 포도당을 분해해 에너지(ATP)를 얻는 과정&#10;2. 용어&#10;• 엽록체: 광합성이 일어나는 곳&#10;3. 법칙·공식&#10;• 뉴턴 운동 제2법칙: F = ma&#10;4. 실험·탐구&#10;• 아이오딘 반응 실험&#10;◦ 설명: 녹말이 있으면 청람색&#10;5. 그래프·자료&#10;• 온도에 따른 효소 활성 그래프: 최적 온도에서 가장 높음&#10;6. 시험 포인트&#10;• 식물 세포에만 있는 것: 세포벽, 엽록체" },
   _: { set: "예) 1단원 · 세포의 구조", paste: "1. 핵심 개념&#10;• 미토콘드리아: 세포 호흡으로 에너지(ATP)를 만드는 곳&#10;2. 용어·암기&#10;• 엽록체: 광합성이 일어나는 곳&#10;3. 시험 포인트&#10;• 식물 세포에만 있는 것: 세포벽, 엽록체" },
 };
-const stPh = () => ST_PH[stSubj] || ST_PH._;
+const stPh = () => ST_PH[stSubj] || (isSci(stSubj) ? ST_PH.과학 : ST_PH._);
 function stForm(d) {
   if (d.type === "set") return `<section class="day editing rform">
     <div class="dhead"><span class="date">${d.id ? "✏️ 단원·지문 고치기" : `📄 ${esc(stSubj)} 단원·지문 추가`}</span></div>
@@ -1766,7 +1772,7 @@ function stForm(d) {
   return `<section class="day editing rform">
     <div class="dhead"><span class="date">${d.id ? "✏️ 항목 고치기" : "+ 항목 추가"}</span></div>
     <label>단원·지문</label><select data-en="set" class="minput">${stSetOpts(d.set)}</select>
-    <label>종류</label><div class="kindbar">${stKinds().map(([k, ic, n]) => `<button data-act="Ekind" data-k="${k}" class="${d.k === k ? "on" : ""}">${ic} ${n}</button>`).join("")}</div>
+    <label>종류</label><div class="kindbar skinds">${stKinds().map(([k, ic, n]) => `<button data-act="Ekind" data-k="${k}" class="${d.k === k ? "on" : ""}">${ic} ${n}</button>`).join("")}</div>
     <label>${esc(kn)}</label><input data-en="t" value="${esc(d.t)}" placeholder="${isEn() ? (d.k === "g" ? "예) 조동사 + have p.p." : d.k === "i" ? "예) make sense" : "예) concern") : "예) 외울 용어·공식·개념"}">
     <label>뜻 · 정의</label><input data-en="m" value="${esc(d.m || "")}" placeholder="${isEn() ? "예) 말이 되다, 타당하다" : "예) 한 줄로 정리한 뜻"}">
     <label>${isEn() ? "본문 문장 · 예문" : "예시 · 문제 · 자료"}</label><textarea data-en="ex" placeholder="${isEn() ? "예) They might have attended to everything we said." : "예) 교과서 예제, 그래프·자료 설명"}">${esc(d.ex || "")}</textarea>
@@ -1868,7 +1874,7 @@ function renderStudy() {
   if (!sets.length) {
     $("view").innerHTML = subjBar + info + `<section class="day"><div class="dhead"><span class="date">📚 ${esc(stSubj)}</span></div>
       <div class="empty" style="line-height:1.7">시험 범위의 <b>단원·지문</b>을 하나 만들고, 필기한 <b>${stKinds().map(x => x[2]).join(" · ")}</b> 정리를 통째로 붙여넣으세요.<br>
-      "1. ${stKinds()[0][2]} / 2. ${stKinds()[1][2]} / 3. ${stKinds()[2][2]}" 처럼 나뉜 정리는 알아서 종류별로 나눠 들어가요.<br>
+      "${stKinds().map((x, i) => `${i + 1}. ${x[2]}`).join(" / ")}" 처럼 나뉜 정리는 알아서 종류별로 나눠 들어가요.<br>
       그다음 📋 정리 노트로 보고, 🃏 카드 · ❓ 4지선다 · ✍️ 쓰기로 외워요.</div>
       <button class="btn" data-act="Enewset" style="width:100%;margin-top:12px">📄 ${esc(stSubj)} 첫 단원·지문 만들기</button></section>`;
     return;
@@ -1884,7 +1890,7 @@ function renderStudy() {
     <div class="mstat"><b>${known}</b> / ${inSet.length} 외움 <span class="mbar"><i style="width:${inSet.length ? (known / inSet.length * 100).toFixed(1) : 0}%"></i></span></div>
     ${setbar}
     <div class="rbtns"><button class="mini-btn go" data-act="Epaste">📋 붙여넣기로 넣기</button><button class="mini-btn" data-act="Enew">+ 하나씩 추가</button><button class="mini-btn" data-act="Enewset">📄 단원·지문 추가</button></div></section>`;
-  const kinds = `<div class="kindbar mkinds">${[["all", "전체"], ...stKinds().map(([k, ic, n]) => [k, `${ic} ${n}`])].map(([k, n]) => `<button data-act="Ekindf" data-k="${k}" class="${stKind === k ? "on" : ""}">${n} ${inSet.filter(x => k === "all" || x.k === k).length}</button>`).join("")}</div>`;
+  const kinds = `<div class="kindbar stkinds">${[["all", "전체"], ...stKinds().map(([k, ic, n]) => [k, `${ic} ${n}`])].map(([k, n]) => `<button data-act="Ekindf" data-k="${k}" class="${stKind === k ? "on" : ""}">${n} ${inSet.filter(x => k === "all" || x.k === k).length}</button>`).join("")}</div>`;
   const modes = `<div class="filters">${[["list", "📋 정리 노트"], ["card", "🃏 카드"], ["quiz", "❓ 4지선다"], ["write", "✍️ 쓰기"]].map(([k, n]) => `<button data-act="Emode" data-k="${k}" class="${stMode === k ? "on" : ""}">${n}</button>`).join("")}
     <button data-act="Eleft" class="${stLeft ? "on" : ""}">${stLeft ? "☑" : "☐"} 못 외운 것만</button></div>`;
   const pool = stPool();
