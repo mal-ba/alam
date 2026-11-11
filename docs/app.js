@@ -1532,13 +1532,26 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
   const g = c.getContext("2d", { willReadFrequently: true });
   g.imageSmoothingQuality = "high"; g.drawImage(img, 0, 0, W, H);
   const id = g.getImageData(0, 0, W, H), px = id.data, N = W * H, gray = new Float32Array(N);
-  let colored = 0;
+  // 색 있는 펜·형광펜: 인쇄된 검은 글씨가 대부분인 사진(필기한 학습지)에서만 지워요.
+  // 색 펜 글씨가 많으면(내 필기 노트) 그게 내용이라 남겨요
+  const inkOf = i => {
+    const r = px[i * 4], gg = px[i * 4 + 1], b = px[i * 4 + 2], mx = Math.max(r, gg, b), sat = mx - Math.min(r, gg, b);
+    if (sat / (mx + 1) <= 0.28) return 0;
+    const pen = b === mx || (r === mx && r - gg > 35);   // 파랑·보라·빨강
+    if (mx >= 190 && sat > 40) return 1;   // 아주 밝은 색(형광펜, 공책의 하늘색 줄)은 늘 지워요
+    return pen && sat > 45 ? 2 : mx > 110 && sat > 55 ? 1 : 0;   // 2 = 색 펜(어두운 파랑·빨강), 1 = 색 표시
+  };
+  let nBlack = 0, nPen = 0;
+  for (let i = 0; i < N; i += 3) {
+    const k = inkOf(i);
+    if (k === 2 && Math.max(px[i * 4], px[i * 4 + 1], px[i * 4 + 2]) < 200) nPen++;
+    else if (!k && 0.299 * px[i * 4] + 0.587 * px[i * 4 + 1] + 0.114 * px[i * 4 + 2] < 100) nBlack++;
+  }
+  const dropPen = o.inkColor !== false && o.pen !== false && nBlack > nPen * 1.5;
   for (let i = 0; i < N; i++) {
-    const r = px[i * 4], gg = px[i * 4 + 1], b = px[i * 4 + 2], mx = Math.max(r, gg, b), mn = Math.min(r, gg, b);
-    gray[i] = 0.299 * r + 0.587 * gg + 0.114 * b;
-    // 색 있는 펜·형광펜(채도 높음)은 종이로: 인쇄된 검은 글씨만 남겨요. 손으로 쓴 색 필기는 글자 인식이 어차피 못 읽고, 인쇄 글씨를 가려요
-    // (형광펜 위의 검은 글씨는 어두워서 남겨요: 밝기 110 이상인 색만 지움)
-    if (o.inkColor !== false && mx > 110 && mx - mn > 55 && (mx - mn) / (mx + 1) > 0.28) { gray[i] = 255; colored++; }
+    gray[i] = 0.299 * px[i * 4] + 0.587 * px[i * 4 + 1] + 0.114 * px[i * 4 + 2];
+    const k = o.inkColor === false ? 0 : inkOf(i);
+    if (k === 1 || (k === 2 && dropPen)) gray[i] = 255;
   }
   let out = gray;
   if (o.normalize !== false) {
@@ -1551,8 +1564,23 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
     }
     // 종이가 아닌 곳(바닥·책상·옷: 종이보다 훨씬 어두운 칸)은 하얗게
     const paper = [...grid].sort((a, b) => a - b)[Math.floor(grid.length * 0.9)] || 255, offPaper = new Uint8Array(gw * gh);
-    // 아주 어둡거나(옷·그림자 밖), 얼룩덜룩한(바닥 돌·나무결: 칸의 절반 가까이가 어두움) 칸. 그늘진 종이는 고르게 어두워서 남아요
-    for (let i = 0; i < grid.length; i++) if (grid[i] < paper * 0.4 || (grid[i] < paper * 0.85 && mid[i] < grid[i] * 0.8)) offPaper[i] = 1;
+    // 종이 찾기: 확실히 밝은 종이 칸에서 시작해, 밝기가 서서히 바뀌는 이웃 칸으로 넓혀 가요.
+    // 그림자는 서서히 어두워져서 종이로 남고, 종이 가장자리 → 바닥·옷은 갑자기 바뀌어서 종이 밖이 돼요
+    if (o.paper === "none") offPaper.fill(0);
+    else {
+    offPaper.fill(1);
+    const q = [];
+    for (let i = 0; i < grid.length; i++) if (grid[i] >= paper * 0.88 && mid[i] >= grid[i] * 0.8) { offPaper[i] = 0; q.push(i); }
+    while (q.length) {
+      const i = q.pop(), x = i % gw, y = (i - x) / gw;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= gw || yy >= gh) continue;
+        const j = yy * gw + xx; if (!offPaper[j]) continue;
+        if (grid[j] >= grid[i] * 0.8 && grid[j] >= paper * 0.25 && grid[j] <= grid[i] * 1.25) { offPaper[j] = 0; q.push(j); }
+      }
+    }
+    }
+    if (offPaper.every(v => v)) offPaper.fill(0);
     const sm = new Float32Array(gw * gh);   // 이웃 칸과 평균 (글씨로 꽉 찬 칸 보정)
     for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) {
       let m = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const yy = Math.min(gh - 1, Math.max(0, gy + dy)), xx = Math.min(gw - 1, Math.max(0, gx + dx)); m = Math.max(m, grid[yy * gw + xx] * (dx || dy ? 0.97 : 1)); }
@@ -1573,6 +1601,29 @@ async function ocrPrep(src, o = {}) {   // src: 사진 주소(blob:/data:) 또�
     let acc = 0, lo = 0; for (; lo < 255 && (acc += hist[lo]) < N * 0.01; lo++);
     const hi = 250, k = 255 / Math.max(1, hi - lo);
     for (let i = 0; i < N; i++) out[i] = Math.max(0, Math.min(255, (out[i] - lo) * k));
+    if (o.border !== false) {   // 사진 가장자리에 붙은 어두운 덩어리(종이 끝의 띠·바닥·옷)는 지워요. 글씨는 가장자리에 붙어 있지 않아요
+      const seen = new Uint8Array(N), st = [];
+      const push = i => { if (!seen[i] && out[i] < 170) { seen[i] = 1; st.push(i); } };
+      for (let x = 0; x < W; x++) { push(x); push((H - 1) * W + x); }
+      for (let y = 0; y < H; y++) { push(y * W); push(y * W + W - 1); }
+      while (st.length) {
+        const i = st.pop(), x = i % W; out[i] = 255;
+        if (x > 0) push(i - 1); if (x < W - 1) push(i + 1); if (i >= W) push(i - W); if (i < N - W) push(i + W);
+      }
+    }
+    if (o.lines) {   // (선택) 가로로 길고 얇은 선(공책 줄·밑줄) 지우기 — 실제 사진에선 오히려 글자를 깎아서 기본은 꺼 둬요: 위아래가 비어 있는 긴 가로 줄
+      const minRun = Math.round(W * 0.06), gap = Math.max(2, Math.round(long / 600)), dark = v => v < 215;
+      for (let y = gap; y < H - gap; y++) {
+        let x = 0;
+        while (x < W) {
+          if (!dark(out[y * W + x])) { x++; continue; }
+          let e = x; while (e < W && (dark(out[y * W + e]) || (e + 2 < W && dark(out[y * W + e + 2])))) e++;
+          if (e - x >= minRun) for (let xx = x; xx < e; xx++) if (!dark(out[(y - gap) * W + xx]) && !dark(out[(y + gap) * W + xx])) out[y * W + xx] = 256;
+          x = e + 1;
+        }
+      }
+      for (let i = 0; i < N; i++) if (out[i] === 256) out[i] = 255;
+    }
     if (o.clip !== false) {   // 글씨보다 연한 것(공책 줄·얼룩)은 하얗게: 진한 글씨와 연한 배경을 가르는 값(오츠)보다 밝으면 255
       const th = otsu(out) * (o.clipK || 0.9);
       for (let i = 0; i < N; i++) if (out[i] >= th) out[i] = 255;
@@ -1654,7 +1705,8 @@ function lineSubject(l, list) {
     if (near) return { subject: near, rest: "" };
   }
   const t = l.match(/^([가-힣]{2,5})(?=\s|\d|[:：(])\s*[:：]?\s*(.*)$/);   // 줄 맨 앞 낱말 ("순학 12/10 ..." → 수학)
-  if (t) { const near = jamoNear(t[1], list, 1); if (near) return { subject: near, rest: t[2].trim() }; }
+  // 두 글자 낱말은 다른 말일 때가 많아서, 줄이 짧을 때(제목처럼)만
+  if (t && (t[1].length >= 3 || l.length <= 14)) { const near = jamoNear(t[1], list, 1); if (near) return { subject: near, rest: t[2].trim() }; }
   return null;
 }
 const jamo = w => [...w].flatMap(ch => { const c = ch.charCodeAt(0) - 0xAC00; if (c < 0 || c > 11171) return [ch]; const jo = c % 28; return ["c" + Math.floor(c / 588), "v" + Math.floor(c % 588 / 28), ...(jo ? ["j" + jo] : [])]; });
@@ -1665,7 +1717,9 @@ function jamoDist(a, b) {
 }
 const JAMO_PRI = ["국어", "수학", "영어", "한국사", "과학", "사회", "역사", "통합과학", "통합사회", "물리", "화학", "문학", "독서", "정보", "체육", "음악", "미술"];
 function jamoNear(w, list, max) {   // 같은 글자 수의 과목 중 자음·모음이 max 개 이하로 다른 것 하나 (애매하면 안 고름)
-  const a = jamo(w), hits = list.filter(x => x.length === w.length && /^[가-힣]+$/.test(x)).map(x => [x, jamoDist(a, jamo(x))]).filter(([, d]) => d <= max).sort((p, q) => p[1] - q[1]);
+  // 두 글자에서 2개까지 다른 건 주요 과목만 (소하 → 수학 은 되고, 신호 → 진로 는 안 되게)
+  const core = ["국어", "수학", "영어", "과학", "사회", "역사"];
+  const a = jamo(w), hits = list.filter(x => x.length === w.length && /^[가-힣]+$/.test(x)).map(x => [x, jamoDist(a, jamo(x))]).filter(([x, d]) => d <= (w.length === 2 && max >= 2 && !core.includes(x) ? 1 : max)).sort((p, q) => p[1] - q[1]);
   const pri = x => { const i = JAMO_PRI.indexOf(x); return i < 0 ? 99 : i; };   // 같으면 많이 쓰는 과목 먼저 (수학 > 기하)
   hits.sort((p, q) => p[1] - q[1] || pri(p[0]) - pri(q[0]));
   return hits.length && (hits.length === 1 || hits[0][1] < hits[1][1] || pri(hits[0][0]) < pri(hits[1][0])) ? hits[0][0] : "";
