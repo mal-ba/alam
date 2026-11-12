@@ -2771,6 +2771,59 @@ function stNextExam(subj = stSubj) {   // 다가오는 그 과목 시험 (📝 �
     .sort((a, b) => a.date.localeCompare(b.date))[0];
 }
 
+/* 📄 학교에서 받은 영어 단어 학습지 (docs/english_sheets.txt) → 내 영어 단원으로 넣기
+   "@ 아이디 | 분류 | 이름" 아래 "## 소제목", "단어 | 뜻" 줄. 넣은 단원은 src 에 아이디를 적어 두고, 다시 넣으면 빠진 단어만 더해요. */
+let stSheets = null;
+async function loadSheets() {
+  if (stSheets) return stSheets;
+  const r = await fetch("english_sheets.txt?v=" + Date.now(), { cache: "no-store" });
+  if (!r.ok) throw new Error("학습지를 불러오지 못했어요 (" + r.status + ")");
+  const out = []; let sh = null, sec = "";
+  for (const raw of (await r.text()).split(/\r?\n/)) {
+    const line = raw.trim(); if (!line || /^#(?!#)/.test(line)) continue;
+    if (line.startsWith("@")) { const [id, cat, title] = line.slice(1).split("|").map(s => s.trim()); sh = { id, cat, title, secs: [], n: 0 }; out.push(sh); continue; }
+    if (!sh) continue;
+    if (line.startsWith("##")) { sec = line.slice(2).trim(); sh.secs.push(sec); continue; }
+    const i = line.indexOf(" | "); if (i < 0) continue;
+    (sh.words ||= []).push({ t: line.slice(0, i).trim(), m: line.slice(i + 3).trim(), sec }); sh.n++;
+  }
+  return (stSheets = out);
+}
+const sheetKind = t => /\s|~|\.\.\./.test(t) ? "i" : "v";   // 띄어쓴 표현·숙어는 💬 숙어·표현, 한 단어는 🔤 단어
+const sheetSet = id => stData.sets.find(s => s.src === id);
+function sheetsView(d) {
+  const cats = [...new Set(stSheets.map(s => s.cat))];
+  const row = s => { const have = sheetSet(s.id), got = have ? have.items.filter(x => x.src).length : 0;
+    return `<li class="eitem${have && got >= s.n ? " ok" : ""}"><div class="ebody"><div class="et"><b>${esc(s.title)}</b> <span class="chip">${s.n}개</span></div>
+      <div class="enote">${s.secs.map(esc).join(" · ")}</div>${have ? `<div class="em">✓ 넣음 — ${got >= s.n ? "전부" : `${got} / ${s.n}`}</div>` : ""}</div>
+      ${have && got >= s.n ? `<button class="mini-btn" data-act="Esheetgo" data-k="${esc(s.id)}">보기 →</button>` : `<button class="mini-btn go" data-act="Esheet" data-k="${esc(s.id)}" ${saving ? "disabled" : ""}>${have ? "빠진 것 넣기" : "📥 넣기"}</button>`}</li>`; };
+  const left = stSheets.filter(s => { const h = sheetSet(s.id); return !h || h.items.filter(x => x.src).length < s.n; });
+  return `<section class="day editing rform">
+    <div class="dhead"><span class="date">📄 학교 영어 단어 학습지</span><span class="chip">${stSheets.length}장 · ${stSheets.reduce((a, s) => a + s.n, 0)}개</span></div>
+    <div class="mnote">학교에서 받은 모의고사 · 교과서 · 올림포스 단어 학습지예요. 넣으면 학습지마다 영어 단원이 하나씩 생기고, 한 단어는 🔤 단어, 띄어 쓴 표현은 💬 숙어·표현으로 들어가요 (지문 번호·쪽은 설명 칸에). 그다음 카드 · 4지선다 · 쓰기로 외우면 돼요.</div>
+    <label>시험 <span class="hint">— 새로 만드는 단원에 같이 적어요 (비워도 돼요)</span></label>
+    <input data-en="exam" list="eexams" value="${esc(d.exam || "")}" placeholder="예) 2학기 기말고사">
+    <datalist id="eexams">${(examData.exams || []).map(x => `<option value="${esc(x.name || "")}">`).join("")}</datalist>
+    <label>시험 날짜</label><input type="date" data-en="date" value="${esc(d.date || "")}">
+    ${cats.map(c => `<h3 class="mkh">${c === "모의고사" ? "📝" : c === "교과서" ? "📗" : "📘"} ${esc(c)}</h3><ul class="elist">${stSheets.filter(s => s.cat === c).map(row).join("")}</ul>`).join("")}
+    <div class="actions" style="margin-top:12px"><button class="btn ghost" data-act="Ecancel" ${saving ? "disabled" : ""}>닫기</button>
+      ${left.length ? `<button class="btn" data-act="Esheet" data-k="all" ${saving ? "disabled" : ""}>${saving ? "넣는 중…" : `📥 남은 ${left.length}장 모두 넣기`}</button>` : ""}</div></section>`;
+}
+function importSheets(ids) {
+  let added = 0, made = 0, last = null;
+  for (const id of ids) {
+    const sh = stSheets.find(s => s.id === id); if (!sh) continue;
+    let set = sheetSet(id);
+    if (!set) { set = { id: "s" + Date.now().toString(36) + made, subject: "영어", title: sh.title, src: id, exam: cleanText(stDraft.exam).slice(0, 60), date: stDraft.date || "", items: [] }; stData.sets.push(set); made++; }
+    const have = new Set(set.items.map(x => x.k + "|" + stNorm(x.t) + "|" + (x.note || "")));
+    sh.words.forEach((w, i) => { const it = { k: sheetKind(w.t), t: w.t, m: w.m, ex: "", note: w.sec };
+      if (have.has(it.k + "|" + stNorm(it.t) + "|" + it.note)) return;
+      set.items.push({ ...it, id: "e" + Date.now().toString(36) + id + i, src: 1 }); added++; });
+    last = set;
+  }
+  return { added, made, last };
+}
+
 /* 필기 정리 붙여넣기 → 항목 목록 */
 function stParse(text, defKind, subj = stSubj) {
   const conf = stConf(subj), out = []; let kind = defKind || conf.kinds[0][0], cur = null;
@@ -2850,6 +2903,7 @@ const ST_PH = {   // 과목별 예시 문구
 };
 const stPh = () => ST_PH[stSubj] || (isSci(stSubj) ? ST_PH.과학 : ST_PH._);
 function stForm(d) {
+  if (d.type === "sheets") return sheetsView(d);
   if (d.type === "set") return `<section class="day editing rform">
     <div class="dhead"><span class="date">${d.id ? "✏️ 단원·지문 고치기" : `📄 ${esc(stSubj)} 단원·지문 추가`}</span></div>
     <label>이름 <span class="hint">— 단원, 지문 번호, 본문 제목</span></label>
@@ -2884,7 +2938,7 @@ function stForm(d) {
     ${stBtns(d.id ? "Edel" : "")}</section>`;
 }
 function stInput(t) {
-  const d = stDraft, f = t.dataset.en; d.dirty = true;
+  const d = stDraft, f = t.dataset.en; if (d.type !== "sheets") d.dirty = true;
   d[f] = t.type === "checkbox" ? t.checked : t.value;
   if ((f === "text" || f === "k") && $("epreview")) $("epreview").innerHTML = stPreview(d);
 }
@@ -2979,7 +3033,8 @@ function renderStudy() {
       <div class="empty" style="line-height:1.7">시험 범위의 <b>단원·지문</b>을 하나 만들고, 필기한 <b>${stKinds().map(x => x[2]).join(" · ")}</b> 정리를 통째로 붙여넣으세요.<br>
       "${stKinds().map((x, i) => `${i + 1}. ${x[2]}`).join(" / ")}" 처럼 나뉜 정리는 알아서 종류별로 나눠 들어가요.<br>
       그다음 📋 정리 노트로 보고, 🃏 카드 · ❓ 4지선다 · ✍️ 쓰기로 외워요.</div>
-      <button class="btn" data-act="Enewset" style="width:100%;margin-top:12px">📄 ${esc(stSubj)} 첫 단원·지문 만들기</button></section>`;
+      ${isEn() ? `<button class="btn" data-act="Esheets" style="width:100%;margin-top:12px">📥 학교 영어 단어 학습지 불러오기</button>` : ""}
+      <button class="btn ${isEn() ? "ghost" : ""}" data-act="Enewset" style="width:100%;margin-top:${isEn() ? 8 : 12}px">📄 ${esc(stSubj)} 첫 단원·지문 만들기</button></section>`;
     return;
   }
   const all = stAllItems(), inSet = all.filter(x => stSet === "all" || x.set === stSet);
@@ -2992,7 +3047,7 @@ function renderStudy() {
       ${s ? `<button class="pencil" data-act="Eeditset" aria-label="단원 고치기" title="단원 고치기">✏️</button>` : ""}</div>
     <div class="mstat"><b>${known}</b> / ${inSet.length} 외움 <span class="mbar"><i style="width:${inSet.length ? (known / inSet.length * 100).toFixed(1) : 0}%"></i></span></div>
     ${setbar}
-    <div class="rbtns"><button class="mini-btn go" data-act="Epaste">📋 붙여넣기로 넣기</button><button class="mini-btn" data-act="Enew">+ 하나씩 추가</button><button class="mini-btn" data-act="Enewset">📄 단원·지문 추가</button></div></section>`;
+    <div class="rbtns"><button class="mini-btn go" data-act="Epaste">📋 붙여넣기로 넣기</button><button class="mini-btn" data-act="Enew">+ 하나씩 추가</button><button class="mini-btn" data-act="Enewset">📄 단원·지문 추가</button>${isEn() ? `<button class="mini-btn" data-act="Esheets">📥 학습지 단어</button>` : ""}</div></section>`;
   const kinds = `<div class="kindbar stkinds">${[["all", "전체"], ...stKinds().map(([k, ic, n]) => [k, `${ic} ${n}`])].map(([k, n]) => `<button data-act="Ekindf" data-k="${k}" class="${stKind === k ? "on" : ""}">${n} ${inSet.filter(x => k === "all" || x.k === k).length}</button>`).join("")}</div>`;
   const modes = `<div class="filters">${[["list", "📋 정리 노트"], ["card", "🃏 카드"], ["quiz", "❓ 4지선다"], ["write", "✍️ 쓰기"]].map(([k, n]) => `<button data-act="Emode" data-k="${k}" class="${stMode === k ? "on" : ""}">${n}</button>`).join("")}
     <button data-act="Eleft" class="${stLeft ? "on" : ""}">${stLeft ? "☑" : "☐"} 못 외운 것만</button></div>`;
@@ -3037,6 +3092,18 @@ function studyClick(b) {
   if (act === "Eright") { const it = stFind(stCur.set, stCur.id); if (it) { it.known = true; it.wrong = Math.max(0, (it.wrong || 1) - 1); stQuiet(); } stScore = [stScore[0] + 1, stScore[1]]; stAns.ok = true; return renderStudy(); }
   if (act === "Egiveup") { stAns = { v: $("ewrite")?.value || "", ok: false }; stScore = [stScore[0], stScore[1] + 1]; stMark(stCur, false); return renderStudy(); }
   if (act === "Enextw") { stNext(stPool().filter(stWritable)); renderStudy(); $("ewrite")?.focus(); return; }
+  if (act === "Esheets") {
+    if (!leaveOk()) return;
+    const ex = stNextExam();
+    return loadSheets().then(() => { stDraft = { type: "sheets", exam: ex?.name || "", date: ex?.date || "" }; renderStudy(); window.scrollTo({ top: 0 }); }).catch(e => showError(e));
+  }
+  if (act === "Esheetgo") { stSet = sheetSet(b.dataset.k)?.id || "all"; store("sset", stSet); stDraft = null; stReset(); return renderStudy(); }
+  if (act === "Esheet") {
+    const ids = b.dataset.k === "all" ? stSheets.map(s => s.id) : [b.dataset.k];
+    const r = importSheets(ids); if (!r.added) return toast("새로 넣을 단어가 없어요");
+    stSet = ids.length === 1 && r.last ? r.last.id : "all"; store("sset", stSet); stKind = "all"; stReset();
+    return stWrite(`앱에서 영어 학습지 ${r.added}개 넣기`, `📥 ${r.added}개 넣었어요${r.made ? ` (단원 ${r.made}개)` : ""}`);
+  }
   if (act === "Ekind") { stDraft.k = b.dataset.k; stDraft.dirty = true; return renderStudy(); }
   if (act === "Enewset") { if (!leaveOk()) return; const ex = stNextExam(); stDraft = { type: "set", title: "", exam: ex?.name || "", date: ex?.date || "", text: "", k: defK() }; }
   else if (act === "Eeditset") { if (!leaveOk()) return; const s = stSetOf(stSet); if (!s) return; stDraft = { type: "set", id: s.id, title: s.title, exam: s.exam || "", date: s.date || "" }; }

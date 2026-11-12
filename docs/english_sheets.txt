@@ -1,0 +1,736 @@
+# 학교에서 받은 영어 단어 학습지 (정기시험 범위: 모의고사 · 교과서 · 올림포스 독해)
+# 앱의 📚 학교 시험 공부 → 영어 → 📥 학습지 불러오기 에서 내 단원으로 넣어요.
+# 형식:  @ 아이디 | 분류 | 학습지 이름     (아이디는 바꾸지 마세요: 이미 넣은 단원을 알아보는 데 써요)
+#        ## 소제목 (지문 번호·쪽)
+#        단어 | 뜻      (뜻이 여러 줄이면 " / " 로)
+
+@ olym16 | 올림포스 | 올림포스 Unit 16
+## 16강 2번 (p.109)
+discovery | 발견
+identity | 정체성
+seek out | 찾아내다, 적극적으로 찾다
+raise | (문제·질문을) 제기하다
+ample | 충분한, 풍부한
+evidence | 증거, 근거
+situation | 상황
+in contrast | 반면에, 대조적으로
+researcher | 연구자
+negative | 부정적인
+support | 뒷받침하다, 지지하다
+at the same time | 동시에
+propose | 제안하다, 주장하다
+obtain | 얻다, 획득하다
+consistent | 일치하는, 일관된
+be consistent with | ~와 일치하다
+whether A or B | A이든 B이든
+positively | 긍정적으로
+negatively | 부정적으로
+even if | 비록 ~일지라도
+emotionally | 감정적으로
+as ... as possible | 가능한 한 ~하게
+overall | 전반적인, 전체의 / 전반적으로, 전부
+reveal | 폭로하다, 드러내다
+transform | 변형시키다
+enhance | 강화하다
+## 16강 3번 (p.110)
+common | 흔한
+misunderstanding | 오해
+evolution | 진화
+lead to | ~로 이어지다
+inexorably | 거침없이, 피할 수 없이
+organism | 생물, 유기체
+perfection | 완벽
+in contrast to | ~와 대조적으로
+Lamarckian | 라마르크의
+natural selection | 자연 선택
+drive A up | A를 위로 밀어 올리다
+species | 종(種)
+borrow | [동] 빌리다
+term | [명] 기간, 용어
+economics | 경제학
+satisficing | 만족화, 충분히 만족스러운 선택
+so long as | ~하는 한
+survive | 생존하다
+antelope | 영양(주로 아프리카나 아시아에서 볼 수 있는 사슴 비슷한 동물)
+predator | 포식자
+prey | 먹이[사냥감]
+sufficient | 충분한
+equip | 장비를 갖추다, 준비를 갖춰 주다
+rival | 경쟁자
+survival | 생존
+flawlessness | 완벽함
+adaptation | 각색, 적응
+complexity | 복잡성, 복잡함, 복잡한 특징들
+stability | 안정
+harmony | 조화
+outperform | ~보다 더 잘하다, 능가하다, 성과가 더 좋다
+outnumber | 수적으로 우세하다
+imitate | 모방하다
+defeat | 이기다, 패배시키다 / 물리침, 패배
+deceive | 속이다, 기만하다
+
+@ olym17 | 올림포스 | 올림포스 Unit 17
+## 3~4번
+consumer | 소비자
+purchase | 구매
+feature | 기능, 특징
+initial settings | 초기 설정
+existence | 존재
+default | 기본 설정, 디폴트
+sensible | 합리적인
+suitable | 적절한
+obtain | 얻다, 획득하다
+relevant | 관련있는, 적절한
+as compared with | ~와 비교하면
+significantly | 상당히
+fatigue | 피로
+potentially | 잠재적으로
+focus on | ~에 집중하다
+central | 중심되는, 가장 중요한
+affect | 영향을 미치다
+be associated with | ~와 관련되다
+well-being | 행복, 안녕
+state | 상태
+constantly | 끊임없이
+make ends meet | 수입에 맞춰 생활하다, 생계를 유지하다
+adverse | 부정적인, 불리한
+roughly | 대략, 거의
+equivalent to | ~와 동등한
+limited | 제한된, 한정된
+bandwidth | (주파수의) 대역폭
+force to | ~하도록 강요하다
+pay attention to | ~에 주의를 기울이다
+requirement | 요구, 필요조건
+divert A from B | A를 B에서 다른 곳으로 돌리다
+scarce | 부족한, 희소한
+cognitive resources | 인지적 자원
+emotional resources | 정서적 자원
+endeavor | 노력, 활동
+abundance | 풍부함
+burden | 부담, 짐
+
+@ oct18 | 모의고사 | 10월 전국연합 18~24번
+## 18번
+contribute | 기여하다, 기부하다
+department | 부서
+additional | 추가적인
+further | 더욱, 추가로
+develop | 발전시키다
+quarter | 분기
+attract | 끌어들이다
+potential | 잠재적인
+product | 제품
+request | 요청하다
+cover | (비용을) 부담하다
+recently | 최근에
+focus on | ~에 집중하다
+strategy | 전략
+positively | 긍정적으로
+## 19번
+assignment | 과제
+couldn't wait to | ~하고 싶어 견딜 수 없었다
+leave ~ behind | ~을 뒤에 남기고 가다
+practically | 사실상, 거의
+locker | 사물함
+ruin | 망치다
+backpack | 배낭
+turn in | 제출하다
+despite | ~에도 불구하고
+warning | 경고
+hit | ~에게 충격을 주다
+totally | 완전히
+forget | 잊다
+make up for | ~을 만회하다
+attend | 참석하다, 다니다
+instead of | ~ 대신에
+endless | 끝없는
+precious | 소중한
+excited | 신이 난
+disappointed | 실망한
+satisfied | 만족한
+jealous | 질투하는
+nervous | 긴장한
+pleased | 기쁜
+frustrated | 좌절한
+hopeful | 희망적인
+indifferent | 무관심한
+worried | 걱정하는
+## 20번
+global citizen | 세계 시민
+skeptical | 회의적인
+citizenship | 시민권, 시민으로서의 자격
+nation-state | 국민 국가
+exist | 존재하다
+rise | 등장, 부상
+century | 세기
+lead A to B | A가 B하게 만들다
+identity | 정체성
+religion | 종교
+given | ~을 고려하면
+connection | 연결, 관계
+common | 공통의
+challenge | 과제, 도전
+face | 직면하다
+layer A onto B | B에 A를 덧붙이다
+replace | 대체하다
+precisely | 바로, 정확히
+obligation | 의무
+community | 공동체
+## 21번
+unsatisfied | 만족하지 못한
+professional | 직업인, 전문가
+repeating | 반복되는
+theme | 주제, 공통된 양상
+belief | 믿음
+mysterious | 알 수 없는, 신비한
+miraculously | 기적적으로
+stumble into | 우연히 마주치다
+typically | 보통, 일반적으로
+meaningfully | 의미 있게
+alter | 바꾸다
+current | 현재의
+universe | 우주, 세상
+sprinkle | 뿌리다
+refresh | 새로 고침하다
+department | 부서
+set oneself up to | ~하게 될 상황을 만들다
+quickly | 빠르게
+disenchanted | 환상이 깨진
+rearrange | 재배치하다
+deck chair | 갑판 의자
+completely | 완전히
+switch up | 완전히 바꾸다
+approach | 접근 방식
+useless | 쓸모없는
+fail to | ~하지 못하다
+improve | 개선하다
+unsatisfactory | 불만족스러운
+competent | 유능한
+satisfactory | 만족스러운
+as it is | 있는 그대로
+pursue | 추구하다
+maintain | 유지하다
+stability | 안정성
+despite | ~에도 불구하고
+workplace | 직장
+challenge | 어려움, 도전
+## 22번
+sociologist | 사회학자
+argue | 주장하다
+perception | 인식
+usage | 사용
+property | 특성
+tick away | (시간이) 흘러가다
+psychological | 심리적인
+phenomenon | 현상
+individual | 개인의
+perceive | 인식하다
+to a large degree | 상당 부분
+shape | 형성하다
+tradition | 전통
+cultural norm | 문화적 규범
+demonstrate | 보여 주다, 입증하다
+fundamental | 기본적인
+invention | 발명, 발명품
+vary | 다르다
+across cultures | 문화마다
+influence | 영향을 미치다
+structure | 구성하다
+rhythm | 리듬, 주기
+routine | 일상, 정해진 일과
+retirement | 은퇴
+dictate | 결정하다, 좌우하다
+essential | 본질적인
+characteristic | 특성
+creation | 창조물
+internalize | 내면화하다
+## 23번
+illegal | 불법적인
+corporate | 기업의
+at least | 적어도
+come to light | 드러나다
+misconduct | 비행, 위법 행위
+expose | 폭로하다
+brave | 용감한
+informant | 제보자
+risk | 위험을 무릅쓰다
+a great deal | 많은 것
+put an end to ~ | ~을 끝내다
+hence | 그러므로
+whistleblower | 내부 고발자
+protection | 보호
+violation | 위반
+undetected | 아무에게도 들키지[발견되지] 않는
+unpunished | 처벌받지 않은
+employee | 직원
+report | 신고하다
+reprisal | 보복
+consequence | 결과, 불이익
+negative | 부정적인
+third party | 제3자
+general public | 일반 대중
+affect | 영향을 미치다
+assist | 돕다
+reduce | 줄이다
+unlawful | 불법적인
+criminal | 범죄의
+function | 기능
+individual | 개인
+public good | 공익
+well-balanced | 균형 잡힌
+punishment | 처벌
+cause | 원인
+hesitation | 망설임
+awareness | 의식, 자각
+corruption | 부패
+guard | 보호하다
+## 24번
+unfortunately | 불행히도
+disconnected from | ~과 동떨어진
+achieve | 달성하다
+fall in love with | ~에 매료되다
+push out of mind | 마음에서 밀어내다
+day-to-day | 일상적인
+research | 연구
+suggest | 시사하다
+positive | 긍정적인
+fantasy | 환상
+lead A to B | A가 B하도록 이끌다
+premature | 성급한, 때이른
+accomplishment | 성취, 업적, 재주, 완수
+romanticize | 낭만적으로 생각하다
+gloss over | 얼버무리고 넘어가다
+intricacy | 복잡함
+integrate | 통합하다
+fantasize | 상상하다
+seduce | 현혹하다
+mentally | 정신적으로
+desired | 바라는
+here and now | 지금 이 순간
+reflect on | ~을 숙고하다
+necessity | 필요성
+induce | 유발하다
+better | 개선하다
+ambitious | 야심 찬
+barrier | 장애물
+recipe for failure | 실패의 원인
+
+@ oct31 | 모의고사 | 10월 전국연합 31·32번
+## 31번
+view A through a lens | A를 특정 관점에서 바라보다
+economic | 경제의
+be upon us | 곧 닥치다
+classical economics | 고전 경제학
+be based on | ~에 근거하다
+notion | 개념, 생각
+allocate | 배분하다, 할당하다
+goods | 상품, 재화
+resource | 자원
+result in | ~을 초래하다
+allow A to V | A가 ~하도록 해 주다
+reproduce | 복제하다, 재생산하다
+transport | 이동시키다, 운송하다
+thousands of | 수천의
+in the blink of an eye | 눈 깜짝할 사이에
+communicate | 의사소통하다
+light-year | 광년
+travel among the stars | 별들 사이를 여행하다
+humanity | 인류
+educate | 교육하다
+participate in | ~에 참여하다
+prosperity | 번영, 풍요
+explorer | 탐험가
+researcher | 연구자
+engineer | 공학자
+counselor | 상담사
+generative AI | 생성형 인공지능
+potential | 잠재력, 가능성
+dimension | 측면, 차원
+similarly | 비슷하게
+abundant | 풍부한
+bias | 편견, 편향
+scarcity | 희소성, 부족
+pollution | 오염
+diversity | 다양성
+efficiency | 효율성
+## 32번
+otherwise | 그 밖의 경우에는
+manager | 관리자
+concern | 걱정, 우려
+address | 문제를 다루다, 해결하다
+pay attention to | ~에 주의를 기울이다
+response | 반응, 응답
+completely | 완전히
+outward | 외부로 드러나는
+signal | 신호
+indicate | 나타내다, 보여 주다
+impossible | 불가능한
+whether or not | ~인지 아닌지
+actually | 실제로
+avoid | 피하다
+demonstrate | 분명히 보여 주다
+figure out | 알아내다
+hidden intention | 숨겨진 의도
+make sense | 말이 되다, 타당하다
+
+@ oct33 | 모의고사 | 10월 전국연합 33·34번
+## 33번
+take place | 일어나다, 발생하다
+physical | 물리적인
+inseparable from | ~와 분리할 수 없는
+define | 정의하다, 규정하다
+beneath | ~의 아래에
+intertwining | 뒤얽힘, 밀접한 얽힘
+central to | ~의 중심이 되는
+accept | 받아들이다
+possibility | 가능성
+spatial | 공간의
+framework | 틀, 체계
+medium | 매개체
+merely | 단지
+background | 배경
+context | 맥락, 상황
+exterior to | ~의 외부에 있는
+commonly | 일반적으로
+suppose | 가정하다, 생각하다
+literary critic | 문학 비평가
+make the point | 요점을 설명하다
+elegantly | 우아하게, 세련되게
+surround A with B | A를 B로 둘러싸다
+wrap oneself up in | ~로 자신을 감싸다
+garment | 의복
+at one and the same time | 동시에
+disguise | 변장, 위장
+characterization | 특성 묘사, 성격 부여
+abstraction | 추상적인 존재
+intertwine | 뒤얽히다
+limit | 제한하다
+ability | 능력
+recall | 기억해 내다
+influence | 영향을 미치다
+literature | 문학
+passive | 수동적인
+## 34번
+no matter how | 아무리 ~하더라도
+delineate | ~의 경계를 정하다
+evolutionary | 진화의
+take A as a given | A를 당연한 것으로 받아들이다
+emerge | 나타나다
+particular | 특정한
+indeed | 실제로, 사실
+make assumptions | 가정하다
+of this nature | 이러한 종류의
+present | 제시하다
+verbal | 말의, 언어의
+biological | 생물학적
+evolution | 진화, 발전
+variation | 변이
+generation | 생성
+inheritance | 유전
+physicist | 물리학자
+mass | 질량
+charge | 전하
+fundamental particle | 기본 입자
+atomic bond | 원자 결합
+attempt to | ~하려고 시도하다
+electron | 전자
+measured value | 측정된 값
+analysis | 분석
+financial | 재정의, 금융의
+support | 지지, 후원
+absence | 부재, 없음
+acceptance | 인정, 수용
+trace | 추적하다
+examination | 시험, 조사, 검사
+phenomenon | 현상
+
+@ oct36 | 모의고사 | 10월 전국연합 36·37·38번
+## 36번
+begin with | ~으로 시작하다
+motion | 움직임, 운동
+disturb | 교란하다, 방해하다
+molecule | 분자
+medium | 매질, 매개체
+note | 언급하다, 주목하다
+light wave | 빛의 파동
+colorless | 색이 없는
+perception | 지각, 인식
+occur | 발생하다
+organism | 생물, 유기체
+perception of sound | 소리의 지각
+eardrum | 고막
+nothing more than | ~에 불과한
+disturbance | 교란, 소란, 방해, (심리적)장애
+measure | 측정하다
+gauge | 측정기
+instrument | 기구, 장치
+philosophical | 철학적인
+riddle | 수수께끼
+psychological | 심리적인
+make a mess | 엉망으로 만들다
+creature | 생물
+## 37번
+collaborate | 협력하다
+face to face | 얼굴을 마주 보고, 대면하여
+range | 범위, 다양성
+cue | 신호, 단서
+subset of | ~의 부분집합, 일부
+professor | 교수
+describe A as B | A를 B라고 설명하다
+seamless | 끊김 없는, 매끄러운
+functional | 기능상의
+separation | 분리
+remote | 원격의
+be separated from | ~로부터 분리되다
+video conferencing | 화상 회의
+collaborator | 협업자
+shared document | 공유 문서
+at the same time as | ~와 동시에
+artificial | 인위적인
+seam | 이음매, 경계
+impact | 영향
+predict | 예측하다
+## 38번
+psychologist | 심리학자
+college student | 대학생
+general knowledge | 일반 상식
+trivia-like | 잡학적인
+either A or B | A 또는 B
+evaluate | 평가하다
+interval | 간격, 사이
+crucially | 결정적으로, 중요하게도
+repeat | 반복하다
+each time | 매번
+researcher | 연구자
+compare A with B | A와 B를 비교하다
+rating | 평가, 순위, 등급
+versus | ~와 비교하여, ~대
+non-repeated | 반복되지 않은
+astonishing | 놀라운
+regardless of | ~와 관계없이
+statement | 진술, 말
+go up | 증가하다
+repetition | 반복
+in other words | 다시 말해
+the more ..., the more ... | ~할수록 더욱 ...하다
+be known as | ~로 알려지다
+illusory | 착각을 일으키는, 환상적인
+illusory truth effect | 진실 착각 효과
+trivia | 잡학적 지식
+
+@ oct39 | 모의고사 | 10월 전국연합 39·40번
+## 39번
+human body | 인체
+surface | 표면
+experience | 경험하다; 겪다
+constant | 일정한, 지속적인
+air pressure | 기압
+be equal to | ~와 같다
+per square meter | 제곱미터당
+be balanced by | ~에 의해 균형을 이루다
+lung | 폐
+air cavity | 공기가 들어 있는 공간
+atmospheric pressure | 대기압
+act on | ~에 작용하다
+submerge | 물속에 잠기게 하다
+underwater | 물속에
+avoid | 피하다
+pressure | 압력
+surrounding environment | 주변 환경
+maintain | 유지하다
+external | 외부의
+internal | 내부의
+equal | 동일한
+achieve | 달성하다
+breathing mixture | 호흡용 혼합 기체
+supply A to B | B에게 A를 공급하다
+proportionally | 비례해서, 비교적으로
+depth | 깊이
+stabilize | 안정시키다
+atmosphere | 기압 단위; 대기
+## 40번
+researcher | 연구자
+goldenrod | 미역취 (국화목 미역취속(Solidago) 식물)
+peaceful | 평화로운
+threat | 위협
+predator | 포식자
+issue | 발하다, 내보내다
+incredibly | 믿을 수 없을 만큼, 매우
+specific | 특정한, 구체적인
+comprehensible | 이해할 수 있는
+kin | 친족
+rare | 드문
+hostile | 적대적인, 위험한
+territory | 영역, 지역
+phrase | 표현, 구절
+biological kin | 혈연관계의 친족
+whisper network | 은밀한 정보 전달망
+loudspeaker | 확성기
+so to speak | 말하자면
+confirm | 확인하다, 입증하다
+beneficial to | ~에게 유익한
+receive | 받다
+sender | 발신자, 보내는 쪽
+pollinator | 꽃가루 매개자
+compared to | ~와 비교하여
+thereby | 그렇게 함으로써
+receiver | 수신자, 받는 쪽
+broadly | 폭넓게, 광범위하게
+benefit | ~에게 이익을 주다
+narrowly | 좁게, 제한적으로
+protect | 보호하다
+accidentally | 우연히
+profit | 이익을 얻다
+specifically | 구체적으로, 특별히
+endanger | 위험에 빠뜨리다
+
+@ oct41 | 모의고사 | 10월 전국연합 41·42번
+## 41~42번
+infinite | 무한한
+make a purchase | 구매하다
+interfere with | ~을 방해하다
+sustainability | 지속 가능성
+perspective | 관점
+encourage | 장려하다, 부추기다
+overconsumption | 과도한 소비
+attention | 주의, 관심
+load | 불러오다, 로딩하다
+content | 콘텐츠, 내용
+data usage | 데이터 사용량
+device processing | 기기 처리 작업
+force | 강제로 ~하게 하다
+consume | 소비하다
+deliver | 전달하다
+replace A with B | A를 B로 대체하다
+static | 정적인
+album artwork | 앨범 표지 이미지
+video loop | 반복 재생 영상
+significantly | 상당히
+consumption | 소모, 소비, 소비량
+disable | 비활성화하다
+as a result | 그 결과
+resource | 자원
+actively | 적극적으로
+opt out | 참여하지 않기로 하다, 거부하다
+acknowledge | 인정하다
+nudge | 유도하다
+consequence | 결과, 영향
+highlight | 강조하다
+influence | 영향(력)
+ethical | 윤리적인
+transparent | 투명한, 명확히 드러나는
+reversible | 되돌릴 수 있는
+be aligned with | ~와 부합하다
+responsible | 책임감 있는
+lower-impact | 영향이 더 적은
+alternative | 대안
+available | 이용 가능한
+default | 기본값
+powerless | 힘이 없는, 영향력이 없는
+reduce | 줄이다
+remove | 제거하다
+user agency | 사용자의 자율적 선택권
+environment | 환경
+required | 필요한, 요구되는
+environmental cost | 환경적 비용
+digital device | 디지털 기기
+prefer | 선호하다
+visual content | 시각 콘텐츠
+user-friendly | 사용자 친화적인
+purchasing | 구매
+
+@ les4 | 교과서 | 교과서 Lesson 4 Space: The Final Frontier
+## 89쪽
+explore | [동] 탐험하다, 조사하다
+frontier | [명] 국경, 변경, 한계
+arctic | [형] 북극의 / [명] 북극
+resource | [명] 자원
+curiosity | [명] 호기심, 진기한 것
+major | [형] 주요한, 대다수의 / [명] 전공 / [동] 전공하다
+industrial | [형] 산업의
+revolution | [명] 혁명
+century | [명] 1세기
+connect | [동] 연결하다, 관련시키다
+transform | [동] 변형시키다
+economy | [명] 경제
+seem | [동] ~처럼 보이다, ~처럼 생각되다
+space | [명] 공간, 우주
+entrepreneur | [명] 사업가
+unique | [형] 독특한, 유일한
+environment | [명] 환경
+opportunity | [명] 기회
+dare | [동] 감히 ~하다
+take up | 시작하다, 차지하다
+## 90쪽
+solar | [형] 태양의
+compose | [동] 구성하다, 작곡하다
+float | [동] 뜨다, 떠다니다
+planet | [명] 행성
+asteroid | [명] 소행성
+consist | [동] ~로 구성되다
+contain | [동] 들어있다
+valuable | [형] 가치있는, 값비싼
+element | [명] 요소, 원소
+precious | [형] 귀중한
+metal | [명] 금속
+billion | [명] 10억
+perspective | [명] 견해, 관점
+neither A nor B | A도 아니고 B도 아니고
+rare | [형] 드문
+deposit | [명] 예금, 보증금 / [동] 예금하다, 두다
+overlook | [동] 간과하다, 내려다보다
+transport | [동] 수송하다 / [명] 수송
+due to | ~ 때문에
+volume | [명] 음량, 용량
+sufficient | [형] 충분한
+## 91쪽
+mine | [대] 나의 것 / [명] 광산, 지뢰
+likely | [형] ~할 것 같은 / [부] 아마
+surface | [명] 표면
+identify | [동] 확인하다, 동일시하다
+material | [명] 재료, 소재
+equip | [동] 장비를 갖추다, 준비를 갖춰 주다
+remotely | [부] 멀리서, 원격으로
+unfortunately | [부] 불행하게도
+obtain | [동] 획득하다
+undoubtedly | [부] 의심할 여지없이, 확실히
+emerge | [동] 나타나다
+## 92쪽
+manufacture | [동] 제조하다 / [명] 제조, 제품
+international | [형] 국제의
+astronaut | [명] 우주 비행사
+instead of | ~ 대신에
+researcher | [명] 연구원, 조사원
+completely | [부] 완전히
+influence | [명] 영향 / [동] 영향을 미치다
+temperature | [명] 온도, 체온
+pressure | [명] 압력, 압박
+radiation | [명] 방사선
+effect | [명] 효과, 결과 / [동] ~을 초래하다
+gravity | [명] 중력
+create | [동] 창조하다
+require | [동] 요구하다, 필요로 하다
+potential | [형] 잠재적인, 가능성이 있는 / [명] 잠재력, 가능성
+candidate | [명] 후보자
+cosmetic | [명] 화장품 / [형] 허울뿐인, 표면적인
+muscle | [명] 근육
+benefit | [명] 혜택 / [동] 도움이 되다
+protective | [형] 보호하는, 방어하는
+atmosphere | [명] 대기, 분위기
+fabric | [명] 직물
+## 93쪽
+semiconductor | [명] 반도체, 반도체를 이용한 장치
+purity | [명] 순도
+fault | [명] 잘못, 결함
+advance | [동] 전진하다, 진보하다 / [명] 전진, 진보
+improve | [동] 향상시키다, 나아지다
+decrease | [동] 감소하다 / [명] 감소, 하락
+substantially | [부] 상당히, 대체로
+ambitious | [형] 야망을 가진
+possibility | [명] 가능성, 기회
+remain | [동] 남아 있다
+unreasonable | [형] 부당한
+device | [명] 장치, 기구
+innovation | [명] 혁신
+exist | [동] 존재하다
+humanity | [명] 인류, 인간성, 인간애
