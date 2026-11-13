@@ -76,7 +76,7 @@
 | `supabase/functions/ai-scan/index.ts` | 📷 사진 → Claude → 앱 형식 JSON (Supabase Edge Function, 키는 Secrets 의 `ANTHROPIC_API_KEY`) |
 | `supabase/ai_scan.sql` | 📷 사진 인식 하루 사용 횟수 기록 표 (서버만 접근) |
 | `news.py` | 구글 뉴스 RSS → `docs/news.json` + 연도별 보관함 `docs/news/<분야>/<연도>.json` (`.github/workflows/news.yml`, 매시간 깨워서 3시간 지났으면 모음) |
-| `news_archive.py` | 2000년~지난달 기사를 분야·반달마다 채움 (6개 분야 동시에), 진행 상황 `docs/news/progress/<분야>.json` (`.github/workflows/news-archive.yml`, 6시간마다 남은 것 이어서 / Actions 에서 바로 실행) |
+| `news_archive.py` | 2000년~지난달 기사를 분야마다 채움 (18개 분야 동시에). 검색어를 하나씩 나눠서도 검색하고, 결과가 꽉 찬 기간은 하루까지 잘게 나눠 다시 검색해서 한 해에 3,000개까지 모아요 (`TARGET_PER_YEAR`), 진행 상황 `docs/news/progress/<분야>.json` (`.github/workflows/news-archive.yml`, 6시간마다 남은 것 이어서 / Actions 에서 바로 실행) |
 | `docs/mock.json` | 모의고사 탭 데이터 (`mock_gen.py` 로 만들어요: `python mock_gen.py docs/mock.json`). 영어 단어는 `mock_words.py` (한 줄에 `단어\|뜻`), 시험 목록 규칙·과목별 문항 수·연습 문제는 `mock_gen.py`. 기출 시험지·정답 PDF 는 저작권이 출제 기관에 있어서 넣지 않고 링크로 열어요 |
 | `docs/learn.json` | 코딩 공부 강의 내용 (`learn_gen.py` 로 만들어요: `python learn_gen.py docs/learn.json`). 단계는 `LEVELS`, 새 강의는 `more("py", 단계, ls(...))` 로 **맨 뒤에** 붙여요 (진도 번호가 안 바뀌게) |
 | `alarm.py` | 계획표 계산·알림 예약 로직 |
