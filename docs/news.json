@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T21:10+09:00",
+ "updated": "2026-11-19T21:17+09:00",
  "notice_hours": 3,
  "categories": [
   {
@@ -82,6 +82,13 @@
      "time": "2026-11-19T19:24+09:00",
      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFAtZlVNak1XbThndG5HVERsZ2dLX1RjdjVOUUI5WnJac1EtaDJ1VFIydU1BaUw0akE3Mm83cEdrdXpON01hcGMzVFBPWHRMVUlaeWd0dXBYVjM2N2ZfUWZGRWxzMzFIUEotbXFFWXZCOTM",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "[베트남 증시] 외인 매도·유동성 가뭄에 하락...VN지수 한 달 만에 최저치",
+     "source": "뉴스핌",
+     "time": "2026-11-19T18:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9kQ1VmMWZIMkUyX1Uxck1UTU5RTVZvVThCdlVob0xkNlZNeWswTDVyUG1sdGF1Uk1Ja2tCRG9rUUlSRG9HR1BaNVNyOFltZGY2NEtQYTZWSzVRQkMy",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "'특수 정밀화학 소재 제조사' 피지티, 코스닥 상장예심 통과",
@@ -250,6 +257,13 @@
      "time": "2026-11-19T17:20+09:00",
      "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5HRndWSDNMYXZGMXBJeXB4UWw1SEJ2b1dkb2g2VzRKMGRGY1dXblh1NURmTWVXbmRWTjhOcVNvaVpVaGpJWnFUSW0tOA",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "코스피, 반도체주 반등에 5130선 마감···코스닥 3%대 급등",
+     "source": "서울파이낸스",
+     "time": "2026-11-19T17:20+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBEUnh6RWhfV1Y5ZmNUTXdocEo2ZUxHWVJ1bUdzVE1YZEkza3M3dnZhdzFBNmJVd3UtelQydDJOeDlPbks0R3pFdWRWYlhWZzdISjljOFFETlNjTWlOaE5PWVRVNEZFQ2dQc3c",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "[오늘의증시] 中 빗장 열리나…'한한령 해제' 기대감에 국내 증시 '활짝'",
@@ -831,20 +845,6 @@
      "time": "2026-11-19T10:44+09:00",
      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFB1YTJrUGFDTFB0OVdiOGc5OS16a0JNaENldkFOMTRYNWZoMXBwUDU1TTRxSmE5YVhXZDFKak43X3BtR2VHTjdFeldZMHNvSXptLTdRQXpLeHZWeW1acVNvT1BR",
      "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "코스피·코스닥 동반 상승",
-     "source": "뉴스핌",
-     "time": "2026-11-19T10:43+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9FUlhzZTJzb1Vfell6YksxMWJMXzU4NF8xNE82R1dFQW4tMERWQ195VlpiNUVHTUJjbFQxUmZYVjZEVkdPOURvem5JaEpiUHFkSGZfTjlZQVJsOU50",
-     "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "[개장시황]또 다시 5000선 내준 코스피… '한한령 완화'에 콘텐츠·여행주는 급등",
-     "source": "한국경제",
-     "time": "2026-11-19T10:42+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1DNEJteVFHM0ZjcEczTGpiam40NU5wTjRHRGNLUHF2S1JSQS00ZXNtQ0Z6cnF4OTdVQWVXQnpVQlpJXzBpWlBuQ2lfQnVHak1VSEhGZTVybG93UQ",
-     "added": "2026-11-19T12:17+09:00"
     }
    ]
   },
@@ -852,6 +852,13 @@
    "key": "economy",
    "name": "💰 경제",
    "items": [
+    {
+     "title": "[채권-마감] 外人 순매수·호주금리 급락에 강세…3년물 2bp↓",
+     "source": "연합인포맥스",
+     "time": "2026-11-19T19:44+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5oT2xkWHItYmpfS2E2Qk4wSmNfMFpxYklPZUJabUlINlhRU3JRY3h4eEJ3M18tV1ZxS3FrdkVBM3RkbjBqYVFhWDJmV3c1TElYUW1xZG9DY3ZqSDFDX2xBNUxlTk9MN3o1NGR4UWNxWDQ",
+     "added": "2026-11-19T21:17+09:00"
+    },
     {
      "title": "앤트로픽 상장으로 수십조원대 자산가가 될 창업자 7명은 누구?",
      "source": "BBC",
@@ -930,6 +937,13 @@
      "added": "2026-11-19T18:17+09:00"
     },
     {
+     "title": "LG생활건강, 서주완·이준호 전무 승진…핵심 사업·재무 강화",
+     "source": "뉴스핌",
+     "time": "2026-11-19T17:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5tOThKazRlYmF4MFpZVjNfajRKdjZVTDFjR3V3enZfNExqM1JDczVXdWN2ZDlOVzNLbTZaX2p0Mlk1enVFRDBJbWhiUnVpUzdJWUxid1Q3bUJqTlNn",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "\"미래 경쟁\" LG전자, 임원 승부수…사장 2명 등 44명 승진",
      "source": "한국경제",
      "time": "2026-11-19T16:50+09:00",
@@ -944,11 +958,25 @@
      "added": "2026-11-19T18:17+09:00"
     },
     {
+     "title": "교직원공제회, 9월 말 수익률 8.9%…\"주식·기업투자·대체 모두 웃었다\"",
+     "source": "마켓인",
+     "time": "2026-11-19T16:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBSSlFxZTdFclZPR0JERzkzbGl4RnZ6dW9GMlJKb2FZQW5NQW4wM2p1cVVvMEc3U2w1alBORFV4ZE1TUTlWZlNFUFFFZDAweGVGX2VNUkUyVi1YS3o2T19ncXhPZWVHdnEyME90RWJ1ZE1PQQ",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "달러 또 최고치 경신인데…환율 4일 연속 하락해 1,330원선",
      "source": "한국무역협회-KITA.NET",
      "time": "2026-11-19T16:15+09:00",
      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNDc3ZFZieG1sSHdaQ0xVSjc2djFsZUdPTzZLWXk1clZndWVQeEUzUzEzcGxmVHNTX0s1U0RwM1VYX3FvdFc2M1FzSWVlUWlnaXlZQW5oQ0VvNUtLVFY5NmMta3B0bE9WOGdoeTZES2V1SGdONldsMHJ3Tm92SGlOQnp6by1nTGpJSmtacXo1b3JCbmVuZW5kZ1FEbXVlTkdpdnFIZHoxc2FPeW9Ka1d0UDM0cXVlRFZ5N2R3SmU1NUJHUDRFcU1BbUUzd21WdWlicC00X2tn",
      "added": "2026-11-19T18:17+09:00"
+    },
+    {
+     "title": "[인사] LG유플러스",
+     "source": "뉴스1",
+     "time": "2026-11-19T16:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE4tZlM2N0NGSDZ4eUE3T01ESGdzVDdGdEJYOGQ0WmI5ZHNkMlJPYkdTY0ZDQmVXWW9HZWxpczcwTDdXNG8wMDVTN2pjMzlnNmU4NXM2TEhLM0lzZXQ3cjNLag",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "LG유플러스, 2027년 임원 인사…AI·통신 전문가 전진 배치",
@@ -1026,6 +1054,13 @@
      "time": "2026-11-19T15:00+09:00",
      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1lT2wwdkxiNE9EY244UjB2cTZrWVBZZGpxSEhRakotcmx5U0tnajdkbE5pdGp2SG5pZlpqUUJxb1JyNkh1MVh6QlpEemc2STR2TFBSeVNfaGIxWENjMVYyT2xhRVlHcENwSWlHb3FySmttUQ",
      "added": "2026-11-19T18:17+09:00"
+    },
+    {
+     "title": "SK텔레콤, 수능 마친 수험생에 공연·영화·AI 서비스 혜택 제공",
+     "source": "매일일보",
+     "time": "2026-11-19T14:59+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE05WTNUR2lUcWJGMlpjSktxZ2N4cFBLSVJEUDVTUl9wMkcyT2ZnUi1BQndaRGlPbF9hOVV4OGlKbEwtMW9SQzAwVjF6THpOV1pBS3BKS2RpRTVMY3NIM0FwMkhZLXk",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "공정위, 투썸플레이스 조사 착수‥가맹점에 고가물품 강매 의혹",
@@ -1187,6 +1222,13 @@
      "time": "2026-11-19T11:23+09:00",
      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB3emNyOERocGpaRTRZNWhtSVZvVDJyZHNLUjRRYkhoc3dFWlhlbm14Tkxva3pKSzNhcE5jc1h3NF9TR2otRFpTZE5HSGpHMnpNQktfb294MWRCeFhMT2ZGQmdlWS1BVmdvNmlHbDVOYWE",
      "added": "2026-11-19T18:17+09:00"
+    },
+    {
+     "title": "엔비디아 임시 CEO \"이사회는 젠슨 황 복귀시키지 않기로 결정\"",
+     "source": "YTN",
+     "time": "2026-11-19T11:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1oT19xcDB2UmJ4bWcyTlhRVTZpcG5URlBlQmFSS3hLRmVLQXFwa3AxM0dKM0Zra3BwUWtyS250QUhwM3J5b3lDZ0k5WFZpRGRCaUhUbGFZcEhLSlFFRmVkSnpzQ3ZSOVlWcGd5bVpfMA",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "한수원, 직원 주도 업무혁신으로 원전 안전성과 운영 효율 높인다",
@@ -1649,48 +1691,6 @@
      "time": "2026-11-18T23:08+09:00",
      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9RaHBHTDNCcW9LbHprSGJWaE94SHdKdnhDVVNtSXo5REZqVXBmcDlvcllpcVh0Q1E3cWxtUWxNNHRqcWpxTTdYRjZhaUZCN1hXelpJdWZR",
      "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "고려대 안산병원, 과운동성 외측 반월상연골 MRI 평가법 제시",
-     "source": "MEDI:GATE NEWS",
-     "time": "2026-11-18T23:07+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFAxZW1rUmRsMlB0NmZmZWZMVjhCS2VrZF9kZzJRLVBXNkx4TC13ZC1rZXJSX2hBNVNIY2I0YUpNazlHUWwxTU5tdjRvVHZsQzJkb193d0dTWQ",
-     "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "한미그룹, 창립 53주년 봉사주간 운영…임직원 900여 명 참여",
-     "source": "MEDI:GATE NEWS",
-     "time": "2026-11-18T23:00+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5TaUJBMzFsdUh2ZEhuTF9OREdzMGVKaEl6UGdxeXRHSDZDTHlfS2pFaFM3Y2FMenhsWjB2Y1hUMlByWDVLc0NRNk5BVGF2Y0d3TW04TGR3",
-     "added": "2026-11-19T06:17+09:00"
-    },
-    {
-     "title": "[크립토 AI리포트] 비트코인 약세에 시장 '꽁꽁'…시총 20% 증발",
-     "source": "지디넷코리아",
-     "time": "2026-11-18T22:54+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBvZDgxeHhEc1k1NFh4WEQyS1FnN0RqS3hmYnpXM0prdXdfNE5aNXpXYkEzbWdhZDYxWTlNa056c3JwZXJiMGh1SHF6MzZiZ1BGTFM0aUZ3",
-     "added": "2026-11-19T09:17+09:00"
-    },
-    {
-     "title": "한국아스트라제네카, 린파자 HRD 양성 난소암 급여 확대 간담회",
-     "source": "MEDI:GATE NEWS",
-     "time": "2026-11-18T22:51+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1SM2hpeDNnU0wzTkxOS0JXNDIwUjdiRVB1bUY2NjlxUGo0Z3d5Wl9faGJINk5OcC1ueExFLThteWYxVFhpMDh0V0pWeWJmamowb3V2eE9yUQ",
-     "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "수젠텍, 메디카 2026서 글로벌 파트너 전용 포털 공개",
-     "source": "MEDI:GATE NEWS",
-     "time": "2026-11-18T22:47+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5SNjAyU3JzbmNkbVpyNlJhX09pVkpuWE5ZenljdmEtQnBOVElUOWVFMkZ4cjI3WWZCOWVSNTBHTVI5cFZHV3dHY09hZHhFd2taV2owUHo2WQ",
-     "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "광화문에서 성심당 픽업…오늘부터 ‘K-빵지순례’ 벌써 오픈런",
-     "source": "한겨레",
-     "time": "2026-11-18T22:11+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFA2cEJHQUhOY2tVZ012UEhacmVzNEZnVHJEcGk5YjktMldDT2dRZDZGLWdWc3MzUHBEbng0TDNSNnRaQ041dHNQaThVajN4ZGdKQzFLeTg5V3JwSzVlaHkwYzMzN0VTNURU",
-     "added": "2026-11-18T18:17+09:00"
     }
    ]
   },
@@ -1713,6 +1713,20 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "\"2035년 무슬림 인구가 기독교 추월한다\"…세계 종교 지형 대변동 - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-19T19:45+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9ZYU1jTkxzekNwUm9vaHZhc1JJb25jOHNrYW5FTXhwUkRjclhLMDlCbndjSnhCeVVMM1ZwQ3FPNnBhSllhaWo5dEsxN2lMcFVMa2IyOG9udEdFRnBLM0J5VnYybGRyaHlf0gFuQVVfeXFMT00tME9nQmxFUWp4MEtoT0lnT3FCSzY2UUZ2WVNqSTJyUjZuRlVUUTYzZEJWbHdYZU4tYUZSQllSTmhqdlhtb0o0RGQ4WmMxTi1nclNXVXo1dWNFZlk2eHBBM09zMU9PUlBBTktUN1E",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "[미중러 정상회담] 시진핑, 국제무대서 존재감 과시…'자유무역 수호자' 자처",
+     "source": "연합뉴스",
+     "time": "2026-11-19T19:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFB1YXVpRUhLckk4Z1c1VllCY0NrUWhoVEwzWkVJZ1VjN0J1cUZnVS04MFNSbFVuSThDRHd0MTBCdk9McFpteER4YnpqRkZOcXJWVmJwX1hEdGlxa2PSAWBBVV95cUxPT1hlRWxnR09OYXhycTc4Q0czWm1qdVh3TzJIcWUzVFdfNmdscHc0M1NBYnlUaDlmNk5HYXlkSldMakRObDByWW1CenNkd1dSVzVUSFJFRjN4V0ptWDgzOHU",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "美, 21년 만에 北인권결의안 기권표…\"ICC 문제\"",
      "source": "연합뉴스TV",
      "time": "2026-11-19T19:15+09:00",
@@ -1725,6 +1739,13 @@
      "time": "2026-11-19T18:06+09:00",
      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9pcnNzRWJfQ2xqRHVSUmx3YVhmdXhoQU9JSkdYeUJYdmtydVlKU3RFZ3VmakJ3WUwyeGxFZUMyNjlFVkJBcHQzUHl1T2psQy1sWmZlYXNQenI5d1F3YjkySHE5V2RyLXBwTGVDU1BoQ1N2WGvSAWZBVV95cUxNdS03Rzh6ODFKMmQ3WEdzUVU5NURsVVQxcDdBelZDWmJMOG8wTVVYdGxUYTdSUk81aXF3QzBLMXRwVHVTaHZ0Z0NMZmJJbTRST1h1OFF5dll0UFJyUWJ2NXZSZzJGa2c",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "[속보] 트럼프-시진핑-푸틴 한자리에…사상 첫 ‘미·중·러 정상회담’ 시작",
+     "source": "한겨레",
+     "time": "2026-11-19T17:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNbS16VDJseVl2VlhVd1Q4R2VTOG9PMDlaX1c3MEZScG5fSXk1QWZ4NEF1NWFjYTBodmNfdGwydFlIVnVaNE9EdzZjRklOdjVyWVVKZl8yRlQ2MVFQZ1JjMlZLOVFjNEhQZ3pCVUNvbG1yUWFVNk5JLTlhcnJ0cHg2WDl3",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "“검소한 지도자” 호평 일색…이코노미 타고 21시간 걸려 APEC 도착한 멕시코 대통령",
@@ -1809,6 +1830,13 @@
      "time": "2026-11-19T13:02+09:00",
      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1yNjlQcW5nUUExVjdFUHU0MFRVaGttVDRNNWFCLWRLRDNoWTZPR3VSNGh3aFgxNkl0NzhGUlZrX2RETjE5eFM4ZlpQQ1YxWnlhZjNsQWJxaHFxbEHSAWBBVV95cUxON3dCT3UyOWpuLTVkYkdTMWVrTnhJRzl4dEczcy1kU2lma2lZTldwM0xXNkN6WlozOGNqNkhNeGRMQ1lYRUpZWFVnSnBQakRFcG1VUVhvaU5uOW9UU3VYQ2I",
      "added": "2026-11-19T18:17+09:00"
+    },
+    {
+     "title": "트럼프 \"AI 잠재력 파괴할 국제 규제 반대…미중러 회담 역사적\"(종합)",
+     "source": "연합뉴스",
+     "time": "2026-11-19T12:54+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4tc1FpMTJXYkNibDNOdlR3UE95RlR0TjJtRzl2VVZaWklaSlM0Mlo3STVmSnJnaTRBUDJ1ZmtsdExlbkFmZkM5S1RYQktkTWRmS0xLTk1XRzZfaTTSAWBBVV95cUxQZHdNT2ZSTW9OdHBEaHRUcEhxT3hGczlhZUFMZG1jS2xHRC1jNTlIaVBZQmtxWTVlLVRHWXVveG9aM3N3QjhMVFF2R1pmek9nb2NvbWQ2RWJqYkNXWVZhUVA",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "트럼프, APEC서 “AI 산업 위축시키는 규제 허용 않겠다”",
@@ -2509,34 +2537,6 @@
      "time": "2026-11-18T12:39+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE0xc0wyci05dm5kNXJoSnRVQjdZZlJRLTlOSlQ5RlF1LTFTUG50cGwzOFV2VkFLVjhZdmdPcXJXay1FaFIzcVVyLXlHOFBtbFZZTEdUMEJmZ3VWOEda",
      "added": "2026-11-18T15:17+09:00"
-    },
-    {
-     "title": "\"한국에선 당연한 한 봉지 약\"…해외 30개국 비교해보니",
-     "source": "약사공론",
-     "time": "2026-11-18T12:00+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5HLU1sWUZuUFBkUDJnbHRqUmtYVkRpRjBMd1FsRkIxeDB3d0tFWmEtZ3kxZmlZbXV6TjBOY1FCb09FeTZwdDN5Y3pURlBoM0NEaEJUWXNsLXd4ZUs1Ynl6M0lzcUxSM3J6UVVjSg",
-     "added": "2026-11-18T15:17+09:00"
-    },
-    {
-     "title": "시진핑 \"자유·개방 시장 지지…다자무역체제 수호해야\"",
-     "source": "연합뉴스",
-     "time": "2026-11-18T11:52+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1LeTNOakRpS3VxSVR5YVQwdm9mUGtObE41U1lJWDg2T3lfZ0U3a2hyblg3VXpCS2VxeHA0MVR2RzFHdHBMSmpHeHp4TUFrWmE4ZTQ0UGJxV2JmalXSAWBBVV95cUxPTWVMcmlTNEE4dk8xOGFFRjI3UUFkb2Z6MHo2NHdxeTNJZm9WODFtM3V3VFpMNlRCWFZJMGVzTE1wUjdCT3NUb2xBb3hGTEFYMm5TSFh4azVyNUI5YkJXMEY",
-     "added": "2026-11-18T12:17+09:00"
-    },
-    {
-     "title": "트럼프, 쿼드 정상회의서 \"모디 총리 터프…다카이치는 더해\"",
-     "source": "뉴스1",
-     "time": "2026-11-18T11:40+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5sT1FrT0NmSFpZM1A5LVU0dlJ5WkRHcEdSS0RYTnRsUDZLdWt5dEZNakt1WXhkR1gtTzNxWDdqMGlvWjlVdHE2RDBaQ19hb1llMk41REMxckFHdEFsWXc",
-     "added": "2026-11-18T15:17+09:00"
-    },
-    {
-     "title": "시진핑 \"개방은 진보, 폐쇄는 낙후\"…美 겨냥 보호무역 비판",
-     "source": "연합뉴스TV",
-     "time": "2026-11-18T11:40+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE05OWd4Vzd6RjRDMHpPV0h2c1BxSlk2bWVpQjJHZUZIdmlOSjJnUzN3LVNaWXVXRTNJMG5hS2JQQUltaVJvdFRjYkN3ZWVrQ3lNbFJjSjVoNk0xR21aT1dmTUMxT1ZNTG8",
-     "added": "2026-11-18T15:17+09:00"
     }
    ]
   },
@@ -2544,6 +2544,13 @@
    "key": "nation",
    "name": "🇰🇷 국내",
    "items": [
+    {
+     "title": "‘김창민 감독 폭행 사망’ 피고인 2명에 각각 징역 12년·3년 선고",
+     "source": "한겨레",
+     "time": "2026-11-19T19:58+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9xajN4dVl5YWlrWV9sSjZZZ085bDFZSWc2OGVBb21FZVBzNGQwU1pPNDQ2NVd6Zy0zTmlyN25rTGlqM2RJVVJVb2tUTGxxNlNFZzRkVWdkaHZkSFd1MmZUX3JHOA",
+     "added": "2026-11-19T21:10+09:00"
+    },
     {
      "title": "국힘, '조작기소 특검법' 권한쟁의심판 청구키로‥내일 대학가 도보행진",
      "source": "MBC 뉴스",
@@ -2557,13 +2564,6 @@
      "time": "2026-11-19T19:26+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5YM0ozbUlHU2RseGdEY0RCNDk1UWZydFFjV251LTlpNlZBX1VOcDR0UldFUFExOTF6bGVTMVI0VjNScVdLdkV1UDJLdVlkQ1VRX2hla3RtWlc0Mi0tRVZmVXlIczlHZw",
      "added": "2026-11-19T21:10+09:00"
-    },
-    {
-     "title": "박찬종 전 의원 별세…34년 전 약속대로 주검 기증",
-     "source": "한겨레",
-     "time": "2026-11-19T19:22+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE53Ym9hSWFfbzBjYzUyZFRuWHpkUEJRODRIT1NMQmkydWszSUdFY1p2c2ozdDJjWHg4U2UyQ3B4REd2SkNsNXdoZ3JjRjRUbkFXVE1SeWpqRi1EVVlOVWpQU252eWVNQUR3Qmc",
-     "added": "2026-11-19T18:17+09:00"
     },
     {
      "title": "돈 받고 오물 투척·협박성 낙서…사적 보복 조직 검거",
@@ -2585,6 +2585,13 @@
      "time": "2026-11-19T18:06+09:00",
      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5JdjlnWm9Oa2sxV0tEdzBRcng2UUZ2OWl1WUNKM1pVQUlZenlHbG5XcHFzdXhYc0VPQVEzd1dNTUw4YlV0YnJYTFJfWTg1czZRaWRndzRrdXdCbUZLR0dLZUJwb1JLNHh4ZTZn",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "구미시, '첨단방위산업진흥센터' 본격 가동",
+     "source": "데일리대구경북뉴스",
+     "time": "2026-11-19T17:57+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5wWml4SkQyMVpSVUZZRnFxT0FZOTRic0F1T1UyX0Yzbm1reXMtLVlZY3JXcDRWa2k5MlI5TTFONW13R2gyTmp4eE51alZmTm1JU3FNdnUtN29ndFc0V2JoT1FOM3ZFQQ",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "회의 끊은 장동혁, 배현진 ‘조작 징계’ 의혹 발언 나오자 “…”",
@@ -2622,6 +2629,20 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "[속보]대법, 한덕수 ‘내란 혐의’ 일부 무죄 취지 파기환송…“윤석열 막기 어려웠다고 계엄 가담 아냐”",
+     "source": "경향신문",
+     "time": "2026-11-19T17:08+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1jTmh4LXdMYVlENXVDdi1JQXdNMkEzdDNJc0lMUHZnZEs3M2dPQldnV3djanZNaWNyZ3ZfODJQUlVnOF9WTGN0OXhPemg0V3FaRzFlUHE1Wmtjdw",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "박찬종 전 의원 별세…34년 전 약속대로 주검 기증",
+     "source": "한겨레",
+     "time": "2026-11-19T17:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE53Ym9hSWFfbzBjYzUyZFRuWHpkUEJRODRIT1NMQmkydWszSUdFY1p2c2ozdDJjWHg4U2UyQ3B4REd2SkNsNXdoZ3JjRjRUbkFXVE1SeWpqRi1EVVlOVWpQU252eWVNQUR3Qmc",
+     "added": "2026-11-19T18:17+09:00"
+    },
+    {
      "title": "편의점약에 제산제·지사제 추가될까…토론회서 나온 찬반 쟁점",
      "source": "데일리팜",
      "time": "2026-11-19T16:55+09:00",
@@ -2648,6 +2669,13 @@
      "time": "2026-11-19T16:30+09:00",
      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5zUlR6VDBreXpNMW5mQmFWdGZkSkRMaVhWNHhXVTBzZ0JjNV9DeEs5Vi1vWkF5NEoydktrNS1sdVdjRlZ0ZVoyNDY2ZXBYMjNKejNmUExpMk1PUXpxTGxPb1dRRmtuTXd6YXRGSWJkQ1AtUQ",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "대법, 김건희 징역 4년 확정…'명태균 여론조사'는 무죄",
+     "source": "한국경제",
+     "time": "2026-11-19T16:25+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE95WjR3SGFBM2JWOG9MZ0FVVzVtNkxxUUVuVWpKWldwN2RVb2RKWElwTVB1ZzQzS2VCSWw0UGk0MWhtNUF3aVpmTEM1ckpScGdWTVBmMmg0NWFmZw",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "[속보] 대법원 “명태균 여론조사, 정치자금 수수 아냐”",
@@ -2755,6 +2783,13 @@
      "added": "2026-11-19T18:17+09:00"
     },
     {
+     "title": "한성숙 국무총리 “작년 수능 시험지 폐기 하지 말라” 긴급 지시",
+     "source": "Chosunbiz",
+     "time": "2026-11-19T14:20+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPejJhSkZHc19vMnd0YXVnelRoR2Zpc1gteHVqTGJoOGNtMm1BUWQ3ZzNLNFVFb2dtT0Y3MmJJZEk4bUZac1lIU0NzaUNPTk9Ib250aTBfcEJuaVEyZWg4UzFpcnk2T0RjOXo1OTl2QmkwS25QS3hiX2F0bUJhOG0xeVZPMF9fZ9IBmgFBVV95cUxPRGhDZ0tyZkZzelB5NXdQVGQ1LTR4WDFIMVNxUDVzdVVCd2RsQkVSRVR3MGY0UTlHRmY1ck96SHJybUtqOHVIYkpPOGhsMnJPdFA1b3Zwb0I5OUE0Tkl0aE94TXRjLTNmcFdPdnRvWHpDVjdXM0lTNWtyLXp2b3hWMmROcEJZckNzeWc1TzdaOXF5UGh0LUQ1VURR",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "[단독] ’리트 만점자’ 이진우 유서 추정 메모 발견…부정행위 인정·사과는 없어",
      "source": "연합뉴스TV",
      "time": "2026-11-19T14:17+09:00",
@@ -2767,13 +2802,6 @@
      "time": "2026-11-19T14:15+09:00",
      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAyNjBkQWxmdTMyV29INVpoV01fVFhUN05sVEZfOVFnOUtpZnlqeFJ2ZG8zSVdHUWNoSlRtWl9hNzRpZVNRNnQ2TE5LNDVRS013T2sybVJIbkIwVFd4WmNGWXZXSmdDNXA1S2J0X2F0UTVHRTBzYkNz",
      "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "‘김창민 감독 폭행 사망’ 피고인 2명에 각각 징역 12년·3년 선고",
-     "source": "한겨레",
-     "time": "2026-11-19T14:12+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9xajN4dVl5YWlrWV9sSjZZZ085bDFZSWc2OGVBb21FZVBzNGQwU1pPNDQ2NVd6Zy0zTmlyN25rTGlqM2RJVVJVb2tUTGxxNlNFZzRkVWdkaHZkSFd1MmZUX3JHOA",
-     "added": "2026-11-19T21:10+09:00"
     },
     {
      "title": "[수능] 1교시 결시율 9.97%, 작년보다 높아…응시자 49만1천명",
@@ -3355,34 +3383,6 @@
      "time": "2026-11-18T21:05+09:00",
      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBRcUc1bEJRck5iM0xnRG54M0RPa2tldFg0anNJdVpEUGs3NUxRRlBNZC1VV3dWT0RJRXRNdE5Ka2p0dkhIb3k2RnZFMjZxeEJFQS1lZEp6OXN5bWVsRnZ5cHM2OWdFdkdZdVhTeUhYOFZDQmJ0cVhB0gFmQVVfeXFMTWNoWk81NHRwTVdRYzdfSXFib2VGVkhnNzh6ZUd0aDhIeXAxZFA5dE1fRmpzaEw1OXBwS1REaTVqUlkxdUVTQjRSTkpsWDVybExKMmplNmhIb3hwUm04aDVldUZPNmZn",
      "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "[포토뉴스]한덕수 선고 앞둔 대법원 향한 ‘경고’",
-     "source": "경향신문",
-     "time": "2026-11-18T21:02+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5MOUY0X3VqTlAwanptM0lxUmxTZUpnYnFpOGEySTg4eFpZOFVKS2JjNWlpOWJnMVE4LTlUZVVYYlU1Ykktc1h3SDVUVTBfNHgzUmdzUUFGUUZFQdIBX0FVX3lxTFBNMFVFcEJXeHc1ZVR3V3J2UVNFQmt1WHluOUtBZ19hWlhqajRKdF9mcG9uejhsbFdfVXlTdkxWTjgxSXZGT3J6cGxOaUVMTUFEUXVFa08zZ00wNy05RGJV",
-     "added": "2026-11-19T06:17+09:00"
-    },
-    {
-     "title": "정치적 부담에 인재 고갈까지…‘조작기소 특검’ 적임자 찾기 쉽지 않네",
-     "source": "경향신문",
-     "time": "2026-11-18T21:02+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFAtV2g5WVhxc251dHVzc0FzbmtESVpDbDhPV1dhVTN4ejFVNkZNVTQtRVVhdm8zQjIyVGhCOV9Ienp5YjE3X2VVRmxuZlNlQVluNnJERWhZS2REd9IBX0FVX3lxTE1aQXNQLXQ1c2twcDNUQkZfekdMWGlMdFNHb01lTGJUN3ljdEtqblM2aUd1TEphWHkxREZHTUlJMWtVQnFJeU5rZV9GanRQRFNzRHI3TnBjTGxrUkNJRTBz",
-     "added": "2026-11-19T06:17+09:00"
-    },
-    {
-     "title": "‘채팅앱서 유인한 초등생 성폭행’ 강남 유명 학원장 긴급체포",
-     "source": "조선일보",
-     "time": "2026-11-18T20:58+09:00",
-     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNTkw1MnFHeUx3QVU4LXRFbGJMNFd4RllKd0ZvQnlubDlLbjkyd0NwVklPUUppRnZoQjN5RkFORExOd2VnUDB0MlZZVlZaOG9MZmxvTzM1c0NvM3NJQmpkNjNvc0FfdW5CVUMyaE4xLXVUaWV4MmgwRjZfLVFvOFRhNlhOYWEzM0hnUGd5LTV2b0Y",
-     "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "초등학생 유인해 성폭행 혐의‥30대 강남 학원장 긴급체포",
-     "source": "MBC 뉴스",
-     "time": "2026-11-18T20:19+09:00",
-     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5JWVRLUHJ1d0x0NVZISDFWRkNScFRlUXZCV3BBRzNnbG9lSzBCX2ZzYXVDenM0dUE5SG5LcS1lcFpmc2UzY1doU1RGcmNmd3VWaFB5S2JHTUZ1TzZIdFRCaUZtNzJWUFRkM3Jad3dCdG9aZzRYVGJj0gF3QVVfeXFMT1VORU9yTm54Y0NaX3NUcy11cWVXdklrWjNnMFVWUE9RdjJCRG10akpfSEI4SXpMNzhjZUpKQUpGNlZoRzV5ZDFvT1N5el9WenB1b2dDeWViMnBfbk1lRTZnUVZ1MDF2T1ZyLVdZRmpxeUhqYzNFT3M",
-     "added": "2026-11-19T03:17+09:00"
     }
    ]
   },
@@ -3390,6 +3390,27 @@
    "key": "diplomacy",
    "name": "🤝 외교",
    "items": [
+    {
+     "title": "China, Alts And AI In Investment Summit Spotlight",
+     "source": "Family Wealth Report",
+     "time": "2026-11-19T21:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdVhMRVdTLTA2OE5qYnZCN0w2UndjSlA0WWJRZXdFVFRXckowd09JQXVFTzlzeTJYcUZ1bkdZanlaSndlZVZ1WmpydnB2WjJ4MHBsZ0ZBN0hESWJDYmNHelhtMzJKa1Q2LVdXUXNDTXJCclZ3ckRGcnRvam9UTmxDeTBqTUJVVGluendVUzdaenMxNFJ5TDhjSENGMTJ4QjlU",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "What is a ‘nuclear briefcase’, spotted at the APEC summit?",
+     "source": "Al Jazeera",
+     "time": "2026-11-19T21:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQNW81TFJEVkFfV01nVEFSWC1xOFB1T25tdEYtZ25LWktwc0dFNmZwQVJ0R3YtSmtoNjFLVGRHNkdQUXhwdUU1UC1WUzh5aWVCaThOaDNOZ1NjRk05NGwybUJ4U01hSUdya1VldC0ySWh6QXNCYUZPTmkzdHRULWlBUUJMSnBJNUZxRkRicXZlNjFSc1NzS0Q4a3U3dmnSAaIBQVVfeXFMTkFNX0hkQWRicGM5amFKc2tPWEFVX1VFbkNVeDA5cFRITC0wTFVud1pRaWM1c25FcHNLY1I1cmRKVGE2RnpjcTE2MVF4ZVZ6bXR5empteGlRUWwxZWlhVjE2akFVMDZUaEdfenpvTGUzRldDc2Qxc2ozcUtaRFBZa0dlbEdYXzh0YzNNVmx5NXVmRzF1TDRhSnBIc1Z6QnRveGd3",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "Trump joins Xi and Putin for historic summit in China",
+     "source": "cbs19.tv",
+     "time": "2026-11-19T21:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPRHctb2Z2ZlB0M296ajFWQ2RDVlNNbkNWckEyV2sxRkF2Z1VpVm56bTkzajl0eXhaN2s1VzlvSzFoSEJoUWxSWUV1cWpaME9EeENlc0hTMGZPSmw0OGJFVTViREIyRTVRaDE5T29FWHA1TS1FZjQtTmNCZ3FHYUQ4MmZEX3VmX3NMelM4Q2l1N3ZPdDFNcG52b3Q4dHppTTNBbnBEUTlPSVEzLWJPdHF6Y1RoUUItVWN2SWtPdl8zTUI5YlFGWmNEQndULUQ",
+     "added": "2026-11-19T21:17+09:00"
+    },
     {
      "title": "Putin’s road to the summit just got a lot rougher",
      "source": "Texas Public Policy Foundation",
@@ -3431,6 +3452,20 @@
      "time": "2026-11-19T20:56+09:00",
      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOY1NhcnlBeTRmdXdqQlpaQVBDMldQTDFJNXhwTzl2QjJybHZ6REZuTXM5aVh5SERlQXd4WGNJZWdLU0staldkRWZYaFA5UWljX2xoaV9fdm16czlhX0JkZkl6c2xhRlhxMGROTV9XUllSQnl4clp3WUdua2ZQZlNLY1RpazZ3bV9MMTI5anlGMlFrbWhuWXFENmxtR0JfbjFFWjVKMGxnYmUtQnhBYVhzQjBSU2JfMWpDdDhYalV4U1hrcDFkU2U5RS12UmowMDhT",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "Trump-Xi-Putin Summit Yields China-Russia ‘Peace Declaration’",
+     "source": "Modern Diplomacy",
+     "time": "2026-11-19T20:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOZmRFNmZOdWVLYjI0blF2Mzhway13eXVKWDJheEJpQUFfVVA3Smt6eXMxNHpnUWN1ZWJVM0MzZGdjSEpmU05WeF83TTZKYWNzVThURk9mMHZERmZELXdvMC1BT2I5UkE2eElOUkN1NkdlcnBsMjhsU0xiODFQczM4NGdvUnpVeGRHSzdyVnZ0Y0x2TVpTOEh3V3ZZUXdxNXc",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "Reporter banned from summit after asking Trump about Jensen Huang in front of Chinese leader",
+     "source": "New York Post",
+     "time": "2026-11-19T20:48+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPaUNlUFN5WDZlRDRBY1JhUlZaWDMtcnZXYnFja3lEVFlsYTNFUEJUOU9UUnVkM0hzN1pNSnpyTVdhNlY0M283ZTZNRUdxM3dyd29KSmkzNFgzN3dzTGpRQ3oxdThUSnRXdXJoOVFlekxka1lMc3BtMV9BWFRvWUhVc2duVWJEeDJxSndFRmpYMHRWYXZ1MjF2d3FHYTBiQVZhS08zRUlUT19qc2psMW1yVDRKQk4wdVRSX0RSSTRET0FySGVKUm93YzkteWUtaDdCX2c",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "인천지역 시민사회, 2028 G20 정상회의 인천 유치 지지 선언",
@@ -4194,41 +4229,6 @@
      "time": "2026-11-19T14:15+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBOY25IempOQ0pvNGMyRy02YlZwTDI5cFItajhaU202RHJWUW9LWGRpWGZZaVBLTkdaRkVMM0F4eXRMSW13bmthcGkwNW5uYUZUYkhFTzZJTTY2Tm1qZ0c1TjhsUTlrUTQ",
      "added": "2026-11-19T15:17+09:00"
-    },
-    {
-     "title": "Trump greets Putin before holding talks at Apec summit – video",
-     "source": "The Guardian",
-     "time": "2026-11-19T14:09+09:00",
-     "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNmhiNGVGQ2dHNEJWNDNRYmx4SHN2QmZabV95ZXlVZFQyUWtaRkNqREFxWkx3UWdLUmNuVzFUZFJoRWZRV2JoQldEQTdJV2J5S2JnaWdwQW4wUUVEc3psdXlrZWk4TWdpeW01TUtTNEJuN21HUjFjeFdRVktUM2ZLWXdYcmV1dzRPcV9naXUtbWlrQTl6R2VtOElZbXJJemsxRENpTUNWQlFfMU85dmxqWHIxUEQ",
-     "added": "2026-11-19T15:17+09:00"
-    },
-    {
-     "title": "Andy Burnham is in danger of over-selling his big Brussels summit. What happens if he under-delivers? | Joël Reland",
-     "source": "The Guardian",
-     "time": "2026-11-19T14:00+09:00",
-     "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQeGIzeE5CTzl1TWg5dVl4THVBazNZSXA0UzQ0T2gyYlVEZVFzanAxdVdfdXh2dTFYREVNdERnZDJKYm1jdXdIS080bElaeUJuejBLQW1CMUl1Vk5aeW5vajV2QW54R053ek9zcEZuYUdEM0R2Smd4ZUhHUUlWOHhQM29NUXJSd1V1VFcyV3hfWjNBeTYwOGc1OWFVV0pKRXM3YW1vRlBtb1VIU0JObWxWMkFRQjM3T3BjTFRkZHNIbTkybklPclVWYzhZQ05DcmhJb3VrRkJNZ3RMQWM",
-     "added": "2026-11-19T15:17+09:00"
-    },
-    {
-     "title": "After days of travel and diplomacy, Trump seems to nod off during Apec speeches",
-     "source": "South China Morning Post",
-     "time": "2026-11-19T13:57+09:00",
-     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQTWs2NTRfU05qT2ZwdkprRF9HaDhIenRvczRGRDI3Y1FDWDBGOEJZRldIbFFVMmJZcllvMDFSZjlqOFNwRFROTHVtODVEbVp5RlkzVVFCME9jaHRqR0h1TE42bk9DWWNZNVdZWmdhSVdfbWJLY1JqUmNocEtBMWNjUXBCSHIyRmtaVmRHUzBESkotWWpkV3Z5VU1UcU5tUHVPYXpWa3ZtYTVsNURJZlQzQ18yQmwyQU1LemozelQ2QWZuekxs",
-     "added": "2026-11-19T15:17+09:00"
-    },
-    {
-     "title": "Trump holds meeting with Putin on sidelines of APEC summit in China, says 'great things' to come",
-     "source": "The Jerusalem Post",
-     "time": "2026-11-19T13:50+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBmYzRYaVVVX05NR3ZVOXRhVFRkRGh4SUF2NVVuVEJSX1JoNGRFa2l5X0JnTThRajRjOXNWTXF2eGRYWTFybktDWnJfWEJTQUJCVXBOYTc1ck1vZFlaZjVZ",
-     "added": "2026-11-19T15:17+09:00"
-    },
-    {
-     "title": "Trump and Putin meet at APEC summit in China",
-     "source": "LiveNOW from FOX",
-     "time": "2026-11-19T13:47+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5UNFBwVTJiS1FfdEFUTmxsaUZjMFJ5LWlaNlNUYkJSXzR5UmZtdG1TTWpESTIzbmxtLU10b3o1VUZqV0FNLWM0ME15aDUxamg2NzVjekVENUphUXJfQXA1TXFIUdIBaEFVX3lxTE9wWVJnYnRibk9nNGxHaG82N29YNGRTcjNQUC03cTdlcV9UdElBZERyMWNCcTlYZWtSU1dOSE5kVG9hbEZMa2pPUDZCVFNOWGFkYV91dTJoTlBjT2VPbjFEckQwdWh1OEpw",
-     "added": "2026-11-19T15:17+09:00"
     }
    ]
   },
@@ -4237,11 +4237,32 @@
    "name": "🗳️ 세계 정치",
    "items": [
     {
+     "title": "Friend of Labor Nikki Budzinski elected to lead New Democrat Coalition",
+     "source": "The Labor Tribune",
+     "time": "2026-11-19T21:13+09:00",
+     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQRXZ6QjVjQkg3RHVoZmIxZzl4NS1LbzYtSXB3QTJlZGJDSnFSN3V1N05NZklMcU9MNGtnY2Vna0Vwd2dfc3ZyQzh1dUdLMVF6bWJjSExPbGxyU01Rd1JUMDlLTjNPVGdGWHFSMjlIRk55RTNsMHROX1NCZXNmNDlMWk1nZ1RfY2Qxc0lTcWJpaUZwZElBTjN3Y3BMRXE",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "American Flood Coalition praises Alabama’s new Office of Risk and Resilience",
+     "source": "Alabama Political Reporter",
+     "time": "2026-11-19T21:10+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOMVdKZHNhcFJadXZ5VHRUTmw5U0h5MmY1OEJHWGgxS2lPX2hrSnFLSlJwUmtjY1RHYTItRU1nZUh1bFZSLWJaNGZvZTlZYm8zOFJoaFhMTlJhUWZ6MlF2QWtaUEZSZVlPdnlydVdSR1JvTDlVQzhNOURRSW9hSG5KVUxzcS1nd0hsd1FycVJzQldUN3psVGxwajNvUTRqQ2lBMWJfRFczb2ZRUlNGZ2xsVm15dUVoMFFlMVplbUE0RUZyYTQyY0w1NA",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "Trump calls Putin and Xi friends. They have other plans.",
      "source": "The Washington Post",
      "time": "2026-11-19T21:04+09:00",
      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNck1SYkYtZjVXd0lGb3RGSkFOeU1QLVlUTTU0MGRWNmMyQmVKQ0FaelV4RGpRbTFwZ1BGRFRBMEpJTTdOU0pRbUxzWWswRzlHYzNUbkFodmVBRmdtTTlJX19RVUgyZ0NTdWtSdmtYcEN0V0s0bnRudEVFMWFzTHhxdDN2TlVXMF9BeXRBaVVEV2lsWUNkRTdacDh4Wkw5WVo5bzY1OA",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "Maricopa County Board of Supervisors canvasses the general election",
+     "source": "azcentral.com and The Arizona Republic",
+     "time": "2026-11-19T21:04+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQWGlOajFvSVo3LTluQV9kakF0TUFQSTJ2enJmY0MwNUpKTzI3STRhY3dCQnJ2YXFjQ3ZpcElHOEphN0lDcEphYjJxc2RYOEp1MFZlX2VYamZtbW9hRHd4NlBMdkticWt2UFFuTkFDV25GYWRGeUM5dFltUGpFU1dnbHloNDkxS00yOTJzS3R2RWFQbkwtRVJPUk11Z0QzOTZYeV9UV21HbW9oQWpLWk9QeEhaSFRUMHdhYnRRUXpvSC1sd0pBOVp5OGlmWWs2YU0yTHhwLTRqdnBuQWtWNWtiNWVNVHE",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "Caldwell County comes together to support Homeless Coalition’s Annual Fundraiser",
@@ -4356,6 +4377,13 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "Obama gives pep talk to freshman House Democrats in surprise visit",
+     "source": "CBS News",
+     "time": "2026-11-19T20:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1uU05YckpFX01xVU1UTWdDTFNScVdxTk9SczJMdmxXVXlhZFgzcEpYS3FtZEFiV0Jmd3BQd000RWpYOXhxbHFNOW5JSGw2VlVjR091cmZaWDBmZEhLWnV6OUlKZkQ2Zm9IcHlkSTBhdTBfbkhfOXliQw",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "Mongolia's lawmakers accept the president's resignation following corruption accusations",
      "source": "WRAL",
      "time": "2026-11-19T20:48+09:00",
@@ -4405,6 +4433,13 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "\"코리아 패싱 차단\"…이 대통령, 미·중·러 정상 각각 접촉",
+     "source": "JTBC",
+     "time": "2026-11-19T20:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBNZlRJOGRnckJSdm9JWUxyS1NkZkEzblVXYjYzc0M1OGZTMUw2TzU3VU5vZGdYcUkxX3JDbHI5dk5UMjdLOHZBYkFZQTAybjA3RzJZSw",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "Conflicting agendas and a weakened Trump mark historic three-way summit",
      "source": "The Washington Post",
      "time": "2026-11-19T20:34+09:00",
@@ -4438,6 +4473,13 @@
      "time": "2026-11-19T20:24+09:00",
      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE0zcDBJZzhhS0FBU3JhSDhjZjEzS2JKWG91RE5lUENiLU1wdk5HNTZoODE3aWs4Rms1aWRhaEhwSzlZYTBJZ2xvOWtJMEdiUWdQQkVSVnplOE8xeFREVHpwdU9VOGtGd3ZLemhITNIBckFVX3lxTFBkVEtyRWFvYlVhZUwxaDNkdTY3RzZiSmhiZVhwMVdtX1FMWHh6ZUpuT084dmxTQmpHUl8wOE5IUHJ0cmV2MFVlQy00cm8weU83WlNHVXZRNU9pTFVSUlFTdmlqZEhKQXdfNzhqYkE5M1diZw",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "Trump, Xi, Putin take aim at International Criminal Court in trilateral summit",
+     "source": "Politico",
+     "time": "2026-11-19T20:24+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNVGR1a2RxNTBlQkV3bVNKcXVEWmNOMUhPX3NYd2cyUmtCTGItY1RnRFJSOUxoT2pMN25xUXJwY3JTS0VEUkMwTUw5MXJYY1VmQWlkbjNMMHZzV2E0Ynh0ZFdPQVV6YXZFbl8wbm9KOVo3QjBWbjItNlh0VF92dmp5aEVUZ0cxZEVEWUVjQThKR3NPSjloZUFkcC1vVmVmdWNwZ0xHd0ZMWXgxdWtCZEpWSWIyTEp3TGRw",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "Trump, Xi and Putin sit down for a rare three-way meeting in China",
@@ -4566,6 +4608,13 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "Shutdown fight takes shape as Democrats target Trump’s Iran war",
+     "source": "The Hill",
+     "time": "2026-11-19T20:00+09:00",
+     "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOQmpxQVZsLWFmNnQ2WTl6ZVNzb2VUTlhVOUQ3SFJqVW4yNmk2MHh5ZDRCQVh4aVI5RlJkc3FVMmVWT3hub2dvUGVwTTZxZWZaY0trTnRSWVVvQlJRLTg3U2psRVByTGp4bm1tREZ5dzE0MjNSMXFMRWJJV2JsMWFPWF9QekJ3QXdxWklGZG5ITDBGUQ",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "\"희대의 판결\" 탄핵까지 가나…민주당, 대응수위 고심",
      "source": "JTBC",
      "time": "2026-11-19T19:52+09:00",
@@ -4655,6 +4704,13 @@
      "time": "2026-11-19T19:39+09:00",
      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1hNzIzUU1NVEtSQWtKOGtPaHNSdGxNR18wWW5rUzZtN2dQeTVrOGN2dXhrT1Z5M0lPa1RxNzNRbksyaVJlQ053dFI4cVdfTlc1aUk5czVQVzd0LUhfcEhwbVJOZVJNMm4zXzRLcDNQNXJicGdwNXRNVWtZTdIBgAFBVV95cUxNc0hOUzlENzN3bXl1UElXSjlvbzdseWp3eDlpYmpJVmgzMTkzd2JtcmVqbGo2aFRUck1lVDZLcGVVeXB0Y3JjcHZaUmxzVFJRekJSVHFXTS1SUDFmZUxreHhMckVKcElsUVNTbm1rZ1lKYThvUEdubExzSENBaUxvNQ",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "2026 U.S. House Election Results",
+     "source": "AP News",
+     "time": "2026-11-19T19:36+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBUM0VmeFZ2SjF1RGJlVENLazFvbHZxWjRIYUlNMFlKal9sRW1ySS1UQWo4djh3cWpLcXJLWWFuWXBmdkllMTd2aVRhWF9YZFM5ZGRmN3pxZW5nWERXMjREbTVDeGF2RXRfM3ZTUw",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "Denmark ratifies Trump security deal over Greenland after months of diplomatic tensions",
@@ -5019,62 +5075,6 @@
      "time": "2026-11-19T17:37+09:00",
      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE05RFI1UXR5alZLUGZrOEVjR1RnR3FxOTVqU3hYRTFiRkU2UXF2bjFMRmFUN2dDeXlfUWt3REJvY242b2l4bFh5ZHoxT04tUjhFRzR2MF9mbC1WVTBNeG0zSU9LN3pNdHRnT0dYTW9WWQ",
      "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "[속보]시진핑, 트럼프·푸틴에 \"역사에서 배워야\"…3자회담 시작 - 머니투데이",
-     "source": "머니투데이",
-     "time": "2026-11-19T17:34+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1VN24xVFdDaDIwNy1QQ1pTa1I4SWhCN2hKNi0zY2NKdlhuZnZzRC11SDhxaE40WUJnUlpOTzk1M1VxVGdZSTJVN3FQWFFpNmtlMks1cWxfWl9LUmdMY2cwMVlHcVliY1Nw0gFuQVVfeXFMTmhTdkpfSXV2ZXpNbHV2cG84ektZWEFHZnNuVlNlM0RFM1ZrajExTG9RWVdyc3hVYVdOWHp2cWFPR1o0NkkzaWVfb2JLdDNuempvbWhyclJZV1pnRU42bzhFcWhGbkdhc2MyZ0lybkE",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "[속보]사상 첫 미·중·러 정상회담, 선전서 시작",
-     "source": "경향신문",
-     "time": "2026-11-19T17:32+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE02OWJ0YWY5d0ZMMDdBWDBqNkF4OE9pdlhoNzdFcVoyZ05OdEMxWTQtZ0xtbTlTeUM5MlVlemhmTWdaZ3BIZUhxNHlCYkFvaVdrYW1KZll0cW5DUdIBX0FVX3lxTE5IS1N3ZHBtTmJJd2tMY0I2QVdvMzJ6ellzZi1ReUoxZkNndUJGMTQxc0w1QXoxcEY0ZExLeG1VYUZ6UUxvcUpQSGFEZ2t3SHM0VXVWZ1hvTDI3Rnp4ckxr",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "트럼프·시진핑 \"특별한 관계\" 강조…농산물 구매엔 양보 없어",
-     "source": "한국일보",
-     "time": "2026-11-19T17:27+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9OYWY2N2lqaUZwckgyMUhMZHFnRHR4ZFUwM285SmR4NDhNZmt0Q2pJbVhZcThYOVM2ZURkeUcyNzRnWVAtTmNUeFpjSUpRNlZhUWt5bzcxblhQdXQxZDlIdXhmWW9jVDNjeEI3SFR30gFzQVVfeXFMUEtrLXZPX0J2X1VFQ1ZSbGVZT3pZbXJubHIxeDFYWTNwWjlqemtyNkx5SXdyVmVNQnEyal9Nenh6SlIxb3ludXU3UVNpeDhfYms5b01MVlBwQ2tYSDlhOWlHQjJoN3lsSHM5QVhtTXVid0ZxNA",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "Eleven Candidates Apply to Run in Kyrgyz Republic’s 2027 Presidential Election",
-     "source": "The Astana Times",
-     "time": "2026-11-19T17:27+09:00",
-     "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQaEVDY0dWNUNNaS1DZmpnV3VGUzFOS1JHd25JUTRxNHpsQ09RNlExRkl4SmNnV0pXTS1mcW8taUVWaWhWWTE0LWxhU3dxS19ydEF3MlhWazdZWmFYdzVBa19YdmhhdG9Odmtid0s0cEFzMnZfVnhjSnd6Ty1ZMzhGNXZuTlFsZGVEUUtfR3dlTWxXMUh0LTdMUVIwbmlSU0RjMlFJUnlsTGxaaTIzOVk4",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "“만날 수 있다” 트럼프 끝없는 구애에도…북·미정상회담 불발될 듯",
-     "source": "경향신문",
-     "time": "2026-11-19T17:26+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV1Y4MTN2d1ZqcF9pVUJ0SGtPdTdDRm1aNll0UjZNaXVkRXV4VVFTV1VOSXc2dVZkOWRkTEVLWmlNV1ZOaklKQUdrNHhDWTd4Q3h3UXlERTFPWUcxVllCNE1nT1ZZMW5MUU5aSlgySlFxcUowTW9NOUdFOXhXWDRGQlkxdWpMZFZUR3VQR0ZHSE5qU3RJejQwWTcyMGxDODh4NzVFeWdYSlhoZw",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "[속보]트럼프-시진핑-푸틴, 역사적 3자 회담 시작",
-     "source": "뉴시스",
-     "time": "2026-11-19T17:26+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE0wWERDNFBzOFBHWWVKLVVzX21JZXBMSFVOcjVOb2g3alJJZTRMckJDYXRuUjVrekpDRmJhOV95R1FQZW0wOG5DV1N2c1VURlc4UzBRT19GVDR2MW56SkVZNFh3",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "푸틴 APEC 참석 맞춰 러 군용기 亞 곳곳 출몰…\"군사력 과시\"(종합)",
-     "source": "연합뉴스",
-     "time": "2026-11-19T17:25+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5SQ2VCWmtBLU83YzNUUVhDYzdhdGluckZMV1RSMjF2OTVCQThMYjdMQmxJdFpUYURhM0RFaXIyd25uMk4wN2p0TWY4RXBvZkp3MERkQjVmZ0x1QjjSAWBBVV95cUxPdEJiUnhRRElWR3JFaG5oRkVobk9rNXpYa2tYQjU0YWpuUTB6YWVFWEdsWFAtX2pMTjdPSkEzc29RS0w2VTNZMkVsN21Ja1ZTTDVfZkJ4ZS02VFpvTnNBR2g",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "Saudi-led coalition intercepts Houthi missiles targeting Riyadh and south",
-     "source": "Al Jazeera",
-     "time": "2026-11-19T17:25+09:00",
-     "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPN2dSRXcyNzdIa2VEZW4zd1NlS2pyb2gwaTkzVUw1aDQ5VDVsdjJDeFJfekYtekhlNFgzRHE0VnNxVXN6dC1ZNUoxaXA1SDZ5VW9QLUl2REU0d3VDdEpFSXNCWDJIaWZtMUJKanU4amNhWExFY29pZzE0RXpnQmVhbFQySl90STgxdkFzTzllTkNUYnBlWWhGSXdOaWRmS0hQUVFVZkw5S0dNbXpZSXpBd184Yll6QdIBuwFBVV95cUxQYmoxb3ZGV0R2YVcycm1LM3phc2FRaWJoTXhMc19TVjhISWJ1ZERTNE9Ra2Exbjg3QjNuZEJMcGltNWZ6Y2N2cHJ4bUcxcWw0aU04Y1RPV3l4dEh6cXVLRDlxSGJubGloeGVSbGZrUTRJcjk2YlRiWGVTT1Znb19xdmgyYlZHYVZua2NvcXlfNW1TdHJ3YmhEOHRzOVpKMkpObTh4Qkw3RUp5OHBlMDRIZ1ZYTVo0X1dxa2s0",
-     "added": "2026-11-19T18:17+09:00"
     }
    ]
   },
@@ -5111,6 +5111,13 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "3金 정치에 맞선 ‘미스터 클린’ 하늘로 [고인을 기리며]",
+     "source": "세계일보",
+     "time": "2026-11-19T20:27+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5SYTRaeTFucGpaSnVUNXkyR1lzYkRack1nbVZieml3MG5LQXlJX2ZxUzRVV2pZaFM5VFdEU0EzWUNNZ0laQnNjZk9JSHB6bXVCbnRBNThEdDTSAVRBVV95cUxOcTk1ZGswdEVHX1B6ZzFVVEdlTWFJTE5kdXRnRFJOUUQ4dmNkNHRHdlNUMVFZbHc1TkY5TWVabW4zdTZrWVFma1BQZllUU08tSm1nOVU",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "오강현 김포시의회 부의장(전) 대통령직속 빛의위원회 주최 대국민 공모전 수기부문 동상수상",
      "source": "뉴스21 통신",
      "time": "2026-11-19T20:23+09:00",
@@ -5130,6 +5137,13 @@
      "time": "2026-11-19T20:13+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBZQ19weVRTWTM3cjdlaXJDNEFidmJpTURhamZKNTRaUzlUcWdlclhIUGo5U3ByY21jcFVQa2xlcjFCTGoya1dqN2JDbEE2ZWRpeTg4TXBFYXk4c2RsRHNMNmEtOUQ",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "박준 경남도의회 의장, ‘지방의회법’ 제정 위해 연일 국회 찾아",
+     "source": "경남일보",
+     "time": "2026-11-19T20:11+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9IWGRhdnc3Q2tSNDR4VUY4NGxzSGVVbW5kN2JJdDhEZVIxN0ZxVnFhaDY5SFFlazREMkluZjRuZnQ5SE45T0RtZ2pKV3NsWWg4eDNYRGJOTEU3aFV3UzVraTdpVVV5UGhtcGEw",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "민주당, 조희대 대법원장 탄핵 추진 \"고위 공직자들 처신 합리화\"",
@@ -5240,7 +5254,7 @@
      "title": "세종시·교육청 재정특례 3년 연장안, 국회 소위 통과",
      "source": "티제이비",
      "time": "2026-11-19T19:03+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5HNlRkRFh0RlVTT29heFJHNkJ3azMtVHBhd1NsaGp4WmtqZlE4enlRTWFsRHY4YzFZNjRRVEk5Q3FDdnNHYTB1WEIzTjBzNlF5YTdXbVEwdzdmeHpt",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBSRnBGaHdPQUdlVnNvRlZiVlQ0UmVnU0hybDNLZkZlSWs2czh6eHdlYThJVEtoM2hFdUIwUmZUeHBDenk2QTZmNXdBOHlMekloMVBPZjcxdno1WldNTGtHSTM2M3hPRUZ5aWJWTA",
      "added": "2026-11-19T21:10+09:00"
     },
     {
@@ -5907,20 +5921,6 @@
      "time": "2026-11-19T11:50+09:00",
      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1GOTdfLTQtZ2lEMzFvV0p3T2lRejk0QXNoeEJSa0M0VnZFbm40Ty1rUW4yTklkQnNKaDFnNjh2ZGFXakdaTTl0NnU0ZklJSmdCSEpzY01nQVlZUWZwMVE4VG5yc004ZVhwQmc",
      "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "황병직 영주시장, 다시 국회로…2027년도 국비 확보 끝까지 챙긴다",
-     "source": "산경일보",
-     "time": "2026-11-19T11:49+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5LN3RYZUtQdWducGFLWF90OG1VWk1YU05jcWRHUXpNY05ac3cySXBkejRwZlZVZl9EdlNJbWwzZU1oOEVrSGlPNllfZlVwajNSMVhJd3F6Y0RVRURDN0xXT3RtalFNWmZYNTFsQzk0cGk",
-     "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "한병도 “한덕수 상고심, 엄정한 판단 촉구\"...추경호 무죄엔 \"즉각 항소\"",
-     "source": "BBS불교방송",
-     "time": "2026-11-19T11:48+09:00",
-     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFA0NVNxOWlJSWpwX2l3NE5UdXg3eDNMVWM1VmttLVdIVW5HY3JrS0hGbS01WlBVeDRMWDRudS1MVGpRMjlzTzhxUlIxZU1URnlXUk8xYmFHaG1wdWFZLTFWclBCeGx2M041UHJB",
-     "added": "2026-11-19T12:17+09:00"
     }
    ]
   },
@@ -5941,6 +5941,13 @@
      "time": "2026-11-19T20:04+09:00",
      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBBNi1yRW1kOFpFcG90d2ZjU25LajdqOENXY1A0cUZqcHlKdjBIQmNaRnY3VFl4YWlxWTRESjQyVE1DN2ZsWlREVnFLY3NSdWpSemg3Y0U3dzZPNlRELUE2T1RkTkp4ellFYWtCSG81aWxjYmNt0gFmQVVfeXFMUGFfT1ItZVptYjUzNEtaOUttamNVTmlfVWJZU2M5aWQxV1Buelk4VXFrSHBzNEJpODhCdm01aFM0VzBKUkxsQjl1eFZWbUJYM0paak9hTmZ3RzA2MVFMZGxIUko0WnhB",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "\"은퇴? 다시 생각해보겠다!\" 쇼트트랙 여제 최민정, 안방에서 3연속 금메달 도전…태극마크 반납 계획 바뀔까",
+     "source": "조선일보",
+     "time": "2026-11-19T19:29+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNVndSSzZqa25lS1lDZVZrSFMwXy1nV0VYMXJadFRTOGNJQ1NVaW5LVk9YTzhuUHpDRFdVRVpSUmU3QWdkdjJsTU9VNjJvRXN0VHRERU9LM3JPVTNseHFkZDNOa1haWVZiMFFXOXB4VFM1Z0JZWGdOc0pNMVoxOThreXlheXoxckkxUHZR",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "라스트 댄스 최민정, 안방서 금메달 도전",
@@ -6007,9 +6014,9 @@
     },
     {
      "title": "박해민-고영표 같은 스타, 어떻게 만들어졌나? 선수에게 직접 듣는다…2026 KBO 의무세미나 개최",
-     "source": "Chosunbiz",
+     "source": "미주중앙일보",
      "time": "2026-11-19T15:39+09:00",
-     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNX0FYM2ktd3hNcEw5cGFCaE5HZ1lRMjVCcXpBUXUxQXg5MzgxZk5TdC1iM3hMWEtueGlQck9JWjQ1aWVGVHhpZGJiOEdVdlBsSDh6bWpvUVRRRm9ISjVYRjJpNHQydC1sRlNNT1M4S3JHUFpGTGlWOHhudnMzbFBUTzJzSdIBlwFBVV95cUxQQmI5anJNZWVyUk9lejAyUjc4MTRyTkVBMWlOZEV0Tkp5b3JTYkIyc0NZYk1kSWVtV044bDNIS1dmUnJCc1V6Q2RfZ2JVLWJHTURVc3hWemRGQ0VrQXh4SW1BU2xTX0N3QlR4cTA4ZWFwQXVjck9IUlNVYl9PTW90LTBoZkhxRGdGdXpBeXlkaUc2Y2Y3VEhF",
+     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9UeGhYM2VNOERLLTFpU3lpLU42Skg1NEpxWGtuMjIyMzdlZDZfNEFnV1g4SkxPak5ER3hTR2VfMDAyYlp6cGlVcktFeW1SdUUyRldNQ0ZEUUZaS3hPTThsTWNR",
      "added": "2026-11-19T18:17+09:00"
     },
     {
@@ -6074,6 +6081,13 @@
      "time": "2026-11-19T13:03+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9JYjZkR0Q5RHFKMjhaZGNwQU1fVjdQQ0M5TV94YnpQVE91UXBzSjJLSmhETzlTR2lKVm9aQVNsa1NxQjNKLUZiSzlwZXA0dVpQU21XZFMtYmFwTkNK",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "韓, WBSC 국제 랭킹 'U-23 월드컵 우승' 베네수엘라에 밀려 5위 추락",
+     "source": "뉴스핌",
+     "time": "2026-11-19T13:03+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9JYjZkR0Q5RHFKMjhaZGNwQU1fVjdQQ0M5TV94YnpQVE91UXBzSjJLSmhETzlTR2lKVm9aQVNsa1NxQjNKLUZiSzlwZXA0dVpQU21XZFMtYmFwTkNK",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "허구연 만장일치 3연임…KBO 총재 임기 2029년까지",
@@ -6160,6 +6174,13 @@
      "added": "2026-11-19T15:17+09:00"
     },
     {
+     "title": "'모레노 연임 가능성!' 스페인 현지 \"韓 축구 대표팀, 모레노 감독과 아시안컵까지 동행 논의\"...선수단도 지지",
+     "source": "Goal.com",
+     "time": "2026-11-19T11:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMingpBVV95cUxNanBodmZGakpGbEliREtDeHFyNXZuNXlqMk1FSUVTRWJlbG9LWjhocjRKWGVKU1paa3FfVmFOSjdNb2R2NlBOQVBna2djSlJmS1RGeVdVNjZjLWZndEdzN0lPaV9hR0tnT2lGdU12TG1fMFVsM0ZSaGIwRFhRRHhheU92TWpKaHVVeHhTeUpjMGlUazhIY2hENkJNeWVWNDFwTUZYdHI5S0RvQzItT1lZQWZjYnZUY1BPSjdKYmltd2lSblFkUVZMYzBQQzNiNXBRVjVfTzAwQi0wMXh0UnZuSVRnVUhTMm1aQ1Z1bkZCbjVacFpXTEFuVmZMZmxWNWFTSUFDMTVZSkNDaTIwTnJaVTZUV0NDT0tFcjd1R040MlV3NlB1ZHhVS1hrdjJ3cGhWOGQyNUJTcUdsQXRlYUxhWU9MajU2blRMUlRQRGpOTEdYT0Y2eEpxeUE1MUJFNkplYXdQcmxxOHJQcHFFeXEzeFBHQ1RxWVVSaGMtM0JzX3ZOQzlXMHFRZzVZZ0ZfUmpGRERFLTRKYngxZ1FfZHRGZ2dsUkZDYjdYcHBEVDBJV1V1MHpVYUhBN1N1eXlKdW9KSVV6MjFWd0ZSNWdfNXotaElrYlRDa2xFeUdUd3JhQVhQVzJJbF9MMmNfMUdHZGZZa1lVZ25wbVY5VDZiS2ZmeEhCVnlWclRhWFlLMkpvZHJHbVBWTWZmYTZ1cHdnVnJYa2NPdEFpTnVTeWxoOVg5Zk82M3JjaVpnaG1CZXlrZUVZTmZUTjMyQ3NTYVlZbm9PXzNMWDRFUHF4NG9FTWx6RUp5cUVDcTRHSHpLRm4xb1ZoR0NsdUJ5am45TXNpUUFKdE5BT3dKRVV1R0FYdkgycTU5cEtyVU9MWkR6eEowbXpFbFI2UnpkM3Jvdlo0am13RjhOZXNjQ0I1SHhkQ0hTWlZhTEJrSk8yS3U0eUJuemtGU3FQX2hGN0VfTVZOS0ZpdzE0ckl2NUlqUGYtdjg1a0dua3ViVnpVbzMxSmxDMWFKTXJQQkxoS0l5VVJTNlRSdkJPUElqLTQ4RV9tRGhoY0JuVHV3cGI1VExtaERyM2tmQUxuMlBYazlkYm9RMjAzaHp1bENoQUlQa0JKdF9MQ3pIaTJvRDNtMkZmOXVOV1lFOU1KR3NNNFlURmJ3eHBFWTFLSmp4ZWgyZUZfOUhhWWtGX2RrS0dudlctekJ6TGdxZWk3RVBuVFBRWmJ2NXd5QVllRTM2T2I4bTcwbk0zZmMtRnFjOVdPN0tkczNranZmOGJEMGdrYi14ekpaZkU4aEFTdC16RHUzVUlDWk9LUXZDS2tqZXhWZWowZXJ1ei1CWkFjVlphMEJDRzdPSFVZNTlGQVVWNVVxLUFrbkxDMC1XTzVPMzltU3l0bU9tclhxVF9jajN5VTU0cF9zZ0cweEZUX3JDRng0NmhmQlREZkFPS09WMVZUdlJwbXFTZVFad3pxT0FOQnIwR0NZVzA2UUVtY243LWp3TThmekFzVXFtVlhwMmhDZVdrWWJoc09MNWFEYllRanJrb0x2Y0F1V0FROTRIYW43NFVFRllTQXNhSE1YQVNocTZBQThkeWtjcllMMVUtUVB1cm9TbENxbk5WTFpRWDAyVG1EWGVWVm1zS0loc0xrYWJFd0N0Q1NDdWVBNjhhd2VBb3NualVmYTd6NlQwOEV4aDVQTzJ1UkV5aXV6SjBsMUtYamRPbkNZOHdlMjhLQm1qd2Zldw",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "메이저리그 총재 \"샐러리캡 양보 없다\"‥다음 달 직장폐쇄 '초읽기'",
      "source": "MBC 뉴스",
      "time": "2026-11-19T10:49+09:00",
@@ -6188,6 +6209,13 @@
      "added": "2026-11-19T15:17+09:00"
     },
     {
+     "title": "“놀다 오면 되겠다 했는데”…‘상의탈의’ 황재균과 인증샷 여성의 정체",
+     "source": "매일경제",
+     "time": "2026-11-19T10:08+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5tU3h0SVY4T1BDQThyRVIyR2taWmJ3dEVqYWhXbThRbzRHODQzRnNfS2JGMUtaY0VHMS1SdmdBc2pQaGVLcWF2ME13TkJEeFVpUHhtYw",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "40세 임명옥, 여오현 넘는다…프로배구 최다 출전 신기록 눈앞",
      "source": "연합뉴스",
      "time": "2026-11-19T09:45+09:00",
@@ -6200,6 +6228,13 @@
      "time": "2026-11-19T09:31+09:00",
      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9JOHlmR1hUcXFWajJ2aGEyZVJPbWlGTFN0aVpHRktYRjQ2N0tzelQ3TXc5djRRZTNaNlR4di1ybVdoNGQ2bmRYWlM4ZnNic1pKRTlNcURONTRsSnVu",
      "added": "2026-11-19T15:17+09:00"
+    },
+    {
+     "title": "데이비슨·알칸타라·히우라, 2027시즌도 키움과…유토는 결별",
+     "source": "연합뉴스TV",
+     "time": "2026-11-19T09:21+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0wTHVvSTJNVzVQTnM0N3Q3eHJwODU2YUJSRVJnVTZpZC1aNVM4WW9NaWR6bWRTaFpIQjlrSVlyTGJzcW1FdDA1Z3BUZXVKNTU4SHo5VTBLNnlJeHNYTEJwQmt0MnN2WE0",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "키움 또 외인 타자 2명, 데이비슨-히우라 재계약...아시아쿼터 35세 후쿠타니 영입 [공식발표] - 머니투데이",
@@ -6524,6 +6559,13 @@
      "added": "2026-11-19T03:17+09:00"
     },
     {
+     "title": "\"인판티노 4선 안 돼!\" 제동 건 日 축구... 타지마 회장 \"자정 능력 잃은 FIFA\" 쓴소리→사상 첫 대권 출사표 - 머니투데이",
+     "source": "머니투데이",
+     "time": "2026-11-18T19:50+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9oZklRcEJ3bmRnd2x3NmF6bjRnZ2hCZDFoMWR3Uno0Y1BldVh6bHNWUFBtd1Y5TUxzUWJlX3VXZVVaNWtMTF9DRnlLUlZFMFEyM0JqUUVHTmhYRUNSWXhUYVk3R2VkVFljSlHSAW9BVV95cUxPdTIyVmNCc3BsWDc0TGF5bVVmaFMwbmRXLWstMm1UbHpiOE1wbkJoMnQ3bDFWVUlrbUNzT0g0RW1fYnhqeXN6QWtwLURYSm1ISFBNek0wdGJNMkFFSTBBb09IZThMOG1sMEMyWFNLcjA",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "프로배구 우리카드, 아라우조와 결별 “무릎 연골 부상으로 수술”",
      "source": "KBS 뉴스",
      "time": "2026-11-18T19:37+09:00",
@@ -6725,48 +6767,6 @@
      "time": "2026-11-18T14:53+09:00",
      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOcGlnX19CWUE4MlIzTnRiOXNVNGxlb3c0T1h6TjJVbVk5N0RVcTV2VnlLXzdYV2d2UGNWcFVkeTQ2U2laLUpubXF2azN2STloVlVFRGZSSlFMdHB2SXhoSkpsVzI2MHhUWnRnVHJQdXFZaGhUOHI3OVJVSGdfNlNRbnR3TQ",
      "added": "2026-11-18T21:17+09:00"
-    },
-    {
-     "title": "우승 공약 지킨 삼성 선수들...놀이공원에 뜬 우승 주역들 [자막뉴스]",
-     "source": "YTN",
-     "time": "2026-11-18T14:35+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5fWmNEMHJ1WTBUUjh2YXB2N215ZVdwZHBSbjZRMkdpQ1ljTHlvSUgyby1BYU9oSW5ZZjgzV2stLVFoRV9OZENOcF85NUFuVDUzem1mc2RyMlliMnVWRHc",
-     "added": "2026-11-18T21:17+09:00"
-    },
-    {
-     "title": "'PK 선방' 서울 구성윤, K리그 '이달의 세이브' 첫 수상",
-     "source": "연합뉴스",
-     "time": "2026-11-18T14:25+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1xWlUwd3hfNTlaci1VRFlIRmFXd0o1bVRnOHBRLVdkZm1Pa0l3Q2plNWRZN0d6dmhZZGRTdVA3ZE5IMWpQbnhfQlgza2pVaVVtNkRIR3ZqLVc5NVHSAWBBVV95cUxOcWdsNHFrM3ozbEVlejAtaU5RemUwVEtZUkZLeTR1dnZCSm5tV1ZwVTJtVmdRdDJDMlRDSVpLc1FscUZDU3JFM0l4b1RpS0dCRWI1Y3AtZHdVb0hsa214SjI",
-     "added": "2026-11-18T21:17+09:00"
-    },
-    {
-     "title": "디섐보, 결국 유럽 투어로…LIV 폐지 후 2027 시즌 DP월드 회원 명단 올라",
-     "source": "조선일보",
-     "time": "2026-11-18T13:48+09:00",
-     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOY0J2WVc3Qk9QUWNaZXFHYm0wUnJJcFJROTVCd3VkdkFJZDBlYmFxMXhZa1ZyczhOWjJWRFExU2RfODVXRlV4VUhsbEduMGxtVGlwd2E5b0Z4NHBmOURwSzIwdy1XUjdjcExCQ0ZZY1JEeWFlbHpPdWxQMENBSHYyRm1CRzFQbnpEZmVvSU9LVndqQVFyZ21QaUtIckZKQQ",
-     "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "35세 그리에즈만, MLS 4월 뛰고 신인왕…14골 8도움 폭발",
-     "source": "연합뉴스TV",
-     "time": "2026-11-18T13:47+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9xNTA5ei1LQjhseFZxVTkwb3F2MFlpeU8tNHprSDRpSHREVmI5dTg4Z3F0RHdUeW1mRWFTcDQtbkdpQTZzY3lxZm9IV09nWHc2aUtfWTNpYWxWdGJ3U1oxTkozUm94NU0",
-     "added": "2026-11-18T18:17+09:00"
-    },
-    {
-     "title": "제주SK 이건희, 10월 K리그 ‘안심을 마시다 동원샘물 이달의 골’ 수상",
-     "source": "헤드라인제주",
-     "time": "2026-11-18T13:13+09:00",
-     "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFB3SUlWM2E2UDBGeE9GN0poSVhBQUZUVm9HcGF3emd3V1lRTjBSWWVVYnlCS2hwZ1Y4b3RCaVJ1Y2NrOXl0WVdNU0t0WVZma2JJQ3E2TDhiaERTZW1RYmxnY2VlN1gxVExhTFR4d000dHk2WUE",
-     "added": "2026-11-19T00:17+09:00"
-    },
-    {
-     "title": "내분설 주범 논란→리더십 흔들 '캡틴' 손흥민 토로 \"대표팀 쉽지 않다…잘 이끄는 것에 대한 고민과 생각 많아진다\"",
-     "source": "조선일보",
-     "time": "2026-11-18T12:56+09:00",
-     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPTXo3NjFHTFZGdXFaX0xtWDhEVEhyX1lBeFJQOU14eTRtM0lZSTNja3diQUtvZjZYTHNfckgxTThnOE02T3cwc2lxQVU2a3g2cWZEZVBhOXJRa25DQ2N4SjVoUFEzbFlkYzNYckc0bGpLc1RJaTAtVWNRMl9lR2c3TVVaaw",
-     "added": "2026-11-19T12:17+09:00"
     }
    ]
   },
@@ -8467,6 +8467,20 @@
    "name": "🤖 인공지능",
    "items": [
     {
+     "title": "중소제조 현장 AI 혁신 확산 촉진…스마트공장 구축 지원한다",
+     "source": "뉴스데일리",
+     "time": "2026-11-19T21:14+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE41NFl4REhZZjRfTUJGNzZvbHpTdG55U3FWVWtKQ1hRLUpjTG4tYVloUFdhbDNCSktaNXVUZzJndHBMN2dEMmpmM1EwbldsYzM2U2NWV2Z3UzY3Y3d6anUwMnFpQTVZODhMRWNj",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "Anthropic is ready for its IPO. Three analysts see huge gains for the stock",
+     "source": "CNBC",
+     "time": "2026-11-19T21:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNcmpmX21xNUk1b3lTelZGS0F6YnZweENLaXRvUlh6X05tV3hvOGVPME1rdmdNVV9Edmg5TGpLeC1TR0psOHNVeFVMTkhMUVRNN2FpRVBwckdsS21Zamc3Ml9OM2xrY2J6XzRhX21tOU5EeEhhaTlJelRORVNVNWhJQWRQQk5OeTV5SkNETlN1ZExYZmFKeE45VzdvUjVyLVZaUXFHaDNTMlpYcVV1TUpndA",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "Anthropic CEO Dario Amodei Says Cancer Will Be a Relic in 10 Years. Researchers Say He's Missing 1 Key Factor",
      "source": "Inc.com",
      "time": "2026-11-19T21:07+09:00",
@@ -8481,6 +8495,13 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "Gemini 4 Neon: Google DeepMind’s Frontier Coding Agent",
+     "source": "AI Magazine",
+     "time": "2026-11-19T21:07+09:00",
+     "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPRnRnVXc0YnpTb29fcWVIOTAtSzQtMUdFcWlFazNNQU1DZGRBQk53RU1Cd2p5UFM5Snk4SXpNVS1wTDZGTnozU1I0c1V4bXhzTFF1RjZiYThibWs3SEFqLU5xbU9uR2JxN2Q5eFI0YVQyRlozY28tOE5NSFpnSDBxY0pvQXVuM2M",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
      "title": "개보위, 일본과 데이터 이전·AI프라이버시 협력 강화",
      "source": "지디넷코리아",
      "time": "2026-11-19T21:06+09:00",
@@ -8493,6 +8514,34 @@
      "time": "2026-11-19T21:05+09:00",
      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRWdMdXY4YnkwY2w4VnFmXzItT3BabGNxdzNqcVMweWNvdldYaWpvN1kwS2ZHR3puX25WazN5MERLOGN1TDdsaWxTUjIxdW5EZXBQZFYzR2YxR3Rmb2RzOHVMY2U0SlRHVl9mYmJ3TC05WGlUZjZocWV5M0xyc0cyN0NTS1RNWmc",
      "added": "2026-11-19T21:10+09:00"
+    },
+    {
+     "title": "Anthropic early investor Ark Invest on the AI giant's historic IPO",
+     "source": "CNBC",
+     "time": "2026-11-19T21:05+09:00",
+     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNYzloLVdmV3BsWTJhc3BQYnZEc2ZNSWlva003eWt6RnZDMWNJWlAzM243eE1Zcm5LQkdrS1doVWxuM0xveVp1S1RqNU9RbDlSNUVBUFdoWjktTzh5dWxKOWNCYnUxNmpNSExuZUg2MWgwNFVGdU04OUVhUkJGQlJOR0JIRTRqUVpicFkyX2dvZ3BpMG1aQVV2R0wtLVhBMTdFT05IekpZTGJ0aGJh",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "Dan Ives Says Anthropic IPO Is ‘A Big Win For The Tech Sector’ After ‘A White Knuckle Time With Nvidia’",
+     "source": "TradingView",
+     "time": "2026-11-19T21:04+09:00",
+     "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxOYS11WUZwb3dwZ1ZFaWVKd0oxY3pGMV8zVnNrMERnYUdUV2pXR2I2VS15Ym1xbkxtZ2tiYVdFbktuRHV4ZXMtbnNaODNYQVc4Mm1CWmpFdkNwYUNrWE0zV1otcmxTakotdUtTLWRZdDBBSHpSOHc0M2FOR2pDYjRzN083cmZnUHh0bHg3T1Q4VG14dkpVVVdleUUzdEZJSHNERnJ1UjFVQUprb2ZPbXJTd3hhNzl5ZWlkcWxhLU9vQUo1LTYtVk9vZ3FObWRidnpteGtRTWVMOFQ2WDBTSlUxRVVZODl3dXFmUWUyVVNzcXhEZw",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "성남시-아주대, 판교서 국방 AI 연구…중소기업 실증 지원",
+     "source": "CNB뉴스",
+     "time": "2026-11-19T21:03+09:00",
+     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DRlhiVTRVQUN2ejNaYWpWTnpSX0s0Y1pxOVVQaE9FVEo3VjFUSVZBVDhHOGJDN0h4Y1dHTDIwdmE3UXJGSmVFMFQzMkg2RWladEVxSEhCZ01jSXlxZ2NPOFNfUVpyM3NfT2VR",
+     "added": "2026-11-19T21:17+09:00"
+    },
+    {
+     "title": "법무부, 변호사시험 5년치 논술답안 ‘AI 커닝’ 전수조사 검토 중",
+     "source": "아시아투데이",
+     "time": "2026-11-19T21:01+09:00",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1PLTBtV1RMZzJ1c3VzVXBZZXREeFJQRUtZbjAwOFRCTFpYeUtKTnZwazljRGFfVV9ReTR5QmZHM0ZqX2hsWU5RdnByeHBqcUZqZjJQa0MweVY0TFFuQzNKZmJ0YWtCVFU4MmhRN3Z3",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "Anthropic’s brother-sister co-founders grew up right here, in the Mission",
@@ -9256,55 +9305,6 @@
      "time": "2026-11-19T17:42+09:00",
      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9XV1RrbXRlQ2RrV1BvWFpIS0xCZW42Mm9VZFkyTVNnR0JIcWNNQnExMnZRQWI5XzExa2V6Y2Z2OXp6ZlFlV1pWX3JuNjJLUnJsWUFvLUtuUV9MOEZFb2oyUzRZT1Q",
      "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "카지노 현금 처리에 AI·로봇 접목…강원랜드, 정책EXPO 2개 대상",
-     "source": "서울경제TV",
-     "time": "2026-11-19T17:42+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9GV01NZDMtSTAzLTBfa2hLOS1CMlJwdUY0ODVNOVQ4R1VHeENfcFYxem5JNEZFc2k2WUZSeEJhanM2MDJrRlMwNU1neS1mMFRSN1pBcjF4OVk1MXJDTFhwaVI3Sks",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "수능 끝나면 대학 논술 'AI 커닝' 비상…서울대, '일회용 가운' 입힌다",
-     "source": "전자신문",
-     "time": "2026-11-19T17:40+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1ZeURESVd2MzI2VFhyakhhU0tWVkRCZnBSX3QwNXlqVWxkcFliQjlaYzM0bnpON3FPb1JTRGUwQWJOV3hJaW5MbHNfaWpBQQ",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "구글 검색 AI 모드에 ‘임시 대화’ 추가…기록 저장·개인화 제외",
-     "source": "AI타임스",
-     "time": "2026-11-19T17:40+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE45SEE4aEU1UDByaHRHMFpkUzg5dnlubGwxbVg4WU9QclRFTWtuT3dNeWdmbUx1ejJqTnRXSFBkUjNXc3FjbTA5M0doMFcyV0dUTEVPY0NCNmhpclpRQXhiSDJfQ3FQaGRyUnc",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "[종합] 구광모, 'LG AI·로봇'기업으로 전환 속도전...CEO 인사 단행",
-     "source": "뉴스핌",
-     "time": "2026-11-19T17:40+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5aSC1LMGlVeFJIZ2JURUpTMkh2elFRWlZTdjBhWEpHZHhvOVdteEpqUFgyOU1CcHdqNjFPR0lFY0p6c1VMSXNyd2xKQ2laR09HWlBORkJjenhOSnp2",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "구광모, LG 사장단 재신임…AI·로봇 인재는 과감히 발탁",
-     "source": "비즈워치",
-     "time": "2026-11-19T17:38+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9EOVlURFNpR0tfT3VFYmcySm5OOUFFN1JLaU1zZHJIWllETENlS2dZQ3hCVHcxa25aT1hrTjUtTFBYVkRfTlc2Vkd4dkU5UTVkd0FiX3NvN210aUJoZXEtUXZhUHlkS2xpN1pTVg",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "심평원 \"AI로 진료비 심사 일관성 높인다\"…마운자로 급여 재심 중",
-     "source": "연합뉴스TV",
-     "time": "2026-11-19T17:37+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5xLThUajY1THliSmxuOWJycDlGVEdXemgwWlRHU0Fra2JMODhKSWpNcjhxay1yMV9fbWhvQWdxVUZualZrT2Y3SWhrck1vX1VadzhVWEs5M3VDREZnRHY3ZFZHakFhN0U",
-     "added": "2026-11-19T18:17+09:00"
-    },
-    {
-     "title": "한난, 에머슨과 손잡고 집단에너지설비 AI 전환 추진",
-     "source": "전기신문",
-     "time": "2026-11-19T17:35+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5GVGNzbURMd2ZfdWI0YWtOSWpFRTJPa05haG1ZT1FWci1hc3ozZjNpNmRrcEtEN2JnZGtuaFV4SmtkV2xILUtMOUtwRk14cC1oZk82Y2lRNW1PV0Itd25CX21FaXBvV0k1c2dkaNIBcEFVX3lxTFBBUHV0REpTZThLd1luM3dQaUllanU5MXBwM1hHVVFERm5QZllNMmRwdngtVXpxS3JzVEZwczdsWjRIYy1VWkd3R3VVR1RDY0N6eWZvT20xNTNDeHQ3Q0JaMmZHX2ZjaUt1V0NFdmtkZkw",
-     "added": "2026-11-19T18:17+09:00"
     }
    ]
   },
@@ -9605,6 +9605,13 @@
    "key": "samsung",
    "name": "🏢 삼성",
    "items": [
+    {
+     "title": "‘증시 한파’ 뚫은 삼성증권, 3분기 영업익 4490억… WM·IB ‘쌍끌이’ 주효",
+     "source": "마켓뉴스",
+     "time": "2026-11-19T21:09+09:00",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBCbndkS082SFhXbF9VODY5MTJBaG40dnROeEFvcHJTNkNjZnliX3pkbm54Y1dVblBiTU50d0VOWEJTTUVfdHBBZEVwWERVMjBITmNodnluaW1QN2NvektvcHBoZ1dBOUVnNEt1eWJ5SQ",
+     "added": "2026-11-19T21:17+09:00"
+    },
     {
      "title": "LG·삼성, '아이폰 18' OLED 양산 돌입…내년 3월 출격",
      "source": "한국신용신문",
@@ -10436,13 +10443,6 @@
      "source": "Investing.com 한국어",
      "time": "2026-11-19T11:19+09:00",
      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1fN3BDWF9xTEpXTURINDNJWnVrS0JPTjBJcDB4dDVmZHNGN0pJbGpqejlYcWY2MnJPUWduMkJ1T1Radk00YWpoRTlVdkpBTHduT3BidW9MX2pRcl9pNW5rZEE2T3lzY0x4Y2VzSW5zN0I",
-     "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "美 S&P500 ETF에 개미 '뭉칫돈' 쏠려…미래에셋·삼성운용 '양강' 뚜렷",
-     "source": "신아일보",
-     "time": "2026-11-19T11:18+09:00",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5XaW1BSjBsUUctNWJ1WEVoWDdKbEJjdzhVRXVTblVWbVZLdDZUZDVEVEJfTjFMekNzTm5ieFR2a2o1WFlNWVlmRDY2Y0twelZ3MmVDYkIxQmlPM3JkLWV5VUVkRkNNNTdKUnRVTWtPRzg",
      "added": "2026-11-19T12:17+09:00"
     }
    ]
@@ -13018,6 +13018,13 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
+     "title": "LG에너지솔루션, 2027년 임원인사 11명 승진",
+     "source": "전기신문",
+     "time": "2026-11-19T19:52+09:00",
+     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5qWmNmbzFUbnBreUVENzBrOFRQcDNrTV83NHBLOWRtWXE0cG11RHlzRTl1TFA2NTNGY0JJVWpDNTQyWlFVZURtcmZ0Y2xKa3ZWQUd1eWV6U2JmWDRkbjJ3RmRrSjRVd3JneFlRbnNsOVrSAXBBVV95cUxOalpjZm8xVG5wa3lFRDcwazhUUHAza01fNzRwSzlkbVlxNHBtdUR5c0U5dUxQNjUzRmNCSVVqQzU0MlpRVWVEbXJmdGNsSmt2VkFHdXllelNiZlg0ZG4yd0Zka0o0VXdyZ3hZUW5zbDla",
+     "added": "2026-11-19T21:10+09:00"
+    },
+    {
      "title": "[종합] LG디스플레이·이노텍·엔솔 수장 유임…경영 안정 속 경쟁력 강화",
      "source": "디지털데일리",
      "time": "2026-11-19T19:47+09:00",
@@ -13032,13 +13039,6 @@
      "added": "2026-11-19T21:10+09:00"
     },
     {
-     "title": "LG에너지솔루션, 2027년 임원인사 11명 승진",
-     "source": "전기신문",
-     "time": "2026-11-19T19:45+09:00",
-     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5heTdXTFdQaXpaSm1UX3lDeWM5NEdDRDJYU2JYbkZWeHJ4QzlKbHNIbVFVS1E5ZUtvRkVTWDVfRlhCeGtTSE9IZEF1TE1LU05EdGlFMDVmMzJqMXdPeWNFRUowSThoSnNBazNfM9IBcEFVX3lxTE5qWmNmbzFUbnBreUVENzBrOFRQcDNrTV83NHBLOWRtWXE0cG11RHlzRTl1TFA2NTNGY0JJVWpDNTQyWlFVZURtcmZ0Y2xKa3ZWQUd1eWV6U2JmWDRkbjJ3RmRrSjRVd3JneFlRbnNsOVo",
-     "added": "2026-11-19T21:10+09:00"
-    },
-    {
      "title": "LG, 주요 계열사 CEO 유임·132명 승진…AI·로봇 미래사업에 힘 싣는다(종합)",
      "source": "녹색경제신문",
      "time": "2026-11-19T19:44+09:00",
@@ -13047,9 +13047,9 @@
     },
     {
      "title": "LG, 주요 계열사 CEO 유임…권봉석 '1인 부회장' 체제 유지(종합)",
-     "source": "매일경제 마켓",
+     "source": "연합뉴스",
      "time": "2026-11-19T19:08+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBJajBKX0NEa0ctQ01MWG5FaFRzbXh1QURKOVhHZFhNSGkwY0czNHNqLTU0QTd5N0lEQW5Lb25PYnRUZUpPR3lhVmYteHIxR005WlE",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9KSFF1TlplNVUzWm9ISmxYM0E1Z2NRdEZUN1J1N1JEaGsxMVV2RFZTYjVkSFJLNC1CcFNaa3otS005RDkzaWF5RS1lVGZKdzhtTTBrVWpFblZvQVY4VnhxQdIBYEFVX3lxTE9KSFF1TlplNVUzWm9ISmxYM0E1Z2NRdEZUN1J1N1JEaGsxMVV2RFZTYjVkSFJLNC1CcFNaa3otS005RDkzaWF5RS1lVGZKdzhtTTBrVWpFblZvQVY4VnhxQQ",
      "added": "2026-11-19T21:10+09:00"
     },
     {
@@ -13345,6 +13345,13 @@
      "time": "2026-11-19T17:38+09:00",
      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE14UEdqVWxqWWg0V0tINGZOa1pMWk5DZEFlRzBFNFI4SG9PTzFGOGJnTVR1b3o5SjAxMkJSWE12Z2RCVG5obHlrSktlVUxXWFdTSXVGRjZnbURTWno1NWQzM1dRUlRZYlJl",
      "added": "2026-11-19T18:17+09:00"
+    },
+    {
+     "title": "LG디스플레이, 파주 올레드 생산라인 3조원 투자계획 철회",
+     "source": "연합뉴스",
+     "time": "2026-11-19T17:38+09:00",
+     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBOalowMjNrMHBMV2x5OEJ3dE1NVHZ0YjB3UVVKTG5qLUhjR1pKN2NiWHJucS13ZVJlT1R3Wkp5b2lGcklLNmczWFZvbGpNYzdkVXRPNlBjV3VtS1ZNYm9GSNIBYEFVX3lxTFBOalowMjNrMHBMV2x5OEJ3dE1NVHZ0YjB3UVVKTG5qLUhjR1pKN2NiWHJucS13ZVJlT1R3Wkp5b2lGcklLNmczWFZvbGpNYzdkVXRPNlBjV3VtS1ZNYm9GSA",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "LG, 내년도 임원인사…주요 CEO 대부분 유임·R&D 핵심 인재 발탁(종합)",
@@ -13821,13 +13828,6 @@
      "time": "2026-11-19T11:18+09:00",
      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1JTk10c3g4TGM5NUxkWXl1S1M0UFdEOWcwTXQwOFVjZkNBdXM5UHprLXJrQXlKRjNXSmRMM1NocmlvV0ZoSUZ1R05SRDZwUUJTWlFGdm9wVGc2QQ",
      "added": "2026-11-19T12:17+09:00"
-    },
-    {
-     "title": "LG이노텍, 중대재해 미해당으로 종결…고용노동부 조사 결과 반영",
-     "source": "CBC뉴스",
-     "time": "2026-11-19T11:15+09:00",
-     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5TUmlORjJwOEhqaWdsSi0weldmak1xeUd3TkRLNUcyTUYxUHNNWnhGRDZkRjA1cVdNdW5YQXVYbHFLVjlIc041WTdnNEJWaS1yQlFTSmtkY3ZYanVWRnRad0J0THBhY00",
-     "added": "2026-11-19T12:17+09:00"
     }
    ]
   },
@@ -13855,6 +13855,13 @@
      "time": "2026-11-19T10:21+09:00",
      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5RdlpxeU9PdlB4Z2E1RFJLbUZLNFh1cmIwR3l1M3RHSGZ4VlNZUzYzNjgwcFVMUXVvM2xLa3hIT0FrdVphZ0M2QnpORUp2b29leHRiTTIxdFN6Q2hsRjJ2QUwyeUtCanZ2TUhwWmtyQjl4NFE",
      "added": "2026-11-19T15:17+09:00"
+    },
+    {
+     "title": "캐나다 | 메타, 청소년 중독 소송 최대 166억8천만 달러 합의…29개 주와 타결",
+     "source": "밴쿠버 중앙일보",
+     "time": "2026-11-19T10:06+09:00",
+     "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQNlFONG4wbkJuRlNMTlRzR3UyMW9neG5jUnhBbHkydDhXMk1aejdWM2h2c0FuanFTVU1OckpqVUZkRmtpWEhlQXZuWUdOaTVla0lfWVZ2WXFRWjEyOEdtaFpJM19teldIOTVSUHVGM1lHMVBhd2JPN2NGbGxpcENTNFFTQVFmczZLSW1mU3F6ODB4a0JwamltTFZ6MzBPTENkam5lV053MTN5d0t4X2c",
+     "added": "2026-11-19T21:17+09:00"
     },
     {
      "title": "메타는 직접 응용 프로그램 테스트, 인스타그램 메시지가 이제 독립적입니다",
@@ -14666,13 +14673,6 @@
      "source": "Vietnam.vn",
      "time": "2026-11-10T16:53+09:00",
      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFAzS1F1T0FNNTgwSnpvMkRZLXRmLUJIWjdvMGl6dlM1QWl2S29CVDlhajRvRi1Id3RwbmEtU05xYUM5MFZlZEdnUFRGdHJjMHhtX1BDSG4zT3dXTWR4NkxnVndhSG1senNxYzZLX1Rwd3lDYkRYZmJvakV1V1JCQQ",
-     "added": "2026-11-10T18:17+09:00"
-    },
-    {
-     "title": "\"가짜 생년월일 쳐도 AI가 잡아낸다\"…메타, 인스타그램에 '청소년 강제 규제' 확대",
-     "source": "AI포스트",
-     "time": "2026-11-10T15:10+09:00",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBPNmhUenRhMUgtNUs0dnJveGFTcGpSQ1doekFNTzZxc3FVVVZzcGlRYlU3T2VWaFNYck5JX2h0WmtYYVFnUGUyNGpSVVJQeGpOVTlseGEzNGFvZFo1UzY3MHMwcGZzXzI1M2RIcjhwa2RjUdIBckFVX3lxTFBPNmhUenRhMUgtNUs0dnJveGFTcGpSQ1doekFNTzZxc3FVVVZzcGlRYlU3T2VWaFNYck5JX2h0WmtYYVFnUGUyNGpSVVJQeGpOVTlseGEzNGFvZFo1UzY3MHMwcGZzXzI1M2RIcjhwa2RjUQ",
      "added": "2026-11-10T18:17+09:00"
     }
    ]
