@@ -474,9 +474,10 @@ def todo_reminders(planner, d, tz):
         when = datetime(d.year, d.month, d.day, h, m, tzinfo=tz)
         lines = []
         if t == commute_at and commute:
-            sh, sm = map(int, commute[0]["start"].split(":"))
+            c = commute[0]   # 08:00~08:45 처럼 끝 시간이 있으면 끝(늦지 않게 들어가야 할 시각) 기준으로 남은 시간
+            sh, sm = map(int, (c.get("end") or c["start"]).split(":"))
             left = (sh * 60 + sm) - (h * 60 + m)
-            lines += [f"🏫 {commute[0]['start']} 등교" + (f" ({left}분 남음)" if left > 0 else ""), ""]
+            lines += [f"🏫 {span_of(c)} 등교" + (f" ({left}분 남음)" if left > 0 else ""), ""]
         lines += ["☑️ 할 일"] + ([f"· {x}" for x in todos] or ["· 아직 없어요. 앱에서 오늘 할 일을 적어 보세요!"])
         if t >= remaining_from:
             def ends_after(e):  # 끝 시간이 시작보다 이르면(예: 10:30~00:00) 자정 넘어 끝나는 것
