@@ -159,9 +159,11 @@ begin
         select e into commute from jsonb_array_elements(v_day -> 'events') e where e ->> 'title' = '등교' limit 1;
         lines := '{}';
         if v_slot = commute_at and commute is not null then
-          left_min := (split_part(commute ->> 'start', ':', 1)::int * 60 + split_part(commute ->> 'start', ':', 2)::int)
+          -- 08:00~08:45 처럼 끝 시간이 있으면 끝 기준으로 남은 시간 (alarm.py 와 같게)
+          left_min := (split_part(coalesce(commute ->> 'end', commute ->> 'start'), ':', 1)::int * 60
+                       + split_part(coalesce(commute ->> 'end', commute ->> 'start'), ':', 2)::int)
                     - (split_part(v_slot, ':', 1)::int * 60 + split_part(v_slot, ':', 2)::int);
-          lines := lines || ('🏫 ' || (commute ->> 'start') || ' 등교' || case when left_min > 0 then ' (' || left_min || '분 남음)' else '' end) || ''::text;
+          lines := lines || ('🏫 ' || (commute ->> 'start') || coalesce('~' || (commute ->> 'end'), '') || ' 등교' || case when left_min > 0 then ' (' || left_min || '분 남음)' else '' end) || ''::text;
         end if;
         lines := lines || '☑️ 할 일'::text;
         if cardinality(todos) = 0 then

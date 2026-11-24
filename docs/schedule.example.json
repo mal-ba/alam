@@ -3,11 +3,11 @@
   "timezone_offset_hours": 9,
   "default_remind_before": [10],
   "weekly": {
-    "0": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
-    "1": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
-    "2": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
-    "3": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
-    "4": [{"title": "등교", "start": "08:30", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "0": [{"title": "등교", "start": "08:00", "end": "08:45", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "1": [{"title": "등교", "start": "08:00", "end": "08:45", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "2": [{"title": "등교", "start": "08:00", "end": "08:45", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "3": [{"title": "등교", "start": "08:00", "end": "08:45", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
+    "4": [{"title": "등교", "start": "08:00", "end": "08:45", "remind_before": []}, {"title": "하교", "start": "16:00", "remind_before": [0]}],
     "5": [],
     "6": []
   },
