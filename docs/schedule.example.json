@@ -22,5 +22,5 @@
     "notes": {}
   },
   "report_reminder": {"time": "23:30", "only_school_days": false},
-  "todo_reminders": {"daily": ["07:30", "08:00", "21:00"], "weekday": {}, "commute_at": "08:00", "remaining_from": "21:00"}
+  "todo_reminders": {"daily": ["07:30", "08:00", "21:00"], "weekday": {}, "commute_at": "07:30", "remaining_from": "21:00"}
 }

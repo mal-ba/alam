@@ -458,7 +458,7 @@ def app_url(query=""):
 
 def todo_reminders(planner, d, tz):
     """'오늘 해야 할 일' 알림 목록 [(시각, 제목, 내용)]. 자정 기준 할 일 목록으로 만들어요.
-    - commute_at(08:00) 알림엔 등교 시간을 맨 위에 같이 (등교 알람은 따로 안 울림)
+    - commute_at(기본 07:30) 알림엔 등교 시간을 맨 위에 같이 (등교 알람은 따로 안 울림)
     - remaining_from(21:00) 이후 알림에만 남은 일정(진행 중 포함)을 붙임"""
     cfg = planner.schedule.get("todo_reminders")
     if not cfg:
