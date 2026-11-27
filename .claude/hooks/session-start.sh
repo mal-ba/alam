@@ -8,4 +8,4 @@ fi
 
 cd "${CLAUDE_PROJECT_DIR:-.}"
 git config user.name "issue"
-git config user.email "jehoon100703@gmail.com"
+git config user.email "198208151+mal-ba@users.noreply.github.com"
